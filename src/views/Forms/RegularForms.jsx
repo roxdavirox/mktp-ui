@@ -525,8 +525,8 @@ class RegularForms extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="primary" text>
-              <CardText color="primary">
+            <CardHeader color="secondary" text>
+              <CardText color="secondary">
                 <h4 className={classes.cardTitle}>Input Variants</h4>
               </CardText>
             </CardHeader>
