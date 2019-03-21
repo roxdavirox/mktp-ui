@@ -133,11 +133,11 @@ class Notifications extends React.Component {
                 <br />
                 <SnackbarContent
                   message={
-                    'This is a notification with close button and icon and is made with color="rose". You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don\'t have to worry about the style.'
+                    'This is a notification with close button and icon and is made with color="primary". You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don\'t have to worry about the style.'
                   }
                   close
                   icon={AddAlert}
-                  color="rose"
+                  color="primary"
                 />
               </CardBody>
             </Card>
@@ -187,6 +187,13 @@ class Notifications extends React.Component {
                   />
                   <SnackbarContent
                     message={
+                      'SECONDARY - This is a regular notification made with color="secondary"'
+                    }
+                    close
+                    color="secondary"
+                  />
+                  <SnackbarContent
+                    message={
                       'ROSE - This is a regular notification made with color="primary"'
                     }
                     close
@@ -218,7 +225,7 @@ class Notifications extends React.Component {
                     <GridItem xs={12} sm={12} md={3}>
                       <Button
                         fullWidth
-                        color="primary"
+                        color="secondary"
                         onClick={() => this.showNotification("tl")}
                       >
                         Top Left
@@ -236,7 +243,7 @@ class Notifications extends React.Component {
                     <GridItem xs={12} sm={12} md={3}>
                       <Button
                         fullWidth
-                        color="primary"
+                        color="secondary"
                         onClick={() => this.showNotification("tc")}
                       >
                         Top Center
@@ -254,7 +261,7 @@ class Notifications extends React.Component {
                     <GridItem xs={12} sm={12} md={3}>
                       <Button
                         fullWidth
-                        color="primary"
+                        color="secondary"
                         onClick={() => this.showNotification("tr")}
                       >
                         Top Right
@@ -274,7 +281,7 @@ class Notifications extends React.Component {
                     <GridItem xs={12} sm={12} md={3}>
                       <Button
                         fullWidth
-                        color="primary"
+                        color="secondary"
                         onClick={() => this.showNotification("bl")}
                       >
                         Bottom Left
@@ -292,7 +299,7 @@ class Notifications extends React.Component {
                     <GridItem xs={12} sm={12} md={3}>
                       <Button
                         fullWidth
-                        color="primary"
+                        color="secondary"
                         onClick={() => this.showNotification("bc")}
                       >
                         Bottom Center
@@ -310,7 +317,7 @@ class Notifications extends React.Component {
                     <GridItem xs={12} sm={12} md={3}>
                       <Button
                         fullWidth
-                        color="primary"
+                        color="secondary"
                         onClick={() => this.showNotification("br")}
                       >
                         Bottom Right
@@ -345,7 +352,7 @@ class Notifications extends React.Component {
                         <h4 className={classes.cardTitle}>Modal</h4>
                       </div>
                       <Button
-                        color="primary"
+                        color="secondary"
                         round
                         className={classes.marginRight}
                         onClick={() => this.handleClickOpen("classicModal")}
@@ -508,7 +515,7 @@ class Notifications extends React.Component {
                         </DialogActions>
                       </Dialog>
                       <Button
-                        color="rose"
+                        color="primary"
                         round
                         className={classes.marginRight}
                         onClick={() => this.handleClickOpen("smallModal")}

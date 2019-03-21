@@ -87,6 +87,7 @@ Snackbar.propTypes = {
     "warning",
     "danger",
     "primary",
+    "secondary",
     "rose"
   ]),
   close: PropTypes.bool,

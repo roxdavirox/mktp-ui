@@ -1,6 +1,7 @@
 import {
   defaultFont,
   primaryBoxShadow,
+  secondaryBoxShadow,
   infoBoxShadow,
   successBoxShadow,
   warningBoxShadow,
@@ -9,6 +10,7 @@ import {
   whiteColor,
   blackColor,
   primaryColor,
+  secondaryColor,
   infoColor,
   successColor,
   warningColor,
@@ -70,6 +72,11 @@ const snackbarContentStyle = {
     color: whiteColor,
     ...primaryBoxShadow
   },
+  secondary: {
+    backgroundColor: secondaryColor[3],
+    color: whiteColor,
+    ...secondaryBoxShadow
+  },
   rose: {
     backgroundColor: roseColor[3],
     color: whiteColor,
@@ -124,6 +131,9 @@ const snackbarContentStyle = {
   },
   primaryIcon: {
     color: primaryColor[3]
+  },
+  secondaryIcon: {
+    color: secondaryColor[3]
   },
   roseIcon: {
     color: roseColor[3]

@@ -37,6 +37,7 @@ function SnackbarContent({ ...props }) {
     [classes.warningIcon]: color === "warning",
     [classes.dangerIcon]: color === "danger",
     [classes.primaryIcon]: color === "primary",
+    [classes.secondaryIcon]: color === "secondary",
     [classes.roseIcon]: color === "rose"
   });
   return (
@@ -69,6 +70,7 @@ SnackbarContent.propTypes = {
     "warning",
     "danger",
     "primary",
+    "secondary",
     "rose"
   ]),
   close: PropTypes.bool,
