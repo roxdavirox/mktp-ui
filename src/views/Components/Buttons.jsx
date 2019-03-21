@@ -39,6 +39,9 @@ class Buttons extends React.Component {
                 <Button color="primary" className={classes.marginRight}>
                   Primary
                 </Button>
+                <Button color="secondary" className={classes.marginRight}>
+                  Secondary
+                </Button>
                 <Button color="info" className={classes.marginRight}>
                   Info
                 </Button>

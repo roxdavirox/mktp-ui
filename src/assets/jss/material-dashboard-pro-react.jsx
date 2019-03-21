@@ -102,7 +102,8 @@ const defaultFont = {
   lineHeight: "1.5em"
 };
 
-const primaryColor = ["#9c27b0", "#ab47bc", "#8e24aa", "#af2cc5", "#7b1fa2"];
+const primaryColor = ["#2196f3", "#1e88e5", "#1976d2", "#1565c0", "#0d47a1"];
+const secondaryColor = ["#009688", "#26a69a", "#00897b", "#00796b", "#00695"];
 const warningColor = [
   "#ff9800",
   "#ffa726",
@@ -193,6 +194,14 @@ const primaryBoxShadow = {
     hexToRgb(primaryColor[0]) +
     ",.4)"
 };
+const secondaryBoxShadow = {
+  boxShadow:
+    "0 4px 20px 0 rgba(" +
+    hexToRgb(blackColor) +
+    ",.14), 0 7px 10px -5px rgba(" +
+    hexToRgb(secondaryColor[0]) +
+    ",.4)"
+};
 const infoBoxShadow = {
   boxShadow:
     "0 4px 20px 0 rgba(" +
@@ -258,6 +267,15 @@ const primaryCardHeader = {
   background:
     "linear-gradient(60deg, " + primaryColor[1] + ", " + primaryColor[2] + ")",
   ...primaryBoxShadow
+};
+const secondaryCardHeader = {
+  background:
+    "linear-gradient(60deg, " +
+    secondaryColor[1] +
+    ", " +
+    secondaryColor[2] +
+    ")",
+  ...secondaryBoxShadow
 };
 const roseCardHeader = {
   background:
@@ -389,6 +407,7 @@ export {
   card,
   defaultFont,
   primaryColor,
+  secondaryColor,
   warningColor,
   dangerColor,
   successColor,
@@ -408,6 +427,7 @@ export {
   dribbbleColor,
   redditColor,
   primaryBoxShadow,
+  secondaryBoxShadow,
   infoBoxShadow,
   successBoxShadow,
   warningBoxShadow,
@@ -418,6 +438,7 @@ export {
   dangerCardHeader,
   infoCardHeader,
   primaryCardHeader,
+  secondaryCardHeader,
   roseCardHeader,
   cardActions,
   cardHeader,
