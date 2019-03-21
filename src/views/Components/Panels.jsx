@@ -122,7 +122,7 @@ class Panels extends React.Component {
               </CardHeader>
               <CardBody>
                 <NavPills
-                  color="rose"
+                  color="primary"
                   horizontal={{
                     tabsGrid: { xs: 12, sm: 12, md: 4 },
                     contentGrid: { xs: 12, sm: 12, md: 8 }
@@ -229,7 +229,7 @@ class Panels extends React.Component {
               </CardHeader>
               <CardBody>
                 <NavPills
-                  color="rose"
+                  color="primary"
                   horizontal={{
                     tabsGrid: { xs: 12, sm: 12, md: 4 },
                     contentGrid: { xs: 12, sm: 12, md: 8 }
