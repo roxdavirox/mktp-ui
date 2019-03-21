@@ -134,7 +134,11 @@ const cardStyle = {
   },
   secondary: {
     background:
-      "linear-gradient(60deg," + secondaryColor[1] + "," + secondaryColor[4] + ")",
+      "linear-gradient(60deg," +
+      secondaryColor[1] +
+      "," +
+      secondaryColor[4] +
+      ")",
     "& h1 small": {
       color: "rgba(" + hexToRgb(whiteColor) + ", 0.8)"
     },
