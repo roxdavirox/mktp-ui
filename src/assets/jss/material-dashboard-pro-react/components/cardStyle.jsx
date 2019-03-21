@@ -1,5 +1,6 @@
 import {
   primaryColor,
+  secondaryColor,
   infoColor,
   successColor,
   dangerColor,
@@ -126,6 +127,14 @@ const cardStyle = {
   primary: {
     background:
       "linear-gradient(60deg," + primaryColor[1] + "," + primaryColor[4] + ")",
+    "& h1 small": {
+      color: "rgba(" + hexToRgb(whiteColor) + ", 0.8)"
+    },
+    color: whiteColor
+  },
+  secondary: {
+    background:
+      "linear-gradient(60deg," + secondaryColor[1] + "," + secondaryColor[4] + ")",
     "& h1 small": {
       color: "rgba(" + hexToRgb(whiteColor) + ", 0.8)"
     },

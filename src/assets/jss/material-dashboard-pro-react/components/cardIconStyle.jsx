@@ -4,6 +4,7 @@ import {
   dangerCardHeader,
   infoCardHeader,
   primaryCardHeader,
+  secondaryCardHeader,
   roseCardHeader,
   grayColor
 } from "assets/jss/material-dashboard-pro-react.jsx";
@@ -23,6 +24,7 @@ const cardIconStyle = {
   dangerCardHeader,
   infoCardHeader,
   primaryCardHeader,
+  secondaryCardHeader,
   roseCardHeader
 };
 
