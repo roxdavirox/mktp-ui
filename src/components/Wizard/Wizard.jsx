@@ -323,7 +323,7 @@ class Wizard extends React.Component {
 }
 
 Wizard.defaultProps = {
-  color: "info",
+  color: "primary",
   title: "Here should go your title",
   subtitle: "And this would be your subtitle",
   previousButtonText: "Previous",
