@@ -281,7 +281,7 @@ class SweetAlertPage extends React.Component {
               <CardBody>
                 <div className={classes.center}>
                   <h5>Basic example</h5>
-                  <Button color="rose" onClick={this.basicAlert.bind(this)}>
+                  <Button color="primary" onClick={this.basicAlert.bind(this)}>
                     Try me!
                   </Button>
                 </div>
@@ -294,7 +294,7 @@ class SweetAlertPage extends React.Component {
                 <div className={classes.center}>
                   <h5>A title with a text under</h5>
                   <Button
-                    color="rose"
+                    color="primary"
                     onClick={this.titleAndTextAlert.bind(this)}
                   >
                     Try me!
@@ -308,7 +308,7 @@ class SweetAlertPage extends React.Component {
               <CardBody>
                 <div className={classes.center}>
                   <h5>A success message</h5>
-                  <Button color="rose" onClick={this.successAlert.bind(this)}>
+                  <Button color="primary" onClick={this.successAlert.bind(this)}>
                     Try me!
                   </Button>
                 </div>
@@ -320,7 +320,7 @@ class SweetAlertPage extends React.Component {
               <CardBody>
                 <div className={classes.center}>
                   <h5>Custom HTML description</h5>
-                  <Button color="rose" onClick={this.htmlAlert.bind(this)}>
+                  <Button color="primary" onClick={this.htmlAlert.bind(this)}>
                     Try me!
                   </Button>
                 </div>
@@ -336,7 +336,7 @@ class SweetAlertPage extends React.Component {
                     Button...
                   </h5>
                   <Button
-                    color="rose"
+                    color="primary"
                     onClick={this.warningWithConfirmMessage.bind(this)}
                   >
                     Try me!
@@ -354,7 +354,7 @@ class SweetAlertPage extends React.Component {
                     else for "Cancel"
                   </h5>
                   <Button
-                    color="rose"
+                    color="primary"
                     onClick={this.warningWithConfirmAndCancelMessage.bind(this)}
                   >
                     Try me!
@@ -368,7 +368,7 @@ class SweetAlertPage extends React.Component {
               <CardBody>
                 <div className={classes.center}>
                   <h5>A message with auto close timer set to 2 seconds</h5>
-                  <Button color="rose" onClick={this.autoCloseAlert.bind(this)}>
+                  <Button color="primary" onClick={this.autoCloseAlert.bind(this)}>
                     Try me!
                   </Button>
                 </div>
@@ -380,7 +380,7 @@ class SweetAlertPage extends React.Component {
               <CardBody>
                 <div className={classes.center}>
                   <h5>Modal window with input field</h5>
-                  <Button color="rose" onClick={this.inputAlert.bind(this)}>
+                  <Button color="primary" onClick={this.inputAlert.bind(this)}>
                     Try me!
                   </Button>
                 </div>
