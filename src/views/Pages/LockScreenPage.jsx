@@ -67,7 +67,7 @@ class LockScreenPage extends React.Component {
               />
             </CardBody>
             <CardFooter className={classes.justifyContentCenter}>
-              <Button color="rose" round>
+              <Button color="primary" round>
                 Unlock
               </Button>
             </CardFooter>
