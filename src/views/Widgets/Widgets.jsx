@@ -119,7 +119,7 @@ class Widgets extends React.Component {
           <GridItem xs={12} sm={12} md={6}>
             <CustomTabs
               title="Tasks:"
-              headerColor="rose"
+              headerColor="primary"
               tabs={[
                 {
                   tabName: "Bugs",
@@ -177,7 +177,7 @@ class Widgets extends React.Component {
                       This is good if your company size is between 2 and 10
                       Persons.
                     </p>
-                    <Button round color="rose">
+                    <Button round color="primary">
                       Choose plan
                     </Button>
                   </CardBody>
