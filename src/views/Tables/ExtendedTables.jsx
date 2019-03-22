@@ -102,8 +102,8 @@ class ExtendedTables extends React.Component {
       <GridContainer>
         <GridItem xs={12}>
           <Card>
-            <CardHeader color="rose" icon>
-              <CardIcon color="rose">
+            <CardHeader color="primary" icon>
+              <CardIcon color="primary">
                 <Assignment />
               </CardIcon>
               <h4 className={classes.cardIconTitle}>Simple Table</h4>
@@ -171,8 +171,8 @@ class ExtendedTables extends React.Component {
         </GridItem>
         <GridItem xs={12}>
           <Card>
-            <CardHeader color="rose" icon>
-              <CardIcon color="rose">
+            <CardHeader color="primary" icon>
+              <CardIcon color="primary">
                 <Assignment />
               </CardIcon>
               <h4 className={classes.cardIconTitle}>Striped Table</h4>
@@ -305,8 +305,8 @@ class ExtendedTables extends React.Component {
         </GridItem>
         <GridItem xs={12}>
           <Card>
-            <CardHeader color="rose" icon>
-              <CardIcon color="rose">
+            <CardHeader color="primary" icon>
+              <CardIcon color="primary">
                 <Assignment />
               </CardIcon>
               <h4 className={classes.cardIconTitle}>Shopping Cart Table</h4>
