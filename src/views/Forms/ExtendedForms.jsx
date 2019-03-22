@@ -78,8 +78,8 @@ class ExtendedForms extends React.Component {
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <Card>
-              <CardHeader color="rose" icon>
-                <CardIcon color="rose">
+              <CardHeader color="primary" icon>
+                <CardIcon color="primary">
                   <Today />
                 </CardIcon>
                 <h4 className={classes.cardIconTitle}>Datetime Picker</h4>
@@ -99,8 +99,8 @@ class ExtendedForms extends React.Component {
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <Card>
-              <CardHeader color="rose" icon>
-                <CardIcon color="rose">
+              <CardHeader color="primary" icon>
+                <CardIcon color="primary">
                   <LibraryBooks />
                 </CardIcon>
                 <h4 className={classes.cardIconTitle}>Date Picker</h4>
@@ -119,8 +119,8 @@ class ExtendedForms extends React.Component {
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <Card>
-              <CardHeader color="rose" icon>
-                <CardIcon color="rose">
+              <CardHeader color="primary" icon>
+                <CardIcon color="primary">
                   <AvTimer />
                 </CardIcon>
                 <h4 className={classes.cardIconTitle}>Time Picker</h4>
@@ -764,11 +764,11 @@ class ExtendedForms extends React.Component {
                     <legend>Regular Image</legend>
                     <ImageUpload
                       addButtonProps={{
-                        color: "rose",
+                        color: "primary",
                         round: true
                       }}
                       changeButtonProps={{
-                        color: "rose",
+                        color: "primary",
                         round: true
                       }}
                       removeButtonProps={{
@@ -782,11 +782,11 @@ class ExtendedForms extends React.Component {
                     <ImageUpload
                       avatar
                       addButtonProps={{
-                        color: "rose",
+                        color: "primary",
                         round: true
                       }}
                       changeButtonProps={{
-                        color: "rose",
+                        color: "primary",
                         round: true
                       }}
                       removeButtonProps={{
