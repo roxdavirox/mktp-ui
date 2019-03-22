@@ -144,8 +144,8 @@ class GoogleMaps extends React.Component {
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="rose" icon>
-              <CardIcon color="rose">
+            <CardHeader color="primary" icon>
+              <CardIcon color="primary">
                 <Map />
               </CardIcon>
               <h4 className={classes.cardIconTitle}>Satellite Map</h4>
@@ -170,8 +170,8 @@ class GoogleMaps extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={6}>
           <Card>
-            <CardHeader color="rose" icon>
-              <CardIcon color="rose">
+            <CardHeader color="primary" icon>
+              <CardIcon color="primary">
                 <AddLocation />
               </CardIcon>
               <h4 className={classes.cardIconTitle}>Regular Map</h4>
@@ -196,8 +196,8 @@ class GoogleMaps extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={6}>
           <Card>
-            <CardHeader color="rose" icon>
-              <CardIcon color="rose">
+            <CardHeader color="primary" icon>
+              <CardIcon color="primary">
                 <Place />
               </CardIcon>
               <h4 className={classes.cardIconTitle}>
