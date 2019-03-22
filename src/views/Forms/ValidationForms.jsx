@@ -277,8 +277,8 @@ class ValidationForms extends React.Component {
       <GridContainer>
         <GridItem xs={12} sm={12} md={6}>
           <Card>
-            <CardHeader color="rose" icon>
-              <CardIcon color="rose">
+            <CardHeader color="primary" icon>
+              <CardIcon color="primary">
                 <MailOutline />
               </CardIcon>
               <h4 className={classes.cardIconTitle}>Register Forms</h4>
@@ -362,7 +362,7 @@ class ValidationForms extends React.Component {
                   label="Subscribe to newsletter"
                 />
                 <Button
-                  color="rose"
+                  color="primary"
                   onClick={this.registerClick}
                   className={classes.registerButton}
                 >
@@ -374,8 +374,8 @@ class ValidationForms extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={6}>
           <Card>
-            <CardHeader color="rose" icon>
-              <CardIcon color="rose">
+            <CardHeader color="primary" icon>
+              <CardIcon color="primary">
                 <Contacts />
               </CardIcon>
               <h4 className={classes.cardIconTitle}>Login Form</h4>
@@ -414,7 +414,7 @@ class ValidationForms extends React.Component {
                   <small>*</small> Required fields
                 </div>
                 <div className={classes.center}>
-                  <Button color="rose" onClick={this.loginClick}>
+                  <Button color="primary" onClick={this.loginClick}>
                     Login
                   </Button>
                 </div>
@@ -424,8 +424,8 @@ class ValidationForms extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="rose" text>
-              <CardText color="rose">
+            <CardHeader color="primary" text>
+              <CardText color="primary">
                 <h4 className={classes.cardTitle}>Type Validation</h4>
               </CardText>
             </CardHeader>
@@ -635,7 +635,7 @@ class ValidationForms extends React.Component {
               </form>
             </CardBody>
             <CardFooter className={classes.justifyContentCenter}>
-              <Button color="rose" onClick={this.typeClick}>
+              <Button color="primary" onClick={this.typeClick}>
                 Validate Inputs
               </Button>
             </CardFooter>
@@ -643,8 +643,8 @@ class ValidationForms extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="rose" text>
-              <CardText color="rose">
+            <CardHeader color="primary" text>
+              <CardText color="primary">
                 <h4 className={classes.cardTitle}>Range Validation</h4>
               </CardText>
             </CardHeader>
@@ -820,7 +820,7 @@ class ValidationForms extends React.Component {
               </form>
             </CardBody>
             <CardFooter className={classes.justifyContentCenter}>
-              <Button color="rose" onClick={this.rangeClick}>
+              <Button color="primary" onClick={this.rangeClick}>
                 Validate Inputs
               </Button>
             </CardFooter>
