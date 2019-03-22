@@ -72,7 +72,7 @@ class Charts extends React.Component {
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <Card chart>
-              <CardHeader color="rose">
+              <CardHeader color="primary">
                 <ChartistGraph
                   className="ct-chart-white-colors"
                   data={roundedLineChart.data}
@@ -146,8 +146,8 @@ class Charts extends React.Component {
           </GridItem>
           <GridItem xs={12} sm={12} md={6}>
             <Card>
-              <CardHeader color="rose" icon>
-                <CardIcon color="rose">
+              <CardHeader color="primary" icon>
+                <CardIcon color="primary">
                   <Timeline />
                 </CardIcon>
                 <h4 className={classes.cardIconTitle}>
