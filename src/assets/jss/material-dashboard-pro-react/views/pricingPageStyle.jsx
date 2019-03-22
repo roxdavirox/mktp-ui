@@ -3,6 +3,7 @@ import {
   defaultFont,
   cardTitle,
   roseColor,
+  primaryColor,
   whiteColor,
   grayColor,
   hexToRgb
@@ -62,6 +63,9 @@ const pricingPageStyle = theme => ({
   },
   iconRose: {
     color: roseColor[0]
+  },
+  iconPrimary: {
+    color: primaryColor[0]
   },
   marginTop30: {
     marginTop: "30px"

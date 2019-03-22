@@ -61,7 +61,7 @@ class PricingPage extends React.Component {
               <CardBody pricing>
                 <h6 className={classes.cardCategory}>SMALL COMPANY</h6>
                 <div className={classes.icon}>
-                  <Home className={classes.iconRose} />
+                  <Home className={classes.iconPrimary} />
                 </div>
                 <h3 className={`${classes.cardTitle} ${classes.marginTop30}`}>
                   $29
@@ -69,7 +69,7 @@ class PricingPage extends React.Component {
                 <p className={classes.cardDescription}>
                   This is good if your company size is between 2 and 10 Persons.
                 </p>
-                <Button round color="rose">
+                <Button round color="primary">
                   Choose plan
                 </Button>
               </CardBody>
