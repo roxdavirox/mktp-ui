@@ -13,36 +13,23 @@ const columns = [
     }
   },
   {
-    name: "company",
-    label: "Company",
+    name: "id",
+    label: "Edit",
     options: {
-      filter: true,
-      sort: false
-    }
-  },
-  {
-    name: "city",
-    label: "City",
-    options: {
-      filter: true,
-      sort: false
-    }
-  },
-  {
-    name: "state",
-    label: "State",
-    options: {
-      filter: true,
-      sort: false
+      filter: false,
+      // eslint-disable-next-line react/display-name
+      customBodyRender: (value, tableMeta) => (
+        <EditIcon key={tableMeta.columnIndex} onClick={() => alert(value)} />
+      )
     }
   }
 ];
 
 const data = [
-  { name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY" },
-  { name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT" },
-  { name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL" },
-  { name: "James Houston", company: "Test Corp", city: "Dallas", state: "TX" }
+  { name: "Joe James", id: "01-NY" },
+  { name: "John Walsh", id: "02-CT" },
+  { name: "Bob Herm", id: "03-FL" },
+  { name: "James Houston", id: "04-TX" }
 ];
 
 const options = {
@@ -51,7 +38,6 @@ const options = {
 
 const Option = () => (
   <div>
-    <EditIcon />
     <CustomMUIDataTable
       title={"Lista de clientes"}
       data={data}
