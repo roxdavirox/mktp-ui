@@ -1,6 +1,7 @@
 import React from "react";
 
 import CustomMUIDataTable from "components/Table/MuiDatatables";
+import EditIcon from "components/CustomIcons/EditIcon";
 
 const columns = [
   {
@@ -49,12 +50,15 @@ const options = {
 };
 
 const Option = () => (
-  <CustomMUIDataTable
-    title={"Lista de clientes"}
-    data={data}
-    columns={columns}
-    options={options}
-  />
+  <div>
+    <EditIcon />
+    <CustomMUIDataTable
+      title={"Lista de clientes"}
+      data={data}
+      columns={columns}
+      options={options}
+    />
+  </div>
 );
 
 export default Option;
