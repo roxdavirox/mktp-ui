@@ -1,8 +1,9 @@
-import { fetchOptionsSuccess, FETCH_OPTIONS_BEGIN } from "../../actions/options.actions";
+import {
+  fetchOptionsSuccess,
+  FETCH_OPTIONS_BEGIN
+} from "../../actions/options.actions";
 /* eslint-disable no-console */
 export const customMiddleware = store => next => action => {
-  console.log('begin store:', store.getState());
-  console.log('begin action: ', action);
   if (action.type === FETCH_OPTIONS_BEGIN) {
     const options = [
       { name: "Joe James", id: "01-NY" },
@@ -15,9 +16,6 @@ export const customMiddleware = store => next => action => {
 
     setTimeout(loadOptions, 3000);
   }
-
-  console.log('end store:', store.getState());
-  console.log('end action: ', action);
 
   next(action);
 };
