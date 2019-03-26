@@ -5,6 +5,7 @@ import CustomMUIDataTable from "components/Table/MuiDatatables";
 import EditIcon from "components/CustomIcons/EditIcon";
 import CustomToolbar from "./CustomToolbar";
 import CustomCircularProgress from "components/CustomCircularProgress/CustomCircularProgress.jsx";
+import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -62,6 +63,7 @@ class Option extends React.Component {
 
     return (
       <div>
+        <CustomSweetAlertInput />
         <CustomMUIDataTable
           title={"Opções"}
           data={data}
