@@ -1,7 +1,10 @@
+/* eslint-disable react/display-name */
 import React from "react";
 
 import CustomMUIDataTable from "components/Table/MuiDatatables";
 import EditIcon from "components/CustomIcons/EditIcon";
+// import AddOptionFab from "components/CustomButtons/FloatActionButton";
+import CustomToolbar from "./CustomToolbar";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -36,6 +39,14 @@ const options = {
     body: {
       noMatch: "Nenhuma opção carregada"
     }
+  },
+  customToolbar: () => {
+    return (
+      <CustomToolbar
+        title="Adicionar Opção"
+        onClick={() => alert("Botao de add clicado!")}
+      />
+    );
   }
 };
 
@@ -57,6 +68,7 @@ class Option extends React.Component {
           columns={columns}
           options={options}
         />
+        {/* <AddOptionFab /> */}
       </div>
     );
   };
