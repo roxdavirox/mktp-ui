@@ -3,7 +3,6 @@ import React from "react";
 
 import CustomMUIDataTable from "components/Table/MuiDatatables";
 import EditIcon from "components/CustomIcons/EditIcon";
-// import AddOptionFab from "components/CustomButtons/FloatActionButton";
 import CustomToolbar from "./CustomToolbar";
 
 import { connect } from "react-redux";
@@ -63,12 +62,11 @@ class Option extends React.Component {
     return (
       <div>
         <CustomMUIDataTable
-          title={"Lista de opções"}
+          title={"Opções"}
           data={data}
           columns={columns}
           options={options}
         />
-        {/* <AddOptionFab /> */}
       </div>
     );
   };
