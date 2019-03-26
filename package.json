@@ -26,8 +26,7 @@
     "react-swipeable-views": "0.13.1",
     "react-table": "6.9.2",
     "react-tagsinput": "3.19.0",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
