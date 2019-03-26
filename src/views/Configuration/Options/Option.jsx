@@ -31,7 +31,12 @@ const columns = [
 ];
 
 const options = {
-  filterType: "checkbox"
+  filterType: "checkbox",
+  textLabels: {
+    body: {
+      noMatch: "Nenhuma opção carregada"
+    }
+  }
 };
 
 class Option extends React.Component {
