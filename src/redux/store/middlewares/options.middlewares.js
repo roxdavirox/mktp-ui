@@ -3,7 +3,7 @@ import {
   FETCH_OPTIONS_BEGIN
 } from "../../actions/options.actions";
 
-const urlOptions = "http://mktp.azurewebsites.net/api/options";
+const urlOptions = "https://mktp.azurewebsites.net/api/options";
 
 export const optionsMiddleware = store => next => action => {
   if (action.type === FETCH_OPTIONS_BEGIN) {
