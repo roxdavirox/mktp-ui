@@ -6,7 +6,7 @@ import EditIcon from "components/CustomIcons/EditIcon";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { fetchOptionsSuccess } from "../../../redux/actions/options.actions";
+import { fetchOptionsBegin } from "../../../redux/actions/options.actions";
 
 const columns = [
   {
@@ -34,29 +34,11 @@ const options = {
   filterType: "checkbox"
 };
 
-// const Option = () => (
-//   <div>
-//     <CustomMUIDataTable
-//       title={"Lista de clientes"}
-//       data={data}
-//       columns={columns}
-//       options={options}
-//     />
-//   </div>
-// );
-
 class Option extends React.Component {
   componentDidMount = () => {
-    const { fetchOptionsSuccess } = this.props;
+    const { fetchOptionsBegin } = this.props;
 
-    const options = [
-      { name: "Joe James", id: "01-NY" },
-      { name: "John Walsh", id: "02-CT" },
-      { name: "Bob Herm", id: "03-FL" },
-      { name: "James Houston", id: "04-TX" }
-    ];
-
-    fetchOptionsSuccess(options);
+    fetchOptionsBegin();
   };
 
   render = () => {
@@ -76,7 +58,8 @@ class Option extends React.Component {
 }
 
 Option.propTypes = {
-  data: PropTypes.any.isRequired
+  data: PropTypes.any.isRequired,
+  fetchOptionsBegin: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -85,5 +68,5 @@ const mapStateToProps = store => ({
 
 export default connect(
   mapStateToProps,
-  { fetchOptionsSuccess }
+  { fetchOptionsBegin }
 )(Option);
