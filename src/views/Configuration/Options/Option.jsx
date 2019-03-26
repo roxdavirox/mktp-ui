@@ -4,6 +4,7 @@ import React from "react";
 import CustomMUIDataTable from "components/Table/MuiDatatables";
 import EditIcon from "components/CustomIcons/EditIcon";
 import CustomToolbar from "./CustomToolbar";
+import CustomCircularProgress from "components/CustomCircularProgress/CustomCircularProgress.jsx";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -36,7 +37,7 @@ const options = {
   filterType: "checkbox",
   textLabels: {
     body: {
-      noMatch: "Nenhuma opção carregada"
+      noMatch: <CustomCircularProgress />
     }
   },
   customToolbar: () => {
