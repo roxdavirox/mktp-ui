@@ -3,18 +3,17 @@ import {
   FETCH_OPTIONS_BEGIN
 } from "../../actions/options.actions";
 
-const options = [
-  { name: "Joe James", id: "01-NY" },
-  { name: "John Walsh", id: "02-CT" },
-  { name: "Bob Herm", id: "03-FL" },
-  { name: "James Houston", id: "04-TX" }
-];
+const urlOptions = "http://mktp.azurewebsites.net/api/options";
 
-export const customMiddleware = store => next => action => {
+export const optionsMiddleware = store => next => action => {
   if (action.type === FETCH_OPTIONS_BEGIN) {
-    const loadOptions = () => store.dispatch(fetchOptionsSuccess(options));
+    const fetchOptions = options =>
+      store.dispatch(fetchOptionsSuccess(options));
 
-    setTimeout(loadOptions, 3000);
+    fetch(urlOptions)
+      .then(res => res.json())
+      .then(res => res.options)
+      .then(fetchOptions);
   }
 
   next(action);
