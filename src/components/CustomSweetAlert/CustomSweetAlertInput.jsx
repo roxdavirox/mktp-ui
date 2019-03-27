@@ -7,24 +7,26 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import sweetAlertStyle from "assets/jss/material-dashboard-pro-react/views/sweetAlertStyle.jsx";
 
 const CustomSweetAlertInput = props => {
-  const { classes } = props;
+  const { classes, title, ...rest } = props;
 
   return (
     <SweetAlert
       input
       showCancel
       style={{ display: "block", marginTop: "-100px" }}
-      title="Input something"
-      onConfirm={e => this.inputConfirmAlert(e)}
-      onCancel={() => this.hideAlert()}
+      title={title ? title : "Input something"}
       confirmBtnCssClass={classes.button + " " + classes.info}
       cancelBtnCssClass={classes.button + " " + classes.danger}
+      // onConfirm={e => this.inputConfirmAlert(e)}
+      // onCancel={() => this.hideAlert()}
+      {...rest}
     />
   );
 };
 
 CustomSweetAlertInput.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default withStyles(sweetAlertStyle)(CustomSweetAlertInput);

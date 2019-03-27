@@ -12,46 +12,61 @@ import PropTypes from "prop-types";
 
 import { fetchOptionsBegin } from "../../../redux/actions/options.actions";
 
-const columns = [
-  {
-    name: "name",
-    label: "Name",
-    options: {
-      filter: true,
-      sort: true
-    }
-  },
-  {
-    name: "id",
-    label: "Edit",
-    options: {
-      filter: false,
-      // eslint-disable-next-line react/display-name
-      customBodyRender: (value, tableMeta) => (
-        <EditIcon key={tableMeta.columnIndex} onClick={() => alert(value)} />
-      )
-    }
-  }
-];
-
-const options = {
-  filterType: "checkbox",
-  textLabels: {
-    body: {
-      noMatch: <CustomCircularProgress />
-    }
-  },
-  customToolbar: () => {
-    return (
-      <CustomToolbar
-        title="Adicionar Opção"
-        onClick={() => alert("Botao de add clicado!")}
-      />
-    );
-  }
-};
-
 class Option extends React.Component {
+  state = {
+    sweetAlert: null,
+    columns: [
+      {
+        name: "name",
+        label: "Name",
+        options: {
+          filter: true,
+          sort: true
+        }
+      },
+      {
+        name: "id",
+        label: "Edit",
+        options: {
+          filter: false,
+          // eslint-disable-next-line react/display-name
+          customBodyRender: (value, tableMeta) => (
+            <EditIcon
+              key={tableMeta.columnIndex}
+              onClick={() => alert(value)}
+            />
+          )
+        }
+      }
+    ],
+    options: {
+      filterType: "checkbox",
+      textLabels: {
+        body: {
+          noMatch: <CustomCircularProgress />
+        }
+      },
+      customToolbar: () => {
+        return (
+          <CustomToolbar
+            title="Adicionar Opção"
+            onClick={() =>
+              this.setState({
+                sweetAlert: (
+                  <CustomSweetAlertInput
+                    title="Adicionar opção"
+                    validationMsg="Digite o nome da opção"
+                    onCancel={() => this.setState({ sweetAlert: null })}
+                  />
+                )
+              })
+            }
+          />
+        );
+      }
+    }
+  };
+
   componentDidMount = () => {
     const { fetchOptionsBegin } = this.props;
 
@@ -60,10 +75,11 @@ class Option extends React.Component {
 
   render = () => {
     const { data } = this.props;
+    const { columns, options, sweetAlert } = this.state;
 
     return (
       <div>
-        <CustomSweetAlertInput />
+        {sweetAlert}
         <CustomMUIDataTable
           title={"Opções"}
           data={data}
