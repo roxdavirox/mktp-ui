@@ -14,6 +14,7 @@ import { fetchOptionsBegin } from "../../../redux/actions/options.actions";
 
 class Option extends React.Component {
   state = {
+    inputValue: "",
     sweetAlert: null,
     columns: [
       {
@@ -57,6 +58,7 @@ class Option extends React.Component {
                     title="Adicionar opção"
                     validationMsg="Digite o nome da opção"
                     onCancel={() => this.setState({ sweetAlert: null })}
+                    onConfirm={value => this.handleInput(value)}
                   />
                 )
               })
@@ -65,6 +67,10 @@ class Option extends React.Component {
         );
       }
     }
+  };
+
+  handleInput = value => {
+    this.setState({ inputValue: value, sweetAlert: null });
   };
 
   componentDidMount = () => {
@@ -80,6 +86,7 @@ class Option extends React.Component {
     return (
       <div>
         {sweetAlert}
+        {this.state.inputValue}
         <CustomMUIDataTable
           title={"Opções"}
           data={data}
