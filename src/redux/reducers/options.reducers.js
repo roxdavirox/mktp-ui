@@ -3,7 +3,8 @@ import {
   FETCH_OPTIONS_SUCCESS,
   FETCH_OPTIONS_FAILURE,
   POST_OPTION_BEGIN,
-  POST_OPTION_SUCCESS
+  POST_OPTION_SUCCESS,
+  POST_OPTION_FAILURE
 } from "../actions/options.actions";
 
 const initialState = {
@@ -47,6 +48,15 @@ export default function(state = initialState, action) {
       return {
         ...state,
         options: [...state.options, option]
+      };
+    }
+
+    case POST_OPTION_FAILURE: {
+      const { error } = action.playload;
+
+      return {
+        ...state,
+        error: error
       };
     }
 
