@@ -60,7 +60,8 @@ class Option extends React.Component {
                     onCancel={() => this.setState({ sweetAlert: null })}
                     onConfirm={value => this.handleInput(value)}
                   />
-                )
+                ),
+                inputValue: null
               })
             }
           />
@@ -86,7 +87,6 @@ class Option extends React.Component {
     return (
       <div>
         {sweetAlert}
-        {this.state.inputValue}
         <CustomMUIDataTable
           title={"Opções"}
           data={data}
