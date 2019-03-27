@@ -11,7 +11,6 @@ export const postOptionMiddleware = store => next => action => {
   if (action.type === POST_OPTION_BEGIN) {
     const dispatchOption = option => store.dispatch(postOptionSuccess(option));
 
-    console.log(action);
     const { optionName } = action.playload;
 
     const option = {
