@@ -7,10 +7,8 @@ import {
 
 const urlOptions = "https://mktp.azurewebsites.net/api/options";
 
-export const postOptionMiddleware = store => next => action => {
+export const postOptionMiddleware = ({ dispatch }) => next => action => {
   if (action.type === POST_OPTION_BEGIN) {
-    const dispatchOption = option => store.dispatch(postOptionSuccess(option));
-
     const { optionName } = action.playload;
 
     const option = {
@@ -26,21 +24,18 @@ export const postOptionMiddleware = store => next => action => {
       body: JSON.stringify(option)
     })
       .then(res => res.json())
-      .then(dispatchOption);
+      .then(option => dispatch(postOptionSuccess(option)));
   }
 
   next(action);
 };
 
-export const fetchOptionsMiddleware = store => next => action => {
+export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
   if (action.type === FETCH_OPTIONS_BEGIN) {
-    const fetchOptions = options =>
-      store.dispatch(fetchOptionsSuccess(options));
-
     fetch(urlOptions)
       .then(res => res.json())
       .then(res => res.options)
-      .then(fetchOptions);
+      .then(options => dispatch(fetchOptionsSuccess(options)));
   }
 
   next(action);
