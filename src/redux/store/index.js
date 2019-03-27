@@ -1,5 +1,11 @@
 import { createStore, applyMiddleware } from "redux";
 import { reducers } from "../reducers";
-import { optionsMiddleware } from "./middlewares/options.middlewares";
+import {
+  postOptionMiddleware,
+  fetchOptionsMiddleware
+} from "./middlewares/options.middlewares";
 
-export const store = createStore(reducers, applyMiddleware(optionsMiddleware));
+export const store = createStore(
+  reducers,
+  applyMiddleware(postOptionMiddleware, fetchOptionsMiddleware)
+);

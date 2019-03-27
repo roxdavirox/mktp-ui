@@ -15,3 +15,17 @@ export const fetchOptionsFailure = error => ({
   type: FETCH_OPTIONS_FAILURE,
   playload: { error }
 });
+
+export const POST_OPTION_BEGIN = "POST_OPTION_BEGIN";
+
+export const postOptionBegin = optionName => ({
+  type: POST_OPTION_BEGIN,
+  playload: { optionName }
+});
+
+export const POST_OPTION_SUCCESS = "POST_OPTION_SUCCESS";
+
+export const postOptionSuccess = option => ({
+  type: POST_OPTION_SUCCESS,
+  playload: { option }
+});

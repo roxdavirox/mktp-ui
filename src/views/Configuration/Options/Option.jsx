@@ -10,7 +10,10 @@ import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertI
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { fetchOptionsBegin } from "../../../redux/actions/options.actions";
+import {
+  postOptionBegin,
+  fetchOptionsBegin
+} from "../../../redux/actions/options.actions";
 
 class Option extends React.Component {
   state = {
@@ -71,7 +74,12 @@ class Option extends React.Component {
   };
 
   handleInput = value => {
-    this.setState({ inputValue: value, sweetAlert: null });
+    const { postOptionBegin } = this.props;
+
+    if (value) {
+      postOptionBegin(value);
+      this.setState({ inputValue: value, sweetAlert: null });
+    }
   };
 
   componentDidMount = () => {
@@ -100,6 +108,7 @@ class Option extends React.Component {
 
 Option.propTypes = {
   data: PropTypes.any.isRequired,
+  postOptionBegin: PropTypes.func.isRequired,
   fetchOptionsBegin: PropTypes.func.isRequired
 };
 
@@ -109,5 +118,5 @@ const mapStateToProps = store => ({
 
 export default connect(
   mapStateToProps,
-  { fetchOptionsBegin }
+  { postOptionBegin, fetchOptionsBegin }
 )(Option);

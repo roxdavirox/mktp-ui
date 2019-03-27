@@ -1,7 +1,9 @@
 import {
   FETCH_OPTIONS_BEGIN,
   FETCH_OPTIONS_SUCCESS,
-  FETCH_OPTIONS_FAILURE
+  FETCH_OPTIONS_FAILURE,
+  POST_OPTION_BEGIN,
+  POST_OPTION_SUCCESS
 } from "../actions/options.actions";
 
 const initialState = {
@@ -33,6 +35,20 @@ export default function(state = initialState, action) {
         options: [],
         error: action.playload.error
       };
+
+    case POST_OPTION_BEGIN:
+      return {
+        ...state
+      };
+
+    case POST_OPTION_SUCCESS: {
+      const { option } = action.playload;
+
+      return {
+        ...state,
+        options: [...state.options, option]
+      };
+    }
 
     default:
       return state;
