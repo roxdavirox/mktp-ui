@@ -3,7 +3,7 @@ import React from "react";
 
 import CustomMUIDataTable from "components/Table/MuiDatatables";
 import EditIcon from "components/CustomIcons/EditIcon";
-import CustomToolbar from "./CustomToolbar";
+import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
 import CustomCircularProgress from "components/CustomCircularProgress/CustomCircularProgress.jsx";
 import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
