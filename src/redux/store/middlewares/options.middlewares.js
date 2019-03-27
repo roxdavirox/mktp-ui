@@ -41,7 +41,7 @@ export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
       .then(res => res.json())
       .then(res => res.options)
       .then(options => dispatch(fetchOptionsSuccess(options)))
-      .then(error => dispatch(fetchOptionsFailure(error)));
+      .catch(error => dispatch(fetchOptionsFailure(error)));
   }
 
   next(action);
