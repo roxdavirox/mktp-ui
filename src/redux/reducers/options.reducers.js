@@ -4,7 +4,8 @@ import {
   FETCH_OPTIONS_FAILURE,
   POST_OPTION_BEGIN,
   POST_OPTION_SUCCESS,
-  POST_OPTION_FAILURE
+  POST_OPTION_FAILURE,
+  DELETE_OPTIONS_BEGIN
 } from "../actions/options.actions";
 
 const initialState = {
@@ -57,6 +58,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         error: error
+      };
+    }
+
+    case DELETE_OPTIONS_BEGIN: {
+      return {
+        ...state
       };
     }
 

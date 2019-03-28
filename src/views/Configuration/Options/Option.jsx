@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 
 import {
   postOptionBegin,
+  deleteOptionsBegin,
   fetchOptionsBegin
 } from "../../../redux/actions/options.actions";
 
@@ -71,10 +72,13 @@ class Option extends React.Component {
           />
         );
       },
-      onRowsDelete: rowsDeleted => {
-        console.log(rowsDeleted);
-      }
+      onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     }
+  };
+
+  handleRowsDelete = rows => {
+    const { deleteOptionsBegin } = this.props;
+    deleteOptionsBegin(rows);
   };
 
   handleInput = value => {
@@ -113,7 +117,8 @@ class Option extends React.Component {
 Option.propTypes = {
   data: PropTypes.any.isRequired,
   postOptionBegin: PropTypes.func.isRequired,
-  fetchOptionsBegin: PropTypes.func.isRequired
+  fetchOptionsBegin: PropTypes.func.isRequired,
+  deleteOptionsBegin: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -122,5 +127,5 @@ const mapStateToProps = store => ({
 
 export default connect(
   mapStateToProps,
-  { postOptionBegin, fetchOptionsBegin }
+  { postOptionBegin, deleteOptionsBegin, fetchOptionsBegin }
 )(Option);

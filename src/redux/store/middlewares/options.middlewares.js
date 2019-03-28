@@ -3,8 +3,11 @@ import {
   fetchOptionsFailure,
   FETCH_OPTIONS_BEGIN,
   POST_OPTION_BEGIN,
+  DELETE_OPTIONS_BEGIN,
   postOptionSuccess,
-  postOptionFailure
+  postOptionFailure,
+  deleteOptionsSuccess,
+  deleteOptionsFailure
 } from "../../actions/options.actions";
 
 const apiOptions = "https://mktp.azurewebsites.net/api/options";
@@ -42,6 +45,73 @@ export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
       .then(res => res.options)
       .then(options => dispatch(fetchOptionsSuccess(options)))
       .catch(error => dispatch(fetchOptionsFailure(error)));
+  }
+
+  next(action);
+};
+
+export const deleteOptionsMiddleware = ({
+  dispatch,
+  getState
+}) => next => action => {
+  if (action.type === DELETE_OPTIONS_BEGIN) {
+    const { optionsRows } = action.playload;
+
+    const { data: dataRows } = optionsRows;
+
+    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
+
+    const { options: prevOptions } = getState().optionsState;
+
+    const deletedOptionsIds = indexRows.map(index => prevOptions[index].id);
+
+    const optionsWithIndex = prevOptions.reduce(
+      (accOptions, currOption, index) => [
+        ...accOptions,
+        { ...currOption, index }
+      ],
+      []
+    );
+
+    const filteredOptions = optionsWithIndex.filter(
+      ({ index }) => !indexRows.includes(index)
+    );
+
+    const options = filteredOptions.reduce(
+      (accOptions, currOption) => [
+        ...accOptions,
+        { id: currOption.id, name: currOption.name }
+      ],
+      []
+    );
+
+    const body = {
+      optionsIds: deletedOptionsIds
+    };
+
+    const request = {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    };
+
+    fetch(apiOptions, request)
+      .then(res => res.json())
+      .then(count => {
+        if (count) {
+          dispatch(deleteOptionsSuccess(options));
+        }
+
+        return count;
+      })
+      .catch(error => dispatch(deleteOptionsFailure(error)));
+
+    // console.log("ids: ", deletedOptionsIds);
+    // console.log("index rows: ", indexRows);
+    // console.log("new options: ", options);
   }
 
   next(action);
