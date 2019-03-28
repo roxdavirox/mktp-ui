@@ -4,7 +4,8 @@ import React from "react";
 import CustomMUIDataTable from "components/Table/MuiDatatables";
 import EditIcon from "components/CustomIcons/EditIcon";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
-import CustomCircularProgress from "components/CustomCircularProgress/CustomCircularProgress.jsx";
+// import CustomCircularProgress from "components/CustomCircularProgress/CustomCircularProgress.jsx";
+import CustomLoadingSkeleton from "components/LoadingSkeleton/CustomLoadingSkeleton.jsx";
 import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
 import { connect } from "react-redux";
@@ -47,7 +48,7 @@ class Option extends React.Component {
       filterType: "checkbox",
       textLabels: {
         body: {
-          noMatch: <CustomCircularProgress />
+          noMatch: <CustomLoadingSkeleton />
         }
       },
       customToolbar: () => {
