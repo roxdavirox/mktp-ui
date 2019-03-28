@@ -70,6 +70,9 @@ class Option extends React.Component {
             }
           />
         );
+      },
+      onRowsDelete: rowsDeleted => {
+        console.log(rowsDeleted);
       }
     }
   };
