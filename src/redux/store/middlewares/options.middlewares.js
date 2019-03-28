@@ -108,10 +108,6 @@ export const deleteOptionsMiddleware = ({
         return count;
       })
       .catch(error => dispatch(deleteOptionsFailure(error)));
-
-    // console.log("ids: ", deletedOptionsIds);
-    // console.log("index rows: ", indexRows);
-    // console.log("new options: ", options);
   }
 
   next(action);
