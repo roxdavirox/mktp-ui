@@ -3,7 +3,7 @@ import Skeleton from "react-loading-skeleton";
 
 const CustomLoadingSkeleton = () => (
   <div style={{ fontSize: 25, lineHeight: 2 }}>
-    <Skeleton count={10} height={50} />
+    <Skeleton count={8} height={50} />
   </div>
 );
 
