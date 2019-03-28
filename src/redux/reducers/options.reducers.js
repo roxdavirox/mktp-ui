@@ -5,7 +5,8 @@ import {
   POST_OPTION_BEGIN,
   POST_OPTION_SUCCESS,
   POST_OPTION_FAILURE,
-  DELETE_OPTIONS_BEGIN
+  DELETE_OPTIONS_BEGIN,
+  DELETE_OPTIONS_SUCCESS
 } from "../actions/options.actions";
 
 const initialState = {
@@ -64,6 +65,15 @@ export default function(state = initialState, action) {
     case DELETE_OPTIONS_BEGIN: {
       return {
         ...state
+      };
+    }
+
+    case DELETE_OPTIONS_SUCCESS: {
+      const { options } = action.playload;
+
+      return {
+        ...state,
+        options
       };
     }
 
