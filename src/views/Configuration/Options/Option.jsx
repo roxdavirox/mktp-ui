@@ -49,6 +49,8 @@ class Option extends React.Component {
         name: "id",
         label: " ",
         options: {
+          sort: false,
+          filter: false,
           // eslint-disable-next-line react/display-name
           customBodyRender: (value, tableMeta) => (
             <EditIcon
