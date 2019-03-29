@@ -24,7 +24,7 @@ import {
 
 const styleOption = {
   EditCell: { textAlign: "right" },
-  NameCell: { fontWeight: 900 }
+  NameCell: { fontWeight: 900, marginLeft: 0 }
 };
 
 class Option extends React.Component {
@@ -46,10 +46,7 @@ class Option extends React.Component {
         }
       },
       {
-        name: "id",
-        label: "Edit",
         options: {
-          filter: false,
           // eslint-disable-next-line react/display-name
           customBodyRender: (value, tableMeta) => (
             <EditIcon
