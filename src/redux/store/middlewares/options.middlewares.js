@@ -55,35 +55,15 @@ export const deleteOptionsMiddleware = ({
   getState
 }) => next => action => {
   if (action.type === DELETE_OPTIONS_BEGIN) {
-    const { optionsRows } = action.playload;
-
-    const { data: dataRows } = optionsRows;
-
-    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
+    const { deletedOptionsIds } = action.playload;
 
     const { options: prevOptions } = getState().optionsState;
 
-    const deletedOptionsIds = indexRows.map(index => prevOptions[index].id);
-
-    const optionsWithIndex = prevOptions.reduce(
-      (accOptions, currOption, index) => [
-        ...accOptions,
-        { ...currOption, index }
-      ],
-      []
+    const options = prevOptions.filter(
+      ({ id }) => deletedOptionsIds.indexOf(id) === -1
     );
 
-    const filteredOptions = optionsWithIndex.filter(
-      ({ index }) => !indexRows.includes(index)
-    );
-
-    const options = filteredOptions.reduce(
-      (accOptions, currOption) => [
-        ...accOptions,
-        { id: currOption.id, name: currOption.name }
-      ],
-      []
-    );
+    console.log(options);
 
     const body = {
       optionsIds: deletedOptionsIds
