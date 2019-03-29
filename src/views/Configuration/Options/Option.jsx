@@ -94,8 +94,16 @@ class Option extends React.Component {
   };
 
   handleRowsDelete = rows => {
-    const { deleteOptionsBegin } = this.props;
-    deleteOptionsBegin(rows);
+    const { deleteOptionsBegin, data: options } = this.props;
+
+    const { data: dataRows } = rows;
+
+    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
+
+    const deletedOptionsIds = indexRows.map(index => options[index].id);
+
+    console.log(deletedOptionsIds);
+    deleteOptionsBegin(deletedOptionsIds);
   };
 
   handleInput = value => {
