@@ -63,8 +63,6 @@ export const deleteOptionsMiddleware = ({
       ({ id }) => deletedOptionsIds.indexOf(id) === -1
     );
 
-    console.log(options);
-
     const body = {
       optionsIds: deletedOptionsIds
     };

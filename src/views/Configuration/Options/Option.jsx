@@ -102,7 +102,6 @@ class Option extends React.Component {
 
     const deletedOptionsIds = indexRows.map(index => options[index].id);
 
-    console.log(deletedOptionsIds);
     deleteOptionsBegin(deletedOptionsIds);
   };
 
