@@ -4,18 +4,28 @@ import React from "react";
 import CustomMUIDataTable from "components/Table/MuiDatatables";
 import EditIcon from "components/CustomIcons/EditIcon";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
-// import CustomCircularProgress from "components/CustomCircularProgress/CustomCircularProgress.jsx";
 import CustomLoadingSkeleton from "components/LoadingSkeleton/CustomLoadingSkeleton.jsx";
 import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import classNames from "classnames";
+import {
+  createMuiTheme,
+  MuiThemeProvider,
+  withStyles
+} from "@material-ui/core/styles";
 
 import {
   postOptionBegin,
   deleteOptionsBegin,
   fetchOptionsBegin
 } from "../../../redux/actions/options.actions";
+
+const styleOption = {
+  EditCell: { textAlign: "right" },
+  NameCell: { fontWeight: 900 }
+};
 
 class Option extends React.Component {
   state = {
@@ -27,7 +37,12 @@ class Option extends React.Component {
         label: "Name",
         options: {
           filter: true,
-          sort: true
+          sort: true,
+          setCellProps: () => {
+            return {
+              className: classNames({ [this.props.classes.NameCell]: true })
+            };
+          }
         }
       },
       {
@@ -41,7 +56,12 @@ class Option extends React.Component {
               key={tableMeta.columnIndex}
               onClick={() => alert(value)}
             />
-          )
+          ),
+          setCellProps: () => {
+            return {
+              className: classNames({ [this.props.classes.EditCell]: true })
+            };
+          }
         }
       }
     ],
@@ -118,14 +138,17 @@ Option.propTypes = {
   data: PropTypes.any.isRequired,
   postOptionBegin: PropTypes.func.isRequired,
   fetchOptionsBegin: PropTypes.func.isRequired,
-  deleteOptionsBegin: PropTypes.func.isRequired
+  deleteOptionsBegin: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const mapStateToProps = store => ({
   data: store.optionsState.options
 });
 
+const styledOption = withStyles(styleOption)(Option);
+
 export default connect(
   mapStateToProps,
   { postOptionBegin, deleteOptionsBegin, fetchOptionsBegin }
-)(Option);
+)(styledOption);
