@@ -59,9 +59,11 @@ export const deleteOptionsMiddleware = ({
 
     const { options: prevOptions } = getState().optionsState;
 
-    const options = prevOptions.filter(
-      ({ id }) => deletedOptionsIds.indexOf(id) === -1
-    );
+    const filterOptions = arr => id => arr.indexOf(id) === -1;
+
+    const filterDeletedOption = filterOptions(deletedOptionsIds);
+
+    const options = prevOptions.filter(({ id }) => filterDeletedOption(id));
 
     const body = {
       optionsIds: deletedOptionsIds
