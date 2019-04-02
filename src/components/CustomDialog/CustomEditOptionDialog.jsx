@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -65,6 +64,7 @@ class CustomEditOptionDialog extends React.Component {
                     this.change(e.target.value);
                   },
                   type: "text",
+                  value: this.state.inputValue,
                   endAdornment:
                     this.state.minLength === "error" ? (
                       <InputAdornment position="end">
@@ -76,10 +76,12 @@ class CustomEditOptionDialog extends React.Component {
                 }}
               />
               <CustomAddButton
+                disabled
                 title="Adicionar item"
                 onClick={() => {
                   const { inputValue } = this.state;
                   const { postItemBegin } = this.props;
+                  if (!this.verifyMinLength(inputValue, 4)) return;
 
                   postItemBegin(inputValue);
                   this.setState({ inputValue: "" });
