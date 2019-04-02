@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   openDialog: false,
-  idItem: null,
+  idOption: null,
   items: [],
   loading: false
 };
@@ -33,12 +33,12 @@ export default function(state = initialState, action) {
     }
 
     case OPEN_FORM_DIALOG: {
-      const { openDialog, idItem } = action.playload;
+      const { openDialog, idOption } = action.playload;
 
       return {
         ...state,
         openDialog,
-        idItem
+        idOption
       };
     }
 
@@ -48,7 +48,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         openDialog,
-        idItem: null
+        idOption: null
       };
     }
 

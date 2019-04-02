@@ -11,11 +11,25 @@ export const getItemsSuccess = items => ({
   playload: { items }
 });
 
+export const POST_ITEM_BEGIN = "POST_ITEM_BEGIN";
+
+export const postItemBegin = itemName => ({
+  type: POST_ITEM_BEGIN,
+  playload: { name: itemName }
+});
+
+export const POST_ITEM_SUCCESS = "POST_ITEM_SUCCESS";
+
+export const postItemSuccess = item => ({
+  type: POST_ITEM_SUCCESS,
+  playload: { item }
+});
+
 export const OPEN_FORM_DIALOG = "OPEN_FORM_DIALOG";
 
-export const openFormDialog = idItem => ({
+export const openFormDialog = idOption => ({
   type: OPEN_FORM_DIALOG,
-  playload: { openDialog: true, idItem }
+  playload: { openDialog: true, idOption }
 });
 
 export const CLOSE_FORM_DIALOG = "CLOSE_FORM_DIALOG";

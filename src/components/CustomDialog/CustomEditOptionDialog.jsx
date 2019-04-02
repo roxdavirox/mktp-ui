@@ -16,6 +16,10 @@ import {
 } from "../../redux/actions/items.actions";
 
 class CustomEditOptionDialog extends React.Component {
+  state = {
+    inputValue: ""
+  };
+
   render() {
     const { data } = this.props;
 
@@ -35,10 +39,15 @@ class CustomEditOptionDialog extends React.Component {
                 id="editItem"
                 label="Nome do item"
                 fullWidth
+                value={this.state.inputValue}
+                onChange={e => this.setState({ inputValue: e.target.value })}
               />
               <CustomAddButton
                 title="Adicionar item"
-                onClick={() => console.log("click")}
+                onClick={() => {
+                  console.log(this.state.inputValue);
+                  this.setState({ inputValue: "" });
+                }}
               />
             </div>
 

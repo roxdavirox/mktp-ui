@@ -28,6 +28,14 @@ class ItemMuiDatatable extends React.Component {
             <h6>Selecionar tabela de preço</h6>
           )
         }
+      },
+      {
+        name: "idItem",
+        display: "excluded",
+        options: {
+          sort: false,
+          filter: false
+        }
       }
     ],
     options: {
