@@ -11,14 +11,9 @@ export const getItemsMiddleware = ({
 }) => next => action => {
   if (action.type === GET_ITEMS_BY_OPTION_ID_BEGIN) {
     const { idItem } = getState().itemsState;
-    console.log('id item:', idItem);
 
     fetch(`${apiItems}/${idItem}`)
       .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        return res;
-      })
       .then(({ items }) => dispatch(getItemsSuccess(items)));
   }
 
