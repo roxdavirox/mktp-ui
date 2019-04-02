@@ -7,7 +7,8 @@ import {
   postOptionSuccess,
   postOptionFailure,
   deleteOptionsSuccess,
-  deleteOptionsFailure
+  deleteOptionsFailure,
+  hideAlert
 } from "../../actions/options.actions";
 
 const apiOptions = "https://mktp.azurewebsites.net/api/options";
@@ -32,7 +33,8 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
     fetch(apiOptions, request)
       .then(res => res.json())
       .then(option => dispatch(postOptionSuccess(option)))
-      .catch(error => dispatch(postOptionFailure(error)));
+      .catch(error => dispatch(postOptionFailure(error)))
+      .finally(() => dispatch(hideAlert()));
   }
 
   next(action);

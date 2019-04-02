@@ -60,3 +60,17 @@ export const deleteOptionsFailure = error => ({
   type: DELETE_OPTIONS_FAILURE,
   playload: { error }
 });
+
+export const SHOW_ALERT = "SHOW_ALERT";
+
+export const showAlert = () => ({
+  type: SHOW_ALERT,
+  playload: { openAlert: true }
+});
+
+export const HIDE_ALERT = "HIDE_ALERT";
+
+export const hideAlert = () => ({
+  type: HIDE_ALERT,
+  playload: { openAlert: false }
+});

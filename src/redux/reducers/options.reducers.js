@@ -6,13 +6,16 @@ import {
   POST_OPTION_SUCCESS,
   POST_OPTION_FAILURE,
   DELETE_OPTIONS_BEGIN,
-  DELETE_OPTIONS_SUCCESS
+  DELETE_OPTIONS_SUCCESS,
+  HIDE_ALERT,
+  SHOW_ALERT
 } from "../actions/options.actions";
 
 const initialState = {
   options: [],
   loading: false,
-  error: null
+  error: null,
+  openAlert: false
 };
 
 export default function(state = initialState, action) {
@@ -22,7 +25,8 @@ export default function(state = initialState, action) {
         ...state,
         loading: true,
         options: [],
-        error: null
+        error: null,
+        openAlert: false
       };
 
     case FETCH_OPTIONS_SUCCESS:
@@ -42,7 +46,8 @@ export default function(state = initialState, action) {
 
     case POST_OPTION_BEGIN:
       return {
-        ...state
+        ...state,
+        openAlert: true
       };
 
     case POST_OPTION_SUCCESS: {
@@ -50,7 +55,8 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
-        options: [...state.options, option]
+        options: [...state.options, option],
+        openAlert: false
       };
     }
 
@@ -75,6 +81,24 @@ export default function(state = initialState, action) {
       return {
         ...state,
         options
+      };
+    }
+
+    case SHOW_ALERT: {
+      const { openAlert } = action.playload;
+
+      return {
+        ...state,
+        openAlert
+      };
+    }
+
+    case HIDE_ALERT: {
+      const { openAlert } = action.playload;
+
+      return {
+        ...state,
+        openAlert
       };
     }
 
