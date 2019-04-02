@@ -30,7 +30,10 @@ class OptionMuiDataTable extends React.Component {
       <CustomSweetAlertInput
         title="Adicionar opção"
         validationMsg="Digite o nome da opção"
-        onCancel={() => this.setState({ sweetAlert: null })}
+        onCancel={() => {
+          const { hideAlert } = this.props;
+          hideAlert();
+        }}
         onConfirm={value => this.handleInput(value)}
       />
     ),
@@ -107,12 +110,11 @@ class OptionMuiDataTable extends React.Component {
   };
 
   handleInput = value => {
-    const { postOptionBegin, hideAlert } = this.props;
+    const { postOptionBegin } = this.props;
 
     if (value) {
       postOptionBegin(value);
       this.setState({ inputValue: value });
-      // hideAlert();
     }
   };
 
@@ -160,5 +162,11 @@ const wrappedMuiDatatable = withStyles(optionStyle)(OptionMuiDataTable);
 
 export default connect(
   mapStateToProps,
-  { postOptionBegin, deleteOptionsBegin, fetchOptionsBegin, showAlert, hideAlert }
+  {
+    postOptionBegin,
+    deleteOptionsBegin,
+    fetchOptionsBegin,
+    showAlert,
+    hideAlert
+  }
 )(wrappedMuiDatatable);
