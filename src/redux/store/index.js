@@ -5,6 +5,7 @@ import {
   deleteOptionsMiddleware,
   fetchOptionsMiddleware
 } from "./middlewares/options.middlewares";
+import { getItemsMiddleware } from "./middlewares/items.middlewares";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -14,7 +15,8 @@ export const store = createStore(
     applyMiddleware(
       postOptionMiddleware,
       deleteOptionsMiddleware,
-      fetchOptionsMiddleware
+      fetchOptionsMiddleware,
+      getItemsMiddleware
     )
   )
 );

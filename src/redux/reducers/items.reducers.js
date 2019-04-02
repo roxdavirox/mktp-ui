@@ -1,5 +1,6 @@
 import {
   GET_ITEMS_BY_OPTION_ID_BEGIN,
+  GET_ITEMS_SUCCESS,
   OPEN_FORM_DIALOG,
   CLOSE_FORM_DIALOG
 } from "../actions/items.actions";
@@ -16,6 +17,15 @@ export default function(state = initialState, action) {
       return {
         ...state,
         items: []
+      };
+    }
+
+    case GET_ITEMS_SUCCESS: {
+      const { items } = action.playload;
+
+      return {
+        ...state,
+        items
       };
     }
 
