@@ -31,8 +31,8 @@ class ItemMuiDatatable extends React.Component {
       },
       {
         name: "idItem",
-        display: "excluded",
         options: {
+          display: "excluded",
           sort: false,
           filter: false
         }

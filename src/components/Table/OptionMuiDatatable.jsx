@@ -67,7 +67,6 @@ class OptionMuiDataTable extends React.Component {
               key={tableMeta.columnIndex}
               onClick={() => {
                 const { openFormDialog } = this.props;
-                console.log('value', value);
                 openFormDialog(value);
               }}
             />
