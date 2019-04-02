@@ -2,6 +2,7 @@ import React from "react";
 import CustomMUIDataTable from "./MuiDatatables";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import ItemLoadingSkeleton from "components/LoadingSkeleton/ItemLoadingSkeleton.jsx";
 
 import { getItemsByOptionsIdBegin } from "../../redux/actions/items.actions";
 
@@ -41,10 +42,10 @@ class ItemMuiDatatable extends React.Component {
       responsive: "stacked",
       textLabels: {
         body: {
-          noMatch: <h6>Nenhum item encontrado</h6>
+          noMatch: <ItemLoadingSkeleton />
         }
-      },
-      onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
+      }
+      // onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     }
   };
 
@@ -72,14 +73,12 @@ class ItemMuiDatatable extends React.Component {
 }
 
 ItemMuiDatatable.propTypes = {
-  idItem: PropTypes.string.isRequired,
   getItemsByOptionsIdBegin: PropTypes.func.isRequired,
   data: PropTypes.any.isRequired
 };
 
 const mapStateToProps = store => ({
-  data: store.itemsState.items,
-  idItem: store.itemsState.idItem
+  data: store.itemsState.items
 });
 
 export default connect(

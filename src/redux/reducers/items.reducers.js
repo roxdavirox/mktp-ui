@@ -8,7 +8,8 @@ import {
 const initialState = {
   openDialog: false,
   idItem: null,
-  items: []
+  items: [],
+  loading: false
 };
 
 export default function(state = initialState, action) {
@@ -16,7 +17,8 @@ export default function(state = initialState, action) {
     case GET_ITEMS_BY_OPTION_ID_BEGIN: {
       return {
         ...state,
-        items: []
+        items: [],
+        loading: true
       };
     }
 
@@ -25,7 +27,8 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
-        items
+        items,
+        loading: false
       };
     }
 

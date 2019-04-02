@@ -133,16 +133,13 @@ class OptionMuiDataTable extends React.Component {
   };
 
   render = () => {
-    const { data, openAlert, openDialog } = this.props;
+    const { data, openAlert } = this.props;
     const { columns, options, sweetAlert } = this.state;
-
-    const CustomEditDialog = () =>
-      openDialog ? <CustomEditOptionDialog /> : null;
 
     return (
       <div>
         {openAlert && sweetAlert}
-        <CustomEditDialog />
+        <CustomEditOptionDialog />
         <CustomMUIDataTable
           title={"Opções"}
           data={data}
