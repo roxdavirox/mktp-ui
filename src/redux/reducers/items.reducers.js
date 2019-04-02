@@ -1,12 +1,24 @@
-import { OPEN_FORM_DIALOG, CLOSE_FORM_DIALOG } from "../actions/items.actions";
+import {
+  GET_ITEMS_BY_OPTION_ID_BEGIN,
+  OPEN_FORM_DIALOG,
+  CLOSE_FORM_DIALOG
+} from "../actions/items.actions";
 
 const initialState = {
   openDialog: false,
-  idItem: null
+  idItem: null,
+  items: []
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case GET_ITEMS_BY_OPTION_ID_BEGIN: {
+      return {
+        ...state,
+        items: []
+      };
+    }
+
     case OPEN_FORM_DIALOG: {
       const { openDialog, idItem } = action.playload;
 
@@ -22,7 +34,8 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
-        openDialog
+        openDialog,
+        idItem: null
       };
     }
 

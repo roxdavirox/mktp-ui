@@ -17,7 +17,7 @@ import {
 
 class CustomEditOptionDialog extends React.Component {
   render() {
-    const data = [["Acrilico 3mm", "1234"], ["Acrilico 4mm", "4321"]];
+    const { data } = this.props;
 
     return (
       <div>
@@ -63,11 +63,13 @@ class CustomEditOptionDialog extends React.Component {
 
 CustomEditOptionDialog.propTypes = {
   openDialog: PropTypes.any.isRequired,
-  closeFormDialog: PropTypes.func.isRequired
+  closeFormDialog: PropTypes.func.isRequired,
+  data: PropTypes.any.isRequired
 };
 
 const mapStateToProps = store => ({
-  openDialog: store.itemsState.openDialog
+  openDialog: store.itemsState.openDialog,
+  data: store.itemsState.items
 });
 
 export default connect(

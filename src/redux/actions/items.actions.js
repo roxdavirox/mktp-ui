@@ -1,3 +1,9 @@
+export const GET_ITEMS_BY_OPTION_ID_BEGIN = "GET_ITEMS_BY_OPTION_ID_BEGIN";
+
+export const getItemsByOptionsIdBegin = () => ({
+  type: GET_ITEMS_BY_OPTION_ID_BEGIN
+});
+
 export const OPEN_FORM_DIALOG = "OPEN_FORM_DIALOG";
 
 export const openFormDialog = idItem => ({

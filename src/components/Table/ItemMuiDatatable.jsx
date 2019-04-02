@@ -1,5 +1,9 @@
 import React from "react";
 import CustomMUIDataTable from "./MuiDatatables";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+import { getItemsByOptionsIdBegin } from "../../redux/actions/items.actions";
 
 class ItemMuiDatatable extends React.Component {
   state = {
@@ -44,6 +48,12 @@ class ItemMuiDatatable extends React.Component {
     }
   };
 
+  componentDidMount = () => {
+    const { getItemsByOptionsIdBegin } = this.props;
+
+    getItemsByOptionsIdBegin();
+  };
+
   render() {
     const { data } = this.props;
     const { columns, options } = this.state;
@@ -61,4 +71,18 @@ class ItemMuiDatatable extends React.Component {
   }
 }
 
-export default ItemMuiDatatable;
+ItemMuiDatatable.propTypes = {
+  idItem: PropTypes.string.isRequired,
+  getItemsByOptionsIdBegin: PropTypes.func.isRequired,
+  data: PropTypes.any.isRequired
+};
+
+const mapStateToProps = store => ({
+  data: store.itemsState.items,
+  idItem: store.itemsState.idItem
+});
+
+export default connect(
+  mapStateToProps,
+  { getItemsByOptionsIdBegin }
+)(ItemMuiDatatable);

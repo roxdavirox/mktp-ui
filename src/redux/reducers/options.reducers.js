@@ -50,7 +50,7 @@ export default function(state = initialState, action) {
         openAlert: true
       };
     }
-    
+
     case POST_OPTION_SUCCESS: {
       const { option } = action.playload;
 
