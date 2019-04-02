@@ -22,7 +22,7 @@ class ItemMuiDatatable extends React.Component {
         label: "Tabela de preço",
         options: {
           sort: true,
-          filter: false,
+          filter: true,
           // eslint-disable-next-line react/display-name
           // eslint-disable-next-line no-unused-vars
           customBodyRender: (value, tableMeta) => (
