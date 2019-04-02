@@ -12,7 +12,8 @@ import CustomAddButton from "components/CustomButtons/CustomAddButton.jsx";
 import { connect } from "react-redux";
 import {
   openFormDialog,
-  closeFormDialog
+  closeFormDialog,
+  postItemBegin
 } from "../../redux/actions/items.actions";
 
 class CustomEditOptionDialog extends React.Component {
@@ -45,7 +46,10 @@ class CustomEditOptionDialog extends React.Component {
               <CustomAddButton
                 title="Adicionar item"
                 onClick={() => {
-                  console.log(this.state.inputValue);
+                  const { inputValue } = this.state;
+                  const { postItemBegin } = this.props;
+
+                  postItemBegin(inputValue);
                   this.setState({ inputValue: "" });
                 }}
               />
@@ -73,7 +77,8 @@ class CustomEditOptionDialog extends React.Component {
 CustomEditOptionDialog.propTypes = {
   openDialog: PropTypes.any.isRequired,
   closeFormDialog: PropTypes.func.isRequired,
-  data: PropTypes.any.isRequired
+  data: PropTypes.any.isRequired,
+  postItemBegin: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -83,5 +88,5 @@ const mapStateToProps = store => ({
 
 export default connect(
   mapStateToProps,
-  { openFormDialog, closeFormDialog }
+  { openFormDialog, closeFormDialog, postItemBegin }
 )(CustomEditOptionDialog);

@@ -24,6 +24,7 @@ class ItemMuiDatatable extends React.Component {
           sort: false,
           filter: false,
           // eslint-disable-next-line react/display-name
+          // eslint-disable-next-line no-unused-vars
           customBodyRender: (value, tableMeta) => (
             <h6>Selecionar tabela de preço</h6>
           )

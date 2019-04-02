@@ -15,7 +15,9 @@ export const POST_ITEM_BEGIN = "POST_ITEM_BEGIN";
 
 export const postItemBegin = itemName => ({
   type: POST_ITEM_BEGIN,
-  playload: { name: itemName }
+  playload: {
+    item: { name: itemName }
+  }
 });
 
 export const POST_ITEM_SUCCESS = "POST_ITEM_SUCCESS";

@@ -2,7 +2,8 @@ import {
   GET_ITEMS_BY_OPTION_ID_BEGIN,
   GET_ITEMS_SUCCESS,
   OPEN_FORM_DIALOG,
-  CLOSE_FORM_DIALOG
+  CLOSE_FORM_DIALOG,
+  POST_ITEM_BEGIN
 } from "../actions/items.actions";
 
 const initialState = {
@@ -49,6 +50,15 @@ export default function(state = initialState, action) {
         ...state,
         openDialog,
         idOption: null
+      };
+    }
+
+    case POST_ITEM_BEGIN: {
+      const { item } = action.playload;
+
+      return {
+        ...state,
+        items: [...state.items, item]
       };
     }
 
