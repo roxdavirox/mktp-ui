@@ -1,6 +1,8 @@
 import options from "./options.reducers";
+import items from "./items.reducers";
 import { combineReducers } from "redux";
 
 export const reducers = combineReducers({
-  optionsState: options
+  optionsState: options,
+  itemsState: items
 });

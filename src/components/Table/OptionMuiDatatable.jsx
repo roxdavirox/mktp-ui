@@ -10,6 +10,7 @@ import EditIcon from "components/CustomIcons/EditIcon";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
 import CustomLoadingSkeleton from "components/LoadingSkeleton/CustomLoadingSkeleton.jsx";
 import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
+import CustomFormDialog from "components/CustomDialog/CustomFormDialog.jsx";
 
 import {
   postOptionBegin,
@@ -18,6 +19,8 @@ import {
   showAlert,
   hideAlert
 } from "../../redux/actions/options.actions";
+
+import { openFormDialog } from "../../redux/actions/items.actions";
 
 const optionStyle = {
   EditCell: { textAlign: "right" },
@@ -62,7 +65,10 @@ class OptionMuiDataTable extends React.Component {
           customBodyRender: (value, tableMeta) => (
             <EditIcon
               key={tableMeta.columnIndex}
-              onClick={() => alert(value)}
+              onClick={() => {
+                const { openFormDialog } = this.props;
+                openFormDialog(value);
+              }}
             />
           ),
           setCellProps: () => {
@@ -133,6 +139,7 @@ class OptionMuiDataTable extends React.Component {
     return (
       <div>
         {openAlert && sweetAlert}
+        <CustomFormDialog />
         <CustomMUIDataTable
           title={"Opções"}
           data={data}
@@ -152,12 +159,16 @@ OptionMuiDataTable.propTypes = {
   classes: PropTypes.object.isRequired,
   openAlert: PropTypes.any.isRequired,
   showAlert: PropTypes.any.isRequired,
-  hideAlert: PropTypes.any.isRequired
+  hideAlert: PropTypes.any.isRequired,
+  enqueueSnackbar: PropTypes.any.isRequired,
+  openFormDialog: PropTypes.any.isRequired,
+  openDialog: PropTypes.any.isRequired
 };
 
 const mapStateToProps = store => ({
   data: store.optionsState.options,
-  openAlert: store.optionsState.openAlert
+  openAlert: store.optionsState.openAlert,
+  openDialog: store.itemsState.openDialog
 });
 
 const wrappedMuiDatatable = withSnackbar(
@@ -171,6 +182,7 @@ export default connect(
     deleteOptionsBegin,
     fetchOptionsBegin,
     showAlert,
-    hideAlert
+    hideAlert,
+    openFormDialog
   }
 )(wrappedMuiDatatable);
