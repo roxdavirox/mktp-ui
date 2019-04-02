@@ -99,7 +99,7 @@ class OptionMuiDataTable extends React.Component {
   };
 
   handleRowsDelete = rows => {
-    const { deleteOptionsBegin, data: options } = this.props;
+    const { deleteOptionsBegin, enqueueSnackbar, data: options } = this.props;
 
     const { data: dataRows } = rows;
 
@@ -107,7 +107,7 @@ class OptionMuiDataTable extends React.Component {
 
     const deletedOptionsIds = indexRows.map(index => options[index].id);
 
-    deleteOptionsBegin(deletedOptionsIds);
+    deleteOptionsBegin(deletedOptionsIds, enqueueSnackbar);
   };
 
   handleInput = value => {

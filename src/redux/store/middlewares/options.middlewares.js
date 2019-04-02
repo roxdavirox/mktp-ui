@@ -63,7 +63,7 @@ export const deleteOptionsMiddleware = ({
   getState
 }) => next => action => {
   if (action.type === DELETE_OPTIONS_BEGIN) {
-    const { deletedOptionsIds } = action.playload;
+    const { deletedOptionsIds, snack } = action.playload;
 
     const { options: prevOptions } = getState().optionsState;
 
@@ -91,6 +91,7 @@ export const deleteOptionsMiddleware = ({
       .then(count => {
         if (count) {
           dispatch(deleteOptionsSuccess(options));
+          snack(`${count} opç${count == 1 ? "ão deletada" : "ões deletadas"}`);
         }
 
         return count;

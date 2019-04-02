@@ -42,9 +42,9 @@ export const postOptionFailure = error => ({
 // delete options rows
 export const DELETE_OPTIONS_BEGIN = "DELETE_OPTIONS_BEGIN";
 
-export const deleteOptionsBegin = deletedOptionsIds => ({
+export const deleteOptionsBegin = (deletedOptionsIds, snack) => ({
   type: DELETE_OPTIONS_BEGIN,
-  playload: { deletedOptionsIds }
+  playload: { deletedOptionsIds, snack }
 });
 
 export const DELETE_OPTIONS_SUCCESS = "DELETE_OPTIONS_SUCCESS";
