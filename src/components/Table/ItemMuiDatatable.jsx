@@ -21,7 +21,7 @@ class ItemMuiDatatable extends React.Component {
         name: "priceRange",
         label: "Tabela de preço",
         options: {
-          sort: false,
+          sort: true,
           filter: false,
           // eslint-disable-next-line react/display-name
           // eslint-disable-next-line no-unused-vars
