@@ -10,7 +10,7 @@ import EditIcon from "components/CustomIcons/EditIcon";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
 import CustomLoadingSkeleton from "components/LoadingSkeleton/CustomLoadingSkeleton.jsx";
 import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
-import CustomFormDialog from "components/CustomDialog/CustomFormDialog.jsx";
+import CustomEditOptionDialog from "components/CustomDialog/CustomEditOptionDialog.jsx";
 
 import {
   postOptionBegin,
@@ -139,7 +139,7 @@ class OptionMuiDataTable extends React.Component {
     return (
       <div>
         {openAlert && sweetAlert}
-        <CustomFormDialog />
+        <CustomEditOptionDialog />
         <CustomMUIDataTable
           title={"Opções"}
           data={data}

@@ -15,7 +15,7 @@ import {
   closeFormDialog
 } from "../../redux/actions/items.actions";
 
-class FormDialog extends React.Component {
+class CustomEditOptionDialog extends React.Component {
   render() {
     const data = [["Acrilico 3mm", "1234"], ["Acrilico 4mm", "4321"]];
 
@@ -36,7 +36,10 @@ class FormDialog extends React.Component {
                 label="Nome do item"
                 fullWidth
               />
-              <CustomAddButton onClick={() => console.log("click")} />
+              <CustomAddButton
+                title="Adicionar item"
+                onClick={() => console.log("click")}
+              />
             </div>
 
             <ItemMuiDatatable data={data} />
@@ -58,7 +61,7 @@ class FormDialog extends React.Component {
   }
 }
 
-FormDialog.propTypes = {
+CustomEditOptionDialog.propTypes = {
   openDialog: PropTypes.any.isRequired,
   closeFormDialog: PropTypes.func.isRequired
 };
@@ -70,4 +73,4 @@ const mapStateToProps = store => ({
 export default connect(
   mapStateToProps,
   { openFormDialog, closeFormDialog }
-)(FormDialog);
+)(CustomEditOptionDialog);
