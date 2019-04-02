@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
+import { withSnackbar } from "notistack";
 
 import EditIcon from "components/CustomIcons/EditIcon";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
@@ -110,10 +111,11 @@ class OptionMuiDataTable extends React.Component {
   };
 
   handleInput = value => {
-    const { postOptionBegin } = this.props;
+    const { postOptionBegin, enqueueSnackbar } = this.props;
 
     if (value) {
-      postOptionBegin(value);
+      enqueueSnackbar("Adicionando opção " + value);
+      postOptionBegin(value, enqueueSnackbar);
       this.setState({ inputValue: value });
     }
   };
@@ -158,7 +160,9 @@ const mapStateToProps = store => ({
   openAlert: store.optionsState.openAlert
 });
 
-const wrappedMuiDatatable = withStyles(optionStyle)(OptionMuiDataTable);
+const wrappedMuiDatatable = withSnackbar(
+  withStyles(optionStyle)(OptionMuiDataTable)
+);
 
 export default connect(
   mapStateToProps,

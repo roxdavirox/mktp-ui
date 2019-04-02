@@ -15,7 +15,7 @@ const apiOptions = "https://mktp.azurewebsites.net/api/options";
 
 export const postOptionMiddleware = ({ dispatch }) => next => action => {
   if (action.type === POST_OPTION_BEGIN) {
-    const { optionName } = action.playload;
+    const { optionName, snack } = action.playload;
 
     const option = {
       name: optionName
@@ -32,8 +32,14 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
 
     fetch(apiOptions, request)
       .then(res => res.json())
-      .then(option => dispatch(postOptionSuccess(option)))
-      .catch(error => dispatch(postOptionFailure(error)))
+      .then(option => {
+        snack(`Opção ${optionName} adicionada com sucesso!`);
+        dispatch(postOptionSuccess(option));
+      })
+      .catch(error => {
+        snack(`Error: ${error}`);
+        dispatch(postOptionFailure(error));
+      })
       .finally(() => dispatch(hideAlert()));
   }
 

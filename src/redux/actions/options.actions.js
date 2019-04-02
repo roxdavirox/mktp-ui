@@ -20,9 +20,9 @@ export const fetchOptionsFailure = error => ({
 // add new option
 export const POST_OPTION_BEGIN = "POST_OPTION_BEGIN";
 
-export const postOptionBegin = optionName => ({
+export const postOptionBegin = (optionName, snack) => ({
   type: POST_OPTION_BEGIN,
-  playload: { optionName }
+  playload: { optionName, snack }
 });
 
 export const POST_OPTION_SUCCESS = "POST_OPTION_SUCCESS";

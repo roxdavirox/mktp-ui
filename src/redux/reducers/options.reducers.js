@@ -44,12 +44,13 @@ export default function(state = initialState, action) {
         error: action.playload.error
       };
 
-    case POST_OPTION_BEGIN:
+    case POST_OPTION_BEGIN: {
       return {
         ...state,
         openAlert: true
       };
-
+    }
+    
     case POST_OPTION_SUCCESS: {
       const { option } = action.playload;
 
