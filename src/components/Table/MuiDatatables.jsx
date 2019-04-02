@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const CustomMUIDataTable = ({ title, data, columns, options }) => (
   <MUIDataTable
-    title={title ? title : "Titulo"}
+    title={title ? title : ""}
     data={data}
     columns={columns}
     options={options}
