@@ -88,13 +88,14 @@ export const deleteOptionsMiddleware = ({
 
     fetch(apiOptions, request)
       .then(res => res.json())
-      .then(count => {
-        if (count) {
+      .then(res => {
+        if (res.deletedOptionsCount) {
+          const count = res.deletedOptionsCount;
           dispatch(deleteOptionsSuccess(options));
           snack(`${count} opç${count == 1 ? "ão deletada" : "ões deletadas"}`);
         }
 
-        return count;
+        return res;
       })
       .catch(error => dispatch(deleteOptionsFailure(error)));
   }
