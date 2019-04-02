@@ -31,7 +31,7 @@ class CustomEditOptionDialog extends React.Component {
           // onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Editar Opção</DialogTitle>
+          <DialogTitle id="form-dialog-title">Editar itens</DialogTitle>
           <DialogContent>
             <div style={{ display: "flex" }}>
               <TextField

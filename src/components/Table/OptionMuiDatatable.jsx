@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import { withSnackbar } from "notistack";
 
-import EditIcon from "components/CustomIcons/EditIcon";
+import BallotIcon from "components/CustomIcons/BallotIcon";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
 import CustomLoadingSkeleton from "components/LoadingSkeleton/CustomLoadingSkeleton.jsx";
 import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
@@ -63,7 +63,7 @@ class OptionMuiDataTable extends React.Component {
           filter: false,
           // eslint-disable-next-line react/display-name
           customBodyRender: (value, tableMeta) => (
-            <EditIcon
+            <BallotIcon
               key={tableMeta.columnIndex}
               onClick={() => {
                 const { openFormDialog } = this.props;

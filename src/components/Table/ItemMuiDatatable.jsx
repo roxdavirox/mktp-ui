@@ -71,7 +71,7 @@ class ItemMuiDatatable extends React.Component {
     return (
       <div>
         <CustomMUIDataTable
-          title={"Itens"}
+          title={""}
           data={data}
           columns={columns}
           options={options}
