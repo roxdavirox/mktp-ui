@@ -32,6 +32,9 @@ class ItemMuiDatatable extends React.Component {
       filter: false,
       viewColumns: false,
       rowHover: false,
+      rowsPerPageOptions: [5, 10, 15],
+      rowsPerPage: 5,
+      responsive: "stacked",
       textLabels: {
         body: {
           noMatch: <h6>Nenhum item encontrado</h6>
