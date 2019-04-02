@@ -2,7 +2,8 @@ import {
   GET_ITEMS_BY_OPTION_ID_BEGIN,
   getItemsSuccess,
   POST_ITEM_BEGIN,
-  postItemSuccess
+  postItemSuccess,
+  postItemFailure
 } from "../../actions/items.actions";
 
 const url = "https://mktp.azurewebsites.net/api";
@@ -30,8 +31,6 @@ export const postItemMiddleware = ({
     const { item } = action.playload;
     const { idOption } = getState().itemsState;
 
-    console.log('item', item);
-
     const request = {
       method: "POST",
       headers: {
@@ -43,7 +42,8 @@ export const postItemMiddleware = ({
 
     fetch(`${url}/options/${idOption}/items`, request)
       .then(res => res.json())
-      .then(res => console.log(res));
+      .then(item => dispatch(postItemSuccess(item)))
+      .catch(error => dispatch(postItemFailure(error)));
   }
 
   next(action);

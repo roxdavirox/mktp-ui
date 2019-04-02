@@ -3,7 +3,8 @@ import {
   GET_ITEMS_SUCCESS,
   OPEN_FORM_DIALOG,
   CLOSE_FORM_DIALOG,
-  POST_ITEM_BEGIN
+  POST_ITEM_BEGIN,
+  POST_ITEM_SUCCESS
 } from "../actions/items.actions";
 
 const initialState = {
@@ -54,6 +55,12 @@ export default function(state = initialState, action) {
     }
 
     case POST_ITEM_BEGIN: {
+      return {
+        ...state
+      };
+    }
+
+    case POST_ITEM_SUCCESS: {
       const { item } = action.playload;
 
       return {

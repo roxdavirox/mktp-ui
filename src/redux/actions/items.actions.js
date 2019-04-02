@@ -27,6 +27,13 @@ export const postItemSuccess = item => ({
   playload: { item }
 });
 
+export const POST_ITEM_FAILURE = "POST_ITEM_FAILURE";
+
+export const postItemFailure = error => ({
+  type: POST_ITEM_FAILURE,
+  playload: { error }
+});
+
 export const OPEN_FORM_DIALOG = "OPEN_FORM_DIALOG";
 
 export const openFormDialog = idOption => ({
