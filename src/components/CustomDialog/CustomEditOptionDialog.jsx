@@ -12,6 +12,7 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Close from "@material-ui/icons/Close";
 
+import { withSnackbar } from "notistack";
 import withStyles from "@material-ui/core/styles/withStyles";
 import validationFormsStyle from "assets/jss/material-dashboard-pro-react/views/validationFormsStyle.jsx";
 
@@ -40,7 +41,7 @@ class CustomEditOptionDialog extends React.Component {
   };
 
   render() {
-    const { data, classes } = this.props;
+    const { data, classes, enqueueSnackbar } = this.props;
 
     return (
       <div>
@@ -96,7 +97,12 @@ class CustomEditOptionDialog extends React.Component {
                     return;
                   }
 
-                  postItemBegin(inputValue);
+                  enqueueSnackbar(`Adicionando item ${inputValue}`, {
+                    variant: "info",
+                    autoHideDuration: 2000
+                  });
+
+                  postItemBegin(inputValue, enqueueSnackbar);
                   this.setState({ inputValue: "" });
                 }}
               />
@@ -126,7 +132,8 @@ CustomEditOptionDialog.propTypes = {
   closeFormDialog: PropTypes.func.isRequired,
   data: PropTypes.any.isRequired,
   postItemBegin: PropTypes.func.isRequired,
-  classes: PropTypes.any.isRequired
+  classes: PropTypes.any.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -134,9 +141,11 @@ const mapStateToProps = store => ({
   data: store.itemsState.items
 });
 
-export default withStyles(validationFormsStyle)(
+const styledEditOptionDialog = withStyles(validationFormsStyle)(
   connect(
     mapStateToProps,
     { openFormDialog, closeFormDialog, postItemBegin }
   )(CustomEditOptionDialog)
 );
+
+export default withSnackbar(styledEditOptionDialog);
