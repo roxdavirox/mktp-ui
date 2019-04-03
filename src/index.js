@@ -8,7 +8,16 @@ import AdminLayout from "layouts/Admin.jsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import "assets/scss/material-dashboard-pro-react.scss?v=1.5.0";
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiDialog: {
+      container: { height: "auto" }
+    }
+  }
+});
 
 const hist = createBrowserHistory();
 
@@ -24,7 +33,9 @@ const Routers = () => (
 
 ReactDOM.render(
   <Provider store={store}>
-    <Routers />
+    <MuiThemeProvider theme={theme}>
+      <Routers />
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById("root")
 );
