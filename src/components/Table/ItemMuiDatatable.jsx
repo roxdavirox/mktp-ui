@@ -75,7 +75,7 @@ class ItemMuiDatatable extends React.Component {
 
     const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
 
-    const deletedItemsIds = indexRows.map(index => items[index].id);
+    const deletedItemsIds = indexRows.map(index => items[index].idItem);
 
     deleteItemsBegin(deletedItemsIds, enqueueSnackbar);
   };
