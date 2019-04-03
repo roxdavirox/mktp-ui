@@ -52,7 +52,7 @@ class CustomEditOptionDialog extends React.Component {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Editar itens</DialogTitle>
-          <DialogContent>
+          <DialogContent style={{ overflowY: "hidden" }}>
             <div style={{ display: "flex" }}>
               <CustomInput
                 success={this.state.minLength === "success"}
