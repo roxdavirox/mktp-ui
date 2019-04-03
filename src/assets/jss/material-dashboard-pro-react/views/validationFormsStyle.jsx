@@ -37,6 +37,10 @@ const validationFormsStyle = {
   },
   dialogPaper: {
     maxHeight: "100%"
+  },
+  containerDialog: {
+    heigth: "auto",
+    outline: "none"
   }
 };
 
