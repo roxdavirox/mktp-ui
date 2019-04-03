@@ -4,7 +4,10 @@ import {
   OPEN_FORM_DIALOG,
   CLOSE_FORM_DIALOG,
   POST_ITEM_BEGIN,
-  POST_ITEM_SUCCESS
+  POST_ITEM_SUCCESS,
+  DELETE_ITEMS_BEGIN,
+  DELETE_ITEMS_SUCCESS,
+  DELETE_ITEMS_FAILURE
 } from "../actions/items.actions";
 
 const initialState = {
@@ -66,6 +69,29 @@ export default function(state = initialState, action) {
       return {
         ...state,
         items: [...state.items, item]
+      };
+    }
+
+    case DELETE_ITEMS_BEGIN:
+      return {
+        ...state
+      };
+
+    case DELETE_ITEMS_SUCCESS: {
+      const { items } = action.playload;
+
+      return {
+        ...state,
+        items
+      };
+    }
+
+    case DELETE_ITEMS_FAILURE: {
+      const { error } = action.playload;
+
+      return {
+        ...state,
+        error
       };
     }
 
