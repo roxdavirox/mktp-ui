@@ -3,8 +3,12 @@ import CustomMUIDataTable from "./MuiDatatables";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import ItemLoadingSkeleton from "components/LoadingSkeleton/ItemLoadingSkeleton.jsx";
+import { withSnackbar } from "notistack";
 
-import { getItemsByOptionsIdBegin } from "../../redux/actions/items.actions";
+import {
+  getItemsByOptionsIdBegin,
+  deleteItemsBegin
+} from "../../redux/actions/items.actions";
 
 class ItemMuiDatatable extends React.Component {
   state = {
@@ -53,8 +57,8 @@ class ItemMuiDatatable extends React.Component {
         body: {
           noMatch: <ItemLoadingSkeleton />
         }
-      }
-      // onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
+      },
+      onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     }
   };
 
@@ -62,6 +66,18 @@ class ItemMuiDatatable extends React.Component {
     const { getItemsByOptionsIdBegin } = this.props;
 
     getItemsByOptionsIdBegin();
+  };
+
+  handleRowsDelete = rows => {
+    const { deleteItemsBegin, enqueueSnackbar, data: items } = this.props;
+
+    const { data: dataRows } = rows;
+
+    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
+
+    const deletedItemsIds = indexRows.map(index => items[index].id);
+
+    deleteItemsBegin(deletedItemsIds, enqueueSnackbar);
   };
 
   render() {
@@ -92,5 +108,5 @@ const mapStateToProps = store => ({
 
 export default connect(
   mapStateToProps,
-  { getItemsByOptionsIdBegin }
-)(ItemMuiDatatable);
+  { getItemsByOptionsIdBegin, deleteItemsBegin }
+)(withSnackbar(ItemMuiDatatable));
