@@ -99,7 +99,9 @@ class ItemMuiDatatable extends React.Component {
 
 ItemMuiDatatable.propTypes = {
   getItemsByOptionsIdBegin: PropTypes.func.isRequired,
-  data: PropTypes.any.isRequired
+  data: PropTypes.any.isRequired,
+  deleteItemsBegin: PropTypes.func.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
