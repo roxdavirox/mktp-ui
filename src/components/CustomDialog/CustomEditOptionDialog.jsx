@@ -25,7 +25,8 @@ import {
 class CustomEditOptionDialog extends React.Component {
   state = {
     inputValue: "",
-    minLength: ""
+    minLength: "",
+    labelText: ""
   };
 
   verifyMinLength = (value, length) => {
@@ -54,13 +55,19 @@ class CustomEditOptionDialog extends React.Component {
               <CustomInput
                 success={this.state.minLength === "success"}
                 error={this.state.minLength === "error"}
+                labelText={
+                  this.state.minLength === "error" ? this.state.labelText : ""
+                }
                 id="minlength"
                 formControlProps={{
                   fullWidth: true
                 }}
                 inputProps={{
                   onChange: e => {
-                    this.setState({ inputValue: e.target.value });
+                    this.setState({
+                      inputValue: e.target.value,
+                      labelText: ""
+                    });
                     this.change(e.target.value);
                   },
                   type: "text",
@@ -81,7 +88,13 @@ class CustomEditOptionDialog extends React.Component {
                 onClick={() => {
                   const { inputValue } = this.state;
                   const { postItemBegin } = this.props;
-                  if (!this.verifyMinLength(inputValue, 4)) return;
+                  if (!this.verifyMinLength(inputValue, 4)) {
+                    this.setState({
+                      minLength: "error",
+                      labelText: "O nome deve conter no minimo 3 caracteres"
+                    });
+                    return;
+                  }
 
                   postItemBegin(inputValue);
                   this.setState({ inputValue: "" });
