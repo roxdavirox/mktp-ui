@@ -83,7 +83,6 @@ export const deleteItemsMiddleware = ({
       .then(res => {
         const { deletedItemsCount: count } = res;
         if (count) {
-          dispatch(deleteItemsSuccess(items));
           snack(`${count} ite${count == 1 ? "m deletado" : "ns deletados"}`, {
             variant: "success",
             autoHideDuration: 2000
@@ -91,6 +90,7 @@ export const deleteItemsMiddleware = ({
         }
         return res;
       })
+      .then(() => dispatch(deleteItemsSuccess(items)))
       .catch(error => dispatch(deleteItemsFailure(error)));
   }
 
