@@ -46,7 +46,9 @@ class CustomEditOptionDialog extends React.Component {
     return (
       <div>
         <Dialog
-          classes={{ paper: classes.dialogPaper }}
+          classes={{
+            paper: classes.dialogPaper
+          }}
           open={this.props.openDialog}
           // onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
@@ -147,11 +149,11 @@ const mapStateToProps = store => ({
   data: store.itemsState.items
 });
 
-const styledEditOptionDialog = withStyles(validationFormsStyle)(
-  connect(
-    mapStateToProps,
-    { openFormDialog, closeFormDialog, postItemBegin }
-  )(CustomEditOptionDialog)
-);
+const connectedEditOptionDialog = connect(
+  mapStateToProps,
+  { openFormDialog, closeFormDialog, postItemBegin }
+)(CustomEditOptionDialog);
 
-export default withSnackbar(styledEditOptionDialog);
+const CustomEditDialog = withSnackbar(connectedEditOptionDialog);
+
+export default withStyles(validationFormsStyle)(CustomEditDialog);
