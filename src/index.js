@@ -13,6 +13,11 @@ import "assets/scss/material-dashboard-pro-react.scss?v=1.5.0";
 
 const theme = createMuiTheme({
   overrides: {
+    MuiModal: {
+      root: {
+        overflowY: "auto"
+      }
+    },
     MuiDialog: {
       container: { height: "auto" }
     }
