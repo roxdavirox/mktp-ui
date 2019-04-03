@@ -73,7 +73,7 @@ export const deleteItemsMiddleware = ({
       method: "DELETE",
       headers: {
         Accept: "application/json",
-        "Content-Type": "applicatino/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(body)
     };
