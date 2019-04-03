@@ -31,7 +31,7 @@ export const postItemMiddleware = ({
   getState
 }) => next => action => {
   if (action.type === POST_ITEM_BEGIN) {
-    const { item } = action.playload;
+    const { item, snack } = action.playload;
     const { idOption } = getState().itemsState;
 
     const request = {
@@ -45,8 +45,17 @@ export const postItemMiddleware = ({
 
     fetch(`${url}/options/${idOption}/items`, request)
       .then(res => res.json())
-      .then(item => dispatch(postItemSuccess(item)))
-      .catch(error => dispatch(postItemFailure(error)));
+      .then(item => {
+        dispatch(postItemSuccess(item));
+        snack(`Item ${item.name} adicionado com sucesso!`, {
+          variant: "success",
+          autoHideDuration: 2000
+        });
+      })
+      .catch(error => {
+        snack(`Error: ${error}`);
+        dispatch(postItemFailure(error));
+      });
   }
 
   next(action);
