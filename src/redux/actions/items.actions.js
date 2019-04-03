@@ -47,3 +47,25 @@ export const closeFormDialog = () => ({
   type: CLOSE_FORM_DIALOG,
   playload: { openDialog: false }
 });
+
+// delete options rows
+export const DELETE_ITEMS_BEGIN = "DELETE_ITEMS_BEGIN";
+
+export const deleteItemsBegin = (deletedItemsIds, snack) => ({
+  type: DELETE_ITEMS_BEGIN,
+  playload: { deletedItemsIds, snack }
+});
+
+export const DELETE_ITEMS_SUCCESS = "DELETE_ITEMS_SUCCESS";
+
+export const deleteItemsSuccess = items => ({
+  type: DELETE_ITEMS_SUCCESS,
+  playload: { items }
+});
+
+export const DELETE_ITEMS_FAILURE = "DELETE_ITEMS_FAILURE";
+
+export const deleteItemsFailure = error => ({
+  type: DELETE_ITEMS_FAILURE,
+  playload: { error }
+});
