@@ -46,6 +46,7 @@ class CustomEditOptionDialog extends React.Component {
     return (
       <div>
         <Dialog
+          classes={{ paper: classes.dialogPaper }}
           open={this.props.openDialog}
           // onClose={this.handleClose}
           aria-labelledby="form-dialog-title"

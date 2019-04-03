@@ -34,6 +34,9 @@ const validationFormsStyle = {
   },
   danger: {
     color: dangerColor[0] + "!important"
+  },
+  dialogPaper: {
+    maxHeight: "100%"
   }
 };
 
