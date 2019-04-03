@@ -13,10 +13,11 @@ export const getItemsSuccess = items => ({
 
 export const POST_ITEM_BEGIN = "POST_ITEM_BEGIN";
 
-export const postItemBegin = itemName => ({
+export const postItemBegin = (itemName, snack) => ({
   type: POST_ITEM_BEGIN,
   playload: {
-    item: { name: itemName }
+    item: { name: itemName },
+    snack
   }
 });
 
