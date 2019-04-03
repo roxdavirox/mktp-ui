@@ -33,7 +33,10 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
     fetch(apiOptions, request)
       .then(res => res.json())
       .then(option => {
-        snack(`Opção ${optionName} adicionada com sucesso!`);
+        snack(`Opção ${optionName} adicionada com sucesso!`, {
+          variant: "success",
+          autoHideDuration: 2000
+        });
         dispatch(postOptionSuccess(option));
       })
       .catch(error => {
@@ -92,7 +95,10 @@ export const deleteOptionsMiddleware = ({
         if (res.deletedOptionsCount) {
           const count = res.deletedOptionsCount;
           dispatch(deleteOptionsSuccess(options));
-          snack(`${count} opç${count == 1 ? "ão deletada" : "ões deletadas"}`);
+          snack(`${count} opç${count == 1 ? "ão deletada" : "ões deletadas"}`, {
+            variant: "success",
+            autoHideDuration: 2000
+          });
         }
 
         return res;

@@ -120,7 +120,10 @@ class OptionMuiDataTable extends React.Component {
     const { postOptionBegin, enqueueSnackbar } = this.props;
 
     if (value) {
-      enqueueSnackbar("Adicionando opção " + value);
+      enqueueSnackbar("Adicionando opção " + value, {
+        variant: "info",
+        autoHideDuration: 2000
+      });
       postOptionBegin(value, enqueueSnackbar);
       this.setState({ inputValue: value });
     }

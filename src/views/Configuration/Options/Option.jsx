@@ -5,7 +5,13 @@ import { SnackbarProvider } from "notistack";
 import OptionMuiDatatable from "components/Table/OptionMuiDatatable";
 
 const Option = () => (
-  <SnackbarProvider maxSnack={2}>
+  <SnackbarProvider
+    maxSnack={2}
+    anchorOrigin={{
+      vertical: "top",
+      horizontal: "right"
+    }}
+  >
     <OptionMuiDatatable />
   </SnackbarProvider>
 );
