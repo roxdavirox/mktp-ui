@@ -62,7 +62,7 @@ export const deleteItemsMiddleware = ({
     const { items: prevItems } = getState().itemsState;
 
     const items = prevItems.filter(
-      ({ id }) => deletedItemsIds.indexOf(id) === -1
+      ({ idItem }) => deletedItemsIds.indexOf(idItem) === -1
     );
 
     const body = {
