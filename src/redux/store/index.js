@@ -5,11 +5,14 @@ import {
   deleteOptionsMiddleware,
   fetchOptionsMiddleware
 } from "./middlewares/options.middlewares";
+
 import {
   getItemsMiddleware,
   postItemMiddleware,
   deleteItemsMiddleware
 } from "./middlewares/items.middlewares";
+
+import { fetchPricesRangeMiddleware } from "./middlewares/pricesRange.middlewares";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -22,7 +25,8 @@ export const store = createStore(
       fetchOptionsMiddleware,
       getItemsMiddleware,
       postItemMiddleware,
-      deleteItemsMiddleware
+      deleteItemsMiddleware,
+      fetchPricesRangeMiddleware
     )
   )
 );
