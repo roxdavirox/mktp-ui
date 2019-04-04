@@ -2,7 +2,7 @@ import React from "react";
 import CustomMUIDataTable from "./MuiDatatables";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import CustomLoadingSkeleton from "components/LoadingSkeleton/CustomLoadingSkeleton.jsx";
+import PricesRangeLoadingSkeleton from "components/LoadingSkeleton/PricesRangeLoadingSkeleton.jsx";
 
 import { fetchPricesRangeBegin } from "../../redux/actions/pricesRange.actions";
 
@@ -30,13 +30,14 @@ class PriceTableMuiDatatable extends React.Component {
       filterType: "checkbox",
       textLabels: {
         body: {
-          noMatch: <CustomLoadingSkeleton />
+          noMatch: <PricesRangeLoadingSkeleton />
         }
       }
     }
   };
 
-  componentDidMount = ({ fetchPricesRangeBegin }) => {
+  componentDidMount = () => {
+    const { fetchPricesRangeBegin } = this.props;
     fetchPricesRangeBegin();
   };
 
