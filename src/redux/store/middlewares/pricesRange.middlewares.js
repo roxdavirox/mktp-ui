@@ -6,7 +6,7 @@ import {
 
 const url = "https://mktp.azurewebsites.net/api/PriceRange";
 
-export const fetchPricesRangeBegin = ({ dispatch }) => next => action => {
+export const fetchPricesRangeMiddleware = ({ dispatch }) => next => action => {
   if (action.type === FETCH_PRICES_RANGE_BEGIN) {
     fetch(url)
       .then(res => res.json())
