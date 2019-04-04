@@ -2,7 +2,8 @@ import Buttons from "views/Components/Buttons.jsx";
 import Calendar from "views/Calendar/Calendar.jsx";
 import Charts from "views/Charts/Charts.jsx";
 import Dashboard from "views/Dashboard/Dashboard.jsx";
-import Option from "./views/Configuration/Options/Option.jsx";
+import Option from "views/Configuration/Options/Option.jsx";
+import PriceTable from "views/Configuration/Price/PriceTable.jsx";
 import ErrorPage from "views/Pages/ErrorPage.jsx";
 import ExtendedForms from "views/Forms/ExtendedForms.jsx";
 import ExtendedTables from "views/Tables/ExtendedTables.jsx";
@@ -57,6 +58,13 @@ var dashRoutes = [
         name: "Opções",
         mini: "O",
         component: Option,
+        layout: "/admin"
+      },
+      {
+        path: "/configuration/price",
+        name: "Tabela de preço",
+        mini: "T",
+        component: PriceTable,
         layout: "/admin"
       }
     ]
