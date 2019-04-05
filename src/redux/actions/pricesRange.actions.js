@@ -56,3 +56,25 @@ export const postPriceRangeFailure = error => ({
   type: POST_PRICE_RANGE_FAILURE,
   playload: { error }
 });
+
+// delete prices range rows
+export const DELETE_PRICES_RANGE_BEGIN = "DELETE_PRICES_RANGE_BEGIN";
+
+export const deletePricesRangeBegin = (pricesRangesIds, snack) => ({
+  type: DELETE_PRICES_RANGE_BEGIN,
+  playload: { pricesRangesIds, snack }
+});
+
+export const DELETE_PRICES_RANGE_SUCCESS = "DELETE_PRICES_RANGE_SUCCESS";
+
+export const deletePricesRangeSuccess = pricesRange => ({
+  type: DELETE_PRICES_RANGE_SUCCESS,
+  playload: { pricesRange }
+});
+
+export const DELETE_PRICES_RANGE_FAILURE = "DELETE_PRICES_RANGE_FAILURE";
+
+export const deletePricesRangeFailure = error => ({
+  type: DELETE_PRICES_RANGE_FAILURE,
+  playload: { error }
+});
