@@ -66,7 +66,8 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
-        error: error
+        error: error,
+        openAlert: false
       };
     }
 
