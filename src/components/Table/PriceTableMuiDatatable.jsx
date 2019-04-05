@@ -11,7 +11,8 @@ import {
   fetchPricesRangeBegin,
   postPriceRangeBegin,
   showAlert,
-  hideAlert
+  hideAlert,
+  deletePricesRangeBegin
 } from "../../redux/actions/pricesRange.actions";
 
 class PriceTableMuiDatatable extends React.Component {
@@ -73,13 +74,43 @@ class PriceTableMuiDatatable extends React.Component {
             }}
           />
         );
-      }
+      },
+      onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     }
   };
 
   componentDidMount = () => {
     const { fetchPricesRangeBegin } = this.props;
     fetchPricesRangeBegin();
+  };
+
+  handleRowsDelete = rows => {
+    const {
+      deletePricesRangeBegin,
+      enqueueSnackbar,
+      data: pricesRange
+    } = this.props;
+
+    const { data: dataRows } = rows;
+
+    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
+
+    const deletedPricesRangeIds = indexRows.map(
+      index => pricesRange[index].idPriceRange
+    );
+
+    const deletedCount = deletedPricesRangeIds.length;
+    enqueueSnackbar(
+      `Deletando ${deletedCount} tabel${
+        deletedCount === 1 ? "a" : "as"
+      } de preç${deletedCount === 1 ? "o" : "os"}`,
+      {
+        variant: "info",
+        autoHideDuration: 2000
+      }
+    );
+
+    deletePricesRangeBegin(deletedPricesRangeIds, enqueueSnackbar);
   };
 
   handleInput = value => {
@@ -115,7 +146,8 @@ PriceTableMuiDatatable.propTypes = {
   showAlert: PropTypes.func.isRequired,
   postPriceRangeBegin: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
-  openAlert: PropTypes.bool.isRequired
+  openAlert: PropTypes.bool.isRequired,
+  deletePricesRangeBegin: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -127,5 +159,11 @@ const hocSnackPriceTable = withSnackbar(PriceTableMuiDatatable);
 
 export default connect(
   mapStateToProps,
-  { fetchPricesRangeBegin, postPriceRangeBegin, showAlert, hideAlert }
+  {
+    fetchPricesRangeBegin,
+    postPriceRangeBegin,
+    deletePricesRangeBegin,
+    showAlert,
+    hideAlert
+  }
 )(hocSnackPriceTable);
