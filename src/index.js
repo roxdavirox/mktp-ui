@@ -20,6 +20,9 @@ const theme = createMuiTheme({
     },
     MuiDialog: {
       container: { height: "auto" }
+    },
+    MUIDataTableSelectCell: {
+      root: { width: "10px" }
     }
   }
 });
