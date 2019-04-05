@@ -11,12 +11,16 @@ const addButtonStyle = {
 
 class CustomAddButton extends React.Component {
   render() {
-    const { classes, title, onClick } = this.props;
+    const { classes, title, onClick, ...rest } = this.props;
 
     return (
       <>
         <Tooltip title={title ? title : "custom Add"}>
-          <IconButton className={classes.iconButton} onClick={onClick}>
+          <IconButton
+            className={classes.iconButton}
+            onClick={onClick}
+            {...rest}
+          >
             <AddIcon className={classes.deleteIcon} />
           </IconButton>
         </Tooltip>

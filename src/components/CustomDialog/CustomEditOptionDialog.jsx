@@ -92,7 +92,7 @@ class CustomEditOptionDialog extends React.Component {
                 }}
               />
               <CustomAddButton
-                disabled
+                style={{ padding: "24px 24px 24px 24px" }}
                 title="Adicionar item"
                 onClick={() => {
                   const { inputValue } = this.state;

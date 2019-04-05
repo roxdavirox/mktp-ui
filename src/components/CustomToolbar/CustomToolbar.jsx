@@ -11,15 +11,19 @@ const defaultToolbarStyles = {
 class CustomToolbar extends React.Component {
   handleClick = () => {
     console.log("clicked on icon!");
-  }
+  };
 
   render() {
-    const { classes, title, onClick } = this.props;
+    const { classes, title, onClick, ...rest } = this.props;
 
     return (
       <React.Fragment>
         <Tooltip title={title ? title : "custom Add"}>
-          <IconButton className={classes.iconButton} onClick={onClick}>
+          <IconButton
+            className={classes.iconButton}
+            onClick={onClick}
+            {...rest}
+          >
             <AddIcon className={classes.deleteIcon} />
           </IconButton>
         </Tooltip>
