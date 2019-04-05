@@ -3,11 +3,25 @@ import CustomMUIDataTable from "./MuiDatatables";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import PricesRangeLoadingSkeleton from "components/LoadingSkeleton/PricesRangeLoadingSkeleton.jsx";
+import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
+import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
-import { fetchPricesRangeBegin } from "../../redux/actions/pricesRange.actions";
+import { fetchPricesRangeBegin, showAlert, hideAlert } from "../../redux/actions/pricesRange.actions";
 
 class PriceTableMuiDatatable extends React.Component {
   state = {
+    inputValue: "",
+    sweetAlert: (
+      <CustomSweetAlertInput
+        title="Adicionar opção"
+        validationMsg="Digite o nome da opção"
+        onCancel={() => {
+          const { hideAlert } = this.props;
+          hideAlert();
+        }}
+        onConfirm={value => this.handleInput(value)}
+      />
+    ),
     columns: [
       {
         name: "name",
@@ -39,6 +53,20 @@ class PriceTableMuiDatatable extends React.Component {
         body: {
           noMatch: <PricesRangeLoadingSkeleton />
         }
+      },
+      customToolbar: () => {
+        return (
+          <CustomToolbar
+            title="Adicionar Opção"
+            onClick={() => {
+              const { showAlert } = this.props;
+              showAlert();
+              this.setState({
+                inputValue: null
+              });
+            }}
+          />
+        );
       }
     }
   };
@@ -60,7 +88,9 @@ class PriceTableMuiDatatable extends React.Component {
 
 PriceTableMuiDatatable.propTypes = {
   data: PropTypes.any.isRequired,
-  fetchPricesRangeBegin: PropTypes.any.isRequired
+  fetchPricesRangeBegin: PropTypes.any.isRequired,
+  hideAlert: PropTypes.func.isRequired,
+  showAlert: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -69,5 +99,5 @@ const mapStateToProps = store => ({
 
 export default connect(
   mapStateToProps,
-  { fetchPricesRangeBegin }
+  { fetchPricesRangeBegin, showAlert, hideAlert }
 )(PriceTableMuiDatatable);

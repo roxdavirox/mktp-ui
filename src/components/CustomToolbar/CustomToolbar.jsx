@@ -9,10 +9,6 @@ const defaultToolbarStyles = {
 };
 
 class CustomToolbar extends React.Component {
-  handleClick = () => {
-    console.log("clicked on icon!");
-  };
-
   render() {
     const { classes, title, onClick, ...rest } = this.props;
 
