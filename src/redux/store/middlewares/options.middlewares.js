@@ -103,7 +103,10 @@ export const deleteOptionsMiddleware = ({
 
         return res;
       })
-      .catch(error => dispatch(deleteOptionsFailure(error)));
+      .catch(error => { 
+        snack(`Error: ${error}`);
+        dispatch(deleteOptionsFailure(error));
+      });
   }
 
   next(action);
