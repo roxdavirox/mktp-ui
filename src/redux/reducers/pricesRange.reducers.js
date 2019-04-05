@@ -6,7 +6,10 @@ import {
   SHOW_ALERT,
   POST_PRICE_RANGE_BEGIN,
   POST_PRICE_RANGE_FAILURE,
-  POST_PRICE_RANGE_SUCCESS
+  POST_PRICE_RANGE_SUCCESS,
+  DELETE_PRICES_RANGE_BEGIN,
+  DELETE_PRICES_RANGE_FAILURE,
+  DELETE_PRICES_RANGE_SUCCESS
 } from "../actions/pricesRange.actions";
 
 const initialState = {
@@ -89,6 +92,27 @@ export default function(state = initialState, action) {
         ...state,
         error,
         openAlert: false
+      };
+    }
+
+    case DELETE_PRICES_RANGE_BEGIN:
+      return { ...state };
+
+    case DELETE_PRICES_RANGE_SUCCESS: {
+      const { pricesRange } = action.playload;
+
+      return {
+        ...state,
+        pricesRange
+      };
+    }
+
+    case DELETE_PRICES_RANGE_FAILURE: {
+      const { error } = action.playload;
+
+      return {
+        ...state,
+        error
       };
     }
 
