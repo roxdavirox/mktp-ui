@@ -28,6 +28,13 @@ class PriceTableMuiDatatable extends React.Component {
     ],
     options: {
       filterType: "checkbox",
+      download: false,
+      print: false,
+      filter: false,
+      viewColumns: false,
+      rowHover: false,
+      rowsPerPageOptions: [5, 10, 15],
+      rowsPerPage: 5,
       textLabels: {
         body: {
           noMatch: <PricesRangeLoadingSkeleton />
