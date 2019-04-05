@@ -18,7 +18,6 @@ export const fetchPricesRangeFailure = error => ({
 });
 
 // alert handlers
-
 export const SHOW_ALERT = "SHOW_ALERT";
 
 export const showAlert = () => ({
@@ -31,4 +30,29 @@ export const HIDE_ALERT = "HIDE_ALERT";
 export const hideAlert = () => ({
   type: HIDE_ALERT,
   playload: { openAlert: false }
+});
+
+// add new price range
+export const POST_PRICE_RANGE_BEGIN = "POST_PRICE_RANGE_BEGIN";
+
+export const postPriceRangeBegin = (name, snack) => ({
+  type: POST_PRICE_RANGE_BEGIN,
+  playload: {
+    priceRange: { name },
+    snack
+  }
+});
+
+export const POST_PRICE_RANGE_SUCCESS = "POST_PRICE_RANGE_SUCCESS";
+
+export const postPriceRangeSuccess = priceRange => ({
+  type: POST_PRICE_RANGE_SUCCESS,
+  playload: { priceRange }
+});
+
+export const POST_PRICE_RANGE_FAILURE = "POST_PRICE_RANGE_FAILURE";
+
+export const postPriceRangeFailure = error => ({
+  type: POST_PRICE_RANGE_FAILURE,
+  playload: { error }
 });
