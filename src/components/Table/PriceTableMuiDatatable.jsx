@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import PricesRangeLoadingSkeleton from "components/LoadingSkeleton/PricesRangeLoadingSkeleton.jsx";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
+import { withSnackbar } from "notistack";
 import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
 import {
@@ -82,7 +83,7 @@ class PriceTableMuiDatatable extends React.Component {
   };
 
   handleInput = value => {
-    const { postPriceTableBegin, enqueueSnackbar } = this.props;
+    const { postPriceRangeBegin, enqueueSnackbar } = this.props;
 
     if (value) {
       enqueueSnackbar("Adicionando tabela de preço " + value, {
@@ -118,10 +119,13 @@ PriceTableMuiDatatable.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  data: store.pricesRangeState.pricesRange
+  data: store.pricesRangeState.pricesRange,
+  openAlert: store.pricesRangeState.openAlert
 });
+
+const hocSnackPriceTable = withSnackbar(PriceTableMuiDatatable);
 
 export default connect(
   mapStateToProps,
   { fetchPricesRangeBegin, postPriceRangeBegin, showAlert, hideAlert }
-)(PriceTableMuiDatatable);
+)(hocSnackPriceTable);
