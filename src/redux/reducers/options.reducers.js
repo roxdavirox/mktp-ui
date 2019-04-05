@@ -7,6 +7,7 @@ import {
   POST_OPTION_FAILURE,
   DELETE_OPTIONS_BEGIN,
   DELETE_OPTIONS_SUCCESS,
+  DELETE_OPTIONS_FAILURE,
   HIDE_ALERT,
   SHOW_ALERT
 } from "../actions/options.actions";
@@ -83,6 +84,15 @@ export default function(state = initialState, action) {
       return {
         ...state,
         options
+      };
+    }
+
+    case DELETE_OPTIONS_FAILURE: {
+      const { error } = action.playload;
+
+      return {
+        ...state,
+        error
       };
     }
 
