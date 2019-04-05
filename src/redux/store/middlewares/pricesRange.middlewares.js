@@ -35,12 +35,12 @@ export const postPriceRangeMiddleware = ({ dispatch }) => next => action => {
 
     fetch(url, request)
       .then(res => res.json())
-      .then(priceRange => {
-        snack(`Tabela de preço ${priceRange.name} adicionada com sucesso!`, {
+      .then(price => {
+        snack(`Tabela de preço ${price.name} adicionada com sucesso!`, {
           variant: "success",
           autoHideDuration: 2000
         });
-        dispatch(postPriceRangeSuccess(priceRange));
+        dispatch(postPriceRangeSuccess(price));
       })
       .catch(error => {
         snack(`Error: ${error}`);
