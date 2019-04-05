@@ -8,6 +8,7 @@ import AdminLayout from "layouts/Admin.jsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
+import { SnackbarProvider } from "notistack";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import "assets/scss/material-dashboard-pro-react.scss?v=1.5.0";
 
@@ -41,9 +42,17 @@ const Routers = () => (
 
 ReactDOM.render(
   <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
-      <Routers />
-    </MuiThemeProvider>
+    <SnackbarProvider
+      maxSnack={2}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right"
+      }}
+    >
+      <MuiThemeProvider theme={theme}>
+        <Routers />
+      </MuiThemeProvider>
+    </SnackbarProvider>
   </Provider>,
   document.getElementById("root")
 );
