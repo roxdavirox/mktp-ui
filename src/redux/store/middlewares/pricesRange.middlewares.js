@@ -4,7 +4,10 @@ import {
   fetchPricesRangeFailure,
   POST_PRICE_RANGE_BEGIN,
   postPriceRangeSuccess,
-  postPriceRangeFailure
+  postPriceRangeFailure,
+  DELETE_PRICES_RANGE_BEGIN,
+  deletePricesRangeFailure,
+  deletePricesRangeSuccess
 } from "../../actions/pricesRange.actions";
 
 const url = "https://mktp.azurewebsites.net/api/PriceRange";
@@ -45,6 +48,61 @@ export const postPriceRangeMiddleware = ({ dispatch }) => next => action => {
       .catch(error => {
         snack(`Error: ${error}`);
         dispatch(postPriceRangeFailure(error));
+      });
+  }
+
+  next(action);
+};
+
+export const deletePricesRangeMiddleware = ({
+  dispatch,
+  getState
+}) => next => action => {
+  if (action.type === DELETE_PRICES_RANGE_BEGIN) {
+    const { pricesRangesIds, snack } = action.playload;
+
+    const { pricesRange: prevPricesRange } = getState().pricesRangeState;
+
+    const filter = arr => id => arr.indexOf(id) === -1;
+
+    const filterById = filter(pricesRangesIds);
+
+    const pricesRange = prevPricesRange.filter(({ idPriceRange }) =>
+      filterById(idPriceRange)
+    );
+
+    const body = {
+      pricesRangesIds
+    };
+
+    const request = {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    };
+
+    fetch(url, request)
+      .then(res => res.json())
+      .then(({ deletedCount }) => {
+        if (deletedCount) {
+          dispatch(deletePricesRangeSuccess(pricesRange));
+          snack(
+            `${deletedCount} Tabel${
+              deletedCount == 1 ? "a deletada" : "as deletadas"
+            }`,
+            {
+              variant: "success",
+              autoHideDuration: 2000
+            }
+          );
+        }
+      })
+      .catch(error => {
+        snack(`Error: ${error}`);
+        dispatch(deletePricesRangeFailure(error));
       });
   }
 
