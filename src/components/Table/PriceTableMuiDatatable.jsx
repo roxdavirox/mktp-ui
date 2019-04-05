@@ -6,15 +6,20 @@ import PricesRangeLoadingSkeleton from "components/LoadingSkeleton/PricesRangeLo
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
 import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
-import { fetchPricesRangeBegin, showAlert, hideAlert } from "../../redux/actions/pricesRange.actions";
+import {
+  fetchPricesRangeBegin,
+  postPriceRangeBegin,
+  showAlert,
+  hideAlert
+} from "../../redux/actions/pricesRange.actions";
 
 class PriceTableMuiDatatable extends React.Component {
   state = {
     inputValue: "",
     sweetAlert: (
       <CustomSweetAlertInput
-        title="Adicionar opção"
-        validationMsg="Digite o nome da opção"
+        title="Adicionar Tabela de preço"
+        validationMsg="Digite o nome da Tabela de preço"
         onCancel={() => {
           const { hideAlert } = this.props;
           hideAlert();
@@ -57,7 +62,7 @@ class PriceTableMuiDatatable extends React.Component {
       customToolbar: () => {
         return (
           <CustomToolbar
-            title="Adicionar Opção"
+            title="Adicionar Tabela de preço"
             onClick={() => {
               const { showAlert } = this.props;
               showAlert();
@@ -76,12 +81,28 @@ class PriceTableMuiDatatable extends React.Component {
     fetchPricesRangeBegin();
   };
 
+  handleInput = value => {
+    const { postPriceTableBegin, enqueueSnackbar } = this.props;
+
+    if (value) {
+      enqueueSnackbar("Adicionando tabela de preço " + value, {
+        variant: "info",
+        autoHideDuration: 2000
+      });
+      postPriceRangeBegin(value, enqueueSnackbar);
+      this.setState({ inputValue: value });
+    }
+  };
+
   render = () => {
-    const { data } = this.props;
-    const { columns, options } = this.state;
+    const { data, openAlert } = this.props;
+    const { columns, options, sweetAlert } = this.state;
 
     return (
-      <CustomMUIDataTable data={data} columns={columns} options={options} />
+      <>
+        {openAlert && sweetAlert}
+        <CustomMUIDataTable data={data} columns={columns} options={options} />
+      </>
     );
   };
 }
@@ -90,7 +111,10 @@ PriceTableMuiDatatable.propTypes = {
   data: PropTypes.any.isRequired,
   fetchPricesRangeBegin: PropTypes.any.isRequired,
   hideAlert: PropTypes.func.isRequired,
-  showAlert: PropTypes.func.isRequired
+  showAlert: PropTypes.func.isRequired,
+  postPriceRangeBegin: PropTypes.func.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired,
+  openAlert: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -99,5 +123,5 @@ const mapStateToProps = store => ({
 
 export default connect(
   mapStateToProps,
-  { fetchPricesRangeBegin, showAlert, hideAlert }
+  { fetchPricesRangeBegin, postPriceRangeBegin, showAlert, hideAlert }
 )(PriceTableMuiDatatable);
