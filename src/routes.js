@@ -4,6 +4,7 @@ import Charts from "views/Charts/Charts.jsx";
 import Dashboard from "views/Dashboard/Dashboard.jsx";
 import Option from "views/Configuration/Options/Option.jsx";
 import PriceTable from "views/Configuration/Price/PriceTable.jsx";
+import Price from "views/Configuration/Price/Price.jsx";
 import ErrorPage from "views/Pages/ErrorPage.jsx";
 import ExtendedForms from "views/Forms/ExtendedForms.jsx";
 import ExtendedTables from "views/Tables/ExtendedTables.jsx";
@@ -61,13 +62,20 @@ var dashRoutes = [
         layout: "/admin"
       },
       {
-        path: "/configuration/price",
+        path: "/configuration/price-table",
         name: "Tabela de preço",
         mini: "T",
         component: PriceTable,
         layout: "/admin"
       }
     ]
+  },
+  {
+    path: "/configuration/price",
+    name: "Price",
+    component: Price,
+    layout: "/admin",
+    invisible: true
   }
   // ,
   // {
