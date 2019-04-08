@@ -1,11 +1,13 @@
 import React from "react";
-import CustomMUIDataTable from "./MuiDatatables";
+import { Redirect } from "react-router-dom";
+import CustomMUIDataTable from "./MuiDatatable";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import PricesRangeLoadingSkeleton from "components/LoadingSkeleton/PricesRangeLoadingSkeleton.jsx";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
 import { withSnackbar } from "notistack";
 import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
+import BallotIcon from "components/CustomIcons/BallotIcon";
 
 import {
   fetchPricesRangeBegin,
@@ -15,8 +17,11 @@ import {
   deletePricesRangeBegin
 } from "../../redux/actions/pricesRange.actions";
 
+import { setPriceRangeId } from "../../redux/actions/prices.actions";
+
 class PriceTableMuiDatatable extends React.Component {
   state = {
+    redirect: false,
     inputValue: "",
     sweetAlert: (
       <CustomSweetAlertInput
@@ -40,10 +45,21 @@ class PriceTableMuiDatatable extends React.Component {
       },
       {
         name: "idPriceRange",
+        label: " ",
         options: {
-          display: "excluded",
           sort: false,
-          filter: false
+          filter: false,
+          customBodyRender: (value, tableMeta) => (
+            <BallotIcon
+              key={tableMeta.columnIndex}
+              onClick={() => {
+                const { setPriceRangeId } = this.props;
+                this.setState({ redirect: true });
+
+                setPriceRangeId(value);
+              }}
+            />
+          )
         }
       }
     ],
@@ -126,12 +142,19 @@ class PriceTableMuiDatatable extends React.Component {
     }
   };
 
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to="/admin/configuration/price" />;
+    }
+  };
+
   render = () => {
     const { data, openAlert } = this.props;
     const { columns, options, sweetAlert } = this.state;
 
     return (
       <>
+        {this.renderRedirect()}
         {openAlert && sweetAlert}
         <CustomMUIDataTable data={data} columns={columns} options={options} />
       </>
@@ -147,7 +170,8 @@ PriceTableMuiDatatable.propTypes = {
   postPriceRangeBegin: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   openAlert: PropTypes.bool.isRequired,
-  deletePricesRangeBegin: PropTypes.func.isRequired
+  deletePricesRangeBegin: PropTypes.func.isRequired,
+  setPriceRangeId: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -164,6 +188,7 @@ export default connect(
     postPriceRangeBegin,
     deletePricesRangeBegin,
     showAlert,
-    hideAlert
+    hideAlert,
+    setPriceRangeId
   }
 )(hocSnackPriceTable);
