@@ -8,5 +8,5 @@ export const reducers = combineReducers({
   optionsState: options,
   itemsState: items,
   pricesRangeState: pricesRange,
-  priceState: price
+  pricesState: price
 });
