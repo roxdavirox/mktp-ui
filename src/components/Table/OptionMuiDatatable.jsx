@@ -1,5 +1,5 @@
 import React from "react";
-import CustomMUIDataTable from "./MuiDatatables";
+import CustomMUIDataTable from "./MuiDatatable";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import classNames from "classnames";
