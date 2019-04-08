@@ -2,7 +2,8 @@ import {
   SET_PRICE_RANGE_ID,
   FETCH_PRICES_BEGIN,
   FETCH_PRICES_SUCCESS,
-  FETCH_PRICES_FAILURE
+  FETCH_PRICES_FAILURE,
+  CLEAR_PRICES
 } from "../actions/prices.actions";
 
 const initialState = {
@@ -23,8 +24,19 @@ export default function(state = initialState, action) {
       };
     }
 
+    case CLEAR_PRICES: {
+      return {
+        ...state,
+        idPriceRange: null,
+        prices: []
+      };
+    }
+
     case FETCH_PRICES_BEGIN: {
-      return { ...state, loading: true };
+      return {
+        ...state,
+        loading: true
+      };
     }
 
     case FETCH_PRICES_SUCCESS: {

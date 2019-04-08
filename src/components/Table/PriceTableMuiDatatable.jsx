@@ -8,6 +8,8 @@ import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
 import { withSnackbar } from "notistack";
 import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
 import BallotIcon from "components/CustomIcons/BallotIcon";
+import classNames from "classnames";
+import { withStyles } from "@material-ui/core/styles";
 
 import {
   fetchPricesRangeBegin,
@@ -18,6 +20,10 @@ import {
 } from "../../redux/actions/pricesRange.actions";
 
 import { setPriceRangeId } from "../../redux/actions/prices.actions";
+
+const priceStyle = {
+  EditCell: { textAlign: "right" }
+};
 
 class PriceTableMuiDatatable extends React.Component {
   state = {
@@ -59,7 +65,12 @@ class PriceTableMuiDatatable extends React.Component {
                 setPriceRangeId(value);
               }}
             />
-          )
+          ),
+          setCellProps: () => {
+            return {
+              className: classNames({ [this.props.classes.EditCell]: true })
+            };
+          }
         }
       }
     ],
@@ -179,7 +190,9 @@ const mapStateToProps = store => ({
   openAlert: store.pricesRangeState.openAlert
 });
 
-const hocSnackPriceTable = withSnackbar(PriceTableMuiDatatable);
+const priceStyled = withStyles(priceStyle)(PriceTableMuiDatatable);
+
+const hocSnackPriceTable = withSnackbar(priceStyled);
 
 export default connect(
   mapStateToProps,

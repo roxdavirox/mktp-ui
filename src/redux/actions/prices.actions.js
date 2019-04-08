@@ -5,6 +5,12 @@ export const setPriceRangeId = idPriceRange => ({
   playload: { idPriceRange }
 });
 
+export const CLEAR_PRICES = "CLEAR_PRICES";
+
+export const clearPrices = () => ({
+  type: CLEAR_PRICES
+});
+
 export const FETCH_PRICES_BEGIN = "FETCH_PRICES_BEGIN";
 
 export const fetchPricesBegin = () => ({

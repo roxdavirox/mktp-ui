@@ -2,7 +2,7 @@ import React from "react";
 import CustomMUIDataTable from "./MuiDatatable";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchPricesBegin } from "../../redux/actions/prices.actions";
+import { fetchPricesBegin, clearPrices } from "../../redux/actions/prices.actions";
 import { Redirect } from "react-router-dom";
 import PriceLoadingSkeleton from "components/LoadingSkeleton/PriceLoadingSkeleton.jsx";
 
@@ -67,6 +67,11 @@ class PriceMuiDatatable extends React.Component {
     fetchPricesBegin();
   };
 
+  componentWillUnmount = () => {
+    const { clearPrices } = this.props;
+    clearPrices();
+  };
+
   renderRedirect = () => {
     const { idPriceRange } = this.props;
 
@@ -91,7 +96,8 @@ class PriceMuiDatatable extends React.Component {
 PriceMuiDatatable.propTypes = {
   data: PropTypes.any.isRequired,
   idPriceRange: PropTypes.any.isRequired,
-  fetchPricesBegin: PropTypes.func.isRequired
+  fetchPricesBegin: PropTypes.func.isRequired,
+  clearPrices: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => {
@@ -103,5 +109,5 @@ const mapStateToProps = store => {
 
 export default connect(
   mapStateToProps,
-  { fetchPricesBegin }
+  { fetchPricesBegin, clearPrices }
 )(PriceMuiDatatable);
