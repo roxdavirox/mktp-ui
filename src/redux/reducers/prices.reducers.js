@@ -1,7 +1,15 @@
-import { SET_PRICE_RANGE_ID } from "../actions/prices.actions";
+import {
+  SET_PRICE_RANGE_ID,
+  FETCH_PRICES_BEGIN,
+  FETCH_PRICES_SUCCESS,
+  FETCH_PRICES_FAILURE
+} from "../actions/prices.actions";
 
 const initialState = {
-  idPriceRange: null
+  idPriceRange: null,
+  prices: [],
+  error: null,
+  loading: false
 };
 
 export default function(state = initialState, action) {
@@ -12,6 +20,31 @@ export default function(state = initialState, action) {
       return {
         ...state,
         idPriceRange
+      };
+    }
+
+    case FETCH_PRICES_BEGIN: {
+      return { ...state, loading: true };
+    }
+
+    case FETCH_PRICES_SUCCESS: {
+      const { prices } = action.playload;
+
+      return {
+        ...state,
+        loading: false,
+        prices,
+        error: null
+      };
+    }
+
+    case FETCH_PRICES_FAILURE: {
+      const { error } = action.playload;
+
+      return {
+        ...state,
+        loading: false,
+        error
       };
     }
 
