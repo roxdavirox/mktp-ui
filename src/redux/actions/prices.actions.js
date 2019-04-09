@@ -30,3 +30,17 @@ export const fetchPricesFailure = error => ({
   type: FETCH_PRICES_FAILURE,
   playload: { error }
 });
+
+export const OPEN_PRICE_DIALOG = "OPEN_PRICE_DIALOG";
+
+export const openPriceDialog = () => ({
+  type: OPEN_PRICE_DIALOG,
+  playload: { openDialog: true }
+});
+
+export const CLOSE_PRICE_DIALOG = "CLOSE_PRICE_DIALOG";
+
+export const closePriceDialog = () => ({
+  type: CLOSE_PRICE_DIALOG,
+  playload: { openDialog: false }
+});
