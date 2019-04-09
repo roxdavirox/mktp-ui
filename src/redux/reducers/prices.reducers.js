@@ -5,7 +5,10 @@ import {
   FETCH_PRICES_FAILURE,
   CLEAR_PRICES,
   OPEN_PRICE_DIALOG,
-  CLOSE_PRICE_DIALOG
+  CLOSE_PRICE_DIALOG,
+  POST_PRICE_BEGIN,
+  POST_PRICE_FAILURE,
+  POST_PRICE_SUCCESS
 } from "../actions/prices.actions";
 
 const initialState = {
@@ -81,6 +84,29 @@ export default function(state = initialState, action) {
       return {
         ...state,
         openDialog
+      };
+    }
+
+    case POST_PRICE_BEGIN:
+      return {
+        ...state
+      };
+
+    case POST_PRICE_FAILURE: {
+      const { error } = action.playload;
+
+      return {
+        ...state,
+        error
+      };
+    }
+
+    case POST_PRICE_SUCCESS: {
+      const { price } = action.playload;
+
+      return {
+        ...state,
+        prices: [...state.prices, price]
       };
     }
 
