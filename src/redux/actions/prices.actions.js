@@ -44,3 +44,30 @@ export const closePriceDialog = () => ({
   type: CLOSE_PRICE_DIALOG,
   playload: { openDialog: false }
 });
+
+export const POST_PRICE_BEGIN = "POST_PRICE_BEGIN";
+
+export const postPriceBegin = (start, end, value) => ({
+  type: POST_PRICE_BEGIN,
+  playload: {
+    price: {
+      start,
+      end,
+      value
+    }
+  }
+});
+
+export const POST_PRICE_SUCCESS = "POST_PRICE_SUCCESS";
+
+export const postPriceSuccess = price => ({
+  type: POST_PRICE_SUCCESS,
+  playload: { price }
+});
+
+export const POST_PRICE_FAILURE = "POST_PRICE_FAILURE";
+
+export const postPriceFailure = error => ({
+  type: POST_PRICE_FAILURE,
+  playload: { error }
+});
