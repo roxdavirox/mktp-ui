@@ -4,11 +4,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   fetchPricesBegin,
-  clearPrices
+  clearPrices,
+  openPriceDialog
 } from "../../redux/actions/prices.actions";
 import { Redirect } from "react-router-dom";
 import PriceLoadingSkeleton from "components/LoadingSkeleton/PriceLoadingSkeleton.jsx";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
+import CustomPriceDialog from "components/CustomDialog/CustomPriceDialog.jsx";
 
 class PriceMuiDatatable extends React.Component {
   state = {
@@ -66,7 +68,8 @@ class PriceMuiDatatable extends React.Component {
           <CustomToolbar
             title="Adicionar Preço"
             onClick={() => {
-              alert("click");
+              const { openPriceDialog } = this.props;
+              openPriceDialog();
             }}
           />
         );
@@ -76,7 +79,9 @@ class PriceMuiDatatable extends React.Component {
   };
 
   componentDidMount = () => {
-    const { fetchPricesBegin } = this.props;
+    const { idPriceRange, fetchPricesBegin } = this.props;
+
+    if (!idPriceRange) return;
 
     fetchPricesBegin();
   };
@@ -101,6 +106,7 @@ class PriceMuiDatatable extends React.Component {
     return (
       <>
         {this.renderRedirect()}
+        <CustomPriceDialog />
         <CustomMUIDataTable data={data} columns={columns} options={options} />
       </>
     );
@@ -112,7 +118,7 @@ PriceMuiDatatable.propTypes = {
   idPriceRange: PropTypes.any.isRequired,
   fetchPricesBegin: PropTypes.func.isRequired,
   clearPrices: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  openPriceDialog: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => {
@@ -124,5 +130,5 @@ const mapStateToProps = store => {
 
 export default connect(
   mapStateToProps,
-  { fetchPricesBegin, clearPrices }
+  { fetchPricesBegin, clearPrices, openPriceDialog }
 )(PriceMuiDatatable);
