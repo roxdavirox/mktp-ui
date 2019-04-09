@@ -102,11 +102,12 @@ export default function(state = initialState, action) {
     }
 
     case POST_PRICE_SUCCESS: {
-      const { price } = action.playload;
+      const { price, openDialog } = action.playload;
 
       return {
         ...state,
-        prices: [...state.prices, price]
+        prices: [...state.prices, price],
+        openDialog
       };
     }
 
