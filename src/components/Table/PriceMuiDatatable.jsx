@@ -8,6 +8,7 @@ import {
 } from "../../redux/actions/prices.actions";
 import { Redirect } from "react-router-dom";
 import PriceLoadingSkeleton from "components/LoadingSkeleton/PriceLoadingSkeleton.jsx";
+import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
 
 class PriceMuiDatatable extends React.Component {
   state = {
@@ -59,6 +60,16 @@ class PriceMuiDatatable extends React.Component {
         body: {
           noMatch: <PriceLoadingSkeleton />
         }
+      },
+      customToolbar: () => {
+        return (
+          <CustomToolbar
+            title="Adicionar Preço"
+            onClick={() => {
+              alert("click");
+            }}
+          />
+        );
       }
       // onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     }
