@@ -33,12 +33,7 @@ class CustomPriceInput extends React.Component {
 
     return (
       <GridItem xs={12} sm={12} md={12}>
-        <Card>
-          <CardHeader color="secondary" text>
-            <CardText color="secondary">
-              <h4 className={classes.cardTitle}>Adicionar Faixa de preço</h4>
-            </CardText>
-          </CardHeader>
+        <Card style={{ marginTop: "0px", marginBottom: "0px" }}>
           <CardBody>
             <form>
               <GridContainer>
