@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import CustomMUIDataTable from "./MuiDatatable";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -56,16 +56,18 @@ class PriceTableMuiDatatable extends React.Component {
           sort: false,
           filter: false,
           customBodyRender: (value, tableMeta) => (
-            <BallotIcon
-              key={tableMeta.columnIndex}
-              onClick={() => {
-                const { setPriceRangeId } = this.props;
-                this.setState({ redirect: true });
-                const { rowData } = tableMeta;
-                const titlePriceRange = rowData[0];
-                setPriceRangeId(value, titlePriceRange);
-              }}
-            />
+            <Link to="/admin/configuration/price">
+              <BallotIcon
+                key={tableMeta.columnIndex}
+                onClick={() => {
+                  const { setPriceRangeId } = this.props;
+                  this.setState({ redirect: true });
+                  const { rowData } = tableMeta;
+                  const titlePriceRange = rowData[0];
+                  setPriceRangeId(value, titlePriceRange);
+                }}
+              />
+            </Link>
           ),
           setCellProps: () => {
             return {
@@ -154,19 +156,12 @@ class PriceTableMuiDatatable extends React.Component {
     }
   };
 
-  renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to="/admin/configuration/price" />;
-    }
-  };
-
   render = () => {
     const { data, openAlert } = this.props;
     const { columns, options, sweetAlert } = this.state;
 
     return (
       <>
-        {this.renderRedirect()}
         {openAlert && sweetAlert}
         <CustomMUIDataTable data={data} columns={columns} options={options} />
       </>
