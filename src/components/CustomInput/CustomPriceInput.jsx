@@ -1,44 +1,37 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-// import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import CustomAddButton from "components/CustomButtons/CustomAddButton.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Close from "@material-ui/icons/Close";
+
+// @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import validationFormsStyle from "assets/jss/material-dashboard-pro-react/views/validationFormsStyle.jsx";
-import { closePriceDialog } from "../../redux/actions/prices.actions";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Radio from "@material-ui/core/Radio";
+import Checkbox from "@material-ui/core/Checkbox";
 
-class CustomPriceDialog extends React.Component {
+// @material-ui/icons
+import MailOutline from "@material-ui/icons/MailOutline";
+import Check from "@material-ui/icons/Check";
+import Clear from "@material-ui/icons/Clear";
+import Contacts from "@material-ui/icons/Contacts";
+import FiberManualRecord from "@material-ui/icons/FiberManualRecord";
+
+// core components
+import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
+import CustomInput from "components/CustomInput/CustomInput.jsx";
+import Button from "components/CustomButtons/Button.jsx";
+import Card from "components/Card/Card.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import CardText from "components/Card/CardText.jsx";
+import CardIcon from "components/Card/CardIcon.jsx";
+import CardBody from "components/Card/CardBody.jsx";
+
+import regularFormsStyle from "assets/jss/material-dashboard-pro-react/views/regularFormsStyle";
+
+class CustomPriceInput extends React.Component {
   render = () => {
-    const { openDialog, classes } = this.props;
-    if (!openDialog) return null;
-
-    return (
-      <div>
-        <Dialog
-          classes={{
-            paper: classes.dialogPaper
-          }}
-          open={this.props.openDialog}
-          // onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle
-            style={{ padding: "14px 24px 1px" }}
-            id="form-dialog-title"
-          >
-            Adicionar Faixa de Preço
-          </DialogTitle>
-          <DialogContent style={{ overflowY: "hidden", padding: "0 24px 1px" }}>
-            <div style={{ display: "flex" }}>
-            <GridItem xs={12} sm={12} md={12}>
+    return(
+      <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="secondary" text>
               <CardText color="secondary">
@@ -444,40 +437,8 @@ class CustomPriceDialog extends React.Component {
             </CardBody>
           </Card>
         </GridItem>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={() => {
-                const { closePriceDialog } = this.props;
-                closePriceDialog();
-              }}
-              color="primary"
-            >
-              Fechar
-            </Button>
-            {/* <Button onClick={this.handleClose} color="primary">
-              Salvar
-            </Button> */}
-          </DialogActions>
-        </Dialog>
-      </div>
     );
   };
 }
 
-CustomPriceDialog.propTypes = {
-  openDialog: PropTypes.any.isRequired,
-  classes: PropTypes.object.isRequired,
-  closePriceDialog: PropTypes.func.isRequired
-};
-
-const mapStateToProps = store => ({
-  openDialog: store.pricesState.openDialog
-});
-
-const connectedPriceDialog = connect(
-  mapStateToProps,
-  { closePriceDialog }
-)(CustomPriceDialog);
-
-export default withStyles(validationFormsStyle)(connectedPriceDialog);
+export default withStyles(regularFormsStyle)(CustomPriceInput);
