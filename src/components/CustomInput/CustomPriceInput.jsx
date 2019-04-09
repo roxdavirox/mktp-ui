@@ -14,7 +14,9 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardText from "components/Card/CardText.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withSnackbar } from "notistack";
 
 import regularFormsStyle from "assets/jss/material-dashboard-pro-react/views/regularFormsStyle";
 import { postPriceBegin } from "../../redux/actions/prices.actions";
@@ -97,9 +99,21 @@ class CustomPriceInput extends React.Component {
                             inputValue
                           } = this.state;
 
+                          const { enqueueSnackbar } = this.props;
+
+                          enqueueSnackbar(`Adicionando intervalo de preço`, {
+                            variant: "info",
+                            autoHideDuration: 2000
+                          });
+
                           const { postPriceBegin } = this.props;
 
-                          postPriceBegin(inputStart, inputEnd, inputValue);
+                          postPriceBegin(
+                            inputStart,
+                            inputEnd,
+                            inputValue,
+                            enqueueSnackbar
+                          );
                           this.setState({
                             inputStart: "",
                             inputEnd: "",
@@ -119,9 +133,17 @@ class CustomPriceInput extends React.Component {
   };
 }
 
+CustomPriceInput.propTypes = {
+  enqueueSnackbar: PropTypes.any.isRequired,
+  classes: PropTypes.object.isRequired,
+  postPriceBegin: PropTypes.func.isRequired
+};
+
 const connectedPriceInput = connect(
   null,
   { postPriceBegin }
 )(CustomPriceInput);
 
-export default withStyles(regularFormsStyle)(connectedPriceInput);
+const snackPriceInput = withSnackbar(connectedPriceInput);
+
+export default withStyles(regularFormsStyle)(snackPriceInput);
