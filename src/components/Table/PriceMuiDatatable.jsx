@@ -100,14 +100,19 @@ class PriceMuiDatatable extends React.Component {
   };
 
   render = () => {
-    const { data } = this.props;
+    const { data, titlePriceRange } = this.props;
     const { columns, options } = this.state;
 
     return (
       <>
         {this.renderRedirect()}
         <CustomPriceDialog />
-        <CustomMUIDataTable data={data} columns={columns} options={options} />
+        <CustomMUIDataTable
+          title={titlePriceRange}
+          data={data}
+          columns={columns}
+          options={options}
+        />
       </>
     );
   };
@@ -118,13 +123,15 @@ PriceMuiDatatable.propTypes = {
   idPriceRange: PropTypes.any.isRequired,
   fetchPricesBegin: PropTypes.func.isRequired,
   clearPrices: PropTypes.func.isRequired,
-  openPriceDialog: PropTypes.func.isRequired
+  openPriceDialog: PropTypes.func.isRequired,
+  titlePriceRange: PropTypes.string.isRequired
 };
 
 const mapStateToProps = store => {
   return {
     data: store.pricesState.prices,
-    idPriceRange: store.pricesState.idPriceRange
+    idPriceRange: store.pricesState.idPriceRange,
+    titlePriceRange: store.pricesState.titlePriceRange
   };
 };
 
