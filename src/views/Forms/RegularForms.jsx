@@ -523,6 +523,7 @@ class RegularForms extends React.Component {
             </CardBody>
           </Card>
         </GridItem>
+        
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="secondary" text>
