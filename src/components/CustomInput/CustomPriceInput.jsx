@@ -3,15 +3,7 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import FormLabel from "@material-ui/core/FormLabel";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Radio from "@material-ui/core/Radio";
 import CustomAddButton from "components/CustomButtons/CustomAddButton.jsx";
-import Checkbox from "@material-ui/core/Checkbox";
-
-import Check from "@material-ui/icons/Check";
-import Clear from "@material-ui/icons/Clear";
-import FiberManualRecord from "@material-ui/icons/FiberManualRecord";
 
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -22,7 +14,10 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardText from "components/Card/CardText.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 
+import { connect } from "react-redux";
+
 import regularFormsStyle from "assets/jss/material-dashboard-pro-react/views/regularFormsStyle";
+import { postPriceBegin } from "../../redux/actions/prices.actions";
 
 class CustomPriceInput extends React.Component {
   state = {
@@ -59,9 +54,10 @@ class CustomPriceInput extends React.Component {
                           fullWidth: true
                         }}
                         inputProps={{
-                          placeholder: "Inicio"
+                          placeholder: "Inicio",
+                          onChange: e =>
+                            this.setState({ inputStart: e.target.value })
                         }}
-                        onChange
                       />
                     </GridItem>
                     <GridItem xs={12} sm={12} md={3}>
@@ -71,7 +67,9 @@ class CustomPriceInput extends React.Component {
                           fullWidth: true
                         }}
                         inputProps={{
-                          placeholder: "Fim"
+                          placeholder: "Fim",
+                          onChange: e =>
+                            this.setState({ inputEnd: e.target.value })
                         }}
                       />
                     </GridItem>
@@ -82,7 +80,9 @@ class CustomPriceInput extends React.Component {
                           fullWidth: true
                         }}
                         inputProps={{
-                          placeholder: "Valor"
+                          placeholder: "Valor",
+                          onChange: e =>
+                            this.setState({ inputValue: e.target.value })
                         }}
                       />
                     </GridItem>
@@ -91,7 +91,20 @@ class CustomPriceInput extends React.Component {
                         style={{ padding: "24px 24px 24px 24px" }}
                         title="Adicionar intervalo de preço"
                         onClick={() => {
-                          alert("click");
+                          const {
+                            inputStart,
+                            inputEnd,
+                            inputValue
+                          } = this.state;
+
+                          const { postPriceBegin } = this.props;
+
+                          postPriceBegin(inputStart, inputEnd, inputValue);
+                          this.setState({
+                            inputStart: "",
+                            inputEnd: "",
+                            inputValue: ""
+                          });
                         }}
                       />
                     </GridItem>
@@ -106,4 +119,9 @@ class CustomPriceInput extends React.Component {
   };
 }
 
-export default withStyles(regularFormsStyle)(CustomPriceInput);
+const connectedPriceInput = connect(
+  null,
+  { postPriceBegin }
+)(CustomPriceInput);
+
+export default withStyles(regularFormsStyle)(connectedPriceInput);
