@@ -34,7 +34,9 @@ class CustomPriceDialog extends React.Component {
           <DialogTitle
             style={{ padding: "24px 24px 20px" }}
             id="form-dialog-title"
-          />
+          >
+            Adicionar preço
+          </DialogTitle>
           <DialogContent style={{ overflowY: "hidden", padding: "0 24px 1px" }}>
             <div style={{ display: "flex" }}>
               <CustomPriceInput />
@@ -50,9 +52,6 @@ class CustomPriceDialog extends React.Component {
             >
               Fechar
             </Button>
-            {/* <Button onClick={this.handleClose} color="primary">
-              Adicionar
-            </Button> */}
           </DialogActions>
         </Dialog>
       </div>
