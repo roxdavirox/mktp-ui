@@ -31,7 +31,7 @@ export const postPriceMiddleware = ({
 }) => next => action => {
   if (action.type === POST_PRICE_BEGIN) {
     const { idPriceRange } = getState().pricesState;
-    const { price } = action.playload;
+    const { price, snack } = action.playload;
 
     const request = {
       method: "POST",
@@ -46,9 +46,14 @@ export const postPriceMiddleware = ({
       .then(res => res.json())
       .then(({ idPrice }) => {
         dispatch(postPriceSuccess({ ...price, idPrice }));
+        snack(`Intervalo de preço adicionado com sucesso!`, {
+          variant: "success",
+          autoHideDuration: 2000
+        });
       })
       .catch(error => {
         dispatch(postPriceFailure(error));
+        snack(`Error: ${error}`);
       });
   }
 
