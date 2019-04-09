@@ -3,14 +3,17 @@ import {
   FETCH_PRICES_BEGIN,
   FETCH_PRICES_SUCCESS,
   FETCH_PRICES_FAILURE,
-  CLEAR_PRICES
+  CLEAR_PRICES,
+  OPEN_PRICE_DIALOG,
+  CLOSE_PRICE_DIALOG
 } from "../actions/prices.actions";
 
 const initialState = {
   idPriceRange: null,
   prices: [],
   error: null,
-  loading: false
+  loading: false,
+  openDialog: false
 };
 
 export default function(state = initialState, action) {
@@ -57,6 +60,24 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         error
+      };
+    }
+
+    case OPEN_PRICE_DIALOG: {
+      const { openDialog } = action.playload;
+
+      return {
+        ...state,
+        openDialog
+      };
+    }
+
+    case CLOSE_PRICE_DIALOG: {
+      const { openDialog } = action.playload;
+
+      return {
+        ...state,
+        openDialog
       };
     }
 
