@@ -41,13 +41,13 @@ import Timeline from "@material-ui/icons/Timeline";
 import WidgetsIcon from "@material-ui/icons/Widgets";
 
 var dashRoutes = [
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: DashboardIcon,
-    component: Dashboard,
-    layout: "/admin"
-  },
+  // {
+  //   path: "/dashboard",
+  //   name: "Dashboard",
+  //   icon: DashboardIcon,
+  //   component: Dashboard,
+  //   layout: "/admin"
+  // },
   {
     collapse: true,
     name: "Configurações",
