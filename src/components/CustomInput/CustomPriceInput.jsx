@@ -25,6 +25,12 @@ import CardBody from "components/Card/CardBody.jsx";
 import regularFormsStyle from "assets/jss/material-dashboard-pro-react/views/regularFormsStyle";
 
 class CustomPriceInput extends React.Component {
+  state = {
+    inputStart: "",
+    inputEnd: "",
+    inputValue: ""
+  };
+
   render = () => {
     const { classes } = this.props;
 
@@ -55,6 +61,7 @@ class CustomPriceInput extends React.Component {
                         inputProps={{
                           placeholder: "Inicio"
                         }}
+                        onChange
                       />
                     </GridItem>
                     <GridItem xs={12} sm={12} md={3}>
@@ -82,7 +89,7 @@ class CustomPriceInput extends React.Component {
                     <GridItem xs={12} sm={12} md={1}>
                       <CustomAddButton
                         style={{ padding: "24px 24px 24px 24px" }}
-                        title="Adicionar item"
+                        title="Adicionar intervalo de preço"
                         onClick={() => {
                           alert("click");
                         }}
