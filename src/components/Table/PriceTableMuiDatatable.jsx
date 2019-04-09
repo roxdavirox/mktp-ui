@@ -61,8 +61,9 @@ class PriceTableMuiDatatable extends React.Component {
               onClick={() => {
                 const { setPriceRangeId } = this.props;
                 this.setState({ redirect: true });
-
-                setPriceRangeId(value);
+                const { rowData } = tableMeta;
+                const titlePriceRange = rowData[0];
+                setPriceRangeId(value, titlePriceRange);
               }}
             />
           ),
