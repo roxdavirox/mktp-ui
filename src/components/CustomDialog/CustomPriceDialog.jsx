@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import CustomAddButton from "components/CustomButtons/CustomAddButton.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
+import CustomPriceInput from "components/CustomInput/CustomPriceInput.jsx";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Close from "@material-ui/icons/Close";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -31,45 +32,13 @@ class CustomPriceDialog extends React.Component {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle
-            style={{ padding: "14px 24px 1px" }}
+            style={{ padding: "24px 24px 20px" }}
             id="form-dialog-title"
-          >
-            Adicionar Faixa de Preço
-          </DialogTitle>
+          />
           <DialogContent style={{ overflowY: "hidden", padding: "0 24px 1px" }}>
             <div style={{ display: "flex" }}>
-              {/* <CustomInput
-                success={this.state.minLength === "success"}
-                error={this.state.minLength === "error"}
-                labelText={
-                  this.state.minLength === "error" ? this.state.labelText : ""
-                }
-                id="minlength"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  onChange: e => {
-                    this.setState({
-                      inputValue: e.target.value,
-                      labelText: ""
-                    });
-                    this.change(e.target.value);
-                  },
-                  type: "text",
-                  value: this.state.inputValue,
-                  endAdornment:
-                    this.state.minLength === "error" ? (
-                      <InputAdornment position="end">
-                        <Close className={classes.danger} />
-                      </InputAdornment>
-                    ) : (
-                      undefined
-                    )
-                }}
-              /> */}
+              <CustomPriceInput />
             </div>
-            <h1>Dialog content</h1>
           </DialogContent>
           <DialogActions>
             <Button
@@ -82,7 +51,7 @@ class CustomPriceDialog extends React.Component {
               Fechar
             </Button>
             {/* <Button onClick={this.handleClose} color="primary">
-              Salvar
+              Adicionar
             </Button> */}
           </DialogActions>
         </Dialog>
