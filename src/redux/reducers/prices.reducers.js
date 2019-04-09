@@ -10,6 +10,7 @@ import {
 
 const initialState = {
   idPriceRange: null,
+  titlePriceRange: "",
   prices: [],
   error: null,
   loading: false,
@@ -19,11 +20,12 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_PRICE_RANGE_ID: {
-      const { idPriceRange } = action.playload;
+      const { idPriceRange, titlePriceRange } = action.playload;
 
       return {
         ...state,
-        idPriceRange
+        idPriceRange,
+        titlePriceRange
       };
     }
 
@@ -31,6 +33,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         idPriceRange: null,
+        titlePriceRange: "",
         prices: []
       };
     }

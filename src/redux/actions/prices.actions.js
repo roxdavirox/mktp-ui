@@ -1,8 +1,8 @@
 export const SET_PRICE_RANGE_ID = "SET_PRICE_RANGE_ID";
 
-export const setPriceRangeId = idPriceRange => ({
+export const setPriceRangeId = (idPriceRange, titlePriceRange) => ({
   type: SET_PRICE_RANGE_ID,
-  playload: { idPriceRange }
+  playload: { idPriceRange, titlePriceRange }
 });
 
 export const CLEAR_PRICES = "CLEAR_PRICES";
