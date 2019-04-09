@@ -47,14 +47,15 @@ export const closePriceDialog = () => ({
 
 export const POST_PRICE_BEGIN = "POST_PRICE_BEGIN";
 
-export const postPriceBegin = (start, end, value) => ({
+export const postPriceBegin = (start, end, value, snack) => ({
   type: POST_PRICE_BEGIN,
   playload: {
     price: {
       start,
       end,
       value
-    }
+    },
+    snack
   }
 });
 
@@ -62,7 +63,7 @@ export const POST_PRICE_SUCCESS = "POST_PRICE_SUCCESS";
 
 export const postPriceSuccess = price => ({
   type: POST_PRICE_SUCCESS,
-  playload: { price }
+  playload: { price, openDialog: false }
 });
 
 export const POST_PRICE_FAILURE = "POST_PRICE_FAILURE";
