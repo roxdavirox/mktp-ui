@@ -7,7 +7,6 @@ import {
   postPriceFailure,
   DELETE_PRICES_BEGIN,
   deletePricesSuccess,
-  deletePricesSuccess,
   deletePricesFailure
 } from "../../actions/prices.actions";
 
@@ -105,8 +104,7 @@ export const deletePricesMiddleware = ({
       .catch(error => {
         snack(`Error: ${error}`);
         dispatch(deletePricesFailure(error));
-      })
-
+      });
   }
 
   next(action);
