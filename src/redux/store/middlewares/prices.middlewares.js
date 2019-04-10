@@ -4,7 +4,11 @@ import {
   fetchPricesFailure,
   POST_PRICE_BEGIN,
   postPriceSuccess,
-  postPriceFailure
+  postPriceFailure,
+  DELETE_PRICES_BEGIN,
+  deletePricesSuccess,
+  deletePricesSuccess,
+  deletePricesFailure
 } from "../../actions/prices.actions";
 
 const url = "https://mktp.azurewebsites.net/api";
@@ -55,6 +59,54 @@ export const postPriceMiddleware = ({
         dispatch(postPriceFailure(error));
         snack(`Error: ${error}`);
       });
+  }
+
+  next(action);
+};
+
+export const deletePricesMiddleware = ({
+  dispatch,
+  getState
+}) => next => action => {
+  if (action.type === DELETE_PRICES_BEGIN) {
+    const { deletedPricesIds, snack } = action.playload;
+
+    const { prices: prevPrices } = getState().pricesState;
+
+    const prices = prevPrices.filter(
+      ({ idPrice }) => deletedPricesIds.indexOf(idPrice) === -1
+    );
+
+    const body = {
+      pricesIds: deletedPricesIds
+    };
+
+    const request = {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    };
+
+    fetch(`${url}/price`, request)
+      .then(res => res.json())
+      .then(({ deletedPrices }) => {
+        if (deletedPrices) {
+          const count = deletedPrices;
+          dispatch(deletePricesSuccess(prices));
+          snack(`${count} Preç${count === 1 ?  "o deletado" : "os deletados"}`, {
+            variant: "success",
+            autoHideDuration: 2000
+          });
+        }
+      })
+      .catch(error => {
+        snack(`Error: ${error}`);
+        dispatch(deletePricesFailure(error));
+      })
+
   }
 
   next(action);
