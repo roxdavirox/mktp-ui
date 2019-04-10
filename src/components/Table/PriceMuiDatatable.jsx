@@ -5,12 +5,14 @@ import { connect } from "react-redux";
 import {
   fetchPricesBegin,
   clearPrices,
-  openPriceDialog
+  openPriceDialog,
+  deletePricesBegin
 } from "../../redux/actions/prices.actions";
 import { Redirect } from "react-router-dom";
 import PriceLoadingSkeleton from "components/LoadingSkeleton/PriceLoadingSkeleton.jsx";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
 import CustomPriceDialog from "components/CustomDialog/CustomPriceDialog.jsx";
+import { withSnackbar } from "notistack";
 
 class PriceMuiDatatable extends React.Component {
   state = {
@@ -73,9 +75,21 @@ class PriceMuiDatatable extends React.Component {
             }}
           />
         );
-      }
-      // onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
+      },
+      onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     }
+  };
+
+  handleRowsDelete = rows => {
+    const { deletePricesBegin, enqueueSnackbar, data: prices } = this.props;
+
+    const { data: dataRows } = rows;
+
+    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
+
+    const deletedPricesIds = indexRows.map(index => prices[index].idPrice);
+
+    deletePricesBegin(deletedPricesIds, enqueueSnackbar);
   };
 
   componentDidMount = () => {
@@ -124,7 +138,9 @@ PriceMuiDatatable.propTypes = {
   fetchPricesBegin: PropTypes.func.isRequired,
   clearPrices: PropTypes.func.isRequired,
   openPriceDialog: PropTypes.func.isRequired,
-  titlePriceRange: PropTypes.string.isRequired
+  titlePriceRange: PropTypes.string.isRequired,
+  deletePricesBegin: PropTypes.func.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => {
@@ -135,7 +151,11 @@ const mapStateToProps = store => {
   };
 };
 
-export default connect(
+const snackedPrice = withSnackbar(PriceMuiDatatable);
+
+const connectedPrice = connect(
   mapStateToProps,
-  { fetchPricesBegin, clearPrices, openPriceDialog }
-)(PriceMuiDatatable);
+  { fetchPricesBegin, clearPrices, openPriceDialog, deletePricesBegin }
+)(snackedPrice);
+
+export default connectedPrice;
