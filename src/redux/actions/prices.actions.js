@@ -72,3 +72,26 @@ export const postPriceFailure = error => ({
   type: POST_PRICE_FAILURE,
   playload: { error }
 });
+
+// delete prices rows
+
+export const DELETE_PRICES_BEGIN = "DELETE_PRICES_BEGIN";
+
+export const deletePricesBegin = (deletedPricesIds, snack) => ({
+  type: DELETE_PRICES_BEGIN,
+  playload: { deletedPricesIds, snack }
+});
+
+export const DELETE_PRICES_SUCCESS = "DELETE_PRICES_SUCCESS";
+
+export const deletePricesSuccess = prices => ({
+  type: DELETE_PRICES_SUCCESS,
+  playload: { prices }
+});
+
+export const DELETE_PRICES_FAILURE = "DELETE_PRICES_FAILURE";
+
+export const deletePricesFailure = error => ({
+  type: DELETE_PRICES_FAILURE,
+  playload: { error }
+});
