@@ -27,10 +27,6 @@ class PriceTableSelect extends React.Component {
     labelWidth: 0
   };
 
-  componentDidMount = () => {
-    //
-  };
-
   handleChange = e => {
     this.setState({
       priceTableSelected: e.target.value
@@ -39,32 +35,30 @@ class PriceTableSelect extends React.Component {
     const { idItem } = this.props;
     const { value: idPriceRange } = e.target;
 
-    const pricePutData = {
+    const itemPriceTable = {
       idItem: idItem,
       idPriceRange: idPriceRange
     };
 
-    console.log(pricePutData);
+    // put aqui
   };
 
   render = () => {
-    const { classes, priceTables } = this.props;
+    // eslint-disable-next-line react/prop-types
+    const { classes, priceTables, idPriceRange } = this.props;
 
     return (
       <form className={classes.root} autoComplete="off">
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="price-table-select">Selecione</InputLabel>
           <Select
-            value={this.state.priceTableSelected}
+            value={idPriceRange ? idPriceRange : this.state.priceTableSelected}
             onChange={this.handleChange}
             inputProps={{
               name: "price-select",
               id: "price-table"
             }}
           >
-            {/* <MenuItem value="">
-              <em>None</em>
-            </MenuItem> */}
             {priceTables.map((priceRange, index) => (
               <MenuItem key={index} value={priceRange.idPriceRange}>
                 {priceRange.name}
