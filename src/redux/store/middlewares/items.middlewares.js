@@ -6,7 +6,8 @@ import {
   postItemFailure,
   DELETE_ITEMS_BEGIN,
   deleteItemsSuccess,
-  deleteItemsFailure
+  deleteItemsFailure,
+  PUT_ITEM_PRICE_TABLE
 } from "../../actions/items.actions";
 
 const url = "https://mktp.azurewebsites.net/api";
@@ -101,6 +102,25 @@ export const deleteItemsMiddleware = ({
       })
       .then(() => dispatch(deleteItemsSuccess(items)))
       .catch(error => dispatch(deleteItemsFailure(error)));
+  }
+
+  next(action);
+};
+
+export const putItemPriceTableMiddleware = store => next => action => {
+  if (action.type === PUT_ITEM_PRICE_TABLE) {
+    const { body } = action.playload;
+
+    const request = {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    };
+
+    fetch(`${url}/items`, request);
   }
 
   next(action);
