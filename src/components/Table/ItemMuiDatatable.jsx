@@ -33,7 +33,15 @@ class ItemMuiDatatable extends React.Component {
           // eslint-disable-next-line react/display-name
           // eslint-disable-next-line no-unused-vars
           customBodyRender: (value, tableMeta) => {
-            return <PriceTableSelect idItem={value} />;
+            const { data: items } = this.props;
+
+            const { rowIndex: index } = tableMeta;
+
+            const { idItem, idPriceRange } = items[index];
+
+            return (
+              <PriceTableSelect idItem={idItem} idPriceRange={idPriceRange} />
+            );
           }
         }
       }
