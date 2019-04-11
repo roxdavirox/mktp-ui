@@ -9,6 +9,8 @@ import {
   getItemsByOptionsIdBegin,
   deleteItemsBegin
 } from "../../redux/actions/items.actions";
+import { fetchPricesRangeBegin } from "../../redux/actions/pricesRange.actions";
+import PriceTableSelect from "../CustomSelect/PriceTableSelect";
 
 class ItemMuiDatatable extends React.Component {
   state = {
@@ -29,9 +31,7 @@ class ItemMuiDatatable extends React.Component {
           filter: true,
           // eslint-disable-next-line react/display-name
           // eslint-disable-next-line no-unused-vars
-          customBodyRender: (value, tableMeta) => (
-            <h6>Selecionar tabela de preço</h6>
-          )
+          customBodyRender: (value, tableMeta) => <PriceTableSelect />
         }
       },
       {
@@ -63,9 +63,10 @@ class ItemMuiDatatable extends React.Component {
   };
 
   componentDidMount = () => {
-    const { getItemsByOptionsIdBegin } = this.props;
+    const { getItemsByOptionsIdBegin, fetchPricesRangeBegin } = this.props;
 
     getItemsByOptionsIdBegin();
+    fetchPricesRangeBegin();
   };
 
   handleRowsDelete = rows => {
@@ -101,7 +102,8 @@ ItemMuiDatatable.propTypes = {
   getItemsByOptionsIdBegin: PropTypes.func.isRequired,
   data: PropTypes.any.isRequired,
   deleteItemsBegin: PropTypes.func.isRequired,
-  enqueueSnackbar: PropTypes.func.isRequired
+  enqueueSnackbar: PropTypes.func.isRequired,
+  fetchPricesRangeBegin: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -110,5 +112,5 @@ const mapStateToProps = store => ({
 
 export default connect(
   mapStateToProps,
-  { getItemsByOptionsIdBegin, deleteItemsBegin }
+  { getItemsByOptionsIdBegin, deleteItemsBegin, fetchPricesRangeBegin }
 )(withSnackbar(ItemMuiDatatable));
