@@ -7,7 +7,8 @@ import {
   POST_ITEM_SUCCESS,
   DELETE_ITEMS_BEGIN,
   DELETE_ITEMS_SUCCESS,
-  DELETE_ITEMS_FAILURE
+  DELETE_ITEMS_FAILURE,
+  PUT_ITEM_PRICE_TABLE
 } from "../actions/items.actions";
 
 const initialState = {
@@ -94,6 +95,11 @@ export default function(state = initialState, action) {
         error
       };
     }
+
+    case PUT_ITEM_PRICE_TABLE:
+      return {
+        ...state
+      };
 
     default:
       return state;
