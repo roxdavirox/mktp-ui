@@ -68,12 +68,12 @@ class PriceTableMuiDatatable extends React.Component {
                 }}
               />
             </Link>
-          ),
-          setCellProps: () => {
-            return {
-              className: classNames({ [this.props.classes.EditCell]: true })
-            };
-          }
+          )
+        },
+        setCellProps: () => {
+          return {
+            className: classNames({ [this.props.classes.EditCell]: true })
+          };
         }
       }
     ],
@@ -178,7 +178,8 @@ PriceTableMuiDatatable.propTypes = {
   enqueueSnackbar: PropTypes.func.isRequired,
   openAlert: PropTypes.bool.isRequired,
   deletePricesRangeBegin: PropTypes.func.isRequired,
-  setPriceRangeId: PropTypes.func.isRequired
+  setPriceRangeId: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const mapStateToProps = store => ({
