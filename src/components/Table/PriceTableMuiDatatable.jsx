@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CustomMUIDataTable from "./MuiDatatable";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
