@@ -70,3 +70,10 @@ export const deleteItemsFailure = error => ({
   type: DELETE_ITEMS_FAILURE,
   playload: { error }
 });
+
+export const PUT_ITEM_PRICE_TABLE = "PUT_ITEM_PRICE_TABLE";
+
+export const putItemPriceTable = body => ({
+  type: PUT_ITEM_PRICE_TABLE,
+  playload: { body }
+});
