@@ -6,6 +6,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { putItemPriceTable } from "../../redux/actions/items.actions";
 
 const styles = theme => ({
   root: {
@@ -40,7 +41,9 @@ class PriceTableSelect extends React.Component {
       idPriceRange: idPriceRange
     };
 
-    // put aqui
+    const { putItemPriceTable } = this.props;
+
+    putItemPriceTable(itemPriceTable);
   };
 
   render = () => {
@@ -59,6 +62,7 @@ class PriceTableSelect extends React.Component {
               id: "price-table"
             }}
           >
+            <MenuItem value="">Nenhum</MenuItem>
             {priceTables.map((priceRange, index) => (
               <MenuItem key={index} value={priceRange.idPriceRange}>
                 {priceRange.name}
@@ -74,7 +78,8 @@ class PriceTableSelect extends React.Component {
 PriceTableSelect.propTypes = {
   classes: PropTypes.object.isRequired,
   priceTables: PropTypes.array.isRequired,
-  idItem: PropTypes.string.isRequired
+  idItem: PropTypes.string.isRequired,
+  putItemPriceTable: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -83,4 +88,7 @@ const mapStateToProps = store => ({
 
 const styledPriceTableSelect = withStyles(styles)(PriceTableSelect);
 
-export default connect(mapStateToProps)(styledPriceTableSelect);
+export default connect(
+  mapStateToProps,
+  { putItemPriceTable }
+)(styledPriceTableSelect);
