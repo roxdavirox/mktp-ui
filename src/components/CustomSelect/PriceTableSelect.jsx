@@ -35,6 +35,16 @@ class PriceTableSelect extends React.Component {
     this.setState({
       priceTableSelected: e.target.value
     });
+
+    const { idItem } = this.props;
+    const { value: idPriceRange } = e.target;
+
+    const pricePutData = {
+      idItem: idItem,
+      idPriceRange: idPriceRange
+    };
+
+    console.log(pricePutData);
   };
 
   render = () => {
@@ -69,7 +79,8 @@ class PriceTableSelect extends React.Component {
 
 PriceTableSelect.propTypes = {
   classes: PropTypes.object.isRequired,
-  priceTables: PropTypes.array.isRequired
+  priceTables: PropTypes.array.isRequired,
+  idItem: PropTypes.string.isRequired
 };
 
 const mapStateToProps = store => ({
