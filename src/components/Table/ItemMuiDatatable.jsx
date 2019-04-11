@@ -24,22 +24,17 @@ class ItemMuiDatatable extends React.Component {
         }
       },
       {
-        name: "priceRange",
+        name: "idItem",
         label: "Tabela de preço",
         options: {
-          sort: true,
-          filter: true,
+          display: "true",
+          sort: false,
+          filter: false,
           // eslint-disable-next-line react/display-name
           // eslint-disable-next-line no-unused-vars
-          customBodyRender: (value, tableMeta) => <PriceTableSelect />
-        }
-      },
-      {
-        name: "idItem",
-        options: {
-          display: "excluded",
-          sort: false,
-          filter: false
+          customBodyRender: (value, tableMeta) => {
+            return <PriceTableSelect idItem={value} />;
+          }
         }
       }
     ],
@@ -84,7 +79,6 @@ class ItemMuiDatatable extends React.Component {
   render() {
     const { data } = this.props;
     const { columns, options } = this.state;
-
     return (
       <div>
         <CustomMUIDataTable
