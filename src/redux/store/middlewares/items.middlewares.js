@@ -7,7 +7,10 @@ import {
   DELETE_ITEMS_BEGIN,
   deleteItemsSuccess,
   deleteItemsFailure,
-  PUT_ITEM_PRICE_TABLE
+  PUT_ITEM_PRICE_TABLE_BEGIN,
+  putItemPriceTableSuccess,
+  REMOVE_ITEM_REFERENCE_BEGIN,
+  removeItemReferenceSuccess
 } from "../../actions/items.actions";
 
 const url = "https://mktp.azurewebsites.net/api";
@@ -107,20 +110,53 @@ export const deleteItemsMiddleware = ({
   next(action);
 };
 
-export const putItemPriceTableMiddleware = store => next => action => {
-  if (action.type === PUT_ITEM_PRICE_TABLE) {
-    const { body } = action.playload;
+const CreateRequest = method => (body = {}) => ({
+  method: method,
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(body)
+});
 
-    const request = {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(body)
-    };
+const deleteRequest = CreateRequest("DELETE");
 
-    fetch(`${url}/items`, request);
+const putRequest = CreateRequest("PUT");
+
+export const putItemPriceTableMiddleware = ({ dispatch }) => next => action => {
+  if (action.type === PUT_ITEM_PRICE_TABLE_BEGIN) {
+    const { item: prevItem } = action.playload;
+
+    const request = putRequest(prevItem);
+
+    fetch(`${url}/items`, request)
+      .then(res => res.json())
+      .then(item => {
+        dispatch(putItemPriceTableSuccess(item));
+      });
+  }
+
+  next(action);
+};
+
+export const removeItemReferenceMiddleware = ({
+  dispatch
+}) => next => action => {
+  if (action.type === REMOVE_ITEM_REFERENCE_BEGIN) {
+    const { item: prevItem } = action.playload;
+
+    const { idItem } = prevItem;
+
+    const request = deleteRequest();
+
+    console.log("middleware request", request);
+
+    fetch(`${url}/items/${idItem}`, request)
+      .then(res => res.json())
+      .then(item => {
+        console.log("item", item)
+        dispatch(removeItemReferenceSuccess(item));
+      });
   }
 
   next(action);
