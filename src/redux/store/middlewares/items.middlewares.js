@@ -10,7 +10,8 @@ import {
   PUT_ITEM_PRICE_TABLE_BEGIN,
   putItemPriceTableSuccess,
   REMOVE_ITEM_REFERENCE_BEGIN,
-  removeItemReferenceSuccess
+  removeItemReferenceSuccess,
+  getItemsByOptionsIdBegin
 } from "../../actions/items.actions";
 
 const url = "https://mktp.azurewebsites.net/api";
@@ -132,7 +133,8 @@ export const putItemPriceTableMiddleware = ({ dispatch }) => next => action => {
     fetch(`${url}/items`, request)
       .then(res => res.json())
       .then(item => {
-        dispatch(putItemPriceTableSuccess(item));
+        dispatch(getItemsByOptionsIdBegin());
+        //dispatch(putItemPriceTableSuccess(item));
       });
   }
 
@@ -143,7 +145,7 @@ export const removeItemReferenceMiddleware = ({
   dispatch
 }) => next => action => {
   if (action.type === REMOVE_ITEM_REFERENCE_BEGIN) {
-    const { item: prevItem } = action.playload;
+    const { item: prevItem, itemIndex } = action.playload;
 
     const { idItem } = prevItem;
 
@@ -154,8 +156,8 @@ export const removeItemReferenceMiddleware = ({
     fetch(`${url}/items/${idItem}`, request)
       .then(res => res.json())
       .then(item => {
-        console.log("item", item)
-        dispatch(removeItemReferenceSuccess(item));
+        dispatch(getItemsByOptionsIdBegin());
+        //dispatch(removeItemReferenceSuccess(item, itemIndex));
       });
   }
 

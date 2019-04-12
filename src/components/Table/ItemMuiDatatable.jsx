@@ -40,7 +40,11 @@ class ItemMuiDatatable extends React.Component {
             const { idItem, idPriceRange } = items[index];
 
             return (
-              <PriceTableSelect idItem={idItem} idPriceRange={idPriceRange} />
+              <PriceTableSelect
+                idItem={idItem}
+                idPriceRange={idPriceRange}
+                itemIndex={index}
+              />
             );
           }
         }

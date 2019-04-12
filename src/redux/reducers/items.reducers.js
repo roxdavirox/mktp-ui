@@ -99,13 +99,17 @@ export default function(state = initialState, action) {
       return { ...state };
 
     case PUT_ITEM_PRICE_TABLE_SUCCESS: {
-      const { item } = action.playload;
+      const { item, itemIndex } = action.playload;
 
       const { items: prevItems } = state;
 
-      const items = prevItems.filter(i => i.idItem !== item.idItem);
+      const items = prevItems.reduce(
+        (prevItem, currItem, index) =>
+          itemIndex === index ? [...prevItem, item] : [...prevItem, currItem],
+        []
+      );
 
-      return { ...state, items: [...items, item] };
+      return { ...state, items };
     }
 
     case REMOVE_ITEM_REFERENCE_BEGIN: {
@@ -113,13 +117,17 @@ export default function(state = initialState, action) {
     }
 
     case REMOVE_ITEM_REFERENCE_SUCCESS: {
-      const { item } = action.playload;
+      const { item, itemIndex } = action.playload;
 
       const { items: prevItems } = state;
 
-      const items = prevItems.filter(i => i.idItem !== item.idItem);
+      const items = prevItems.reduce(
+        (prevItem, currItem, index) =>
+          itemIndex === index ? [...prevItem, item] : [...prevItem, currItem],
+        []
+      );
 
-      return { ...state, items: [...items, item] };
+      return { ...state, items };
     }
 
     default:

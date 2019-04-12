@@ -35,17 +35,18 @@ class PriceTableSelect extends React.Component {
     const {
       idItem,
       removeItemReferenceBegin,
-      putItemPriceTableBegin
+      putItemPriceTableBegin,
+      itemIndex
     } = this.props;
     const { value: idPriceRange } = e.target;
-
+    console.log(itemIndex);
     const itemPriceTable = {
       idItem: idItem,
       idPriceRange: idPriceRange
     };
 
     if (idPriceRange == 0) {
-      removeItemReferenceBegin(itemPriceTable);
+      removeItemReferenceBegin(itemPriceTable, itemIndex);
       this.setState({ priceTableSelected: "0" });
       console.log("handle reference remove");
       return null;
@@ -56,7 +57,7 @@ class PriceTableSelect extends React.Component {
     });
     console.log("handle put");
 
-    putItemPriceTableBegin(itemPriceTable);
+    putItemPriceTableBegin(itemPriceTable, itemIndex);
   };
 
   componentDidMount = () => {
@@ -97,7 +98,8 @@ PriceTableSelect.propTypes = {
   priceTables: PropTypes.array.isRequired,
   idItem: PropTypes.string.isRequired,
   putItemPriceTableBegin: PropTypes.func.isRequired,
-  removeItemReferenceBegin: PropTypes.func.isRequired
+  removeItemReferenceBegin: PropTypes.func.isRequired,
+  itemIndex: PropTypes.any.isRequired
 };
 
 const mapStateToProps = store => ({
