@@ -96,7 +96,8 @@ PriceTableSelect.propTypes = {
   classes: PropTypes.object.isRequired,
   priceTables: PropTypes.array.isRequired,
   idItem: PropTypes.string.isRequired,
-  putItemPriceTable: PropTypes.func.isRequired
+  putItemPriceTableBegin: PropTypes.func.isRequired,
+  removeItemReferenceBegin: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
