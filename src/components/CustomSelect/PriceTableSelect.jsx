@@ -6,7 +6,10 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { putItemPriceTable } from "../../redux/actions/items.actions";
+import {
+  putItemPriceTableBegin,
+  removeItemReferenceBegin
+} from "../../redux/actions/items.actions";
 
 const styles = theme => ({
   root: {
@@ -29,11 +32,11 @@ class PriceTableSelect extends React.Component {
   };
 
   handleChange = e => {
-    this.setState({
-      priceTableSelected: e.target.value
-    });
-
-    const { idItem } = this.props;
+    const {
+      idItem,
+      removeItemReferenceBegin,
+      putItemPriceTableBegin
+    } = this.props;
     const { value: idPriceRange } = e.target;
 
     const itemPriceTable = {
@@ -41,9 +44,23 @@ class PriceTableSelect extends React.Component {
       idPriceRange: idPriceRange
     };
 
-    const { putItemPriceTable } = this.props;
+    if (idPriceRange == 0) {
+      removeItemReferenceBegin(itemPriceTable);
+      this.setState({ priceTableSelected: "0" });
+      console.log("handle reference remove");
+      return null;
+    }
 
-    putItemPriceTable(itemPriceTable);
+    this.setState({
+      priceTableSelected: idPriceRange
+    });
+    console.log("handle put");
+
+    putItemPriceTableBegin(itemPriceTable);
+  };
+
+  componentDidMount = () => {
+    //
   };
 
   render = () => {
@@ -62,7 +79,7 @@ class PriceTableSelect extends React.Component {
               id: "price-table"
             }}
           >
-            <MenuItem value="">Nenhum</MenuItem>
+            <MenuItem value="0">Nenhum</MenuItem>
             {priceTables.map((priceRange, index) => (
               <MenuItem key={index} value={priceRange.idPriceRange}>
                 {priceRange.name}
@@ -90,5 +107,5 @@ const styledPriceTableSelect = withStyles(styles)(PriceTableSelect);
 
 export default connect(
   mapStateToProps,
-  { putItemPriceTable }
+  { putItemPriceTableBegin, removeItemReferenceBegin }
 )(styledPriceTableSelect);
