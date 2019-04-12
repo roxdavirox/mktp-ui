@@ -71,9 +71,30 @@ export const deleteItemsFailure = error => ({
   playload: { error }
 });
 
-export const PUT_ITEM_PRICE_TABLE = "PUT_ITEM_PRICE_TABLE";
+export const PUT_ITEM_PRICE_TABLE_BEGIN = "PUT_ITEM_PRICE_TABLE_BEGIN";
 
-export const putItemPriceTable = body => ({
-  type: PUT_ITEM_PRICE_TABLE,
-  playload: { body }
+export const putItemPriceTableBegin = item => ({
+  type: PUT_ITEM_PRICE_TABLE_BEGIN,
+  playload: { item }
+});
+
+export const PUT_ITEM_PRICE_TABLE_SUCCESS = "PUT_ITEM_PRICE_TABLE_SUCCESS";
+
+export const putItemPriceTableSuccess = item => ({
+  type: PUT_ITEM_PRICE_TABLE_SUCCESS,
+  playload: { item }
+});
+
+export const REMOVE_ITEM_REFERENCE_BEGIN = "REMOVE_ITEM_REFERENCE_BEGIN";
+
+export const removeItemReferenceBegin = item => ({
+  type: REMOVE_ITEM_REFERENCE_BEGIN,
+  playload: { item }
+});
+
+export const REMOVE_ITEM_REFERENCE_SUCCESS = "REMOVE_ITEM_REFERENCE_SUCCESS";
+
+export const removeItemReferenceSuccess = item => ({
+  type: REMOVE_ITEM_REFERENCE_SUCCESS,
+  playload: { item }
 });
