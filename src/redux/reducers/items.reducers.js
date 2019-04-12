@@ -8,7 +8,10 @@ import {
   DELETE_ITEMS_BEGIN,
   DELETE_ITEMS_SUCCESS,
   DELETE_ITEMS_FAILURE,
-  PUT_ITEM_PRICE_TABLE
+  PUT_ITEM_PRICE_TABLE_BEGIN,
+  PUT_ITEM_PRICE_TABLE_SUCCESS,
+  REMOVE_ITEM_REFERENCE_BEGIN,
+  REMOVE_ITEM_REFERENCE_SUCCESS
 } from "../actions/items.actions";
 
 const initialState = {
@@ -59,9 +62,7 @@ export default function(state = initialState, action) {
     }
 
     case POST_ITEM_BEGIN: {
-      return {
-        ...state
-      };
+      return { ...state };
     }
 
     case POST_ITEM_SUCCESS: {
@@ -74,9 +75,7 @@ export default function(state = initialState, action) {
     }
 
     case DELETE_ITEMS_BEGIN:
-      return {
-        ...state
-      };
+      return { ...state };
 
     case DELETE_ITEMS_SUCCESS: {
       const { items } = action.playload;
@@ -96,10 +95,32 @@ export default function(state = initialState, action) {
       };
     }
 
-    case PUT_ITEM_PRICE_TABLE:
-      return {
-        ...state
-      };
+    case PUT_ITEM_PRICE_TABLE_BEGIN:
+      return { ...state };
+
+    case PUT_ITEM_PRICE_TABLE_SUCCESS: {
+      const { item } = action.playload;
+
+      const { items: prevItems } = state;
+
+      const items = prevItems.filter(i => i.idItem !== item.idItem);
+
+      return { ...state, items: [...items, item] };
+    }
+
+    case REMOVE_ITEM_REFERENCE_BEGIN: {
+      return { ...state };
+    }
+
+    case REMOVE_ITEM_REFERENCE_SUCCESS: {
+      const { item } = action.playload;
+
+      const { items: prevItems } = state;
+
+      const items = prevItems.filter(i => i.idItem !== item.idItem);
+
+      return { ...state, items: [...items, item] };
+    }
 
     default:
       return state;
