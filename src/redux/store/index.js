@@ -11,7 +11,8 @@ import {
   getItemsMiddleware,
   postItemMiddleware,
   deleteItemsMiddleware,
-  putItemPriceTableMiddleware
+  putItemPriceTableMiddleware,
+  removeItemReferenceMiddleware
 } from "./middlewares/items.middlewares";
 
 import {
@@ -36,6 +37,7 @@ export const store = createStore(
       deleteOptionsMiddleware,
       fetchOptionsMiddleware,
       putItemPriceTableMiddleware,
+      removeItemReferenceMiddleware,
       getItemsMiddleware,
       postItemMiddleware,
       deleteItemsMiddleware,
