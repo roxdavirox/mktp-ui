@@ -10,6 +10,7 @@ import {
   putItemPriceTableBegin,
   removeItemReferenceBegin
 } from "../../redux/actions/items.actions";
+import { getPricesRange } from "../../redux/selectors/pricesRange.selectors";
 
 const styles = theme => ({
   root: {
@@ -103,7 +104,7 @@ PriceTableSelect.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  priceTables: store.pricesRangeState.pricesRange
+  priceTables: getPricesRange(store)
 });
 
 const styledPriceTableSelect = withStyles(styles)(PriceTableSelect);
