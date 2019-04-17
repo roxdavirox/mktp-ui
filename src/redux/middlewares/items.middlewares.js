@@ -12,7 +12,7 @@ import {
   REMOVE_ITEM_REFERENCE_BEGIN,
   removeItemReferenceSuccess,
   getItemsByOptionsIdBegin
-} from "../../actions/items.actions";
+} from "../actions/items.actions";
 
 const url = "https://mktp.azurewebsites.net/api";
 
@@ -21,7 +21,9 @@ export const getItemsMiddleware = ({
   getState
 }) => next => action => {
   if (action.type === GET_ITEMS_BY_OPTION_ID_BEGIN) {
-    const { idOption } = getState().itemsState;
+    const { items: state } = getState();
+
+    const { idOption } = state;
 
     fetch(`${url}/items/${idOption}`)
       .then(res => res.json())
@@ -37,7 +39,10 @@ export const postItemMiddleware = ({
 }) => next => action => {
   if (action.type === POST_ITEM_BEGIN) {
     const { item, snack } = action.playload;
-    const { idOption } = getState().itemsState;
+
+    const { items: state } = getState();
+
+    const { idOption } = state;
 
     const request = {
       method: "POST",
@@ -73,7 +78,9 @@ export const deleteItemsMiddleware = ({
   if (action.type === DELETE_ITEMS_BEGIN) {
     const { deletedItemsIds, snack } = action.playload;
 
-    const { items: prevItems } = getState().itemsState;
+    const { items: state } = getState();
+
+    const { items: prevItems } = state;
 
     const items = prevItems.filter(
       ({ idItem }) => deletedItemsIds.indexOf(idItem) === -1

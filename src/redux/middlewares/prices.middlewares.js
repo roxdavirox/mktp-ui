@@ -8,7 +8,7 @@ import {
   DELETE_PRICES_BEGIN,
   deletePricesSuccess,
   deletePricesFailure
-} from "../../actions/prices.actions";
+} from "../actions/prices.actions";
 
 const url = "https://mktp.azurewebsites.net/api";
 
@@ -17,7 +17,7 @@ export const fetchPricesMiddleware = ({
   getState
 }) => next => action => {
   if (action.type === FETCH_PRICES_BEGIN) {
-    const { idPriceRange } = getState().pricesState;
+    const { idPriceRange } = getState().prices;
 
     fetch(`${url}/price/${idPriceRange}`)
       .then(res => res.json())
@@ -33,7 +33,9 @@ export const postPriceMiddleware = ({
   getState
 }) => next => action => {
   if (action.type === POST_PRICE_BEGIN) {
-    const { idPriceRange } = getState().pricesState;
+    const { prices: state } = getState();
+
+    const { idPriceRange } = state;
     const { price, snack } = action.playload;
 
     const request = {
@@ -70,7 +72,9 @@ export const deletePricesMiddleware = ({
   if (action.type === DELETE_PRICES_BEGIN) {
     const { deletedPricesIds, snack } = action.playload;
 
-    const { prices: prevPrices } = getState().pricesState;
+    const { prices: state } = getState();
+
+    const { prices: prevPrices } = state;
 
     const prices = prevPrices.filter(
       ({ idPrice }) => deletedPricesIds.indexOf(idPrice) === -1
