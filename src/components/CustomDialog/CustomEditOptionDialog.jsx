@@ -22,6 +22,7 @@ import {
   closeFormDialog,
   postItemBegin
 } from "../../redux/actions/items.actions";
+import { getItems } from "../../redux/selectors/items.selectors";
 
 class CustomEditOptionDialog extends React.Component {
   state = {
@@ -41,7 +42,7 @@ class CustomEditOptionDialog extends React.Component {
   };
 
   render() {
-    const { data, classes, enqueueSnackbar } = this.props;
+    const { items, classes, enqueueSnackbar } = this.props;
 
     return (
       <div>
@@ -116,7 +117,7 @@ class CustomEditOptionDialog extends React.Component {
               />
             </div>
 
-            <ItemMuiDatatable data={data} />
+            <ItemMuiDatatable data={items} />
           </DialogContent>
           <DialogActions>
             <Button
@@ -138,15 +139,15 @@ class CustomEditOptionDialog extends React.Component {
 CustomEditOptionDialog.propTypes = {
   openDialog: PropTypes.any.isRequired,
   closeFormDialog: PropTypes.func.isRequired,
-  data: PropTypes.any.isRequired,
+  items: PropTypes.any.isRequired,
   postItemBegin: PropTypes.func.isRequired,
   classes: PropTypes.any.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
-  openDialog: store.itemsState.openDialog,
-  data: store.itemsState.items
+  openDialog: store.items.openDialog,
+  items: getItems(store)
 });
 
 const connectedEditOptionDialog = connect(
