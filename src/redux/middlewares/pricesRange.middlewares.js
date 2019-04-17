@@ -8,7 +8,7 @@ import {
   DELETE_PRICES_RANGE_BEGIN,
   deletePricesRangeFailure,
   deletePricesRangeSuccess
-} from "../../actions/pricesRange.actions";
+} from "../actions/pricesRange.actions";
 
 const url = "https://mktp.azurewebsites.net/api/PriceRange";
 
@@ -61,7 +61,9 @@ export const deletePricesRangeMiddleware = ({
   if (action.type === DELETE_PRICES_RANGE_BEGIN) {
     const { pricesRangesIds, snack } = action.playload;
 
-    const { pricesRange: prevPricesRange } = getState().pricesRangeState;
+    const { pricesRange: state } = getState();
+
+    const { pricesRange: prevPricesRange } = state;
 
     const filter = arr => id => arr.indexOf(id) === -1;
 

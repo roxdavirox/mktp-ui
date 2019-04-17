@@ -9,7 +9,7 @@ import {
   deleteOptionsSuccess,
   deleteOptionsFailure,
   hideAlert
-} from "../../actions/options.actions";
+} from "../actions/options.actions";
 
 const apiOptions = "https://mktp.azurewebsites.net/api/options";
 
@@ -68,7 +68,9 @@ export const deleteOptionsMiddleware = ({
   if (action.type === DELETE_OPTIONS_BEGIN) {
     const { deletedOptionsIds, snack } = action.playload;
 
-    const { options: prevOptions } = getState().optionsState;
+    const { options: state } = getState();
+
+    const { options: prevOptions } = state;
 
     const filterOptions = arr => id => arr.indexOf(id) === -1;
 
@@ -103,7 +105,7 @@ export const deleteOptionsMiddleware = ({
 
         return res;
       })
-      .catch(error => { 
+      .catch(error => {
         snack(`Error: ${error}`);
         dispatch(deleteOptionsFailure(error));
       });
