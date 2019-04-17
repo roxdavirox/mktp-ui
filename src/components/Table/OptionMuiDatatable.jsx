@@ -19,6 +19,7 @@ import {
   showAlert,
   hideAlert
 } from "../../redux/actions/options.actions";
+import { getOptions } from "../../redux/selectors/options.selectors";
 
 import { openFormDialog } from "../../redux/actions/items.actions";
 
@@ -105,7 +106,7 @@ class OptionMuiDataTable extends React.Component {
   };
 
   handleRowsDelete = rows => {
-    const { deleteOptionsBegin, enqueueSnackbar, data: options } = this.props;
+    const { deleteOptionsBegin, enqueueSnackbar, options } = this.props;
 
     const { data: dataRows } = rows;
 
@@ -136,7 +137,7 @@ class OptionMuiDataTable extends React.Component {
   };
 
   render = () => {
-    const { data, openAlert } = this.props;
+    const { options: data, openAlert } = this.props;
     const { columns, options, sweetAlert } = this.state;
 
     return (
@@ -155,7 +156,7 @@ class OptionMuiDataTable extends React.Component {
 }
 
 OptionMuiDataTable.propTypes = {
-  data: PropTypes.any.isRequired,
+  options: PropTypes.any.isRequired,
   postOptionBegin: PropTypes.func.isRequired,
   fetchOptionsBegin: PropTypes.func.isRequired,
   deleteOptionsBegin: PropTypes.func.isRequired,
@@ -168,24 +169,32 @@ OptionMuiDataTable.propTypes = {
   openDialog: PropTypes.any.isRequired
 };
 
-const mapStateToProps = store => ({
-  data: store.optionsState.options,
-  openAlert: store.optionsState.openAlert,
-  openDialog: store.itemsState.openDialog
-});
-
 const wrappedMuiDatatable = withSnackbar(
   withStyles(optionStyle)(OptionMuiDataTable)
 );
 
+const mapStateToProps = store => {
+  const { openAlert } = store.options;
+  const { openDialog } = store.items;
+  const options = getOptions(store);
+
+  return {
+    openAlert,
+    openDialog,
+    options
+  };
+};
+
+const mapDispatchtoProps = {
+  postOptionBegin,
+  deleteOptionsBegin,
+  fetchOptionsBegin,
+  showAlert,
+  hideAlert,
+  openFormDialog
+};
+
 export default connect(
   mapStateToProps,
-  {
-    postOptionBegin,
-    deleteOptionsBegin,
-    fetchOptionsBegin,
-    showAlert,
-    hideAlert,
-    openFormDialog
-  }
+  mapDispatchtoProps
 )(wrappedMuiDatatable);
