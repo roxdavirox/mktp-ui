@@ -12,7 +12,7 @@ const ItemLoadingSkeleton = ({ isLoading }) =>
     "Nenhum item"
   );
 
-const mapStateToProps = store => ({ isLoading: store.itemsState.loading });
+const mapStateToProps = store => ({ isLoading: store.items.loading });
 
 ItemLoadingSkeleton.propTypes = {
   isLoading: PropTypes.any.isRequired

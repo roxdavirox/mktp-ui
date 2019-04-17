@@ -12,7 +12,7 @@ const CustomLoadingSkeleton = ({ isLoading }) =>
     "Nenhuma opção"
   );
 
-const mapStateToProps = store => ({ isLoading: store.optionsState.loading });
+const mapStateToProps = store => ({ isLoading: store.options.loading });
 
 CustomLoadingSkeleton.propTypes = {
   isLoading: PropTypes.any.isRequired
