@@ -66,7 +66,7 @@ CustomPriceDialog.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  openDialog: store.pricesState.openDialog
+  openDialog: store.prices.openDialog
 });
 
 const connectedPriceDialog = connect(
