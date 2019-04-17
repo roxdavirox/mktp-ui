@@ -8,6 +8,7 @@ import {
   openPriceDialog,
   deletePricesBegin
 } from "../../redux/actions/prices.actions";
+import { getPrices } from "../../redux/selectors/prices.selectors";
 import { Redirect } from "react-router-dom";
 import PriceLoadingSkeleton from "components/LoadingSkeleton/PriceLoadingSkeleton.jsx";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
@@ -81,7 +82,7 @@ class PriceMuiDatatable extends React.Component {
   };
 
   handleRowsDelete = rows => {
-    const { deletePricesBegin, enqueueSnackbar, data: prices } = this.props;
+    const { deletePricesBegin, enqueueSnackbar, prices } = this.props;
 
     const { data: dataRows } = rows;
 
@@ -114,7 +115,7 @@ class PriceMuiDatatable extends React.Component {
   };
 
   render = () => {
-    const { data, titlePriceRange } = this.props;
+    const { prices, titlePriceRange } = this.props;
     const { columns, options } = this.state;
 
     return (
@@ -123,7 +124,7 @@ class PriceMuiDatatable extends React.Component {
         <CustomPriceDialog />
         <CustomMUIDataTable
           title={titlePriceRange}
-          data={data}
+          data={prices}
           columns={columns}
           options={options}
         />
@@ -133,7 +134,7 @@ class PriceMuiDatatable extends React.Component {
 }
 
 PriceMuiDatatable.propTypes = {
-  data: PropTypes.any.isRequired,
+  prices: PropTypes.any.isRequired,
   idPriceRange: PropTypes.any.isRequired,
   fetchPricesBegin: PropTypes.func.isRequired,
   clearPrices: PropTypes.func.isRequired,
@@ -143,19 +144,30 @@ PriceMuiDatatable.propTypes = {
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
+const snackedPrice = withSnackbar(PriceMuiDatatable);
+
 const mapStateToProps = store => {
+  const { prices: state } = store;
+  const { idPriceRange, titlePriceRange } = state;
+  const prices = getPrices(store);
+
   return {
-    data: store.pricesState.prices,
-    idPriceRange: store.pricesState.idPriceRange,
-    titlePriceRange: store.pricesState.titlePriceRange
+    prices,
+    idPriceRange,
+    titlePriceRange
   };
 };
 
-const snackedPrice = withSnackbar(PriceMuiDatatable);
+const mapDispatchToProps = {
+  fetchPricesBegin,
+  clearPrices,
+  openPriceDialog,
+  deletePricesBegin
+};
 
 const connectedPrice = connect(
   mapStateToProps,
-  { fetchPricesBegin, clearPrices, openPriceDialog, deletePricesBegin }
+  mapDispatchToProps
 )(snackedPrice);
 
 export default connectedPrice;

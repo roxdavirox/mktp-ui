@@ -9,6 +9,7 @@ import {
   getItemsByOptionsIdBegin,
   deleteItemsBegin
 } from "../../redux/actions/items.actions";
+import { getItems } from "../../redux/selectors/items.selectors";
 import { fetchPricesRangeBegin } from "../../redux/actions/pricesRange.actions";
 import PriceTableSelect from "../CustomSelect/PriceTableSelect";
 
@@ -33,7 +34,7 @@ class ItemMuiDatatable extends React.Component {
           // eslint-disable-next-line react/display-name
           // eslint-disable-next-line no-unused-vars
           customBodyRender: (value, tableMeta) => {
-            const { data: items } = this.props;
+            const { items } = this.props;
 
             const { rowIndex: index } = tableMeta;
 
@@ -77,7 +78,7 @@ class ItemMuiDatatable extends React.Component {
   };
 
   handleRowsDelete = rows => {
-    const { deleteItemsBegin, enqueueSnackbar, data: items } = this.props;
+    const { deleteItemsBegin, enqueueSnackbar, items } = this.props;
 
     const { data: dataRows } = rows;
 
@@ -89,13 +90,13 @@ class ItemMuiDatatable extends React.Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { items } = this.props;
     const { columns, options } = this.state;
     return (
       <div>
         <CustomMUIDataTable
           title={""}
-          data={data}
+          data={items}
           columns={columns}
           options={options}
         />
@@ -106,17 +107,23 @@ class ItemMuiDatatable extends React.Component {
 
 ItemMuiDatatable.propTypes = {
   getItemsByOptionsIdBegin: PropTypes.func.isRequired,
-  data: PropTypes.any.isRequired,
+  items: PropTypes.any.isRequired,
   deleteItemsBegin: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   fetchPricesRangeBegin: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
-  data: store.itemsState.items
+  items: getItems(store)
 });
+
+const mapPropsToDispatch = {
+  getItemsByOptionsIdBegin,
+  deleteItemsBegin,
+  fetchPricesRangeBegin
+};
 
 export default connect(
   mapStateToProps,
-  { getItemsByOptionsIdBegin, deleteItemsBegin, fetchPricesRangeBegin }
+  mapPropsToDispatch
 )(withSnackbar(ItemMuiDatatable));

@@ -18,6 +18,7 @@ import {
   hideAlert,
   deletePricesRangeBegin
 } from "../../redux/actions/pricesRange.actions";
+import { getPricesRange } from "../../redux/selectors/pricesRange.selectors";
 
 import { setPriceRangeId } from "../../redux/actions/prices.actions";
 
@@ -115,11 +116,7 @@ class PriceTableMuiDatatable extends React.Component {
   };
 
   handleRowsDelete = rows => {
-    const {
-      deletePricesRangeBegin,
-      enqueueSnackbar,
-      data: pricesRange
-    } = this.props;
+    const { deletePricesRangeBegin, enqueueSnackbar, pricesRange } = this.props;
 
     const { data: dataRows } = rows;
 
@@ -157,20 +154,24 @@ class PriceTableMuiDatatable extends React.Component {
   };
 
   render = () => {
-    const { data, openAlert } = this.props;
+    const { pricesRange, openAlert } = this.props;
     const { columns, options, sweetAlert } = this.state;
 
     return (
       <>
         {openAlert && sweetAlert}
-        <CustomMUIDataTable data={data} columns={columns} options={options} />
+        <CustomMUIDataTable
+          data={pricesRange}
+          columns={columns}
+          options={options}
+        />
       </>
     );
   };
 }
 
 PriceTableMuiDatatable.propTypes = {
-  data: PropTypes.any.isRequired,
+  pricesRange: PropTypes.any.isRequired,
   fetchPricesRangeBegin: PropTypes.any.isRequired,
   hideAlert: PropTypes.func.isRequired,
   showAlert: PropTypes.func.isRequired,
@@ -182,23 +183,31 @@ PriceTableMuiDatatable.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = store => ({
-  data: store.pricesRangeState.pricesRange,
-  openAlert: store.pricesRangeState.openAlert
-});
-
 const priceStyled = withStyles(priceStyle)(PriceTableMuiDatatable);
 
 const hocSnackPriceTable = withSnackbar(priceStyled);
 
+const mapStateToProps = store => {
+  const { pricesRange: state } = store;
+  const { openAlert } = state;
+  const pricesRange = getPricesRange(store);
+
+  return {
+    pricesRange,
+    openAlert
+  };
+};
+
+const mapDispatchToProps = {
+  fetchPricesRangeBegin,
+  postPriceRangeBegin,
+  deletePricesRangeBegin,
+  showAlert,
+  hideAlert,
+  setPriceRangeId
+};
+
 export default connect(
   mapStateToProps,
-  {
-    fetchPricesRangeBegin,
-    postPriceRangeBegin,
-    deletePricesRangeBegin,
-    showAlert,
-    hideAlert,
-    setPriceRangeId
-  }
+  mapDispatchToProps
 )(hocSnackPriceTable);
