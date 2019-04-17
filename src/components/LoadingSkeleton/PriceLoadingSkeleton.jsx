@@ -13,7 +13,7 @@ const PriceLoadingSkeleton = ({ isLoading }) =>
   );
 
 const mapStateToProps = store => ({
-  isLoading: store.pricesState.loading
+  isLoading: store.prices.loading
 });
 
 PriceLoadingSkeleton.propTypes = {
