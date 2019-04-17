@@ -5,7 +5,7 @@ import {
   postOptionMiddleware,
   deleteOptionsMiddleware,
   fetchOptionsMiddleware
-} from "./middlewares/options.middlewares";
+} from "../middlewares/options.middlewares";
 
 import {
   getItemsMiddleware,
@@ -13,19 +13,19 @@ import {
   deleteItemsMiddleware,
   putItemPriceTableMiddleware,
   removeItemReferenceMiddleware
-} from "./middlewares/items.middlewares";
+} from "../middlewares/items.middlewares";
 
 import {
   fetchPricesRangeMiddleware,
   postPriceRangeMiddleware,
   deletePricesRangeMiddleware
-} from "./middlewares/pricesRange.middlewares";
+} from "../middlewares/pricesRange.middlewares";
 
 import {
   fetchPricesMiddleware,
   postPriceMiddleware,
   deletePricesMiddleware
-} from "./middlewares/prices.middlewares";
+} from "../middlewares/prices.middlewares";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
