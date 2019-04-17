@@ -1,12 +1,12 @@
 import options from "./options.reducers";
 import items from "./items.reducers";
 import pricesRange from "./pricesRange.reducers";
-import price from "./prices.reducers";
+import prices from "./prices.reducers";
 import { combineReducers } from "redux";
 
 export const reducers = combineReducers({
-  optionsState: options,
-  itemsState: items,
-  pricesRangeState: pricesRange,
-  pricesState: price
+  options,
+  items,
+  pricesRange,
+  prices
 });
