@@ -9,7 +9,7 @@ import {
   getItemsByOptionsIdBegin,
   deleteItemsBegin
 } from "../../redux/actions/items.actions";
-import { getItems } from "../../redux/selectors/items.selectors";
+import { getItemsByOptionId } from "../../redux/selectors/items.selectors";
 import { fetchPricesRangeBegin } from "../../redux/actions/pricesRange.actions";
 // import PriceTableSelect from "../CustomSelect/PriceTableSelect";
 
@@ -130,7 +130,7 @@ ItemMuiDatatable.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  items: getItems(store)
+  items: getItemsByOptionId(store)
 });
 
 const mapPropsToDispatch = {
