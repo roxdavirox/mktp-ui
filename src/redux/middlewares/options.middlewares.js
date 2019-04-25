@@ -56,7 +56,6 @@ export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
     fetch(nodeApi)
       .then(res => res.json())
       .then(({ options }) => {
-        console.log(options);
         dispatch(fetchOptionsSuccess(options));
       })
       .catch(error => dispatch(fetchOptionsFailure(error)));

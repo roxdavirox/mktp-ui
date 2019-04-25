@@ -11,7 +11,7 @@ import {
 } from "../../redux/actions/items.actions";
 import { getItems } from "../../redux/selectors/items.selectors";
 import { fetchPricesRangeBegin } from "../../redux/actions/pricesRange.actions";
-import PriceTableSelect from "../CustomSelect/PriceTableSelect";
+// import PriceTableSelect from "../CustomSelect/PriceTableSelect";
 
 class ItemMuiDatatable extends React.Component {
   state = {
@@ -25,29 +25,48 @@ class ItemMuiDatatable extends React.Component {
         }
       },
       {
-        name: "idItem",
-        label: "Tabela de preço",
+        name: "minValue",
+        label: "Menor preço de venda",
         options: {
           display: "true",
           sort: false,
-          filter: false,
-          // eslint-disable-next-line react/display-name
-          // eslint-disable-next-line no-unused-vars
-          customBodyRender: (value, tableMeta) => {
-            const { items } = this.props;
-
-            const { rowIndex: index } = tableMeta;
-
-            const { idItem, idPriceRange } = items[index];
-
-            return (
-              <PriceTableSelect
-                idItem={idItem}
-                idPriceRange={idPriceRange}
-                itemIndex={index}
-              />
-            );
-          }
+          filter: false
+        }
+      },
+      {
+        name: "maxValue",
+        label: "Maior preço de venda",
+        options: {
+          display: "true",
+          sort: false,
+          filter: false
+        }
+      },
+      {
+        name: "minQuantity",
+        label: "Menor quantidade de venda",
+        options: {
+          display: "true",
+          sort: false,
+          filter: false
+        }
+      },
+      {
+        name: "interval",
+        label: "intervalo",
+        options: {
+          display: "true",
+          sort: false,
+          filter: false
+        }
+      },
+      {
+        name: "_id",
+        label: " ",
+        options: {
+          display: "false",
+          sort: false,
+          filter: false
         }
       }
     ],
@@ -71,10 +90,7 @@ class ItemMuiDatatable extends React.Component {
   };
 
   componentDidMount = () => {
-    const { getItemsByOptionsIdBegin, fetchPricesRangeBegin } = this.props;
-
-    getItemsByOptionsIdBegin();
-    fetchPricesRangeBegin();
+    //
   };
 
   handleRowsDelete = rows => {
