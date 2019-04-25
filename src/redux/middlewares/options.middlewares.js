@@ -51,10 +51,14 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
 
 export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
   if (action.type === FETCH_OPTIONS_BEGIN) {
-    fetch(apiOptions)
+    const nodeApi = "http://localhost:3000/options";
+
+    fetch(nodeApi)
       .then(res => res.json())
-      .then(res => res.options)
-      .then(options => dispatch(fetchOptionsSuccess(options)))
+      .then(({ options }) => {
+        console.log(options);
+        dispatch(fetchOptionsSuccess(options));
+      })
       .catch(error => dispatch(fetchOptionsFailure(error)));
   }
 

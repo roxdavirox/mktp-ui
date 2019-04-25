@@ -57,7 +57,7 @@ class OptionMuiDataTable extends React.Component {
         }
       },
       {
-        name: "id",
+        name: "_id",
         label: " ",
         options: {
           sort: false,
@@ -67,8 +67,8 @@ class OptionMuiDataTable extends React.Component {
             <MoreHorizIcon
               key={tableMeta.columnIndex}
               onClick={() => {
-                const { openFormDialog } = this.props;
-                openFormDialog(value);
+                // const { openFormDialog } = this.props;
+                // openFormDialog(value);
               }}
             />
           ),
@@ -143,7 +143,7 @@ class OptionMuiDataTable extends React.Component {
     return (
       <div>
         {openAlert && sweetAlert}
-        <CustomEditOptionDialog />
+        {/* <CustomEditOptionDialog /> */}
         <CustomMUIDataTable
           title={"Opções"}
           data={data}
@@ -165,8 +165,8 @@ OptionMuiDataTable.propTypes = {
   showAlert: PropTypes.any.isRequired,
   hideAlert: PropTypes.any.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
-  openFormDialog: PropTypes.any.isRequired,
-  openDialog: PropTypes.any.isRequired
+  openFormDialog: PropTypes.any.isRequired
+  // openDialog: PropTypes.any.isRequired
 };
 
 const wrappedMuiDatatable = withSnackbar(
@@ -175,12 +175,12 @@ const wrappedMuiDatatable = withSnackbar(
 
 const mapStateToProps = store => {
   const { openAlert } = store.options;
-  const { openDialog } = store.items;
+  // const { openDialog } = store.items;
   const options = getOptions(store);
 
   return {
     openAlert,
-    openDialog,
+    // openDialog,
     options
   };
 };
