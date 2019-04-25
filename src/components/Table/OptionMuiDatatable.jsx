@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import { withSnackbar } from "notistack";
+import { Link } from "react-router-dom";
 
 import MoreHorizIcon from "components/CustomIcons/MoreHorizIcon.jsx";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
@@ -14,6 +15,7 @@ import CustomEditOptionDialog from "components/CustomDialog/CustomEditOptionDial
 
 import {
   postOptionBegin,
+  toggleOptionItems,
   deleteOptionsBegin,
   fetchOptionsBegin,
   showAlert,
@@ -64,13 +66,15 @@ class OptionMuiDataTable extends React.Component {
           filter: false,
           // eslint-disable-next-line react/display-name
           customBodyRender: (value, tableMeta) => (
-            <MoreHorizIcon
-              key={tableMeta.columnIndex}
-              onClick={() => {
-                // const { openFormDialog } = this.props;
-                // openFormDialog(value);
-              }}
-            />
+            <Link to="/admin/configuration/item">
+              <MoreHorizIcon
+                key={tableMeta.columnIndex}
+                onClick={() => {
+                  const { toggleOptionItems } = this.props;
+                  toggleOptionItems(value);
+                }}
+              />
+            </Link>
           ),
           setCellProps: () => {
             return {
@@ -165,7 +169,8 @@ OptionMuiDataTable.propTypes = {
   showAlert: PropTypes.any.isRequired,
   hideAlert: PropTypes.any.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
-  openFormDialog: PropTypes.any.isRequired
+  openFormDialog: PropTypes.any.isRequired,
+  toggleOptionItems: PropTypes.func.isRequired
   // openDialog: PropTypes.any.isRequired
 };
 
@@ -187,6 +192,7 @@ const mapStateToProps = store => {
 
 const mapDispatchtoProps = {
   postOptionBegin,
+  toggleOptionItems,
   deleteOptionsBegin,
   fetchOptionsBegin,
   showAlert,

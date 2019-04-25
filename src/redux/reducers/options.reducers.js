@@ -2,6 +2,7 @@ import {
   FETCH_OPTIONS_BEGIN,
   FETCH_OPTIONS_SUCCESS,
   FETCH_OPTIONS_FAILURE,
+  TOGGLE_OPTION_ITEMS,
   POST_OPTION_BEGIN,
   POST_OPTION_SUCCESS,
   POST_OPTION_FAILURE,
@@ -14,6 +15,7 @@ import {
 
 const initialState = {
   options: [],
+  selectedOptionId: null,
   loading: false,
   error: null,
   openAlert: false
@@ -36,6 +38,15 @@ export default function(state = initialState, action) {
         loading: false,
         options: action.playload.options
       };
+
+    case TOGGLE_OPTION_ITEMS: {
+      const { optionId } = action.playload;
+
+      return {
+        ...state,
+        selectedOptionId: optionId
+      };
+    }
 
     case FETCH_OPTIONS_FAILURE:
       return {
