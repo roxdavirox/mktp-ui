@@ -22,7 +22,7 @@ import {
   closeFormDialog,
   postItemBegin
 } from "../../redux/actions/items.actions";
-import { getItemsByOptionId } from "../../redux/selectors/items.selectors";
+import { getItemsOption } from "../../redux/selectors/items.selectors";
 
 class CustomEditOptionDialog extends React.Component {
   state = {
@@ -147,7 +147,7 @@ CustomEditOptionDialog.propTypes = {
 
 const mapStateToProps = store => ({
   openDialog: store.items.openDialog,
-  items: getItemsByOptionId(store)
+  items: getItemsOption(store)
 });
 
 const connectedEditOptionDialog = connect(

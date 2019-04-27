@@ -9,7 +9,7 @@ import {
   getItemsByOptionsIdBegin,
   deleteItemsBegin
 } from "../../redux/actions/items.actions";
-import { getItemsByOptionId } from "../../redux/selectors/items.selectors";
+import { getItemsOption } from "../../redux/selectors/items.selectors";
 import { fetchPricesRangeBegin } from "../../redux/actions/pricesRange.actions";
 // import PriceTableSelect from "../CustomSelect/PriceTableSelect";
 
@@ -80,11 +80,6 @@ class ItemMuiDatatable extends React.Component {
       rowsPerPageOptions: [5, 10, 15],
       rowsPerPage: 5,
       responsive: "stacked",
-      textLabels: {
-        body: {
-          noMatch: <ItemLoadingSkeleton />
-        }
-      },
       onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     }
   };
@@ -130,7 +125,7 @@ ItemMuiDatatable.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  items: getItemsByOptionId(store)
+  items: getItemsOption(store)
 });
 
 const mapPropsToDispatch = {
