@@ -12,10 +12,13 @@ export const getItemsOption = store => {
   const items = prevItems.map(item => {
     const { _id, name, price: prevPrice } = item;
 
+    if (!prevPrice) return { _id, name };
+
     const { _id: _, ...price } = prevPrice;
 
     return { _id, name, ...price };
   });
 
+  console.log("items: ", items);
   return items;
 };

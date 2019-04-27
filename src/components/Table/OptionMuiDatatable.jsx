@@ -11,7 +11,7 @@ import MoreHorizIcon from "components/CustomIcons/MoreHorizIcon.jsx";
 import CustomToolbar from "components/CustomToolbar/CustomToolbar.jsx";
 import CustomLoadingSkeleton from "components/LoadingSkeleton/CustomLoadingSkeleton.jsx";
 import CustomSweetAlertInput from "components/CustomSweetAlert/CustomSweetAlertInput.jsx";
-import CustomEditOptionDialog from "components/CustomDialog/CustomEditOptionDialog.jsx";
+// import CustomEditOptionDialog from "components/CustomDialog/CustomEditOptionDialog.jsx";
 
 import {
   postOptionBegin,
@@ -86,6 +86,11 @@ class OptionMuiDataTable extends React.Component {
     ],
     options: {
       filterType: "checkbox",
+      download: false,
+      print: false,
+      filter: false,
+      viewColumns: false,
+      rowHover: false,
       textLabels: {
         body: {
           noMatch: <CustomLoadingSkeleton />
