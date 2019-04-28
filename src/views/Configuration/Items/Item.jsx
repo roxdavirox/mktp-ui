@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React from "react";
 
-import ItemDatatable from "components/Table/ItemMuiDatatable";
+import ItemDatatable from "components/Custom/Table/ItemMuiDatatable";
 
 const Item = () => <ItemDatatable />;
 

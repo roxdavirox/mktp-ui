@@ -5,7 +5,9 @@ import Wizard from "components/Theme/Wizard/Wizard.jsx";
 import GridContainer from "components/Theme/Grid/GridContainer.jsx";
 import GridItem from "components/Theme/Grid/GridItem.jsx";
 
-const steps = [];
+import Step1 from "./WizardSteps/Step1.jsx";
+import Step2 from "./WizardSteps/Step2.jsx";
+import Step3 from "./WizardSteps/Step3.jsx";
 
 class WizardView extends React.Component {
   render() {
@@ -14,7 +16,11 @@ class WizardView extends React.Component {
         <GridItem xs={12} sm={8}>
           <Wizard
             validate
-            steps={steps}
+            steps={[
+              { stepName: "About", stepComponent: Step1, stepId: "about" },
+              { stepName: "Account", stepComponent: Step2, stepId: "account" },
+              { stepName: "Address", stepComponent: Step3, stepId: "address" }
+            ]}
             title="Build Your Profile"
             subtitle="This information will let us know more about you."
             finishButtonClick={e => console.log(e)}
