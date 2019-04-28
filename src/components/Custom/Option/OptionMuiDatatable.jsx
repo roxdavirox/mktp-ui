@@ -15,7 +15,6 @@ import Toolbar from "components/Common/Tables/Toolbar.jsx";
 import CustomSweetAlertInput from "components/Theme/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
 import OptionLoading from "./OptionLoadingSkeleton";
-// import CustomEditOptionDialog from "components/CustomDialog/CustomEditOptionDialog.jsx";
 
 import {
   postOptionBegin,
@@ -24,10 +23,10 @@ import {
   fetchOptionsBegin,
   showAlert,
   hideAlert
-} from "../../../redux/actions/options.actions";
-import { getOptions } from "../../../redux/selectors/options.selectors";
+} from "../../../redux/actions/options";
+import { getOptions } from "../../../redux/selectors/options";
 
-import { openFormDialog } from "../../../redux/actions/items.actions";
+import { openFormDialog } from "../../../redux/actions/items";
 
 const optionStyle = {
   EditCell: { textAlign: "right" },
@@ -156,7 +155,6 @@ class OptionMuiDataTable extends React.Component {
     return (
       <div>
         {openAlert && sweetAlert}
-        {/* <CustomEditOptionDialog /> */}
         <MuiDatatable
           title={"Opções"}
           data={data}
@@ -180,7 +178,6 @@ OptionMuiDataTable.propTypes = {
   enqueueSnackbar: PropTypes.any.isRequired,
   openFormDialog: PropTypes.any.isRequired,
   toggleOptionItems: PropTypes.func.isRequired
-  // openDialog: PropTypes.any.isRequired
 };
 
 const wrappedMuiDatatable = withSnackbar(
@@ -189,12 +186,10 @@ const wrappedMuiDatatable = withSnackbar(
 
 const mapStateToProps = store => {
   const { openAlert } = store.options;
-  // const { openDialog } = store.items;
   const options = getOptions(store);
 
   return {
     openAlert,
-    // openDialog,
     options
   };
 };

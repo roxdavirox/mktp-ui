@@ -8,11 +8,9 @@ import {
   deleteItemsSuccess,
   deleteItemsFailure,
   PUT_ITEM_PRICE_TABLE_BEGIN,
-  putItemPriceTableSuccess,
   REMOVE_ITEM_REFERENCE_BEGIN,
-  removeItemReferenceSuccess,
   getItemsByOptionsIdBegin
-} from "../actions/items.actions";
+} from "../actions/items";
 
 const url = "https://mktp.azurewebsites.net/api";
 

@@ -1,19 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-// import ItemLoadingSkeleton from "components/Custom/Loading/ItemLoadingSkeleton.jsx";
 import { withSnackbar } from "notistack";
 
 import MuiDatatable from "components/Common/Tables/MuiDatatable";
-// import PriceTableSelect from "../CustomSelect/PriceTableSelect";
 
 // redux
 import {
   getItemsByOptionsIdBegin,
   deleteItemsBegin
-} from "../../../redux/actions/items.actions";
-import { getItemsOption } from "../../../redux/selectors/items.selectors";
-import { fetchPricesRangeBegin } from "../../../redux/actions/pricesRange.actions";
+} from "../../../redux/actions/items";
+import { getItemsOption } from "../../../redux/selectors/items";
 
 class ItemMuiDatatable extends React.Component {
   state = {
@@ -86,10 +83,6 @@ class ItemMuiDatatable extends React.Component {
     }
   };
 
-  componentDidMount = () => {
-    //
-  };
-
   handleRowsDelete = rows => {
     const { deleteItemsBegin, enqueueSnackbar, items } = this.props;
 
@@ -122,8 +115,7 @@ ItemMuiDatatable.propTypes = {
   getItemsByOptionsIdBegin: PropTypes.func.isRequired,
   items: PropTypes.any.isRequired,
   deleteItemsBegin: PropTypes.func.isRequired,
-  enqueueSnackbar: PropTypes.func.isRequired,
-  fetchPricesRangeBegin: PropTypes.func.isRequired
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -132,8 +124,7 @@ const mapStateToProps = store => ({
 
 const mapPropsToDispatch = {
   getItemsByOptionsIdBegin,
-  deleteItemsBegin,
-  fetchPricesRangeBegin
+  deleteItemsBegin
 };
 
 export default connect(

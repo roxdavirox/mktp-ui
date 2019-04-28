@@ -1,4 +1,4 @@
-import options from "./options.reducers";
+import options from "./options";
 import { combineReducers } from "redux";
 
 export const reducers = combineReducers({

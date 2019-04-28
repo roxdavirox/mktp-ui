@@ -9,7 +9,7 @@ import {
   deleteOptionsSuccess,
   deleteOptionsFailure,
   hideAlert
-} from "../actions/options.actions";
+} from "../actions/options";
 
 const apiOptions = "https://mktp.azurewebsites.net/api/options";
 
