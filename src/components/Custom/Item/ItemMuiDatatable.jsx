@@ -1,17 +1,19 @@
 import React from "react";
-import MuiDatatable from "components/Common/Table/MuiDatatable";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 // import ItemLoadingSkeleton from "components/Custom/Loading/ItemLoadingSkeleton.jsx";
 import { withSnackbar } from "notistack";
 
+import MuiDatatable from "components/Common/Tables/MuiDatatable";
+// import PriceTableSelect from "../CustomSelect/PriceTableSelect";
+
+// redux
 import {
   getItemsByOptionsIdBegin,
   deleteItemsBegin
 } from "../../../redux/actions/items.actions";
 import { getItemsOption } from "../../../redux/selectors/items.selectors";
 import { fetchPricesRangeBegin } from "../../../redux/actions/pricesRange.actions";
-// import PriceTableSelect from "../CustomSelect/PriceTableSelect";
 
 class ItemMuiDatatable extends React.Component {
   state = {

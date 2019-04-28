@@ -7,11 +7,11 @@ import { withSnackbar } from "notistack";
 import { Link } from "react-router-dom";
 
 //Common components
-import MuiDatatable from "../../Common/Table/MuiDatatable";
+import MuiDatatable from "../../Common/Tables/MuiDatatable";
 
 //Theme components
-import MoreHorizIcon from "components/Theme/CustomIcons/MoreHorizIcon.jsx";
-import CustomToolbar from "components/Theme/CustomToolbar/CustomToolbar.jsx";
+import MoreHorizIcon from "components/Common/Icons/MoreHorizIcon.jsx";
+import Toolbar from "components/Common/Tables/Toolbar.jsx";
 import CustomSweetAlertInput from "components/Theme/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
 import OptionLoading from "./OptionLoadingSkeleton";
@@ -102,7 +102,7 @@ class OptionMuiDataTable extends React.Component {
       },
       customToolbar: () => {
         return (
-          <CustomToolbar
+          <Toolbar
             title="Adicionar Opção"
             onClick={() => {
               const { showAlert } = this.props;
