@@ -6,12 +6,15 @@ import { withStyles } from "@material-ui/core/styles";
 import { withSnackbar } from "notistack";
 import { Link } from "react-router-dom";
 
+//Common components
 import MuiDatatable from "../../Common/Table/MuiDatatable";
 
+//Theme components
 import MoreHorizIcon from "components/Theme/CustomIcons/MoreHorizIcon.jsx";
 import CustomToolbar from "components/Theme/CustomToolbar/CustomToolbar.jsx";
-import CustomLoadingSkeleton from "components/Custom/Loading/CustomLoadingSkeleton.jsx";
 import CustomSweetAlertInput from "components/Theme/CustomSweetAlert/CustomSweetAlertInput.jsx";
+
+import OptionLoading from "./OptionLoadingSkeleton";
 // import CustomEditOptionDialog from "components/CustomDialog/CustomEditOptionDialog.jsx";
 
 import {
@@ -94,7 +97,7 @@ class OptionMuiDataTable extends React.Component {
       rowHover: false,
       textLabels: {
         body: {
-          noMatch: <CustomLoadingSkeleton />
+          noMatch: <OptionLoading />
         }
       },
       customToolbar: () => {
