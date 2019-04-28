@@ -8,14 +8,26 @@ const defaultToolbarStyles = {
   iconButton: {}
 };
 
-const Toolbar = (classes, title, onClick, ...rest) => (
-  <>
-    <Tooltip title={title ? title : "custom Add"}>
-      <IconButton className={classes.iconButton} onClick={onClick} {...rest}>
-        <AddIcon className={classes.deleteIcon} />
-      </IconButton>
-    </Tooltip>
-  </>
-);
+class CustomToolbar extends React.Component {
+  render() {
+    const { classes, title, onClick, ...rest } = this.props;
 
-export default withStyles(defaultToolbarStyles, { name: "Toolbar" })(Toolbar);
+    return (
+      <React.Fragment>
+        <Tooltip title={title ? title : "custom Add"}>
+          <IconButton
+            className={classes.iconButton}
+            onClick={onClick}
+            {...rest}
+          >
+            <AddIcon className={classes.deleteIcon} />
+          </IconButton>
+        </Tooltip>
+      </React.Fragment>
+    );
+  }
+}
+
+export default withStyles(defaultToolbarStyles, { name: "CustomToolbar" })(
+  CustomToolbar
+);
