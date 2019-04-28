@@ -11,7 +11,7 @@ import {
   DELETE_OPTIONS_FAILURE,
   HIDE_ALERT,
   SHOW_ALERT
-} from "../actions/options.actions";
+} from "../actions/options";
 
 const initialState = {
   options: [],
