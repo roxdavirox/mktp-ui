@@ -1,13 +1,14 @@
 export const getOptionsState = store => store.options;
 
+const getItems = store => optionId =>
+  getOptionsState(store).options.find(o => o._id === optionId);
+
 export const getItemsOption = store => {
   const { selectedOptionId: optionId } = getOptionsState(store);
 
   if (!optionId) return [];
 
-  const { items: prevItems } = getOptionsState(store).options.find(
-    o => o._id === optionId
-  );
+  const { items: prevItems } = getItems(store)(optionId);
 
   const items = prevItems.map(item => {
     const { _id, name, price: prevPrice } = item;
