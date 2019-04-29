@@ -30,7 +30,7 @@ import {
   rtlBugs,
   rtlWebsite,
   rtlServer
-} from "variables/general.jsx";
+} from "../variables/general.jsx";
 
 import image from "assets/img/faces/card-profile1-square.jpg";
 

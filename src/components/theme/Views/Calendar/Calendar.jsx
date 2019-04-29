@@ -18,7 +18,7 @@ import CardBody from "components/Theme/Card/CardBody.jsx";
 
 import buttonStyle from "assets/jss/material-dashboard-pro-react/components/buttonStyle.jsx";
 
-import { events } from "variables/general.jsx";
+import { events } from "../../variables/general.jsx";
 
 const localizer = BigCalendar.momentLocalizer(moment);
 

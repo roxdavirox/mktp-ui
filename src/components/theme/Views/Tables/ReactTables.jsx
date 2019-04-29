@@ -18,7 +18,7 @@ import CardBody from "components/Theme/Card/CardBody.jsx";
 import CardIcon from "components/Theme/Card/CardIcon.jsx";
 import CardHeader from "components/Theme/Card/CardHeader.jsx";
 
-import { dataTable } from "variables/general.jsx";
+import { dataTable } from "../../variables/general.jsx";
 
 import { cardTitle } from "assets/jss/material-dashboard-pro-react.jsx";
 

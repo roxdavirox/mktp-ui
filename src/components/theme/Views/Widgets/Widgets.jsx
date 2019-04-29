@@ -24,7 +24,12 @@ import CardText from "components/Theme/Card/CardText.jsx";
 import CardBody from "components/Theme/Card/CardBody.jsx";
 import CardFooter from "components/Theme/Card/CardFooter.jsx";
 
-import { widgetStories, bugs, website, server } from "variables/general.jsx";
+import {
+  widgetStories,
+  bugs,
+  website,
+  server
+} from "../../variables/general.jsx";
 
 import image from "assets/img/faces/card-profile1-square.jpg";
 

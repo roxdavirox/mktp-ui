@@ -27,7 +27,7 @@ import {
   multipleBarsChart,
   colouredLinesChart,
   pieChart
-} from "variables/charts.jsx";
+} from "../../variables/charts.jsx";
 
 import chartsStyle from "assets/jss/material-dashboard-pro-react/views/chartsStyle.jsx";
 

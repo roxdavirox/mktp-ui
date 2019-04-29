@@ -8,7 +8,7 @@ import Timeline from "components/Theme/Timeline/Timeline.jsx";
 import Card from "components/Theme/Card/Card.jsx";
 import CardBody from "components/Theme/Card/CardBody.jsx";
 
-import { stories } from "variables/general.jsx";
+import { stories } from "../../variables/general.jsx";
 
 class TimelinePage extends React.Component {
   render() {
