@@ -10,24 +10,9 @@ import { Provider } from "react-redux";
 import { store } from "./components/App/store";
 
 import { SnackbarProvider } from "notistack";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+// import { MuiThemeProvider } from "@material-ui/core/styles";
+import MuiTheme from "./components/App/muiTheme";
 import "assets/scss/material-dashboard-pro-react.scss?v=1.5.0";
-
-const theme = createMuiTheme({
-  overrides: {
-    MuiModal: {
-      root: {
-        overflowY: "auto"
-      }
-    },
-    MuiDialog: {
-      container: { height: "auto" }
-    },
-    MUIDataTableSelectCell: {
-      root: { width: "10px" }
-    }
-  }
-});
 
 const hist = createBrowserHistory();
 
@@ -50,9 +35,9 @@ ReactDOM.render(
         horizontal: "right"
       }}
     >
-      <MuiThemeProvider theme={theme}>
+      <MuiTheme>
         <Routers />
-      </MuiThemeProvider>
+      </MuiTheme>
     </SnackbarProvider>
   </Provider>,
   document.getElementById("root")
