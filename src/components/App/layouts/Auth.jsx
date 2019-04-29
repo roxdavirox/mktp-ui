@@ -9,7 +9,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AuthNavbar from "components/Theme/Navbars/AuthNavbar.jsx";
 import Footer from "components/Theme/Footer/Footer.jsx";
 
-import routes from "routes.js";
+import routes from "../routes";
 
 import pagesStyle from "assets/jss/material-dashboard-pro-react/layouts/authStyle.jsx";
 

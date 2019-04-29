@@ -15,7 +15,7 @@ import Footer from "components/Theme/Footer/Footer.jsx";
 import Sidebar from "components/Theme/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/Theme/FixedPlugin/FixedPlugin.jsx";
 
-import routes from "routes.js";
+import routes from "../routes";
 
 import appStyle from "assets/jss/material-dashboard-pro-react/layouts/adminStyle.jsx";
 
