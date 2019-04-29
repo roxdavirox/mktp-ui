@@ -3,10 +3,11 @@ import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 
-import AuthLayout from "layouts/Auth.jsx";
-import AdminLayout from "layouts/Admin.jsx";
+import AuthLayout from "./components/App/layouts/Auth";
+import AdminLayout from "./components/App/layouts/Admin";
+
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { store } from "./components/App/store";
 
 import { SnackbarProvider } from "notistack";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
