@@ -23,10 +23,10 @@ import {
   fetchOptionsBegin,
   showAlert,
   hideAlert
-} from "../../../redux/actions/options";
-import { getOptions } from "../../../redux/selectors/options";
+} from "./optionActions";
+import { getOptions } from "./optionSelector";
 
-import { openFormDialog } from "../../../redux/actions/items";
+import { openFormDialog } from "../Item/itemActions";
 
 const optionStyle = {
   EditCell: { textAlign: "right" },
