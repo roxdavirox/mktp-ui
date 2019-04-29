@@ -7,11 +7,11 @@ import { withSnackbar } from "notistack";
 import { Link } from "react-router-dom";
 
 //Common components
-import MuiDatatable from "../../Common/Tables/MuiDatatable";
+import MuiDatatable from "components/App/Common/Tables/MuiDatatable";
 
 //Theme components
-import MoreHorizIcon from "components/Common/Icons/MoreHorizIcon.jsx";
-import Toolbar from "components/Common/Tables/Toolbar.jsx";
+import MoreHorizIcon from "components/App/Common/Icons/MoreHorizIcon.jsx";
+import Toolbar from "components/App/Common/Tables/Toolbar.jsx";
 import CustomSweetAlertInput from "components/Theme/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
 import OptionLoading from "./OptionLoadingSkeleton";
