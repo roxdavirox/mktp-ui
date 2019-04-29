@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withSnackbar } from "notistack";
 
-import MuiDatatable from "components/App/Common/Tables/MuiDatatable";
+import MuiDatatable from "components/app/common/tables/MuiDatatable";
 
 // redux
 import { getItemsByOptionsIdBegin, deleteItemsBegin } from "./itemActions";

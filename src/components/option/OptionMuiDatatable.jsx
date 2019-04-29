@@ -7,12 +7,12 @@ import { withSnackbar } from "notistack";
 import { Link } from "react-router-dom";
 
 //Common components
-import MuiDatatable from "components/App/Common/Tables/MuiDatatable";
+import MuiDatatable from "components/app/common/tables/MuiDatatable";
 
 //Theme components
-import MoreHorizIcon from "components/App/Common/Icons/MoreHorizIcon.jsx";
-import Toolbar from "components/App/Common/Tables/Toolbar.jsx";
-import CustomSweetAlertInput from "components/Theme/CustomSweetAlert/CustomSweetAlertInput.jsx";
+import MoreHorizIcon from "components/app/common/icons/MoreHorizIcon.jsx";
+import Toolbar from "components/app/common/tables/Toolbar.jsx";
+import CustomSweetAlertInput from "components/theme/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
 import OptionLoading from "./OptionLoadingSkeleton";
 
@@ -26,7 +26,7 @@ import {
 } from "./optionActions";
 import { getOptions } from "./optionSelector";
 
-import { openFormDialog } from "../Item/itemActions";
+import { openFormDialog } from "../item/itemActions";
 
 const optionStyle = {
   EditCell: { textAlign: "right" },

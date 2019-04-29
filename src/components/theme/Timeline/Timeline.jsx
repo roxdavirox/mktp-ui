@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // core components
-import Badge from "components/Theme/Badge/Badge.jsx";
+import Badge from "components/theme/Badge/Badge.jsx";
 
 import timelineStyle from "assets/jss/material-dashboard-pro-react/components/timelineStyle.jsx";
 

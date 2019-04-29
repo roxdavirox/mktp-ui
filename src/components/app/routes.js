@@ -37,8 +37,8 @@
 // import WidgetsIcon from "@material-ui/icons/Widgets";
 
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import Option from "components/Pages/OptionPage.jsx";
-import Item from "components/Pages/ItemPage.jsx";
+import OptionPage from "components/option/OptionPage.jsx";
+import ItemPage from "components/item/ItemPage.jsx";
 var dashRoutes = [
   // {
   //   path: "/dashboard",
@@ -57,7 +57,7 @@ var dashRoutes = [
         path: "/configuration/options",
         name: "Opções",
         mini: "O",
-        component: Option,
+        component: OptionPage,
         layout: "/admin"
       }
     ]
@@ -65,7 +65,7 @@ var dashRoutes = [
   {
     path: "/configuration/item",
     name: "Item",
-    component: Item,
+    component: ItemPage,
     layout: "/admin",
     invisible: true
   }

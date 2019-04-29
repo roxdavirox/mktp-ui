@@ -20,8 +20,8 @@ import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
 
 // core components
-import CustomInput from "components/Theme/CustomInput/CustomInput.jsx";
-import Button from "components/Theme/CustomButtons/Button.jsx";
+import CustomInput from "components/theme/CustomInput/CustomInput.jsx";
+import Button from "components/theme/CustomButtons/Button.jsx";
 
 import adminNavbarLinksStyle from "assets/jss/material-dashboard-pro-react/components/adminNavbarLinksStyle.jsx";
 
