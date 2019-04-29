@@ -6,11 +6,8 @@ import { withSnackbar } from "notistack";
 import MuiDatatable from "components/Common/Tables/MuiDatatable";
 
 // redux
-import {
-  getItemsByOptionsIdBegin,
-  deleteItemsBegin
-} from "../../../redux/actions/items";
-import { getItemsOption } from "../../../redux/selectors/items";
+import { getItemsByOptionsIdBegin, deleteItemsBegin } from "./itemActions";
+import { getItemsOption } from "./itemSelector";
 
 class ItemMuiDatatable extends React.Component {
   state = {
