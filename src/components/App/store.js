@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import { reducers } from "../reducers";
+import { reducers } from "./reducers";
 
 import {
   postOptionMiddleware,
   deleteOptionsMiddleware,
   fetchOptionsMiddleware
-} from "../middlewares/options";
+} from "../Option/optionMiddlewares";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
