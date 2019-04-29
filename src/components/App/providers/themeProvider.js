@@ -19,8 +19,8 @@ const theme = createMuiTheme({
   }
 });
 
-const MuiTheme = ({ children }) => (
+const ThemeProvider = ({ children }) => (
   <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
 );
 
-export default MuiTheme;
+export default ThemeProvider;
