@@ -2,8 +2,6 @@
 // import Calendar from "views/Calendar/Calendar.jsx";
 // import Charts from "views/Charts/Charts.jsx";
 // import Dashboard from "views/Dashboard/Dashboard.jsx";
-import Option from "views/Configuration/Options/Option.jsx";
-import Item from "views/Configuration/Items/Item.jsx";
 // import ErrorPage from "views/Pages/ErrorPage.jsx";
 // import ExtendedForms from "views/Forms/ExtendedForms.jsx";
 // import ExtendedTables from "views/Tables/ExtendedTables.jsx";
@@ -31,7 +29,6 @@ import Item from "views/Configuration/Items/Item.jsx";
 
 // @material-ui/icons
 // import Apps from "@material-ui/icons/Apps";
-import DashboardIcon from "@material-ui/icons/Dashboard";
 // import DateRange from "@material-ui/icons/DateRange";
 // import GridOn from "@material-ui/icons/GridOn";
 // import Image from "@material-ui/icons/Image";
@@ -39,6 +36,9 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 // import Timeline from "@material-ui/icons/Timeline";
 // import WidgetsIcon from "@material-ui/icons/Widgets";
 
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import Option from "components/Pages/OptionPage.jsx";
+import Item from "components/Pages/ItemPage.jsx";
 var dashRoutes = [
   // {
   //   path: "/dashboard",

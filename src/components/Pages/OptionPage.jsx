@@ -3,6 +3,6 @@ import React from "react";
 
 import OptionMuiDatatable from "components/Option/OptionMuiDatatable";
 
-const Option = () => <OptionMuiDatatable />;
+const OptionPage = () => <OptionMuiDatatable />;
 
-export default Option;
+export default OptionPage;

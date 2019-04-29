@@ -3,6 +3,6 @@ import React from "react";
 
 import ItemDatatable from "components/Item/ItemMuiDatatable";
 
-const Item = () => <ItemDatatable />;
+const ItemPage = () => <ItemDatatable />;
 
-export default Item;
+export default ItemPage;
