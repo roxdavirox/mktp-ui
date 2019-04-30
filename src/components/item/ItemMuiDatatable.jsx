@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { withSnackbar } from "notistack";
 
 import MuiDatatable from "components/app/common/tables/MuiDatatable";
+import Toolbar from "components/app/common/tables/Toolbar.jsx";
 
 // redux
 import { getItemsByOptionsIdBegin, deleteItemsBegin } from "./itemActions";
@@ -76,6 +77,9 @@ class ItemMuiDatatable extends React.Component {
       rowsPerPageOptions: [5, 10, 15],
       rowsPerPage: 5,
       responsive: "stacked",
+      customToolbar: () => {
+        return <Toolbar title="Adicionar Item" />;
+      },
       onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     }
   };
