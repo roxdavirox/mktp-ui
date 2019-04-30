@@ -77,6 +77,11 @@ class ItemMuiDatatable extends React.Component {
       rowsPerPageOptions: [5, 10, 15],
       rowsPerPage: 5,
       responsive: "stacked",
+      textLabels: {
+        body: {
+          noMatch: "Nenhum item"
+        }
+      },
       customToolbar: () => {
         return <Toolbar title="Adicionar Item" />;
       },

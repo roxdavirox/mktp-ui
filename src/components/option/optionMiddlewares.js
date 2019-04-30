@@ -11,7 +11,9 @@ import {
   hideAlert
 } from "./optionActions";
 
-const apiOptions = "https://mktp.azurewebsites.net/api/options";
+const host = "http://localhost:3000";
+
+const getEndpoint = route => `${host}${route}`;
 
 export const postOptionMiddleware = ({ dispatch }) => next => action => {
   if (action.type === POST_OPTION_BEGIN) {
@@ -30,13 +32,16 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
       body: JSON.stringify(option)
     };
 
-    fetch(apiOptions, request)
+    const endpoint = getEndpoint("/options");
+
+    fetch(endpoint, request)
       .then(res => res.json())
-      .then(option => {
+      .then(({ option }) => {
         snack(`Opção ${optionName} adicionada com sucesso!`, {
           variant: "success",
           autoHideDuration: 2000
         });
+        console.log(option);
         dispatch(postOptionSuccess(option));
       })
       .catch(error => {
@@ -51,9 +56,9 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
 
 export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
   if (action.type === FETCH_OPTIONS_BEGIN) {
-    const nodeApi = "http://localhost:3000/options";
+    const endpoint = getEndpoint("/options");
 
-    fetch(nodeApi)
+    fetch(endpoint)
       .then(res => res.json())
       .then(({ options }) => {
         dispatch(fetchOptionsSuccess(options));
@@ -79,7 +84,7 @@ export const deleteOptionsMiddleware = ({
 
     const filterDeletedOption = filterOptions(deletedOptionsIds);
 
-    const options = prevOptions.filter(({ id }) => filterDeletedOption(id));
+    const options = prevOptions.filter(({ _id }) => filterDeletedOption(_id));
 
     const body = {
       optionsIds: deletedOptionsIds
@@ -94,7 +99,9 @@ export const deleteOptionsMiddleware = ({
       body: JSON.stringify(body)
     };
 
-    fetch(apiOptions, request)
+    const endpoint = getEndpoint("/options");
+
+    fetch(endpoint, request)
       .then(res => res.json())
       .then(res => {
         if (res.deletedOptionsCount) {

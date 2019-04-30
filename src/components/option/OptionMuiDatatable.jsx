@@ -124,7 +124,7 @@ class OptionMuiDataTable extends React.Component {
 
     const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
 
-    const deletedOptionsIds = indexRows.map(index => options[index].id);
+    const deletedOptionsIds = indexRows.map(index => options[index]._id);
 
     deleteOptionsBegin(deletedOptionsIds, enqueueSnackbar);
   };
