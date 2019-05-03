@@ -11,7 +11,7 @@ import {
   hideAlert
 } from "./optionActions";
 
-const host = "http://localhost:3000";
+const host = process.env.REACT_APP_HOST_API;
 
 const getEndpoint = route => `${host}${route}`;
 
@@ -41,7 +41,7 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
           variant: "success",
           autoHideDuration: 2000
         });
-        console.log(option);
+
         dispatch(postOptionSuccess(option));
       })
       .catch(error => {
