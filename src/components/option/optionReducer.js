@@ -12,7 +12,7 @@ import {
   SHOW_ALERT
 } from "./optionActions";
 
-import { ADD_ENTITIES } from "../app/actions";
+import { ADD_ENTITIES } from "../app/redux/actions";
 
 const initialState = {
   byId: {},

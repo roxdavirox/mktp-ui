@@ -5,7 +5,7 @@ import {
   postOptionMiddleware,
   deleteOptionsMiddleware,
   fetchOptionsMiddleware
-} from "../option/optionMiddlewares";
+} from "../../option/optionMiddlewares";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
