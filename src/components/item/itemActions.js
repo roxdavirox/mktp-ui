@@ -1,3 +1,10 @@
+export const TOGGLE_OPTION_ITEMS = "TOGGLE_OPTION_ITEMS";
+
+export const toggleOptionItems = optionId => ({
+  type: TOGGLE_OPTION_ITEMS,
+  playload: { optionId }
+});
+
 export const GET_ITEMS_BY_OPTION_ID_BEGIN = "GET_ITEMS_BY_OPTION_ID_BEGIN";
 
 export const getItemsByOptionsIdBegin = () => ({

@@ -1,10 +1,10 @@
 export const getOptionsState = store => store.options;
 
 const getItems = store => optionId =>
-  getOptionsState(store).options.find(o => o._id === optionId);
+  getOptionsState(store) ? getOptionsState(store)[optionId] : {};
 
 export const getItemsOption = store => {
-  const { selectedOptionId: optionId } = getOptionsState(store);
+  const { optionId } = getOptionsState(store);
 
   if (!optionId) return [];
 

@@ -16,9 +16,9 @@ import CustomSweetAlertInput from "components/theme/CustomSweetAlert/CustomSweet
 
 import OptionLoading from "./OptionLoadingSkeleton";
 
+import { toggleOptionItems } from "../item/itemActions";
 import {
   postOptionBegin,
-  toggleOptionItems,
   deleteOptionsBegin,
   fetchOptionsBegin,
   showAlert,
@@ -187,7 +187,6 @@ const wrappedMuiDatatable = withSnackbar(
 const mapStateToProps = store => {
   const { openAlert } = store.options;
   const options = getOptions(store);
-
   return {
     openAlert,
     options

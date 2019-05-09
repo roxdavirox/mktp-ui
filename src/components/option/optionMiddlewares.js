@@ -1,5 +1,11 @@
+/* eslint-disable no-console */
+/* eslint-disable prettier/prettier */
+import { optionSchema } from "../app/schema";
+import { normalize } from "normalizr";
+
+import { addEntities } from "../app/actions";
+
 import {
-  fetchOptionsSuccess,
   fetchOptionsFailure,
   FETCH_OPTIONS_BEGIN,
   POST_OPTION_BEGIN,
@@ -60,9 +66,16 @@ export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
 
     fetch(endpoint)
       .then(res => res.json())
-      .then(({ options }) => {
-        dispatch(fetchOptionsSuccess(options));
+      .then(res => {
+        console.log('response:',res);
+        return res;
       })
+      .then(({ options }) => normalize(options, [optionSchema]))
+      .then(res => {
+        console.log('normalized response:',res);
+        return res;
+      })
+      .then(({ entities }) => dispatch(addEntities(entities)))
       .catch(error => dispatch(fetchOptionsFailure(error)));
   }
 

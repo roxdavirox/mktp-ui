@@ -1,6 +1,5 @@
 import {
   FETCH_OPTIONS_BEGIN,
-  FETCH_OPTIONS_SUCCESS,
   FETCH_OPTIONS_FAILURE,
   TOGGLE_OPTION_ITEMS,
   POST_OPTION_BEGIN,
@@ -13,8 +12,11 @@ import {
   SHOW_ALERT
 } from "./optionActions";
 
+import { ADD_ENTITIES } from "../app/actions";
+
 const initialState = {
-  options: [],
+  byId: {},
+  allIds: [],
   selectedOptionId: null,
   loading: false,
   error: null,
@@ -27,17 +29,24 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: true,
-        options: [],
         error: null,
         openAlert: false
       };
 
-    case FETCH_OPTIONS_SUCCESS:
+    case ADD_ENTITIES: {
+      const {
+        entities: { options }
+      } = action.playload;
+
+      const byId = { ...options };
+      const allIds = Object.keys(options);
       return {
         ...state,
-        loading: false,
-        options: action.playload.options
+        byId,
+        allIds,
+        loading: false
       };
+    }
 
     case TOGGLE_OPTION_ITEMS: {
       const { optionId } = action.playload;
@@ -52,7 +61,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        options: [],
         error: action.playload.error
       };
 
