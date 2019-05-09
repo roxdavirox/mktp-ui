@@ -1,3 +1,4 @@
+import { ADD_ENTITIES } from "../app/redux/actions";
 import { TOGGLE_OPTION_ITEMS } from "./itemActions";
 
 const initialState = {
@@ -11,6 +12,20 @@ export default function(state = initialState, action) {
         ...state,
         optionId: action.playload.optionId
       };
+
+    case ADD_ENTITIES: {
+      const {
+        entities: { items }
+      } = action.playload;
+
+      const byId = { ...items };
+      const allIds = Object.keys(items);
+      return {
+        ...state,
+        byId,
+        allIds
+      };
+    }
 
     default:
       return state;
