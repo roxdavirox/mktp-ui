@@ -1,25 +1,21 @@
+import { getOptionById } from "../option/optionSelector";
+
 export const getOptionsState = store => store.options;
 
-const getItems = store => optionId =>
-  getOptionsState(store) ? getOptionsState(store)[optionId] : {};
+export const getItemsState = store => store.items;
 
-export const getItemsOption = store => {
-  const { optionId } = getOptionsState(store);
+export const getOptionsList = store =>
+  getOptionsState(store) ? getOptionsState(store).allIds : [];
 
-  if (!optionId) return [];
+export const getOptionId = store => getItemsState(store).optionId;
 
-  const { items: prevItems } = getItems(store)(optionId);
+export const getOptionsItemsList = store =>
+  getOptionById(getOptionId(store), store).items || [];
 
-  const items = prevItems.map(item => {
-    const { _id, name, price: prevPrice } = item;
+export const getItemById = (id, store) =>
+  getItemsState(store) ? getItemsState(store).byId[id] : {};
 
-    if (!prevPrice) return { _id, name };
-
-    const { _id: _, ...price } = prevPrice;
-
-    return { _id, name, ...price };
-  });
-
-  console.log("items: ", items);
-  return items;
-};
+export const getItems = store =>
+  getItemsState(store).optionId
+    ? getOptionsItemsList(store).map(id => getItemById(id, store))
+    : [];

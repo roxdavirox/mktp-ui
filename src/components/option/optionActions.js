@@ -3,13 +3,6 @@ export const FETCH_OPTIONS_BEGIN = "FETCH_OPTIONS_BEGIN";
 
 export const fetchOptionsBegin = () => ({ type: FETCH_OPTIONS_BEGIN });
 
-export const TOGGLE_OPTION_ITEMS = "TOGGLE_OPTION_ITEMS";
-
-export const toggleOptionItems = optionId => ({
-  type: TOGGLE_OPTION_ITEMS,
-  playload: { optionId }
-});
-
 export const FETCH_OPTIONS_FAILURE = "FETCH_OPTIONS_FAILURE";
 
 export const fetchOptionsFailure = error => ({

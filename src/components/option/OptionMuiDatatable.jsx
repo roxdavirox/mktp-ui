@@ -186,11 +186,11 @@ const wrappedMuiDatatable = withSnackbar(
 
 const mapStateToProps = store => {
   const { openAlert } = store.options;
-
-  console.log('renderiza 3 vezes mapStateToProps');
+  const options = getOptions(store);
+  console.log('props:', options);
   return {
     openAlert,
-    options: getOptions(store)
+    options
   };
 };
 

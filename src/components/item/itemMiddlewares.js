@@ -1,6 +1,4 @@
 import {
-  GET_ITEMS_BY_OPTION_ID_BEGIN,
-  getItemsSuccess,
   POST_ITEM_BEGIN,
   postItemSuccess,
   postItemFailure,
@@ -13,23 +11,6 @@ import {
 } from "./itemActions";
 
 const url = "https://mktp.azurewebsites.net/api";
-
-export const getItemsMiddleware = ({
-  dispatch,
-  getState
-}) => next => action => {
-  if (action.type === GET_ITEMS_BY_OPTION_ID_BEGIN) {
-    const { items: state } = getState();
-
-    const { idOption } = state;
-
-    fetch(`${url}/items/${idOption}`)
-      .then(res => res.json())
-      .then(({ items }) => dispatch(getItemsSuccess(items)));
-  }
-
-  next(action);
-};
 
 export const postItemMiddleware = ({
   dispatch,

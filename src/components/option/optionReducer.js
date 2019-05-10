@@ -1,7 +1,6 @@
 import {
   FETCH_OPTIONS_BEGIN,
   FETCH_OPTIONS_FAILURE,
-  TOGGLE_OPTION_ITEMS,
   POST_OPTION_BEGIN,
   POST_OPTION_SUCCESS,
   POST_OPTION_FAILURE,
@@ -17,7 +16,6 @@ import { ADD_ENTITIES } from "../app/redux/actions";
 const initialState = {
   byId: {},
   allIds: [],
-  selectedOptionId: null,
   loading: false,
   error: null,
   openAlert: false
@@ -45,15 +43,6 @@ export default function(state = initialState, action) {
         byId,
         allIds,
         loading: false
-      };
-    }
-
-    case TOGGLE_OPTION_ITEMS: {
-      const { optionId } = action.playload;
-
-      return {
-        ...state,
-        selectedOptionId: optionId
       };
     }
 

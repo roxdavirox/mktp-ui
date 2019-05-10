@@ -13,7 +13,7 @@ const MuiDatatable = ({ title, data, columns, options }) => (
 );
 
 MuiDatatable.propTypes = {
-  title: PropTypes.any.isRequired,
+  title: PropTypes.any,
   data: PropTypes.any.isRequired,
   columns: PropTypes.any.isRequired,
   options: PropTypes.any.isRequired

@@ -11,8 +11,8 @@ const defaultToolbarStyles = {
 
 const CustomToolbar = ({ classes, title, ...rest }) => (
   <>
-    <Tooltip title={title ? title : "custom Add"}>
-      <IconButton className={classes.iconButton} {...rest}>
+    <Tooltip title={title ? title : "custom Add"} {...rest}>
+      <IconButton className={classes.iconButton} >
         <AddIcon />
       </IconButton>
     </Tooltip>

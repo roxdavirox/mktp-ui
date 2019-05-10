@@ -2,16 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withSnackbar } from "notistack";
-
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import MuiDatatable from "components/app/common/tables/MuiDatatable";
 import Toolbar from "components/app/common/tables/Toolbar.jsx";
 
 // redux
 import { getItemsByOptionsIdBegin, deleteItemsBegin } from "./itemActions";
-import { getItemsOption } from "./itemSelector";
+import { getItems } from "./itemSelector";
 
 class ItemMuiDatatable extends React.Component {
   state = {
+    anchorEl: null,
+    openMenu: false,
     columns: [
       {
         name: "name",
@@ -83,7 +86,24 @@ class ItemMuiDatatable extends React.Component {
         }
       },
       customToolbar: () => {
-        return <Toolbar title="Adicionar Item" />;
+        return (
+          <div>
+            <Toolbar
+              title="Adicionar Item"
+              onClick={e => this.setState({ anchorEl: e.currentTarget })}
+              aria-owns="add-menu"
+              aria-haspopup="true"
+            />
+            <Menu
+              id="add-menu"
+              anchorEl={this.anchorEl}
+              open={this.state.anchorEl || false}
+              onClose={() => this.setState({ anchorEl: null })}
+            >
+              <MenuItem>oi</MenuItem>
+            </Menu>
+          </div>
+        );
       },
       onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     }
@@ -102,30 +122,21 @@ class ItemMuiDatatable extends React.Component {
   };
 
   render() {
-    const { items } = this.props;
-    const { columns, options } = this.state;
-    return (
-      <div>
-        <MuiDatatable
-          title={""}
-          data={items}
-          columns={columns}
-          options={options}
-        />
-      </div>
-    );
+    const { props, state } = this;
+    const { options, columns } = state;
+    return <MuiDatatable {...props} options={options} columns={columns} />;
   }
 }
 
 ItemMuiDatatable.propTypes = {
   getItemsByOptionsIdBegin: PropTypes.func.isRequired,
-  items: PropTypes.any.isRequired,
+  data: PropTypes.any.isRequired,
   deleteItemsBegin: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
-  items: getItemsOption(store)
+  data: getItems(store)
 });
 
 const mapPropsToDispatch = {
