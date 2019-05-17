@@ -1,7 +1,7 @@
 // start fetch options
-export const FETCH_OPTIONS_BEGIN = "FETCH_OPTIONS_BEGIN";
+export const FETCH_OPTIONS = "FETCH_OPTIONS";
 
-export const fetchOptionsBegin = () => ({ type: FETCH_OPTIONS_BEGIN });
+export const fetchOptions = () => ({ type: FETCH_OPTIONS });
 
 export const FETCH_OPTIONS_FAILURE = "FETCH_OPTIONS_FAILURE";
 

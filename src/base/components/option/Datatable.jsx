@@ -20,7 +20,7 @@ import { toggleOptionItems } from "../item/actions";
 import {
   postOptionBegin,
   deleteOptionsBegin,
-  fetchOptionsBegin,
+  fetchOptions,
   showAlert,
   hideAlert
 } from "./actions";
@@ -143,9 +143,7 @@ class DataTable extends React.Component {
   };
 
   componentDidMount = () => {
-    const { fetchOptionsBegin } = this.props;
-
-    fetchOptionsBegin();
+    this.props.fetchOptions();
   };
 
   render = () => {
@@ -169,7 +167,7 @@ class DataTable extends React.Component {
 DataTable.propTypes = {
   options: PropTypes.any.isRequired,
   postOptionBegin: PropTypes.func.isRequired,
-  fetchOptionsBegin: PropTypes.func.isRequired,
+  fetchOptions: PropTypes.func.isRequired,
   deleteOptionsBegin: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   openAlert: PropTypes.any.isRequired,
@@ -196,7 +194,7 @@ const mapDispatchtoProps = {
   postOptionBegin,
   toggleOptionItems,
   deleteOptionsBegin,
-  fetchOptionsBegin,
+  fetchOptions,
   showAlert,
   hideAlert,
   openFormDialog

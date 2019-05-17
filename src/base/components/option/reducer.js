@@ -1,5 +1,5 @@
 import {
-  FETCH_OPTIONS_BEGIN,
+  FETCH_OPTIONS,
   FETCH_OPTIONS_FAILURE,
   POST_OPTION_BEGIN,
   POST_OPTION_SUCCESS,
@@ -23,7 +23,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case FETCH_OPTIONS_BEGIN:
+    case FETCH_OPTIONS:
       return {
         ...state,
         loading: true,

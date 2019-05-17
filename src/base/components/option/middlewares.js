@@ -7,7 +7,7 @@ import { addEntities } from "base/redux/actions";
 
 import {
   fetchOptionsFailure,
-  FETCH_OPTIONS_BEGIN,
+  FETCH_OPTIONS,
   POST_OPTION_BEGIN,
   DELETE_OPTIONS_BEGIN,
   postOptionSuccess,
@@ -61,7 +61,7 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
 };
 
 export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
-  if (action.type === FETCH_OPTIONS_BEGIN) {
+  if (action.type === FETCH_OPTIONS) {
     const endpoint = getEndpoint("/options");
 
     fetch(endpoint)
