@@ -1,5 +1,5 @@
 import { ADD_ENTITIES } from "base/redux/actions";
-import { TOGGLE_OPTION_ITEMS } from "./itemActions";
+import { TOGGLE_OPTION_ITEMS } from "./actions";
 
 const initialState = {
   optionId: null

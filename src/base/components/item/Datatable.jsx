@@ -8,10 +8,10 @@ import MuiDatatable from "base/components/common/tables/MuiDatatable";
 import Toolbar from "base/components/common/tables/Toolbar.jsx";
 
 // redux
-import { getItemsByOptionsIdBegin, deleteItemsBegin } from "./itemActions";
-import { getItems } from "./itemSelector";
+import { getItemsByOptionsIdBegin, deleteItemsBegin } from "./actions";
+import { getItems } from "./selectors";
 
-class ItemMuiDatatable extends React.Component {
+class Datatable extends React.Component {
   state = {
     anchorEl: null,
     openMenu: false,
@@ -102,13 +102,13 @@ class ItemMuiDatatable extends React.Component {
   };
 
   handleRowsDelete = rows => {
-    const { deleteItemsBegin, enqueueSnackbar, items } = this.props;
+    const { deleteItemsBegin, enqueueSnackbar, data } = this.props;
 
     const { data: dataRows } = rows;
 
     const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
 
-    const deletedItemsIds = indexRows.map(index => items[index].idItem);
+    const deletedItemsIds = indexRows.map(index => data[index].idItem);
 
     deleteItemsBegin(deletedItemsIds, enqueueSnackbar);
   };
@@ -135,7 +135,7 @@ class ItemMuiDatatable extends React.Component {
   }
 }
 
-ItemMuiDatatable.propTypes = {
+Datatable.propTypes = {
   getItemsByOptionsIdBegin: PropTypes.func.isRequired,
   data: PropTypes.any.isRequired,
   deleteItemsBegin: PropTypes.func.isRequired,
@@ -154,4 +154,4 @@ const mapPropsToDispatch = {
 export default connect(
   mapStateToProps,
   mapPropsToDispatch
-)(withSnackbar(ItemMuiDatatable));
+)(withSnackbar(Datatable));

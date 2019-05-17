@@ -1,4 +1,4 @@
-import { getOptionById } from "../option/optionSelector";
+import { getOptionById } from "../option/selectors";
 
 export const getOptionsState = store => store.options;
 

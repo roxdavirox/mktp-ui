@@ -14,26 +14,26 @@ import MoreHorizIcon from "base/components/common/icons/MoreHorizIcon.jsx";
 import Toolbar from "base/components/common/tables/Toolbar.jsx";
 import CustomSweetAlertInput from "base/components/theme/CustomSweetAlert/CustomSweetAlertInput.jsx";
 
-import OptionLoading from "./OptionLoadingSkeleton";
+import OptionLoading from "./LoadingSkeleton";
 
-import { toggleOptionItems } from "../item/itemActions";
+import { toggleOptionItems } from "../item/actions";
 import {
   postOptionBegin,
   deleteOptionsBegin,
   fetchOptionsBegin,
   showAlert,
   hideAlert
-} from "./optionActions";
-import { getOptions } from "./optionSelector";
+} from "./actions";
+import { getOptions } from "./selectors";
 
-import { openFormDialog } from "../item/itemActions";
+import { openFormDialog } from "../item/actions";
 
 const optionStyle = {
   EditCell: { textAlign: "right" },
   NameCell: { fontWeight: 500 }
 };
 
-class OptionMuiDataTable extends React.Component {
+class DataTable extends React.Component {
   state = {
     inputValue: "",
     sweetAlert: (
@@ -166,7 +166,7 @@ class OptionMuiDataTable extends React.Component {
   };
 }
 
-OptionMuiDataTable.propTypes = {
+DataTable.propTypes = {
   options: PropTypes.any.isRequired,
   postOptionBegin: PropTypes.func.isRequired,
   fetchOptionsBegin: PropTypes.func.isRequired,
@@ -180,14 +180,12 @@ OptionMuiDataTable.propTypes = {
   toggleOptionItems: PropTypes.func.isRequired
 };
 
-const wrappedMuiDatatable = withSnackbar(
-  withStyles(optionStyle)(OptionMuiDataTable)
-);
+const wrappedMuiDatatable = withSnackbar(withStyles(optionStyle)(DataTable));
 
 const mapStateToProps = store => {
   const { openAlert } = store.options;
   const options = getOptions(store);
-  console.log('props:', options);
+  console.log("props:", options);
   return {
     openAlert,
     options

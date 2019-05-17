@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React from "react";
 
-import ItemDatatable from "./ItemMuiDatatable";
+import ItemDatatable from "./Datatable";
 
 const ItemPage = () => <ItemDatatable />;
 

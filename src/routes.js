@@ -37,8 +37,8 @@
 // import WidgetsIcon from "@material-ui/icons/Widgets";
 
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import OptionPage from "base/components/option/OptionPage.jsx";
-import ItemPage from "base/components/item/ItemPage.jsx";
+import Option from "base/components/option/Page.jsx";
+import Item from "base/components/item/Page.jsx";
 var dashRoutes = [
   // {
   //   path: "/dashboard",
@@ -54,18 +54,18 @@ var dashRoutes = [
     state: "configCollapse",
     views: [
       {
-        path: "/configuration/options",
+        path: "/config/options",
         name: "Opções",
         mini: "O",
-        component: OptionPage,
+        component: Option,
         layout: "/admin"
       }
     ]
   },
   {
-    path: "/configuration/item",
+    path: "/config/item",
     name: "Item",
-    component: ItemPage,
+    component: Item,
     layout: "/admin",
     invisible: true
   }

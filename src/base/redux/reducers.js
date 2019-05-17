@@ -1,6 +1,6 @@
-import options from "base/components/option/optionReducer";
-import items from "base/components/item/itemReducer";
-import prices from "base/components/price/priceReducer";
+import options from "base/components/option/reducer";
+import items from "base/components/item/reducer";
+import prices from "base/components/price/reducer";
 
 import { combineReducers } from "redux";
 

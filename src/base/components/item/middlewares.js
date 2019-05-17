@@ -8,7 +8,7 @@ import {
   PUT_ITEM_PRICE_TABLE_BEGIN,
   REMOVE_ITEM_REFERENCE_BEGIN,
   getItemsByOptionsIdBegin
-} from "./itemActions";
+} from "./actions";
 
 const url = "https://mktp.azurewebsites.net/api";
 

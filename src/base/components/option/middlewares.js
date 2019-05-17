@@ -15,7 +15,7 @@ import {
   deleteOptionsSuccess,
   deleteOptionsFailure,
   hideAlert
-} from "./optionActions";
+} from "./actions";
 
 const host = process.env.REACT_APP_HOST_API;
 
