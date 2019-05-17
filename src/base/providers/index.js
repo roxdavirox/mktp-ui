@@ -1,9 +1,9 @@
 import React from "react";
 
-import Store from "./storeProvider";
-import Notifications from "./snackProvider";
-import Theme from "./themeProvider";
-import Router from "./routerProvider";
+import Store from "./store";
+import Notifications from "./snack";
+import Theme from "./muiTheme";
+import Router from "./router";
 
 const Providers = () => (
   <Store>
