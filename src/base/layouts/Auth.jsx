@@ -6,10 +6,10 @@ import { Switch, Route } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // core components
-import AuthNavbar from "components/theme/Navbars/AuthNavbar.jsx";
-import Footer from "components/theme/Footer/Footer.jsx";
+import AuthNavbar from "base/components/theme/Navbars/AuthNavbar.jsx";
+import Footer from "base/components/theme/Footer/Footer.jsx";
 
-import routes from "../routes";
+import routes from "routes";
 
 import pagesStyle from "assets/jss/material-dashboard-pro-react/layouts/authStyle.jsx";
 

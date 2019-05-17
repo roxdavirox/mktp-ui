@@ -15,7 +15,7 @@ import ViewList from "@material-ui/icons/ViewList";
 
 // core components
 import AdminNavbarLinks from "./AdminNavbarLinks";
-import Button from "components/theme/CustomButtons/Button.jsx";
+import Button from "base/components/theme/CustomButtons/Button.jsx";
 
 import adminNavbarStyle from "assets/jss/material-dashboard-pro-react/components/adminNavbarStyle.jsx";
 

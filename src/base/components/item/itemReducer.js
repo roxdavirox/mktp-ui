@@ -1,4 +1,4 @@
-import { ADD_ENTITIES } from "../app/redux/actions";
+import { ADD_ENTITIES } from "base/redux/actions";
 import { TOGGLE_OPTION_ITEMS } from "./itemActions";
 
 const initialState = {

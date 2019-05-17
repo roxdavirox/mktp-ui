@@ -37,8 +37,8 @@
 // import WidgetsIcon from "@material-ui/icons/Widgets";
 
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import OptionPage from "components/option/OptionPage.jsx";
-import ItemPage from "components/item/ItemPage.jsx";
+import OptionPage from "base/components/option/OptionPage.jsx";
+import ItemPage from "base/components/item/ItemPage.jsx";
 var dashRoutes = [
   // {
   //   path: "/dashboard",

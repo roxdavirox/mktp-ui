@@ -10,12 +10,12 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // core components
-import AdminNavbar from "components/theme/Navbars/AdminNavbar.jsx";
-import Footer from "components/theme/Footer/Footer.jsx";
-import Sidebar from "components/theme/Sidebar/Sidebar.jsx";
-import FixedPlugin from "components/theme/FixedPlugin/FixedPlugin.jsx";
+import AdminNavbar from "base/components/theme/Navbars/AdminNavbar.jsx";
+import Footer from "base/components/theme/Footer/Footer.jsx";
+import Sidebar from "base/components/theme/Sidebar/Sidebar.jsx";
+import FixedPlugin from "base/components/theme/FixedPlugin/FixedPlugin.jsx";
 
-import routes from "../routes";
+import routes from "routes";
 
 import appStyle from "assets/jss/material-dashboard-pro-react/layouts/adminStyle.jsx";
 

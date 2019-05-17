@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import { withSnackbar } from "notistack";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import MuiDatatable from "components/app/common/tables/MuiDatatable";
-import Toolbar from "components/app/common/tables/Toolbar.jsx";
+import MuiDatatable from "base/components/common/tables/MuiDatatable";
+import Toolbar from "base/components/common/tables/Toolbar.jsx";
 
 // redux
 import { getItemsByOptionsIdBegin, deleteItemsBegin } from "./itemActions";
@@ -87,22 +87,14 @@ class ItemMuiDatatable extends React.Component {
       },
       customToolbar: () => {
         return (
-          <div>
+          <>
             <Toolbar
               title="Adicionar Item"
               onClick={e => this.setState({ anchorEl: e.currentTarget })}
               aria-owns="add-menu"
               aria-haspopup="true"
             />
-            <Menu
-              id="add-menu"
-              anchorEl={this.anchorEl}
-              open={this.state.anchorEl || false}
-              onClose={() => this.setState({ anchorEl: null })}
-            >
-              <MenuItem>oi</MenuItem>
-            </Menu>
-          </div>
+          </>
         );
       },
       onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
@@ -124,7 +116,22 @@ class ItemMuiDatatable extends React.Component {
   render() {
     const { props, state } = this;
     const { options, columns } = state;
-    return <MuiDatatable {...props} options={options} columns={columns} />;
+    return (
+      <div>
+        <Menu
+          id="add-menu"
+          anchorEl={this.anchorEl}
+          open={this.state.anchorEl ? true : false}
+          onClose={() => this.setState({ anchorEl: null })}
+          getContentAnchorEl={null}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          transformOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <MenuItem>oi</MenuItem>
+        </Menu>{" "}
+        <MuiDatatable {...props} options={options} columns={columns} />{" "}
+      </div>
+    );
   }
 }
 
