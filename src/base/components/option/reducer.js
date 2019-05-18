@@ -87,11 +87,23 @@ export default function(state = initialState, action) {
     }
 
     case DELETE_OPTIONS_SUCCESS: {
-      const { options } = action.playload;
+      const { optionsId } = action.playload;
+
+      const allIds = state.allIds.filter(id => optionsId.indexOf(id) === -1);
+
+      const byId = allIds.reduce((ids, id) => {
+        return {
+          ...ids,
+          [id]: {
+            ...state.byId[id]
+          }
+        };
+      }, {});
 
       return {
         ...state,
-        options
+        byId,
+        allIds
       };
     }
 
