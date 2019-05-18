@@ -52,6 +52,7 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
       })
       .catch(error => {
         snack(`Error: ${error}`);
+        console.log('erro no post:', error);
         dispatch(postOptionFailure(error));
       })
       .finally(() => dispatch(hideAlert()));
@@ -83,26 +84,16 @@ export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
 };
 
 export const deleteOptionsMiddleware = ({
-  dispatch,
-  getState
+  dispatch
 }) => next => action => {
   if (action.type === DELETE_OPTIONS_BEGIN) {
-    const { deletedOptionsIds, snack } = action.playload;
-
-    const { options: state } = getState();
-
-    const { options: prevOptions } = state;
-
-    const filterOptions = arr => id => arr.indexOf(id) === -1;
-
-    const filterDeletedOption = filterOptions(deletedOptionsIds);
-
-    const options = prevOptions.filter(({ _id }) => filterDeletedOption(_id));
+    const { optionsId, snack } = action.playload;
 
     const body = {
-      optionsIds: deletedOptionsIds
+      optionsIds: optionsId
     };
 
+    console.log('optionsid:', optionsId);
     const request = {
       method: "DELETE",
       headers: {
@@ -119,7 +110,7 @@ export const deleteOptionsMiddleware = ({
       .then(res => {
         if (res.deletedOptionsCount) {
           const count = res.deletedOptionsCount;
-          dispatch(deleteOptionsSuccess(options));
+          dispatch(deleteOptionsSuccess(optionsId));
           snack(`${count} opç${count == 1 ? "ão deletada" : "ões deletadas"}`, {
             variant: "success",
             autoHideDuration: 2000

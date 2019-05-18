@@ -13,6 +13,8 @@ import OptionLoading from "./LoadingSkeleton";
 import { toggleOptionItems } from "../item/actions";
 import { deleteOptionsBegin } from "./actions";
 
+import { withSnackbar } from "notistack";
+
 const optionStyle = {
   EditCell: { textAlign: "right" },
   NameCell: { fontWeight: 500 }
@@ -27,6 +29,11 @@ class DataTable extends React.Component {
     const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
 
     const deletedOptionsIds = indexRows.map(index => data[index]._id);
+
+    enqueueSnackbar("Deletando...", {
+      variant: "info",
+      autoHideDuration: 2000
+    });
 
     deleteOptionsBegin(deletedOptionsIds, enqueueSnackbar);
   };
@@ -115,7 +122,10 @@ const mapDispatchtoProps = {
   deleteOptionsBegin
 };
 
+const styleDatatable = withStyles(optionStyle)(DataTable);
+const snackDatatable = withSnackbar(styleDatatable);
+
 export default connect(
   null,
   mapDispatchtoProps
-)(withStyles(optionStyle)(DataTable));
+)(snackDatatable);
