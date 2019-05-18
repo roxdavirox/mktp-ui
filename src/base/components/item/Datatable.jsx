@@ -2,8 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withSnackbar } from "notistack";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import MuiDatatable from "base/components/common/tables/MuiDatatable";
 import Toolbar from "base/components/common/tables/Toolbar.jsx";
 
@@ -11,65 +9,64 @@ import Toolbar from "base/components/common/tables/Toolbar.jsx";
 import { getItemsByOptionsIdBegin, deleteItemsBegin } from "./actions";
 import { getItems } from "./selectors";
 
+const columns = [
+  {
+    name: "name",
+    label: "Item",
+    options: {
+      filter: true,
+      sort: true
+    }
+  },
+  {
+    name: "minValue",
+    label: "Menor preço de venda",
+    options: {
+      display: "true",
+      sort: false,
+      filter: false
+    }
+  },
+  {
+    name: "maxValue",
+    label: "Maior preço de venda",
+    options: {
+      display: "true",
+      sort: false,
+      filter: false
+    }
+  },
+  {
+    name: "minQuantity",
+    label: "Menor quantidade de venda",
+    options: {
+      display: "true",
+      sort: false,
+      filter: false
+    }
+  },
+  {
+    name: "interval",
+    label: "intervalo",
+    options: {
+      display: "true",
+      sort: false,
+      filter: false
+    }
+  },
+  {
+    name: "_id",
+    label: " ",
+    options: {
+      display: "false",
+      sort: false,
+      filter: false
+    }
+  }
+];
+
 class Datatable extends React.Component {
   state = {
-    anchorEl: null,
-    openMenu: false,
-    columns: [
-      {
-        name: "name",
-        label: "Item",
-        options: {
-          filter: true,
-          sort: true
-        }
-      },
-      {
-        name: "minValue",
-        label: "Menor preço de venda",
-        options: {
-          display: "true",
-          sort: false,
-          filter: false
-        }
-      },
-      {
-        name: "maxValue",
-        label: "Maior preço de venda",
-        options: {
-          display: "true",
-          sort: false,
-          filter: false
-        }
-      },
-      {
-        name: "minQuantity",
-        label: "Menor quantidade de venda",
-        options: {
-          display: "true",
-          sort: false,
-          filter: false
-        }
-      },
-      {
-        name: "interval",
-        label: "intervalo",
-        options: {
-          display: "true",
-          sort: false,
-          filter: false
-        }
-      },
-      {
-        name: "_id",
-        label: " ",
-        options: {
-          display: "false",
-          sort: false,
-          filter: false
-        }
-      }
-    ],
     options: {
       filterType: "checkbox",
       download: false,
@@ -90,7 +87,7 @@ class Datatable extends React.Component {
           <>
             <Toolbar
               title="Adicionar Item"
-              onClick={e => this.setState({ anchorEl: e.currentTarget })}
+              onClick={e => console.log("click no add item")}
               aria-owns="add-menu"
               aria-haspopup="true"
             />
@@ -115,21 +112,10 @@ class Datatable extends React.Component {
 
   render() {
     const { props, state } = this;
-    const { options, columns } = state;
+    const { options } = state;
     return (
       <div>
-        <Menu
-          id="add-menu"
-          anchorEl={this.anchorEl}
-          open={this.state.anchorEl ? true : false}
-          onClose={() => this.setState({ anchorEl: null })}
-          getContentAnchorEl={null}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          transformOrigin={{ vertical: "top", horizontal: "center" }}
-        >
-          <MenuItem>oi</MenuItem>
-        </Menu>{" "}
-        <MuiDatatable {...props} options={options} columns={columns} />{" "}
+        <MuiDatatable {...props} options={options} />{" "}
       </div>
     );
   }
@@ -143,7 +129,8 @@ Datatable.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  data: getItems(store)
+  data: getItems(store),
+  columns
 });
 
 const mapPropsToDispatch = {

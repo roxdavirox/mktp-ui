@@ -1,7 +1,7 @@
 import {
   FETCH_OPTIONS,
   FETCH_OPTIONS_FAILURE,
-  POST_OPTION_BEGIN,
+  POST_OPTION,
   POST_OPTION_SUCCESS,
   POST_OPTION_FAILURE,
   DELETE_OPTIONS_BEGIN,
@@ -53,7 +53,7 @@ export default function(state = initialState, action) {
         error: action.playload.error
       };
 
-    case POST_OPTION_BEGIN: {
+    case POST_OPTION: {
       return {
         ...state,
         openAlert: true
