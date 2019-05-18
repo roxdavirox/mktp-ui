@@ -8,7 +8,7 @@ import { addEntities } from "base/redux/actions";
 import {
   fetchOptionsFailure,
   FETCH_OPTIONS,
-  POST_OPTION_BEGIN,
+  POST_OPTION,
   DELETE_OPTIONS_BEGIN,
   postOptionSuccess,
   postOptionFailure,
@@ -22,7 +22,7 @@ const host = process.env.REACT_APP_HOST_API;
 const getEndpoint = route => `${host}${route}`;
 
 export const postOptionMiddleware = ({ dispatch }) => next => action => {
-  if (action.type === POST_OPTION_BEGIN) {
+  if (action.type === POST_OPTION) {
     const { optionName, snack } = action.playload;
 
     const option = {

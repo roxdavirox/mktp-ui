@@ -2,31 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { withStyles } from "@material-ui/core/styles";
-import { withSnackbar } from "notistack";
 import { Link } from "react-router-dom";
-
+import { withStyles } from "@material-ui/core/styles";
 //Common components
 import MuiDatatable from "base/components/common/tables/MuiDatatable";
-
 //Theme components
 import MoreHorizIcon from "base/components/common/icons/MoreHorizIcon.jsx";
 import Toolbar from "base/components/common/tables/Toolbar.jsx";
-import CustomSweetAlertInput from "base/components/theme/CustomSweetAlert/CustomSweetAlertInput.jsx";
-
 import OptionLoading from "./LoadingSkeleton";
-
 import { toggleOptionItems } from "../item/actions";
-import {
-  postOptionBegin,
-  deleteOptionsBegin,
-  fetchOptions,
-  showAlert,
-  hideAlert
-} from "./actions";
-import { getOptions } from "./selectors";
-
-import { openFormDialog } from "../item/actions";
+import { deleteOptionsBegin } from "./actions";
 
 const optionStyle = {
   EditCell: { textAlign: "right" },
@@ -34,20 +19,21 @@ const optionStyle = {
 };
 
 class DataTable extends React.Component {
-  state = {
-    inputValue: "",
-    sweetAlert: (
-      <CustomSweetAlertInput
-        title="Adicionar opção"
-        validationMsg="Digite o nome da opção"
-        onCancel={() => {
-          const { hideAlert } = this.props;
-          hideAlert();
-        }}
-        onConfirm={value => this.handleInput(value)}
-      />
-    ),
-    columns: [
+  handleRowsDelete = rows => {
+    const { deleteOptionsBegin, enqueueSnackbar, data } = this.props;
+
+    const { data: dataRows } = rows;
+
+    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
+
+    const deletedOptionsIds = indexRows.map(index => data[index]._id);
+
+    deleteOptionsBegin(deletedOptionsIds, enqueueSnackbar);
+  };
+
+  render = () => {
+    const { data, onDialog } = this.props;
+    const columns = [
       {
         name: "name",
         label: "Name",
@@ -69,12 +55,11 @@ class DataTable extends React.Component {
           filter: false,
           // eslint-disable-next-line react/display-name
           customBodyRender: (value, tableMeta) => (
-            <Link to="/admin/configuration/item">
+            <Link to="/admin/config/item">
               <MoreHorizIcon
                 key={tableMeta.columnIndex}
                 onClick={() => {
-                  const { toggleOptionItems } = this.props;
-                  toggleOptionItems(value);
+                  this.props.toggleOptionItems(value);
                 }}
               />
             </Link>
@@ -86,8 +71,8 @@ class DataTable extends React.Component {
           }
         }
       }
-    ],
-    options: {
+    ];
+    const options = {
       filterType: "checkbox",
       download: false,
       print: false,
@@ -100,107 +85,37 @@ class DataTable extends React.Component {
         }
       },
       customToolbar: () => {
-        return (
-          <Toolbar
-            title="Adicionar Opção"
-            onClick={() => {
-              const { showAlert } = this.props;
-              showAlert();
-              this.setState({
-                inputValue: null
-              });
-            }}
-          />
-        );
+        return <Toolbar title="Adicionar Opção" onClick={onDialog} />;
       },
       onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
-    }
-  };
-
-  handleRowsDelete = rows => {
-    const { deleteOptionsBegin, enqueueSnackbar, options } = this.props;
-
-    const { data: dataRows } = rows;
-
-    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
-
-    const deletedOptionsIds = indexRows.map(index => options[index]._id);
-
-    deleteOptionsBegin(deletedOptionsIds, enqueueSnackbar);
-  };
-
-  handleInput = value => {
-    const { postOptionBegin, enqueueSnackbar } = this.props;
-
-    if (value) {
-      enqueueSnackbar("Adicionando opção " + value, {
-        variant: "info",
-        autoHideDuration: 2000
-      });
-      postOptionBegin(value, enqueueSnackbar);
-      this.setState({ inputValue: value });
-    }
-  };
-
-  componentDidMount = () => {
-    this.props.fetchOptions();
-  };
-
-  render = () => {
-    const { options: data, openAlert } = this.props;
-    const { columns, options, sweetAlert } = this.state;
+    };
 
     return (
-      <div>
-        {openAlert && sweetAlert}
-        <MuiDatatable
-          title={"Opções"}
-          data={data}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <MuiDatatable
+        title={"Opções"}
+        data={data}
+        columns={columns}
+        options={options}
+      />
     );
   };
 }
 
 DataTable.propTypes = {
-  options: PropTypes.any.isRequired,
-  postOptionBegin: PropTypes.func.isRequired,
-  fetchOptions: PropTypes.func.isRequired,
+  data: PropTypes.any.isRequired,
   deleteOptionsBegin: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  openAlert: PropTypes.any.isRequired,
-  showAlert: PropTypes.any.isRequired,
-  hideAlert: PropTypes.any.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
-  openFormDialog: PropTypes.any.isRequired,
-  toggleOptionItems: PropTypes.func.isRequired
-};
-
-const wrappedMuiDatatable = withSnackbar(withStyles(optionStyle)(DataTable));
-
-const mapStateToProps = store => {
-  const { openAlert } = store.options;
-  const options = getOptions(store);
-  console.log("props:", options);
-  return {
-    openAlert,
-    options
-  };
+  toggleOptionItems: PropTypes.func.isRequired,
+  onDialog: PropTypes.func.isRequired
 };
 
 const mapDispatchtoProps = {
-  postOptionBegin,
   toggleOptionItems,
-  deleteOptionsBegin,
-  fetchOptions,
-  showAlert,
-  hideAlert,
-  openFormDialog
+  deleteOptionsBegin
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchtoProps
-)(wrappedMuiDatatable);
+)(withStyles(optionStyle)(DataTable));
