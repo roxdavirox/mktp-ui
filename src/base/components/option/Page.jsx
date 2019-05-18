@@ -4,51 +4,44 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withSnackbar } from "notistack";
 
-import { postOption, fetchOptions } from "./actions";
+import { postOption, fetchOptions, showAlert, hideAlert } from "./actions";
 import SweetAlert from "base/components/theme/CustomSweetAlert/CustomSweetAlertInput.jsx";
 import Datatable from "./Datatable";
 import { getOptions } from "./selectors";
 
 class OptionPage extends Component {
-  state = {
-    openAlert: false
-  };
-
   componentDidMount = () => {
     this.props.fetchOptions();
   };
 
   handleInput = value => {
+    if (!value) return;
+
     const { enqueueSnackbar } = this.props;
 
-    if (value) {
-      enqueueSnackbar("Adicionando opção " + value, {
-        variant: "info",
-        autoHideDuration: 2000
-      });
+    enqueueSnackbar("Adicionando opção " + value, {
+      variant: "info",
+      autoHideDuration: 2000
+    });
 
-      this.props.postOption(value, enqueueSnackbar);
-      this.setState({ inputValue: value });
-    }
+    this.props.postOption(value, enqueueSnackbar);
+    this.setState({ inputValue: value });
   };
 
   render() {
-    const { data } = this.props;
+    const { data, openAlert, showAlert, hideAlert } = this.props;
 
     return (
       <>
-        {this.state.openAlert ? (
+        {openAlert ? (
           <SweetAlert
             title="Adicionar opção"
             validationMsg="Digite o nome da opção"
-            onCancel={() => this.setState({ openAlert: false })}
+            onCancel={() => hideAlert()}
             onConfirm={value => this.handleInput(value)}
           />
         ) : null}
-        <Datatable
-          data={data}
-          onDialog={() => this.setState({ openAlert: true })}
-        />
+        <Datatable data={data} onDialog={() => showAlert()} />
       </>
     );
   }
@@ -58,19 +51,25 @@ OptionPage.propTypes = {
   postOption: PropTypes.func.isRequired,
   fetchOptions: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
-  data: PropTypes.any.isRequired
+  data: PropTypes.any.isRequired,
+  openAlert: PropTypes.bool.isRequired,
+  showAlert: PropTypes.func.isRequired,
+  hideAlert: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => {
   const data = getOptions(store);
   return {
-    data
+    data,
+    openAlert: store.options.openAlert
   };
 };
 
 const mapDispatchToProps = {
   fetchOptions,
-  postOption
+  postOption,
+  showAlert,
+  hideAlert
 };
 
 export default connect(

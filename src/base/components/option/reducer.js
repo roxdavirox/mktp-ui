@@ -65,7 +65,11 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
-        options: [...state.options, option],
+        byId: {
+          ...state.byId,
+          [option._id]: option
+        },
+        allIds: [...state.allIds, option._id],
         openAlert: false
       };
     }
