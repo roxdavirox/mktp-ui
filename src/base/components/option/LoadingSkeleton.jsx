@@ -1,7 +1,7 @@
-import React from "react";
-import Skeleton from "react-loading-skeleton";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React from 'react';
+import Skeleton from 'react-loading-skeleton';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const CustomLoadingSkeleton = ({ isLoading }) =>
   isLoading ? (
@@ -9,7 +9,7 @@ const CustomLoadingSkeleton = ({ isLoading }) =>
       <Skeleton count={8} height={50} />
     </div>
   ) : (
-    "Nenhuma opção"
+    'Nenhuma opção'
   );
 
 const mapStateToProps = store => ({ isLoading: store.options.loading });

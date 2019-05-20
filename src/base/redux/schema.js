@@ -1,11 +1,11 @@
-import { schema } from "normalizr";
+import { schema } from 'normalizr';
 
-const id = { idAttribute: "_id" };
+const id = { idAttribute: '_id' };
 
-export const priceSchema = new schema.Entity("prices", {}, id);
+export const priceSchema = new schema.Entity('prices', {}, id);
 
 export const itemSchema = new schema.Entity(
-  "items",
+  'items',
   {
     price: priceSchema
   },
@@ -13,7 +13,7 @@ export const itemSchema = new schema.Entity(
 );
 
 export const optionSchema = new schema.Entity(
-  "options",
+  'options',
   {
     items: [itemSchema]
   },

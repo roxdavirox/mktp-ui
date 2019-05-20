@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
-import fabStyle from "assets/jss/material-dashboard-pro-react/components/floatActionButtonStyle.jsx";
+import fabStyle from 'assets/jss/material-dashboard-pro-react/components/floatActionButtonStyle.jsx';
 
 const FloatActionButton = props => {
   const { classes } = props;

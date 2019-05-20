@@ -1,4 +1,4 @@
-import { ADD_ENTITIES } from "base/redux/actions";
+import { ADD_ENTITIES } from 'base/redux/actions';
 
 const initialState = {
   byId: {},

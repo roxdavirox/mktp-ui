@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import IconButton from "@material-ui/core/IconButton";
-import SvgIcon from "@material-ui/core/SvgIcon";
+import IconButton from '@material-ui/core/IconButton';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 const BallotIcon = props => (
   <IconButton arial-label="Ballot" {...props}>

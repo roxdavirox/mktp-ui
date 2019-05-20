@@ -1,20 +1,20 @@
-import React from "react";
+import React from 'react';
 
 /* eslint-disable react/prop-types */
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   overrides: {
     MuiModal: {
       root: {
-        overflowY: "auto"
+        overflowY: 'auto'
       }
     },
     MuiDialog: {
-      container: { height: "auto" }
+      container: { height: 'auto' }
     },
     MUIDataTableSelectCell: {
-      root: { width: "10px" }
+      root: { width: '10px' }
     }
   }
 });

@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 // core components
-import Wizard from "components/theme/Wizard/Wizard.jsx";
-import GridContainer from "components/theme/Grid/GridContainer.jsx";
-import GridItem from "components/theme/Grid/GridItem.jsx";
+import Wizard from 'components/theme/Wizard/Wizard.jsx';
+import GridContainer from 'components/theme/Grid/GridContainer.jsx';
+import GridItem from 'components/theme/Grid/GridItem.jsx';
 
 const steps = [];
 

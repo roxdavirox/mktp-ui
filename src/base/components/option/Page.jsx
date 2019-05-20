@@ -1,13 +1,13 @@
 /* eslint-disable react/display-name */
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { withSnackbar } from "notistack";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { withSnackbar } from 'notistack';
 
-import { postOption, fetchOptions, showAlert, hideAlert } from "./actions";
-import SweetAlert from "base/components/theme/CustomSweetAlert/CustomSweetAlertInput.jsx";
-import Datatable from "./Datatable";
-import { getOptions } from "./selectors";
+import { postOption, fetchOptions, showAlert, hideAlert } from './actions';
+import SweetAlert from 'base/components/theme/CustomSweetAlert/CustomSweetAlertInput.jsx';
+import Datatable from './Datatable';
+import { getOptions } from './selectors';
 
 class OptionPage extends Component {
   componentDidMount = () => {
@@ -19,8 +19,8 @@ class OptionPage extends Component {
 
     const { enqueueSnackbar } = this.props;
 
-    enqueueSnackbar("Adicionando opção " + value, {
-      variant: "info",
+    enqueueSnackbar('Adicionando opção ' + value, {
+      variant: 'info',
       autoHideDuration: 2000
     });
 

@@ -1,9 +1,9 @@
-import React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
-import AddIcon from "@material-ui/icons/Add";
-import { withStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
+import React from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import AddIcon from '@material-ui/icons/Add';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
 const defaultToolbarStyles = {
   iconButton: {}
@@ -11,7 +11,7 @@ const defaultToolbarStyles = {
 
 const CustomToolbar = ({ classes, title, ...rest }) => (
   <>
-    <Tooltip title={title ? title : "custom Add"} {...rest}>
+    <Tooltip title={title ? title : 'custom Add'} {...rest}>
       <IconButton className={classes.iconButton}>
         <AddIcon />
       </IconButton>
@@ -25,6 +25,6 @@ CustomToolbar.propTypes = {
   onClick: PropTypes.func
 };
 
-export default withStyles(defaultToolbarStyles, { name: "CustomToolbar" })(
+export default withStyles(defaultToolbarStyles, { name: 'CustomToolbar' })(
   CustomToolbar
 );

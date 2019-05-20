@@ -1,22 +1,22 @@
-import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
 //Common components
-import MuiDatatable from "base/components/common/tables/MuiDatatable";
+import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 //Theme components
-import MoreHorizIcon from "base/components/common/icons/MoreHorizIcon.jsx";
-import Toolbar from "base/components/common/tables/Toolbar.jsx";
-import OptionLoading from "./LoadingSkeleton";
-import { toggleOptionItems } from "../item/actions";
-import { deleteOptionsBegin } from "./actions";
+import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
+import Toolbar from 'base/components/common/tables/Toolbar.jsx';
+import OptionLoading from './LoadingSkeleton';
+import { toggleOptionItems } from '../item/actions';
+import { deleteOptionsBegin } from './actions';
 
-import { withSnackbar } from "notistack";
+import { withSnackbar } from 'notistack';
 
 const optionStyle = {
-  EditCell: { textAlign: "right" },
+  EditCell: { textAlign: 'right' },
   NameCell: { fontWeight: 500 }
 };
 
@@ -30,8 +30,8 @@ class DataTable extends React.Component {
 
     const deletedOptionsIds = indexRows.map(index => data[index]._id);
 
-    enqueueSnackbar("Deletando...", {
-      variant: "info",
+    enqueueSnackbar('Deletando...', {
+      variant: 'info',
       autoHideDuration: 2000
     });
 
@@ -42,8 +42,8 @@ class DataTable extends React.Component {
     const { data, onDialog } = this.props;
     const columns = [
       {
-        name: "name",
-        label: "Name",
+        name: 'name',
+        label: 'Name',
         options: {
           filter: true,
           sort: true,
@@ -55,8 +55,8 @@ class DataTable extends React.Component {
         }
       },
       {
-        name: "_id",
-        label: " ",
+        name: '_id',
+        label: ' ',
         options: {
           sort: false,
           filter: false,
@@ -80,7 +80,7 @@ class DataTable extends React.Component {
       }
     ];
     const options = {
-      filterType: "checkbox",
+      filterType: 'checkbox',
       download: false,
       print: false,
       filter: false,
@@ -99,7 +99,7 @@ class DataTable extends React.Component {
 
     return (
       <MuiDatatable
-        title={"Opções"}
+        title={'Opções'}
         data={data}
         columns={columns}
         options={options}

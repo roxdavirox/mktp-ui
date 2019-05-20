@@ -1,7 +1,7 @@
-import React from "react";
-import Skeleton from "react-loading-skeleton";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React from 'react';
+import Skeleton from 'react-loading-skeleton';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const ItemLoadingSkeleton = ({ isLoading }) =>
   isLoading ? (
@@ -9,7 +9,7 @@ const ItemLoadingSkeleton = ({ isLoading }) =>
       <Skeleton count={3} height={32} />
     </div>
   ) : (
-    "Nenhum item"
+    'Nenhum item'
   );
 
 const mapStateToProps = store => ({ isLoading: store.items.loading });
