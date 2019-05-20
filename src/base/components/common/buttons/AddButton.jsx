@@ -1,9 +1,9 @@
-import React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
-import AddIcon from "@material-ui/icons/Add";
-import { withStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
+import React from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import AddIcon from '@material-ui/icons/Add';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
 const addButtonStyle = {
   iconButton: {}
@@ -15,7 +15,7 @@ class CustomAddButton extends React.Component {
 
     return (
       <>
-        <Tooltip title={title ? title : "custom Add"}>
+        <Tooltip title={title ? title : 'custom Add'}>
           <IconButton
             className={classes.iconButton}
             onClick={onClick}
@@ -35,6 +35,6 @@ CustomAddButton.propTypes = {
   onClick: PropTypes.func.isRequired
 };
 
-export default withStyles(addButtonStyle, { name: "CustomAddButton" })(
+export default withStyles(addButtonStyle, { name: 'CustomAddButton' })(
   CustomAddButton
 );
