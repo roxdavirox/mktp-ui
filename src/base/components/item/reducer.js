@@ -1,8 +1,10 @@
-import { ADD_ENTITIES } from "base/redux/actions";
-import { TOGGLE_OPTION_ITEMS } from "./actions";
+import { ADD_ENTITIES } from 'base/redux/actions';
+import { TOGGLE_OPTION_ITEMS } from './actions';
 
 const initialState = {
-  optionId: null
+  optionId: null,
+  byId: {},
+  allIds: []
 };
 
 export default function(state = initialState, action) {

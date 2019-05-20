@@ -9,9 +9,9 @@ import {
   DELETE_OPTIONS_FAILURE,
   HIDE_ALERT,
   SHOW_ALERT
-} from "./actions";
+} from './actions';
 
-import { ADD_ENTITIES } from "base/redux/actions";
+import { ADD_ENTITIES } from 'base/redux/actions';
 
 const initialState = {
   byId: {},
