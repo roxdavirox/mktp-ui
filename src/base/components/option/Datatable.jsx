@@ -66,14 +66,15 @@ class DataTable extends React.Component {
               to={{
                 pathname: '/admin/config/item',
                 state: {
-                  fromRedirect: true
+                  fromRedirect: true,
+                  optionId: value
                 }
               }}
             >
               <MoreHorizIcon
                 key={tableMeta.columnIndex}
                 onClick={() => {
-                  this.props.toggleOptionItems(value);
+                  // this.props.toggleOptionItems(value);
                 }}
               />
             </Link>

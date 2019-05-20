@@ -72,7 +72,12 @@ class Datatable extends React.Component {
     ];
     return (
       <div>
-        <MuiDatatable data={data} options={options} columns={columns} />{' '}
+        <MuiDatatable
+          title="Items"
+          data={data}
+          options={options}
+          columns={columns}
+        />{' '}
       </div>
     );
   };

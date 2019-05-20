@@ -10,17 +10,15 @@ export const getItemsList = store =>
 export const getOptionsList = store =>
   getOptionsState(store) ? getOptionsState(store).allIds : [];
 
-export const getOptionId = store => getItemsState(store).optionId;
-
-export const getOptionsItemsList = store =>
-  getOptionById(getOptionId(store), store).items || [];
+export const getOptionsItemsList = (optionId, store) =>
+  getOptionById(optionId, store) ? getOptionById(optionId, store).items : [];
 
 export const getItemById = (id, store) =>
   getItemsState(store) ? getItemsState(store).byId[id] : {};
 
-export const getOptionsItems = store =>
-  getItemsState(store).optionId
-    ? getOptionsItemsList(store).map(id => getItemById(id, store))
+export const getOptionsItems = (optionId, store) =>
+  getItemsState(store)
+    ? getOptionsItemsList(optionId, store).map(id => getItemById(id, store))
     : [];
 
 export const getItems = store =>

@@ -2,17 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ItemDatatable from './Datatable';
-
+import { fetchOptions } from '../option/actions';
 import { getOptionsItems } from './selectors';
 
-const PageRedirect = ({ data }) => <ItemDatatable data={data} />;
+class PageRedirect extends React.Component {
+  componentDidMount = ({ fetchOptions } = this.props) => {
+    const pageRefreshed =
+      window.performance && performance.navigation.type == 1;
+    if (pageRefreshed) {
+      fetchOptions();
+    }
+  };
 
-const mapStateToProps = store => ({
-  data: getOptionsItems(store)
-});
+  render = ({ data } = this.props) => <ItemDatatable data={data} />;
+}
 
 PageRedirect.propTypes = {
   data: PropTypes.any.isRequired
 };
 
-export default connect(mapStateToProps)(PageRedirect);
+const mapStateToProps = (store, { optionId }) => ({
+  data: getOptionsItems(optionId, store)
+});
+
+const mapDispatchToProps = {
+  fetchOptions
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PageRedirect);
