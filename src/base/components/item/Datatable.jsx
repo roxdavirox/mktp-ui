@@ -5,6 +5,7 @@ import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 import Toolbar from 'base/components/common/tables/Toolbar.jsx';
 import { connect } from 'react-redux';
 import { deleteItems } from './actions';
+import { withSnackbar } from 'notistack';
 
 class Datatable extends React.Component {
   handleRowsDelete = rows => {
@@ -79,14 +80,17 @@ class Datatable extends React.Component {
 
 Datatable.propTypes = {
   data: PropTypes.any.isRequired,
-  deleteItems: PropTypes.func.isRequired
+  deleteItems: PropTypes.func.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
 const mapPropsToDispatch = {
   deleteItems
 };
 
+const snackDatatable = withSnackbar(Datatable);
+
 export default connect(
   null,
   mapPropsToDispatch
-)(Datatable);
+)(snackDatatable);
