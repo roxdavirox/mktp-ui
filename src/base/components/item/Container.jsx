@@ -2,17 +2,14 @@
 import React, { Component } from 'react';
 import { withSnackbar } from 'notistack';
 
-import ItemPageRedirect from './ItemPageRedirect';
-import ItemPage from './ItemPage';
+import PageRedirect from './PageRedirect';
+import Page from './Page';
 
 class Container extends Component {
   render = () => {
-    const {
-      // eslint-disable-next-line react/prop-types
-      location: { state }
-    } = this.props;
-    const { fromRedirect } = state;
-    return fromRedirect ? <ItemPageRedirect /> : <ItemPage />;
+    const { state } = this.props.location;
+    // const fromRedirect = state.fromRedirect || false;
+    return state ? <Page /> : <PageRedirect />;
   };
 }
 

@@ -8,9 +8,9 @@ import ItemDatatable from './Datatable';
 import { getItems } from './selectors';
 
 class Page extends Component {
-  componentDidMount = ({ fetchItems }) => fetchItems();
+  componentDidMount = ({ fetchItems } = this.props) => fetchItems();
 
-  render = ({ data }) => <ItemDatatable data={data} />;
+  render = ({ data } = this.props) => <ItemDatatable data={data} />;
 }
 
 Page.propTypes = {

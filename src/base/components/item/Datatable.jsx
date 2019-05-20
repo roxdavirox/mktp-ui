@@ -79,9 +79,7 @@ class Datatable extends React.Component {
 
 Datatable.propTypes = {
   data: PropTypes.any.isRequired,
-  onRowsDelete: PropTypes.func.isRequired,
-  deleteItems: PropTypes.func.isRequired,
-  enqueueSnackbar: PropTypes.func.isRequired
+  deleteItems: PropTypes.func.isRequired
 };
 
 const mapPropsToDispatch = {
