@@ -1,6 +1,6 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Option from 'base/components/option/Page.jsx';
-import Item from 'base/components/item/Page.jsx';
+import Item from 'base/components/item/Container.jsx';
 var dashRoutes = [
   {
     collapse: true,

@@ -36,6 +36,8 @@ export default function(state = initialState, action) {
         entities: { options }
       } = action.playload;
 
+      if (!options) return state;
+
       const byId = { ...options };
       const allIds = Object.keys(options);
       return {

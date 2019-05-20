@@ -1,60 +1,32 @@
-/* eslint-disable react/display-name */
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
-
+import { fetchItems } from './actions';
 import ItemDatatable from './Datatable';
+
 import { getItems } from './selectors';
-// redux
-import { deleteItems } from './actions';
 
-class ItemPage extends Component {
-  componentDidMount = () => {
-    const { needFetch } = this.props;
+class Page extends Component {
+  componentDidMount = ({ fetchItems }) => fetchItems();
 
-    if (needFetch) {
-      this.props.fetchItems();
-    }
-  };
-
-  handleRowsDelete = rows => {
-    const { enqueueSnackbar, data } = this.props;
-
-    const { data: dataRows } = rows;
-
-    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
-
-    const deletedItemsIds = indexRows.map(index => data[index].idItem);
-
-    this.props.deleteItems(deletedItemsIds, enqueueSnackbar);
-  };
-
-  render = () => {
-    return <ItemDatatable onRowsDelete={this.handleRowsDelete} />;
-  };
+  render = ({ data }) => <ItemDatatable data={data} />;
 }
 
-ItemPage.propTypes = {
-  fetchItems: PropTypes.func.isRequired,
-  needFetch: PropTypes.bool.isRequired,
+Page.propTypes = {
   data: PropTypes.any.isRequired,
-  deleteItems: PropTypes.func.isRequired,
-  enqueueSnackbar: PropTypes.func.isRequired
+  fetchItems: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
-  data: getItems(store),
-  needFetch: store.optionId === null
+  data: getItems(store)
 });
 
-const mapPropsToDispatch = {
-  deleteItems
+const mapDispatchToProps = {
+  fetchItems
 };
-
-const snackItemPage = withSnackbar(ItemPage);
 
 export default connect(
   mapStateToProps,
-  mapPropsToDispatch
-)(snackItemPage);
+  mapDispatchToProps
+)(Page);

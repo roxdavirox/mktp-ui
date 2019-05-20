@@ -5,11 +5,17 @@ import {
   DELETE_ITEMS,
   deleteItemsSuccess,
   deleteItemsFailure,
-  PUT_ITEM_PRICE_TABLE_BEGIN,
-  getItemsByOptionsIdBegin
+  FETCH_ITEMS
 } from './actions';
+import { addEntities } from 'base/redux/actions';
+import { itemSchema } from 'base/redux/schema';
+import { normalize } from 'normalizr';
 
 const url = 'https://mktp.azurewebsites.net/api';
+
+const host = process.env.REACT_APP_HOST_API;
+
+const getEndpoint = route => `${host}${route}`;
 
 export const postItemMiddleware = ({
   dispatch,
@@ -109,18 +115,23 @@ const deleteRequest = CreateRequest('DELETE');
 
 const putRequest = CreateRequest('PUT');
 
-export const putItemPriceTableMiddleware = ({ dispatch }) => next => action => {
-  if (action.type === PUT_ITEM_PRICE_TABLE_BEGIN) {
-    const { item: prevItem } = action.playload;
-
-    const request = putRequest(prevItem);
-
-    fetch(`${url}/items`, request)
+export const fetchItemsMiddleware = ({ dispatch }) => next => action => {
+  if (action.type === FETCH_ITEMS) {
+    const url = getEndpoint('/items');
+    
+    fetch(url)
       .then(res => res.json())
-      .then(item => {
-        dispatch(getItemsByOptionsIdBegin());
-        //dispatch(putItemPriceTableSuccess(item));
-      });
+      .then(res => {
+        console.log('items response:', res);
+        return res;
+      })
+      .then(({ items }) => normalize(items, [itemSchema]))
+      .then(res => {
+        console.log('normalized response:', res);
+        return res;
+      })
+      .then(({ entities }) => dispatch(addEntities(entities)))
+      .catch(e => console.log(e));
   }
 
   next(action);

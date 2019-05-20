@@ -99,3 +99,9 @@ export const removeItemReferenceSuccess = (item, itemIndex) => ({
   type: REMOVE_ITEM_REFERENCE_SUCCESS,
   playload: { item, itemIndex }
 });
+
+export const FETCH_ITEMS = 'FETCH_ITEMS';
+
+export const fetchItems = () => ({
+  type: FETCH_ITEMS
+});

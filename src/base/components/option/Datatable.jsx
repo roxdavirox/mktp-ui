@@ -62,7 +62,14 @@ class DataTable extends React.Component {
           filter: false,
           // eslint-disable-next-line react/display-name
           customBodyRender: (value, tableMeta) => (
-            <Link to="/admin/config/item">
+            <Link
+              to={{
+                pathname: '/admin/config/item',
+                state: {
+                  fromRedirect: true
+                }
+              }}
+            >
               <MoreHorizIcon
                 key={tableMeta.columnIndex}
                 onClick={() => {
