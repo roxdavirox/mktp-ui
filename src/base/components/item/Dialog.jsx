@@ -1,34 +1,34 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 // import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import PropTypes from "prop-types";
-import ItemMuiDatatable from "components/Table/ItemMuiDatatable.jsx";
-import CustomAddButton from "components/CustomButtons/CustomAddButton.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Close from "@material-ui/icons/Close";
+import DialogTitle from '@material-ui/core/DialogTitle';
+import PropTypes from 'prop-types';
+import ItemMuiDatatable from 'base/components/Table/ItemMuiDatatable.jsx';
+import CustomAddButton from 'base/components/CustomButtons/CustomAddButton.jsx';
+import CustomInput from 'base/components/CustomInput/CustomInput.jsx';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Close from '@material-ui/icons/Close';
 
-import { withSnackbar } from "notistack";
-import withStyles from "@material-ui/core/styles/withStyles";
-import validationFormsStyle from "assets/jss/material-dashboard-pro-react/views/validationFormsStyle.jsx";
+import { withSnackbar } from 'notistack';
+import withStyles from '@material-ui/core/styles/withStyles';
+import validationFormsStyle from 'assets/jss/material-dashboard-pro-react/views/validationFormsStyle.jsx';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import {
   openFormDialog,
   closeFormDialog,
   postItemBegin
-} from "../../redux/actions/items.actions";
-import { getItemsOption } from "../../redux/selectors/items.selectors";
+} from '../../redux/actions/items.actions';
+import { getItemsOption } from '../../redux/selectors/items.selectors';
 
 class CustomEditOptionDialog extends React.Component {
   state = {
-    inputValue: "",
-    minLength: "",
-    labelText: ""
+    inputValue: '',
+    minLength: '',
+    labelText: ''
   };
 
   verifyMinLength = (value, length) => {
@@ -37,7 +37,7 @@ class CustomEditOptionDialog extends React.Component {
 
   change = value => {
     this.setState({
-      minLength: this.verifyMinLength(value, 3) ? "success" : "error"
+      minLength: this.verifyMinLength(value, 3) ? 'success' : 'error'
     });
   };
 
@@ -55,18 +55,18 @@ class CustomEditOptionDialog extends React.Component {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle
-            style={{ padding: "14px 24px 1px" }}
+            style={{ padding: '14px 24px 1px' }}
             id="form-dialog-title"
           >
             Editar itens
           </DialogTitle>
-          <DialogContent style={{ overflowY: "hidden", padding: "0 24px 1px" }}>
-            <div style={{ display: "flex" }}>
+          <DialogContent style={{ overflowY: 'hidden', padding: '0 24px 1px' }}>
+            <div style={{ display: 'flex' }}>
               <CustomInput
-                success={this.state.minLength === "success"}
-                error={this.state.minLength === "error"}
+                success={this.state.minLength === 'success'}
+                error={this.state.minLength === 'error'}
                 labelText={
-                  this.state.minLength === "error" ? this.state.labelText : ""
+                  this.state.minLength === 'error' ? this.state.labelText : ''
                 }
                 id="minlength"
                 formControlProps={{
@@ -76,14 +76,14 @@ class CustomEditOptionDialog extends React.Component {
                   onChange: e => {
                     this.setState({
                       inputValue: e.target.value,
-                      labelText: ""
+                      labelText: ''
                     });
                     this.change(e.target.value);
                   },
-                  type: "text",
+                  type: 'text',
                   value: this.state.inputValue,
                   endAdornment:
-                    this.state.minLength === "error" ? (
+                    this.state.minLength === 'error' ? (
                       <InputAdornment position="end">
                         <Close className={classes.danger} />
                       </InputAdornment>
@@ -93,26 +93,26 @@ class CustomEditOptionDialog extends React.Component {
                 }}
               />
               <CustomAddButton
-                style={{ padding: "24px 24px 24px 24px" }}
+                style={{ padding: '24px 24px 24px 24px' }}
                 title="Adicionar item"
                 onClick={() => {
                   const { inputValue } = this.state;
                   const { postItemBegin } = this.props;
                   if (!this.verifyMinLength(inputValue, 3)) {
                     this.setState({
-                      minLength: "error",
-                      labelText: "O nome deve conter no minimo 3 caracteres"
+                      minLength: 'error',
+                      labelText: 'O nome deve conter no minimo 3 caracteres'
                     });
                     return;
                   }
 
                   enqueueSnackbar(`Adicionando item ${inputValue}`, {
-                    variant: "info",
+                    variant: 'info',
                     autoHideDuration: 2000
                   });
 
                   postItemBegin(inputValue, enqueueSnackbar);
-                  this.setState({ inputValue: "" });
+                  this.setState({ inputValue: '' });
                 }}
               />
             </div>
