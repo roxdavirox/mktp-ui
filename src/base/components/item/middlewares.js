@@ -55,25 +55,14 @@ export const postItemMiddleware = ({
   next(action);
 };
 
-export const deleteItemsMiddleware = ({
-  dispatch,
-  getState
-}) => next => action => {
+export const deleteItemsMiddleware = ({ dispatch }) => next => action => {
   if (action.type === DELETE_ITEMS) {
     const { itemsId, snack } = action.playload;
 
-    const { items: state } = getState();
-
-    const { items: prevItems } = state;
-
-    const items = prevItems.filter(
-      ({ idItem }) => itemsId.indexOf(idItem) === -1
-    );
-
     const body = {
-      itemsIds: itemsId
+      itemsId
     };
-
+    console.log('middleware items: ', itemsId);
     const request = {
       method: 'DELETE',
       headers: {
@@ -83,10 +72,13 @@ export const deleteItemsMiddleware = ({
       body: JSON.stringify(body)
     };
 
-    fetch(`${url}/items`, request)
+    const endpoint = getEndpoint('/items');
+
+    fetch(endpoint, request)
       .then(res => res.json())
       .then(res => {
         const { deletedItemsCount: count } = res;
+        console.log('delete res: ', res);
         if (count) {
           snack(`${count} ite${count == 1 ? 'm deletado' : 'ns deletados'}`, {
             variant: 'success',
@@ -95,7 +87,7 @@ export const deleteItemsMiddleware = ({
         }
         return res;
       })
-      .then(() => dispatch(deleteItemsSuccess(items)))
+      .then(() => dispatch(deleteItemsSuccess(itemsId)))
       .catch(error => dispatch(deleteItemsFailure(error)));
   }
 
@@ -118,7 +110,7 @@ const putRequest = CreateRequest('PUT');
 export const fetchItemsMiddleware = ({ dispatch }) => next => action => {
   if (action.type === FETCH_ITEMS) {
     const url = getEndpoint('/items');
-    
+
     fetch(url)
       .then(res => res.json())
       .then(res => {

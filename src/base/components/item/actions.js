@@ -60,9 +60,9 @@ export const deleteItems = (itemsId, snack) => ({
 
 export const DELETE_ITEMS_SUCCESS = 'DELETE_ITEMS_SUCCESS';
 
-export const deleteItemsSuccess = items => ({
+export const deleteItemsSuccess = itemsId => ({
   type: DELETE_ITEMS_SUCCESS,
-  playload: { items }
+  playload: { itemsId }
 });
 
 export const DELETE_ITEMS_FAILURE = 'DELETE_ITEMS_FAILURE';

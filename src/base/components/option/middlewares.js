@@ -89,9 +89,7 @@ export const deleteOptionsMiddleware = ({
   if (action.type === DELETE_OPTIONS_BEGIN) {
     const { optionsId, snack } = action.playload;
 
-    const body = {
-      optionsIds: optionsId
-    };
+    const body = { optionsId };
 
     console.log('optionsid:', optionsId);
     const request = {

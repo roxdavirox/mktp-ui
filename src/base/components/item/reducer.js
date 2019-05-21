@@ -1,5 +1,5 @@
 import { ADD_ENTITIES } from 'base/redux/actions';
-import { TOGGLE_OPTION_ITEMS } from './actions';
+import { TOGGLE_OPTION_ITEMS, DELETE_ITEMS_SUCCESS } from './actions';
 
 const initialState = {
   optionId: null,
@@ -20,8 +20,31 @@ export default function(state = initialState, action) {
         entities: { items }
       } = action.playload;
 
+      if (!items) return state;
+
       const byId = { ...items };
       const allIds = Object.keys(items);
+      return {
+        ...state,
+        byId,
+        allIds
+      };
+    }
+
+    case DELETE_ITEMS_SUCCESS: {
+      const { itemsId } = action.playload;
+
+      const allIds = state.allIds.filter(id => itemsId.indexOf(id) === -1);
+
+      const byId = allIds.reduce((ids, id) => {
+        return {
+          ...ids,
+          [id]: {
+            ...state.byId[id]
+          }
+        };
+      }, {});
+
       return {
         ...state,
         byId,

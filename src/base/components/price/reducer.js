@@ -12,6 +12,8 @@ export default function(state = initialState, action) {
         entities: { prices }
       } = action.playload;
 
+      if (!prices) return state;
+
       const byId = { ...prices };
       const allIds = Object.keys(prices);
       return {

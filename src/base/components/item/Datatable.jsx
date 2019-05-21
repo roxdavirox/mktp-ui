@@ -12,10 +12,14 @@ class Datatable extends React.Component {
     const { enqueueSnackbar, data } = this.props;
 
     const { data: dataRows } = rows;
-
     const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
 
     const deletedItemsIds = indexRows.map(index => data[index]._id);
+
+    enqueueSnackbar('Deletando...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
 
     this.props.deleteItems(deletedItemsIds, enqueueSnackbar);
   };

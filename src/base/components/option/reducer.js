@@ -35,7 +35,7 @@ export default function(state = initialState, action) {
       const {
         entities: { options }
       } = action.playload;
-
+      console.log('reducer entities', options);
       if (!options) return state;
 
       const byId = { ...options };
