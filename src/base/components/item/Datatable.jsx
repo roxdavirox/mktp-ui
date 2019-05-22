@@ -25,7 +25,7 @@ class Datatable extends React.Component {
   };
 
   render = () => {
-    const { data, onAddItem } = this.props;
+    const { data, onDialog } = this.props;
     const options = {
       filterType: 'checkbox',
       download: false,
@@ -46,7 +46,7 @@ class Datatable extends React.Component {
           <>
             <Toolbar
               title="Adicionar Item"
-              onClick={onAddItem}
+              onClick={onDialog}
               aria-owns="add-menu"
               aria-haspopup="true"
             />
@@ -90,8 +90,8 @@ class Datatable extends React.Component {
 Datatable.propTypes = {
   data: PropTypes.any.isRequired,
   deleteItems: PropTypes.func.isRequired,
-  enqueueSnackbar: PropTypes.func.isRequired,
-  onAddItem: PropTypes.func.isRequired
+  onDialog: PropTypes.func.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
 const mapPropsToDispatch = {

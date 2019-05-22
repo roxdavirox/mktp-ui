@@ -1,5 +1,5 @@
 import {
-  POST_ITEM_BEGIN,
+  ADD_ITEM,
   postItemSuccess,
   postItemFailure,
   DELETE_ITEMS,
@@ -11,22 +11,13 @@ import { addEntities } from 'base/redux/actions';
 import { itemSchema } from 'base/redux/schema';
 import { normalize } from 'normalizr';
 
-const url = 'https://mktp.azurewebsites.net/api';
-
 const host = process.env.REACT_APP_HOST_API;
 
 const getEndpoint = route => `${host}${route}`;
 
-export const postItemMiddleware = ({
-  dispatch,
-  getState
-}) => next => action => {
-  if (action.type === POST_ITEM_BEGIN) {
+export const addItemMiddleware = ({ dispatch }) => next => action => {
+  if (action.type === ADD_ITEM) {
     const { item, snack } = action.playload;
-
-    const { items: state } = getState();
-
-    const { idOption } = state;
 
     const request = {
       method: 'POST',
@@ -37,10 +28,13 @@ export const postItemMiddleware = ({
       body: JSON.stringify(item)
     };
 
-    fetch(`${url}/options/${idOption}/items`, request)
+    const endpoint = getEndpoint('/items');
+
+    fetch(endpoint, request)
       .then(res => res.json())
-      .then(item => {
-        dispatch(postItemSuccess(item));
+      .then(({ item }) => normalize(item, itemSchema))
+      .then(({ entities }) => {
+        dispatch(addEntities(entities));
         snack(`Item ${item.name} adicionado com sucesso!`, {
           variant: 'success',
           autoHideDuration: 2000
@@ -93,19 +87,6 @@ export const deleteItemsMiddleware = ({ dispatch }) => next => action => {
 
   next(action);
 };
-
-const CreateRequest = method => (body = {}) => ({
-  method: method,
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(body)
-});
-
-const deleteRequest = CreateRequest('DELETE');
-
-const putRequest = CreateRequest('PUT');
 
 export const fetchItemsMiddleware = ({ dispatch }) => next => action => {
   if (action.type === FETCH_ITEMS) {

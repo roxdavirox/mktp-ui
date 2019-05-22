@@ -16,7 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = theme => ({
   container: {
-    display: 'flex',
+    display: 'grid',
     flexWrap: 'wrap'
   },
   formControl: {
@@ -27,12 +27,12 @@ const styles = theme => ({
 });
 
 class FormDialog extends React.Component {
-  state = { age: '' };
+  state = { priceTable: '', inputName: '' };
 
-  handleChange = e => this.setState({ age: Number(e.target.value) });
+  handleChange = e => this.setState({ priceTable: Number(e.target.value) });
 
   render() {
-    const { classes, open, onClose } = this.props;
+    const { classes, open, onClose, onAddItem, priceTables } = this.props;
     return (
       <div>
         <Dialog
@@ -50,22 +50,27 @@ class FormDialog extends React.Component {
                   id="name"
                   label="Nome"
                   fullWidth
+                  onChange={e => this.setState({ inputName: e.target.value })}
                 />
               </FormControl>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="age-simple">Age</InputLabel>
+                <InputLabel htmlFor="price-table-input">
+                  Tabela de preço
+                </InputLabel>
                 <Select
                   className={classes.select}
-                  value={this.state.age}
+                  value={this.state.priceTable}
                   onChange={this.handleChange}
-                  input={<Input id="age-simple" />}
+                  input={<Input id="price-table-input" />}
                 >
                   <MenuItem value="">
-                    <em>None</em>
+                    <em>Nenhum</em>
                   </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  {priceTables.map(p => (
+                    <MenuItem key={p._id} value={p._id}>
+                      {p.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </form>
@@ -74,7 +79,10 @@ class FormDialog extends React.Component {
             <Button onClick={onClose} color="primary">
               Cancelar
             </Button>
-            <Button onClick={onClose} color="primary">
+            <Button
+              onClick={() => onAddItem(this.state.inputName)}
+              color="primary"
+            >
               Adicionar
             </Button>
           </DialogActions>
@@ -86,8 +94,10 @@ class FormDialog extends React.Component {
 
 FormDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
+  onAddItem: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  priceTables: PropTypes.any.isRequired
 };
 
 export default withStyles(styles)(FormDialog);

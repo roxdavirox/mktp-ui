@@ -12,12 +12,12 @@ export const getItemsSuccess = items => ({
   playload: { items }
 });
 
-export const POST_ITEM_BEGIN = 'POST_ITEM_BEGIN';
+export const ADD_ITEM = 'POST_ITEM';
 
-export const postItemBegin = (itemName, snack) => ({
-  type: POST_ITEM_BEGIN,
+export const addItem = (item, snack) => ({
+  type: ADD_ITEM,
   playload: {
-    item: { itemName },
+    item,
     snack
   }
 });

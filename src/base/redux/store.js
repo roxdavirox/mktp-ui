@@ -9,7 +9,8 @@ import {
 
 import {
   fetchItemsMiddleware,
-  deleteItemsMiddleware
+  deleteItemsMiddleware,
+  addItemMiddleware
 } from 'base/components/item/middlewares';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -22,7 +23,8 @@ export const store = createStore(
       deleteOptionsMiddleware,
       fetchOptionsMiddleware,
       fetchItemsMiddleware,
-      deleteItemsMiddleware
+      deleteItemsMiddleware,
+      addItemMiddleware
     )
   )
 );
