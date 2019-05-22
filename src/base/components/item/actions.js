@@ -12,7 +12,7 @@ export const getItemsSuccess = items => ({
   playload: { items }
 });
 
-export const ADD_ITEM = 'POST_ITEM';
+export const ADD_ITEM = 'ADD_ITEM';
 
 export const addItem = (item, snack) => ({
   type: ADD_ITEM,
@@ -22,10 +22,10 @@ export const addItem = (item, snack) => ({
   }
 });
 
-export const POST_ITEM_SUCCESS = 'POST_ITEM_SUCCESS';
+export const ADD_ITEM_SUCCESS = 'ADD_ITEM_SUCCESS';
 
-export const postItemSuccess = item => ({
-  type: POST_ITEM_SUCCESS,
+export const addItemSuccess = item => ({
+  type: ADD_ITEM_SUCCESS,
   playload: { item }
 });
 

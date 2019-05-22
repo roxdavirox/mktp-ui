@@ -1,6 +1,6 @@
 import {
   ADD_ITEM,
-  postItemSuccess,
+  addItemSuccess,
   postItemFailure,
   DELETE_ITEMS,
   deleteItemsSuccess,
@@ -32,9 +32,8 @@ export const addItemMiddleware = ({ dispatch }) => next => action => {
 
     fetch(endpoint, request)
       .then(res => res.json())
-      .then(({ item }) => normalize(item, itemSchema))
-      .then(({ entities }) => {
-        dispatch(addEntities(entities));
+      .then(({ item }) => {
+        dispatch(addItemSuccess(item));
         snack(`Item ${item.name} adicionado com sucesso!`, {
           variant: 'success',
           autoHideDuration: 2000
