@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withSnackbar } from 'notistack';
 import { fetchItems, addItem } from './actions';
 import ItemDatatable from './Datatable';
 import FormDialog from './FormDialog';
@@ -14,9 +15,16 @@ class Page extends Component {
   handleOpen = () => this.setState({ open: true });
   handleClose = () => this.setState({ open: false });
   handleAddItem = itemName => {
-    console.log('add item', itemName);
+    const { enqueueSnackbar } = this.props;
+
+    enqueueSnackbar('Adicionando item...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+
     if (itemName) {
-      this.props.addItem({ name: itemName });
+      this.props.addItem({ name: itemName }, enqueueSnackbar);
+      this.setState({ open: false });
     }
   };
 
@@ -41,6 +49,7 @@ class Page extends Component {
 Page.propTypes = {
   data: PropTypes.any.isRequired,
   fetchItems: PropTypes.func.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired,
   addItem: PropTypes.func.isRequired
 };
 
@@ -56,4 +65,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Page);
+)(withSnackbar(Page));
