@@ -58,7 +58,7 @@ class Datatable extends React.Component {
     const columns = [
       {
         name: 'name',
-        label: 'Item',
+        label: 'Nome',
         options: {
           filter: true,
           sort: true
@@ -77,7 +77,7 @@ class Datatable extends React.Component {
     return (
       <div>
         <MuiDatatable
-          title="Items"
+          title="Itens"
           data={data}
           options={options}
           columns={columns}
