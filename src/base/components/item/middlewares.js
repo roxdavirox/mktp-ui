@@ -1,5 +1,7 @@
 import {
   ADD_ITEM,
+  ADD_OPTION_ITEM,
+  addOptionItemSucess,
   addItemSuccess,
   postItemFailure,
   DELETE_ITEMS,
@@ -43,6 +45,35 @@ export const addItemMiddleware = ({ dispatch }) => next => action => {
         snack(`Error: ${error}`);
         dispatch(postItemFailure(error));
       });
+  }
+
+  next(action);
+};
+
+export const addOptionItem = ({ dispatch }) => next => action => {
+  if (action.type === ADD_OPTION_ITEM) {
+    const { name, optionId, enqueueSnackbar } = action.playload;
+
+    const request = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name })
+    };
+
+    const endpoint = getEndpoint(`/items/${optionId}`);
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ item }) => {
+        enqueueSnackbar('Item adicionado!',{
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+        dispatch(addOptionItemSucess(item, optionId));
+      })
+      .catch(e => console.log(e));
   }
 
   next(action);

@@ -22,6 +22,20 @@ export const addItem = (item, snack) => ({
   }
 });
 
+export const ADD_OPTION_ITEM = 'ADD_OPTION_ITEM';
+
+export const addOptionItem = playload => ({
+  type: ADD_OPTION_ITEM,
+  playload
+});
+
+export const ADD_OPTION_ITEM_SUCCESS = 'ADD_OPTION_ITEM_SUCCESS';
+
+export const addOptionItemSucess = (item, optionId) => ({
+  type: ADD_OPTION_ITEM_SUCCESS,
+  playload: { item, optionId }
+});
+
 export const ADD_ITEM_SUCCESS = 'ADD_ITEM_SUCCESS';
 
 export const addItemSuccess = item => ({

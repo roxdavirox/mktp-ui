@@ -12,6 +12,7 @@ import {
 } from './actions';
 
 import { ADD_ENTITIES } from 'base/redux/actions';
+import { ADD_OPTION_ITEM_SUCCESS } from '../item/actions';
 
 const initialState = {
   byId: {},
@@ -54,6 +55,21 @@ export default function(state = initialState, action) {
         loading: false,
         error: action.playload.error
       };
+
+    case ADD_OPTION_ITEM_SUCCESS: {
+      const { item, optionId } = action.playload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [optionId]: {
+            ...state.byId[optionId],
+            items: [...state.byId[optionId].items, item._id]
+          }
+        }
+      };
+    }
 
     case POST_OPTION: {
       return {

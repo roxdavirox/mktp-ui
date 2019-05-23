@@ -2,7 +2,8 @@ import { ADD_ENTITIES } from 'base/redux/actions';
 import {
   TOGGLE_OPTION_ITEMS,
   DELETE_ITEMS_SUCCESS,
-  ADD_ITEM_SUCCESS
+  ADD_ITEM_SUCCESS,
+  ADD_OPTION_ITEM_SUCCESS
 } from './actions';
 
 const initialState = {
@@ -57,6 +58,19 @@ export default function(state = initialState, action) {
     }
 
     case ADD_ITEM_SUCCESS: {
+      const { item } = action.playload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [item._id]: item
+        },
+        allIds: [...state.allIds, item._id]
+      };
+    }
+
+    case ADD_OPTION_ITEM_SUCCESS: {
       const { item } = action.playload;
 
       return {

@@ -24,7 +24,7 @@ class Page extends Component {
 
     if (itemName) {
       this.props.addItem({ name: itemName }, enqueueSnackbar);
-      this.setState({ open: false });
+      this.handleClose();
     }
   };
 
