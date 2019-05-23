@@ -6,10 +6,11 @@ import ItemDatatable from './Datatable';
 import { addOptionItem } from './actions';
 import { fetchOptions } from '../option/actions';
 import { getOptionsItems } from './selectors';
-import FormDialog from './FormDialog';
+import ItemDialog from './ItemDialog';
+import FormRedirect from './FormRedirect';
 
 class PageRedirect extends React.Component {
-  state = { open: false };
+  state = { open: false, itemName: '' };
 
   componentDidMount = ({ fetchOptions } = this.props) => {
     const pageRefreshed =
@@ -21,14 +22,17 @@ class PageRedirect extends React.Component {
 
   handleOpen = () => this.setState({ open: true });
   handleClose = () => this.setState({ open: false });
+  handleItemNameChange = itemName => this.setState({ itemName });
 
-  handleAddOptionItem = itemName => {
+  handleAddOptionItem = () => {
     const { enqueueSnackbar, optionId } = this.props;
 
     enqueueSnackbar('Adicionando item...', {
       variant: 'info',
       autoHideDuration: 2000
     });
+
+    const { itemName } = this.state;
 
     if (itemName) {
       this.props.addOptionItem({
@@ -43,15 +47,25 @@ class PageRedirect extends React.Component {
   render = ({ data } = this.props) => {
     return (
       <>
-        <FormDialog
+        <ItemDialog
           open={this.state.open}
           onClose={this.handleClose}
           onAddItem={this.handleAddOptionItem}
-          priceTables={[
-            { _id: 123, name: 'Acrilico' },
-            { _id: 321, name: 'Base' }
-          ]}
-        />
+        >
+          <FormRedirect
+            onItemNameChange={this.handleItemNameChange}
+            items={[
+              { _id: 123, name: 'AcrilicoItem' },
+              { _id: 321, name: 'BaseItem' },
+              { _id: 111, name: 'AcrilicoItem2' },
+              { _id: 222, name: 'BaseItem2' }
+            ]}
+            priceTables={[
+              { _id: 123, name: 'Acrilico' },
+              { _id: 321, name: 'Base' }
+            ]}
+          />
+        </ItemDialog>
         <ItemDatatable data={data} onDialog={this.handleOpen} />
       </>
     );

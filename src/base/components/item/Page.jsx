@@ -5,22 +5,30 @@ import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import { fetchItems, addItem } from './actions';
 import ItemDatatable from './Datatable';
-import FormDialog from './FormDialog';
+import ItemDialog from './ItemDialog';
+import Form from './Form';
 import { getItems } from './selectors';
 
 class Page extends Component {
-  state = { open: false };
+  state = { open: false, itemName: '' };
+
   componentDidMount = ({ fetchItems } = this.props) => fetchItems();
 
   handleOpen = () => this.setState({ open: true });
+
   handleClose = () => this.setState({ open: false });
-  handleAddItem = itemName => {
+
+  handleItemNameChange = itemName => this.setState({ itemName });
+
+  handleAddItem = () => {
     const { enqueueSnackbar } = this.props;
 
     enqueueSnackbar('Adicionando item...', {
       variant: 'info',
       autoHideDuration: 2000
     });
+
+    const { itemName } = this.state;
 
     if (itemName) {
       this.props.addItem({ name: itemName }, enqueueSnackbar);
@@ -31,15 +39,19 @@ class Page extends Component {
   render = ({ data } = this.props) => {
     return (
       <>
-        <FormDialog
+        <ItemDialog
           open={this.state.open}
           onClose={this.handleClose}
           onAddItem={this.handleAddItem}
-          priceTables={[
-            { _id: 123, name: 'Acrilico' },
-            { _id: 321, name: 'Base' }
-          ]}
-        />
+        >
+          <Form
+            onItemNameChange={this.handleItemNameChange}
+            priceTables={[
+              { _id: 123, name: 'Acrilico' },
+              { _id: 321, name: 'Base' }
+            ]}
+          />
+        </ItemDialog>
         <ItemDatatable data={data} onDialog={this.handleOpen} />
       </>
     );
