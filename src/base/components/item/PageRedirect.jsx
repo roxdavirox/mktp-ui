@@ -55,10 +55,14 @@ class PageRedirect extends React.Component {
           <FormRedirect
             onItemNameChange={this.handleItemNameChange}
             items={[
-              { _id: 123, name: 'AcrilicoItem' },
-              { _id: 321, name: 'BaseItem' },
-              { _id: 111, name: 'AcrilicoItem2' },
-              { _id: 222, name: 'BaseItem2' }
+              { _id: 11, name: 'AcrilicoItem' },
+              { _id: 22, name: 'BaseItem' },
+              { _id: 33, name: 'AcrilicoItem2' },
+              { _id: 44, name: 'BaseItem2' },
+              { _id: 55, name: 'AcrilicoItem' },
+              { _id: 66, name: 'BaseItem' },
+              { _id: 77, name: 'AcrilicoItem2' },
+              { _id: 88, name: 'BaseItem2' }
             ]}
             priceTables={[
               { _id: 123, name: 'Acrilico' },
