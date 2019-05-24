@@ -45,6 +45,7 @@ class Datatable extends React.Component {
         return (
           <>
             {Object.values(this.props.toolbars).map(Tool => (
+              // eslint-disable-next-line react/jsx-key
               <Tool />
             ))}
           </>
@@ -88,7 +89,8 @@ Datatable.propTypes = {
   data: PropTypes.any.isRequired,
   deleteItems: PropTypes.func.isRequired,
   onDialog: PropTypes.func.isRequired,
-  enqueueSnackbar: PropTypes.func.isRequired
+  enqueueSnackbar: PropTypes.func.isRequired,
+  toolbars: PropTypes.array.isRequired
 };
 
 const mapPropsToDispatch = {
