@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import ItemDatatable from './Datatable';
-import { addOptionItem, fetchItems, NEW_ITEM } from './actions';
+import { addOptionItem, fetchItems, NEW_ITEM, EXISTING_ITEM } from './actions';
 import { fetchOptions } from '../option/actions';
 import { getOptionsItems, getItems } from './selectors';
 import Dialog from './Dialog';
 import NewOptionItemForm from './forms/NewOptionItemForm';
 import ExistingOptionItemsForm from './forms/ExistingOptionItemsForm';
+import {
+  AddToolbar,
+  BallotToolbar
+} from 'base/components/common/tables/Toolbar';
 
 class PageRedirect extends React.Component {
   state = { open: false, openType: NEW_ITEM, itemName: '', selectedItems: [] };
@@ -98,7 +102,29 @@ class PageRedirect extends React.Component {
             />
           )}
         </Dialog>
-        <ItemDatatable data={data} onDialog={this.handleOpen} />
+
+        <ItemDatatable
+          data={data}
+          onDialog={this.handleOpen}
+          toolbars={{
+            AddNew: () => (
+              <AddToolbar
+                title="Adicionar Item"
+                onClick={() => this.handleOpen(NEW_ITEM)}
+                aria-owns="add-menu"
+                aria-haspopup="true"
+              />
+            ),
+            AddExisting: () => (
+              <BallotToolbar
+                title="Adicionar Itens existentes"
+                onClick={() => this.handleOpen(EXISTING_ITEM)}
+                aria-owns="add-menu"
+                aria-haspopup="true"
+              />
+            )
+          }}
+        />
       </>
     );
   };

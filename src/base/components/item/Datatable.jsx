@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MuiDatatable from 'base/components/common/tables/MuiDatatable';
-import { AddToolbar, BallotToolbar } from 'base/components/common/tables/Toolbar';
 import { connect } from 'react-redux';
 import { deleteItems } from './actions';
 import { withSnackbar } from 'notistack';
@@ -45,18 +44,9 @@ class Datatable extends React.Component {
       customToolbar: () => {
         return (
           <>
-            <AddToolbar
-              title="Adicionar Item"
-              onClick={() => onDialog(NEW_ITEM)}
-              aria-owns="add-menu"
-              aria-haspopup="true"
-            />
-            <BallotToolbar
-              title="Adicionar Itens existentes"
-              onClick={() => onDialog(EXISTING_ITEM)}
-              aria-owns="add-menu"
-              aria-haspopup="true"
-            />
+            {Object.values(this.props.toolbars).map(Tool => (
+              <Tool />
+            ))}
           </>
         );
       },

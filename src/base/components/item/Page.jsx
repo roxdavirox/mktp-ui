@@ -8,6 +8,7 @@ import ItemDatatable from './Datatable';
 import ItemDialog from './Dialog';
 import Form from './forms/NewItemForm';
 import { getItems } from './selectors';
+import { AddToolbar } from 'base/components/common/tables/Toolbar';
 
 class Page extends Component {
   state = { open: false, itemName: '' };
@@ -52,7 +53,20 @@ class Page extends Component {
             ]}
           />
         </ItemDialog>
-        <ItemDatatable data={data} onDialog={this.handleOpen} />
+        <ItemDatatable
+          data={data}
+          onDialog={this.handleOpen}
+          toolbars={{
+            AddItem: () => (
+              <AddToolbar
+                title="Adicionar Item"
+                onClick={() => this.handleOpen()}
+                aria-owns="add-menu"
+                aria-haspopup="true"
+              />
+            )
+          }}
+        />
       </>
     );
   };
