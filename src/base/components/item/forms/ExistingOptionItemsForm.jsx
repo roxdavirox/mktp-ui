@@ -66,7 +66,6 @@ const ExistingOptionItemsForm = props => {
 
 ExistingOptionItemsForm.propTypes = {
   classes: PropTypes.object.isRequired,
-  priceTables: PropTypes.array.isRequired,
   items: PropTypes.array.isRequired,
   onSelect: PropTypes.func.isRequired,
   selectedItems: PropTypes.array.isRequired
