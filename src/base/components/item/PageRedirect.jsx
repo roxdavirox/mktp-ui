@@ -3,20 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import ItemDatatable from './Datatable';
-import { addOptionItem } from './actions';
+import { addOptionItem, fetchItems } from './actions';
 import { fetchOptions } from '../option/actions';
-import { getOptionsItems } from './selectors';
+import { getOptionsItems, getItems } from './selectors';
 import ItemDialog from './ItemDialog';
 import FormRedirect from './FormRedirect';
 
 class PageRedirect extends React.Component {
   state = { open: false, itemName: '' };
 
-  componentDidMount = ({ fetchOptions } = this.props) => {
+  componentDidMount = ({ fetchOptions, fetchItems } = this.props) => {
     const pageRefreshed =
       window.performance && performance.navigation.type == 1;
     if (pageRefreshed) {
       fetchOptions();
+      fetchItems();
     }
   };
 
@@ -44,7 +45,7 @@ class PageRedirect extends React.Component {
     }
   };
 
-  render = ({ data } = this.props) => {
+  render = ({ data, allItems } = this.props) => {
     return (
       <>
         <ItemDialog
@@ -54,16 +55,7 @@ class PageRedirect extends React.Component {
         >
           <FormRedirect
             onItemNameChange={this.handleItemNameChange}
-            items={[
-              { _id: 11, name: 'AcrilicoItem' },
-              { _id: 22, name: 'BaseItem' },
-              { _id: 33, name: 'AcrilicoItem2' },
-              { _id: 44, name: 'BaseItem2' },
-              { _id: 55, name: 'AcrilicoItem' },
-              { _id: 66, name: 'BaseItem' },
-              { _id: 77, name: 'AcrilicoItem2' },
-              { _id: 88, name: 'BaseItem2' }
-            ]}
+            items={allItems}
             priceTables={[
               { _id: 123, name: 'Acrilico' },
               { _id: 321, name: 'Base' }
@@ -84,12 +76,14 @@ PageRedirect.propTypes = {
 };
 
 const mapStateToProps = (store, { optionId }) => ({
-  data: getOptionsItems(optionId, store)
+  data: getOptionsItems(optionId, store),
+  allItems: getItems(store)
 });
 
 const mapDispatchToProps = {
   fetchOptions,
-  addOptionItem
+  addOptionItem,
+  fetchItems
 };
 
 export default connect(
