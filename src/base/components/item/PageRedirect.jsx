@@ -70,7 +70,7 @@ class PageRedirect extends React.Component {
 
   render = () => {
     const { data, allItems } = this.props;
-    const { open, openType } = this.state;
+    const { open, openType, selectedItems } = this.state;
     return (
       <>
         <Dialog
@@ -93,6 +93,7 @@ class PageRedirect extends React.Component {
           ) : (
             <ExistingOptionItemsForm
               items={allItems}
+              selectedItems={selectedItems}
               onSelect={this.handleSelect}
             />
           )}

@@ -45,7 +45,7 @@ const ExistingOptionItemsForm = props => {
         <Select
           multiple
           value={selectedItems}
-          onChange={onSelect}
+          onChange={e => onSelect(e.target.value)}
           input={<Input id="select-multiple" />}
           MenuProps={MenuProps}
         >
