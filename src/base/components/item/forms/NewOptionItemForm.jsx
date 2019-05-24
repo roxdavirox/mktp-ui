@@ -22,31 +22,14 @@ const styles = theme => ({
   select: { height: '37px' }
 });
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250
-    }
-  }
-};
-
-class FormRedirect extends React.Component {
-  state = { priceTable: '', itemsSelected: [] };
+class NewOptionItemForm extends React.Component {
+  state = { priceTable: '' };
 
   handlePriceTableChange = e =>
     this.setState({ priceTable: Number(e.target.value) });
 
-  handleItemChange = e =>
-    this.setState({
-      itemsSelected: e.target.value
-    });
-
   render() {
-    console.log('items:', this.state.itemsSelected);
-    const { classes, priceTables, items, onItemNameChange } = this.props;
+    const { classes, priceTables, onItemNameChange } = this.props;
     return (
       <form className={classes.container}>
         <FormControl className={classes.formControl}>
@@ -58,28 +41,6 @@ class FormRedirect extends React.Component {
             fullWidth
             onChange={e => onItemNameChange(e.target.value)}
           />
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="select-multiple">
-            Selecionar itens existentes
-          </InputLabel>
-          <Select
-            multiple
-            value={this.state.itemsSelected}
-            onChange={this.handleItemChange}
-            input={<Input id="select-multiple" />}
-            MenuProps={MenuProps}
-          >
-            {items.map(item => (
-              <MenuItem
-                key={item._id}
-                value={item}
-                style={{ fontWeight: 'fontWeigthMedium' }}
-              >
-                {item.name}
-              </MenuItem>
-            ))}
-          </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="price-table-input">Tabela de preço</InputLabel>
@@ -104,11 +65,11 @@ class FormRedirect extends React.Component {
   }
 }
 
-FormRedirect.propTypes = {
+NewOptionItemForm.propTypes = {
   classes: PropTypes.object.isRequired,
   priceTables: PropTypes.array.isRequired,
   items: PropTypes.array.isRequired,
   onItemNameChange: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(FormRedirect);
+export default withStyles(styles)(NewOptionItemForm);

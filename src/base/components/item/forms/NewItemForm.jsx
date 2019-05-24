@@ -20,7 +20,7 @@ const styles = theme => ({
   select: { height: '37px' }
 });
 
-class Form extends React.Component {
+class NewItemForm extends React.Component {
   state = { priceTable: '' };
 
   handlePriceTableChange = e =>
@@ -63,10 +63,10 @@ class Form extends React.Component {
   }
 }
 
-Form.propTypes = {
+NewItemForm.propTypes = {
   classes: PropTypes.object.isRequired,
   priceTables: PropTypes.array.isRequired,
   onItemNameChange: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(Form);
+export default withStyles(styles)(NewItemForm);

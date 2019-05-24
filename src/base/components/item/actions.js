@@ -1,3 +1,6 @@
+export const NEW_ITEM = 'NEW_ITEM';
+export const EXISTING_ITEM = 'EXISTING_ITEM';
+
 export const TOGGLE_OPTION_ITEMS = 'TOGGLE_OPTION_ITEMS';
 
 export const toggleOptionItems = optionId => ({

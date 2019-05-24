@@ -2,29 +2,34 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
-import { withStyles } from '@material-ui/core/styles';
+import BallotIcon from '../icons/BallotIcon';
 import PropTypes from 'prop-types';
 
-const defaultToolbarStyles = {
-  iconButton: {}
+export const CustomToolbar = ({ children, title, ...rest }) => {
+  return (
+    <>
+      <Tooltip title={title ? title : 'custom toolbar'} {...rest}>
+        <IconButton>{children}</IconButton>
+      </Tooltip>
+    </>
+  );
 };
-
-const CustomToolbar = ({ classes, title, ...rest }) => (
-  <>
-    <Tooltip title={title ? title : 'custom Add'} {...rest}>
-      <IconButton className={classes.iconButton}>
-        <AddIcon />
-      </IconButton>
-    </Tooltip>
-  </>
-);
 
 CustomToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  children: PropTypes.func
 };
 
-export default withStyles(defaultToolbarStyles, { name: 'CustomToolbar' })(
-  CustomToolbar
+export const AddToolbar = props => (
+  <CustomToolbar {...props}>
+    <AddIcon />
+  </CustomToolbar>
+);
+
+export const BallotToolbar = props => (
+  <CustomToolbar {...props}>
+    <BallotIcon style={{ padding: 0 }} />
+  </CustomToolbar>
 );

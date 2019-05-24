@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 //Theme components
 import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
-import Toolbar from 'base/components/common/tables/Toolbar.jsx';
+import { AddToolbar } from 'base/components/common/tables/Toolbar.jsx';
 import OptionLoading from './LoadingSkeleton';
 import { toggleOptionItems } from '../item/actions';
 import { deleteOptionsBegin } from './actions';
@@ -100,7 +100,7 @@ class DataTable extends React.Component {
         }
       },
       customToolbar: () => {
-        return <Toolbar title="Adicionar Opção" onClick={onDialog} />;
+        return <AddToolbar title="Adicionar Opção" onClick={onDialog} />;
       },
       onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     };

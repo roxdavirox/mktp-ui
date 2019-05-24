@@ -2,10 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MuiDatatable from 'base/components/common/tables/MuiDatatable';
-import Toolbar from 'base/components/common/tables/Toolbar.jsx';
+import { AddToolbar, BallotToolbar } from 'base/components/common/tables/Toolbar';
 import { connect } from 'react-redux';
 import { deleteItems } from './actions';
 import { withSnackbar } from 'notistack';
+import { NEW_ITEM, EXISTING_ITEM } from './actions';
 
 class Datatable extends React.Component {
   handleRowsDelete = rows => {
@@ -44,9 +45,15 @@ class Datatable extends React.Component {
       customToolbar: () => {
         return (
           <>
-            <Toolbar
+            <AddToolbar
               title="Adicionar Item"
-              onClick={onDialog}
+              onClick={() => onDialog(NEW_ITEM)}
+              aria-owns="add-menu"
+              aria-haspopup="true"
+            />
+            <BallotToolbar
+              title="Adicionar Itens existentes"
+              onClick={() => onDialog(EXISTING_ITEM)}
               aria-owns="add-menu"
               aria-haspopup="true"
             />

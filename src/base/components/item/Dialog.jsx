@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
+import MuiDialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -11,7 +11,7 @@ class ItemDialog extends React.Component {
     const { open, onClose, onAddItem, children } = this.props;
     return (
       <div>
-        <Dialog
+        <MuiDialog
           open={open}
           onClose={onClose}
           aria-labelledby="form-dialog-title"
@@ -26,7 +26,7 @@ class ItemDialog extends React.Component {
               Adicionar
             </Button>
           </DialogActions>
-        </Dialog>
+        </MuiDialog>
       </div>
     );
   }

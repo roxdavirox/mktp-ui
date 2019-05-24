@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import { fetchItems, addItem } from './actions';
 import ItemDatatable from './Datatable';
-import ItemDialog from './ItemDialog';
-import Form from './Form';
+import ItemDialog from './Dialog';
+import Form from './forms/NewItemForm';
 import { getItems } from './selectors';
 
 class Page extends Component {

@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import ItemDatatable from './Datatable';
-import { addOptionItem, fetchItems } from './actions';
+import { addOptionItem, fetchItems, NEW_ITEM } from './actions';
 import { fetchOptions } from '../option/actions';
 import { getOptionsItems, getItems } from './selectors';
-import ItemDialog from './ItemDialog';
-import FormRedirect from './FormRedirect';
+import Dialog from './Dialog';
+import NewOptionItemForm from './forms/NewOptionItemForm';
+import ExistingOptionItemsForm from './forms/ExistingOptionItemsForm';
 
 class PageRedirect extends React.Component {
-  state = { open: false, itemName: '' };
+  state = { open: false, openType: NEW_ITEM, itemName: '', selectedItems: [] };
 
   componentDidMount = ({ fetchOptions, fetchItems } = this.props) => {
     const pageRefreshed =
@@ -21,7 +22,7 @@ class PageRedirect extends React.Component {
     }
   };
 
-  handleOpen = () => this.setState({ open: true });
+  handleOpen = openType => this.setState({ open: true, openType });
   handleClose = () => this.setState({ open: false });
   handleItemNameChange = itemName => this.setState({ itemName });
 
@@ -45,23 +46,57 @@ class PageRedirect extends React.Component {
     }
   };
 
-  render = ({ data, allItems } = this.props) => {
+  handleExistingItem = () => {
+    const { enqueueSnackbar, optionId } = this.props;
+
+    enqueueSnackbar('Adicionando item(s)...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+
+    const { selectedItems } = this.state;
+
+    if (selectedItems) {
+      const itemsId = selectedItems.map(i => i._id);
+      this.props.AddExistingItems({
+        itemsId,
+        optionId,
+        enqueueSnackbar
+      });
+    }
+  };
+
+  handleSelect = selectedItems => this.setState({ selectedItems });
+
+  render = () => {
+    const { data, allItems } = this.props;
+    const { open, openType } = this.state;
     return (
       <>
-        <ItemDialog
-          open={this.state.open}
+        <Dialog
+          open={open}
           onClose={this.handleClose}
-          onAddItem={this.handleAddOptionItem}
+          onAddItem={
+            openType === NEW_ITEM
+              ? this.handleAddOptionItem
+              : this.handleExistingItem
+          }
         >
-          <FormRedirect
-            onItemNameChange={this.handleItemNameChange}
-            items={allItems}
-            priceTables={[
-              { _id: 123, name: 'Acrilico' },
-              { _id: 321, name: 'Base' }
-            ]}
-          />
-        </ItemDialog>
+          {openType === NEW_ITEM ? (
+            <NewOptionItemForm
+              onItemNameChange={this.handleItemNameChange}
+              priceTables={[
+                { _id: 123, name: 'Acrilico' },
+                { _id: 321, name: 'Base' }
+              ]}
+            />
+          ) : (
+            <ExistingOptionItemsForm
+              items={allItems}
+              onSelect={this.handleSelect}
+            />
+          )}
+        </Dialog>
         <ItemDatatable data={data} onDialog={this.handleOpen} />
       </>
     );
@@ -70,8 +105,10 @@ class PageRedirect extends React.Component {
 
 PageRedirect.propTypes = {
   data: PropTypes.any.isRequired,
+  allItems: PropTypes.any.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   addOptionItem: PropTypes.func.isRequired,
+  AddExistingItems: PropTypes.func.isRequired,
   optionId: PropTypes.string.isRequired
 };
 
