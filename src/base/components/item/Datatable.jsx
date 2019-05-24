@@ -5,7 +5,6 @@ import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 import { connect } from 'react-redux';
 import { deleteItems } from './actions';
 import { withSnackbar } from 'notistack';
-import { NEW_ITEM, EXISTING_ITEM } from './actions';
 
 class Datatable extends React.Component {
   handleRowsDelete = rows => {
