@@ -24,7 +24,7 @@ class Datatable extends React.Component {
   };
 
   render = () => {
-    const { data, onDialog } = this.props;
+    const { data } = this.props;
     const options = {
       filterType: 'checkbox',
       download: false,
@@ -87,7 +87,6 @@ class Datatable extends React.Component {
 Datatable.propTypes = {
   data: PropTypes.any.isRequired,
   deleteItems: PropTypes.func.isRequired,
-  onDialog: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   toolbars: PropTypes.array.isRequired
 };
