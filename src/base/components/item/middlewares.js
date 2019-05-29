@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   ADD_ITEM,
   ADD_OPTION_ITEM,
@@ -6,8 +7,9 @@ import {
   postItemFailure,
   DELETE_ITEMS,
   deleteItemsSuccess,
-  deleteItemsFailure,
-  FETCH_ITEMS
+  DELETE_OPTION_ITEMS,
+  FETCH_ITEMS,
+  deleteOptionItemsSuccess
 } from './actions';
 import { addEntities } from 'base/redux/actions';
 import { itemSchema } from 'base/redux/schema';
@@ -67,7 +69,7 @@ export const addOptionItem = ({ dispatch }) => next => action => {
     fetch(endpoint, request)
       .then(res => res.json())
       .then(({ item }) => {
-        enqueueSnackbar('Item adicionado!',{
+        enqueueSnackbar('Item adicionado!', {
           variant: 'success',
           autoHideDuration: 2000
         });
@@ -108,11 +110,47 @@ export const deleteItemsMiddleware = ({ dispatch }) => next => action => {
             variant: 'success',
             autoHideDuration: 2000
           });
+          dispatch(deleteItemsSuccess(itemsId));
         }
         return res;
       })
-      .then(() => dispatch(deleteItemsSuccess(itemsId)))
-      .catch(error => dispatch(deleteItemsFailure(error)));
+      .catch(error => console.log('erro ao deletar item:', error));
+  }
+
+  next(action);
+};
+
+export const deleteOptionItemsMiddleware = ({ dispatch }) => next => action => {
+  if (action.type === DELETE_OPTION_ITEMS) {
+    const { itemsId, optionId, snack } = action.playload;
+
+    const body = { itemsId };
+
+    const request = {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    };
+
+    const endpoint = getEndpoint(`/items/${optionId}`);
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(res => {
+        const { deletedItemsCount: count } = res;
+        console.log('delete res: ', res);
+        if (count) {
+          snack(`${count} ite${count == 1 ? 'm deletado' : 'ns deletados'}`, {
+            variant: 'success',
+            autoHideDuration: 2000
+          });
+          dispatch(deleteOptionItemsSuccess(itemsId, optionId));
+        }
+        return res;
+      })
+      .catch(error => console.log('error ao deletar option items: ', error));
   }
 
   next(action);

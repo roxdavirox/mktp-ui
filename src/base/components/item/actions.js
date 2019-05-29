@@ -75,6 +75,20 @@ export const deleteItems = (itemsId, snack) => ({
   playload: { itemsId, snack }
 });
 
+export const DELETE_OPTION_ITEMS = 'DELETE_OPTION_ITEMS';
+
+export const deleteOptionsITems = (itemsId, optionId, snack) => ({
+  type: DELETE_OPTION_ITEMS,
+  playload: { itemsId, optionId, snack }
+});
+
+export const DELETE_OPTION_ITEMS_SUCCESS = 'DELETE_OPTION_ITEMS_SUCCESS';
+
+export const deleteOptionItemsSuccess = (itemsId, optionId) => ({
+  type: DELETE_OPTION_ITEMS_SUCCESS,
+  playload: { itemsId, optionId }
+});
+
 export const DELETE_ITEMS_SUCCESS = 'DELETE_ITEMS_SUCCESS';
 
 export const deleteItemsSuccess = itemsId => ({

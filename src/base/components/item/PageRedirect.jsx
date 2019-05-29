@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import ItemDatatable from './Datatable';
-import { addOptionItem, fetchItems, NEW_ITEM, EXISTING_ITEM } from './actions';
+import {
+  addOptionItem,
+  deleteOptionItems,
+  fetchItems,
+  NEW_ITEM,
+  EXISTING_ITEM
+} from './actions';
 import { fetchOptions } from '../option/actions';
 import { getOptionsItems, getItems } from './selectors';
 import Dialog from './Dialog';
@@ -72,9 +78,27 @@ class PageRedirect extends React.Component {
 
   handleSelect = selectedItems => this.setState({ selectedItems });
 
+  handleRowsDelete = rows => {
+    const { enqueueSnackbar, data, optionId } = this.props;
+
+    const { data: dataRows } = rows;
+    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
+
+    const deletedItemsIds = indexRows.map(index => data[index]._id);
+
+    enqueueSnackbar('Deletando...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+
+    this.props.deleteOptionItems(deletedItemsIds, optionId, enqueueSnackbar);
+  };
+
   render = () => {
     const { data, allItems } = this.props;
     const { open, openType, selectedItems } = this.state;
+    console.log('data page redirect:', data);
+    console.log('allItems page redirect:', allItems);
     return (
       <>
         <Dialog
@@ -106,6 +130,7 @@ class PageRedirect extends React.Component {
         <ItemDatatable
           data={data}
           onDialog={this.handleOpen}
+          onRowsDelete={this.handleRowsDelete}
           toolbars={{
             AddNew: () => (
               <AddToolbar
@@ -136,18 +161,24 @@ PageRedirect.propTypes = {
   enqueueSnackbar: PropTypes.func.isRequired,
   addOptionItem: PropTypes.func.isRequired,
   AddExistingItems: PropTypes.func.isRequired,
-  optionId: PropTypes.string.isRequired
+  optionId: PropTypes.string.isRequired,
+  deleteOptionItems: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (store, { optionId }) => ({
-  data: getOptionsItems(optionId, store),
-  allItems: getItems(store)
-});
+const mapStateToProps = (store, { optionId }) => {
+  console.log('optionId: ', optionId);
+
+  return {
+    data: getOptionsItems(optionId, store),
+    allItems: getItems(store)
+  };
+};
 
 const mapDispatchToProps = {
   fetchOptions,
   addOptionItem,
-  fetchItems
+  fetchItems,
+  deleteOptionItems
 };
 
 export default connect(

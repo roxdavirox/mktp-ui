@@ -10,6 +10,7 @@ import {
 import {
   fetchItemsMiddleware,
   deleteItemsMiddleware,
+  deleteOptionItemsMiddleware,
   addItemMiddleware,
   addOptionItem
 } from 'base/components/item/middlewares';
@@ -25,6 +26,7 @@ export const store = createStore(
       fetchOptionsMiddleware,
       fetchItemsMiddleware,
       deleteItemsMiddleware,
+      deleteOptionItemsMiddleware,
       addItemMiddleware,
       addOptionItem
     )

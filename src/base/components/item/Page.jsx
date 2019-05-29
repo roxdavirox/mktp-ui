@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import { fetchItems, addItem } from './actions';
+import { fetchItems, addItem, deleteItems } from './actions';
 import ItemDatatable from './Datatable';
 import ItemDialog from './Dialog';
 import Form from './forms/NewItemForm';
@@ -37,6 +37,22 @@ class Page extends Component {
     }
   };
 
+  handleRowsDelete = rows => {
+    const { enqueueSnackbar, data } = this.props;
+
+    const { data: dataRows } = rows;
+    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
+
+    const deletedItemsIds = indexRows.map(index => data[index]._id);
+
+    enqueueSnackbar('Deletando...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+
+    this.props.deleteItems(deletedItemsIds, enqueueSnackbar);
+  };
+
   render = ({ data } = this.props) => {
     return (
       <>
@@ -55,6 +71,7 @@ class Page extends Component {
         </ItemDialog>
         <ItemDatatable
           data={data}
+          onRowsDelete={this.handleRowsDelete}
           onDialog={this.handleOpen}
           toolbars={{
             AddItem: () => (
@@ -76,7 +93,8 @@ Page.propTypes = {
   data: PropTypes.any.isRequired,
   fetchItems: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
-  addItem: PropTypes.func.isRequired
+  addItem: PropTypes.func.isRequired,
+  deleteItems: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -85,7 +103,8 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = {
   fetchItems,
-  addItem
+  addItem,
+  deleteItems
 };
 
 export default connect(

@@ -3,7 +3,8 @@ import {
   TOGGLE_OPTION_ITEMS,
   DELETE_ITEMS_SUCCESS,
   ADD_ITEM_SUCCESS,
-  ADD_OPTION_ITEM_SUCCESS
+  ADD_OPTION_ITEM_SUCCESS,
+  DELETE_OPTION_ITEMS_SUCCESS
 } from './actions';
 
 const initialState = {
@@ -37,6 +38,27 @@ export default function(state = initialState, action) {
     }
 
     case DELETE_ITEMS_SUCCESS: {
+      const { itemsId } = action.playload;
+
+      const allIds = state.allIds.filter(id => itemsId.indexOf(id) === -1);
+
+      const byId = allIds.reduce((ids, id) => {
+        return {
+          ...ids,
+          [id]: {
+            ...state.byId[id]
+          }
+        };
+      }, {});
+
+      return {
+        ...state,
+        byId,
+        allIds
+      };
+    }
+
+    case DELETE_OPTION_ITEMS_SUCCESS: {
       const { itemsId } = action.playload;
 
       const allIds = state.allIds.filter(id => itemsId.indexOf(id) === -1);
