@@ -15,6 +15,8 @@ import {
   addOptionItem
 } from 'base/components/item/middlewares';
 
+import { addExistingItemsMiddleware } from '../components/item/middlewares';
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
@@ -28,7 +30,8 @@ export const store = createStore(
       deleteItemsMiddleware,
       deleteOptionItemsMiddleware,
       addItemMiddleware,
-      addOptionItem
+      addOptionItem,
+      addExistingItemsMiddleware
     )
   )
 );

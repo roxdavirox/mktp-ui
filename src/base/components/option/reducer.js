@@ -12,7 +12,11 @@ import {
 } from './actions';
 
 import { ADD_ENTITIES } from 'base/redux/actions';
-import { ADD_OPTION_ITEM_SUCCESS, DELETE_OPTION_ITEMS_SUCCESS } from '../item/actions';
+import {
+  ADD_OPTION_ITEM_SUCCESS,
+  DELETE_OPTION_ITEMS_SUCCESS,
+  ADD_EXISTING_ITEMS_SUCCESS
+} from '../item/actions';
 
 const initialState = {
   byId: {},
@@ -85,6 +89,21 @@ export default function(state = initialState, action) {
           [optionId]: {
             ...state.byId[optionId],
             items
+          }
+        }
+      };
+    }
+
+    case ADD_EXISTING_ITEMS_SUCCESS: {
+      const { itemsId, optionId } = action.playload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [optionId]: {
+            ...state.byId[optionId],
+            items: itemsId
           }
         }
       };

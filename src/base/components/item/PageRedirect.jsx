@@ -5,6 +5,7 @@ import { withSnackbar } from 'notistack';
 import ItemDatatable from './Datatable';
 import {
   addOptionItem,
+  addExistingItems,
   deleteOptionItems,
   fetchItems,
   NEW_ITEM,
@@ -68,11 +69,9 @@ class PageRedirect extends React.Component {
 
     if (selectedItems) {
       const itemsId = selectedItems.map(i => i._id);
-      this.props.AddExistingItems({
-        itemsId,
-        optionId,
-        enqueueSnackbar
-      });
+      console.log('selectedItems:', itemsId);
+      this.props.addExistingItems(itemsId, optionId, enqueueSnackbar);
+      this.handleClose();
     }
   };
 
@@ -99,6 +98,7 @@ class PageRedirect extends React.Component {
     const { open, openType, selectedItems } = this.state;
     console.log('data page redirect:', data);
     console.log('allItems page redirect:', allItems);
+    console.log('openType:', this.state.openType);
     return (
       <>
         <Dialog
@@ -160,7 +160,7 @@ PageRedirect.propTypes = {
   allItems: PropTypes.any.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   addOptionItem: PropTypes.func.isRequired,
-  AddExistingItems: PropTypes.func.isRequired,
+  addExistingItems: PropTypes.func.isRequired,
   optionId: PropTypes.string.isRequired,
   deleteOptionItems: PropTypes.func.isRequired
 };
@@ -177,6 +177,7 @@ const mapStateToProps = (store, { optionId }) => {
 const mapDispatchToProps = {
   fetchOptions,
   addOptionItem,
+  addExistingItems,
   fetchItems,
   deleteOptionItems
 };

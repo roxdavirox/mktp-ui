@@ -25,6 +25,20 @@ export const addItem = (item, snack) => ({
   }
 });
 
+export const ADD_EXISTING_ITEMS = 'ADD_EXISTING_ITEMS';
+
+export const addExistingItems = (itemsId, optionId, snack) => ({
+  type: ADD_EXISTING_ITEMS,
+  playload: { itemsId, optionId, snack }
+});
+
+export const ADD_EXISTING_ITEMS_SUCCESS = 'ADD_EXISTING_ITEMS_SUCCESS';
+
+export const addExistingItemsSuccess = (itemsId, optionId) => ({
+  type: ADD_EXISTING_ITEMS_SUCCESS,
+  playload: { itemsId, optionId }
+});
+
 export const ADD_OPTION_ITEM = 'ADD_OPTION_ITEM';
 
 export const addOptionItem = playload => ({
