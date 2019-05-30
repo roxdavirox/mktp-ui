@@ -103,7 +103,12 @@ export default function(state = initialState, action) {
           ...state.byId,
           [optionId]: {
             ...state.byId[optionId],
-            items: [...state.byId[optionId].items, ...itemsId]
+            items: [
+              ...state.byId[optionId].items,
+              ...itemsId.filter(
+                id => state.byId[optionId].items.indexOf(id) === -1
+              )
+            ]
           }
         }
       };
