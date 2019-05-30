@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -70,6 +71,7 @@ class PageRedirect extends React.Component {
     if (selectedItems) {
       const itemsId = selectedItems.map(i => i._id);
       console.log('selectedItems:', itemsId);
+      console.log('adicionando item na opção:', optionId);
       this.props.addExistingItems(itemsId, optionId, enqueueSnackbar);
       this.handleClose();
     }

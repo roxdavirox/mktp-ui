@@ -32,8 +32,11 @@ export default function(state = initialState, action) {
       const allIds = Object.keys(items);
       return {
         ...state,
-        byId,
-        allIds
+        byId: { ...state.byId, ...byId },
+        allIds: [
+          ...state.allIds,
+          ...allIds.filter(id => state.allIds.indexOf(id) === -1)
+        ]
       };
     }
 
