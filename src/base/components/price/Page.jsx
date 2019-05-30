@@ -2,20 +2,33 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Datatable from './Datatable';
-import { getPriceTables } from './actions';
+import { getPriceTables } from './selectors';
+import { fetchPriceTables } from './actions';
 
 class Page extends React.Component {
-  render() {
+  componentDidMount = () => {
+    this.props.fetchPriceTables();
+  };
+
+  render = () => {
     return <Datatable data={this.props.data} />;
-  }
+  };
 }
 
 Page.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  fetchPriceTables: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  data: getPriceTables(state)
+const mapStateToProps = store => ({
+  data: getPriceTables(store)
 });
 
-export default connect(mapStateToProps)(Page);
+const mapDisptachToProps = {
+  fetchPriceTables
+};
+
+export default connect(
+  mapStateToProps,
+  mapDisptachToProps
+)(Page);
