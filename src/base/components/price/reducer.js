@@ -9,13 +9,13 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case ADD_ENTITIES: {
       const {
-        entities: { prices }
+        entities: { priceTables }
       } = action.playload;
 
-      if (!prices) return state;
+      if (!priceTables) return state;
 
-      const byId = { ...prices };
-      const allIds = Object.keys(prices);
+      const byId = { ...priceTables };
+      const allIds = Object.keys(priceTables);
       return {
         ...state,
         byId,
