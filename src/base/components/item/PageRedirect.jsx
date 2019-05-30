@@ -170,9 +170,12 @@ PageRedirect.propTypes = {
 const mapStateToProps = (store, { optionId }) => {
   console.log('optionId: ', optionId);
 
+  const data = getOptionsItems(optionId, store);
+  const dataIds = data.map(d => d._id);
+  const allItems = getItems(store);
   return {
-    data: getOptionsItems(optionId, store),
-    allItems: getItems(store)
+    data,
+    allItems: allItems.filter(item => dataIds.indexOf(item._id) === -1)
   };
 };
 
