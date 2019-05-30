@@ -103,7 +103,7 @@ export default function(state = initialState, action) {
           ...state.byId,
           [optionId]: {
             ...state.byId[optionId],
-            items: itemsId
+            items: [...state.byId[optionId].items, ...itemsId]
           }
         }
       };
