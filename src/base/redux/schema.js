@@ -19,3 +19,5 @@ export const optionSchema = new schema.Entity(
   },
   id
 );
+
+export const priceTableSchema = new schema.Entity('priceTables', {}, id);
