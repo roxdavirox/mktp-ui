@@ -1,7 +1,7 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Option from 'base/components/option/Page.jsx';
 import Item from 'base/components/item/Container.jsx';
-import PriceTable from 'base/components/price/Page.jsx';
+import PriceTable from 'base/components/priceTable/Page.jsx';
 
 var dashRoutes = [
   {
