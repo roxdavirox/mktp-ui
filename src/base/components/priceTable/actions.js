@@ -17,3 +17,10 @@ export const addPriceTable = name => ({
   type: ADD_PRICE_TABLE,
   playload: { name }
 });
+
+export const ADD_PRICE_TABLE_SUCCESS = 'ADD_PRICE_TABLE_SUCCESS';
+
+export const addPriceTableSuccess = priceTable => ({
+  type: ADD_PRICE_TABLE_SUCCESS,
+  playload: { priceTable }
+});
