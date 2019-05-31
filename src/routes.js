@@ -1,6 +1,8 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Option from 'base/components/option/Page.jsx';
 import Item from 'base/components/item/Container.jsx';
+import PriceTable from 'base/components/price/Page.jsx';
+
 var dashRoutes = [
   {
     collapse: true,
@@ -22,8 +24,15 @@ var dashRoutes = [
         component: Item,
         layout: '/admin',
         invisible: false
+      },
+      {
+        path: '/config/price-table',
+        name: 'Tabela de preço',
+        mini: 'TP',
+        component: PriceTable
       }
     ]
   }
 ];
+
 export default dashRoutes;

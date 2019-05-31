@@ -4,25 +4,21 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-//Common components
 import MuiDatatable from 'base/components/common/tables/MuiDatatable';
-//Theme components
 import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'base/components/common/tables/Toolbar.jsx';
 import OptionLoading from './LoadingSkeleton';
-import { toggleOptionItems } from '../item/actions';
-import { deleteOptionsBegin } from './actions';
 
 import { withSnackbar } from 'notistack';
 
-const optionStyle = {
+const styles = {
   EditCell: { textAlign: 'right' },
   NameCell: { fontWeight: 500 }
 };
 
 class Datatable extends React.Component {
   handleRowsDelete = rows => {
-    const { deleteOptionsBegin, enqueueSnackbar, data } = this.props;
+    const { enqueueSnackbar, data } = this.props;
 
     const { data: dataRows } = rows;
 
@@ -35,7 +31,7 @@ class Datatable extends React.Component {
       autoHideDuration: 2000
     });
 
-    deleteOptionsBegin(deletedOptionsIds, enqueueSnackbar);
+    this.props.deletePriceTables(deletedOptionsIds, enqueueSnackbar);
   };
 
   render = () => {
@@ -100,14 +96,16 @@ class Datatable extends React.Component {
         }
       },
       customToolbar: () => {
-        return <AddToolbar title="Adicionar Opção" onClick={onDialog} />;
+        return (
+          <AddToolbar title="Adicionar Tabela de preço" onClick={onDialog} />
+        );
       },
       onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     };
 
     return (
       <MuiDatatable
-        title={'Opções'}
+        title={'Tabela de preço'}
         data={data}
         columns={columns}
         options={options}
@@ -118,22 +116,9 @@ class Datatable extends React.Component {
 
 Datatable.propTypes = {
   data: PropTypes.any.isRequired,
-  deleteOptionsBegin: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
-  toggleOptionItems: PropTypes.func.isRequired,
   onDialog: PropTypes.func.isRequired
 };
 
-const mapDispatchtoProps = {
-  toggleOptionItems,
-  deleteOptionsBegin
-};
-
-const styleDatatable = withStyles(optionStyle)(Datatable);
-const snackDatatable = withSnackbar(styleDatatable);
-
-export default connect(
-  null,
-  mapDispatchtoProps
-)(snackDatatable);
+export default withStyles(styles)(Datatable);
