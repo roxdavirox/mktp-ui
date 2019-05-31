@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -7,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'base/components/common/tables/Toolbar.jsx';
-import OptionLoading from './LoadingSkeleton';
+import Loading from './LoadingSkeleton';
 
 const styles = {
   EditCell: { textAlign: 'right' },
@@ -22,14 +21,14 @@ class Datatable extends React.Component {
 
     const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
 
-    const deletedOptionsIds = indexRows.map(index => data[index]._id);
+    const priceTableIds = indexRows.map(index => data[index]._id);
 
     enqueueSnackbar('Deletando...', {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    this.props.deletePriceTables(deletedOptionsIds, enqueueSnackbar);
+    this.props.deletePriceTables(priceTableIds, enqueueSnackbar);
   };
 
   render = () => {
@@ -90,7 +89,7 @@ class Datatable extends React.Component {
       rowHover: false,
       textLabels: {
         body: {
-          noMatch: <OptionLoading />
+          noMatch: <Loading />
         }
       },
       customToolbar: () => {
