@@ -9,7 +9,7 @@ const CustomLoadingSkeleton = ({ isLoading }) =>
       <Skeleton count={8} height={50} />
     </div>
   ) : (
-    'Nenhuma opção'
+    'Nenhuma tabela de preço'
   );
 
 const mapStateToProps = store => ({ isLoading: store.options.loading });

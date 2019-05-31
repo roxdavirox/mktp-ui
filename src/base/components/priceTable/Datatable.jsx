@@ -9,8 +9,6 @@ import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'base/components/common/tables/Toolbar.jsx';
 import OptionLoading from './LoadingSkeleton';
 
-import { withSnackbar } from 'notistack';
-
 const styles = {
   EditCell: { textAlign: 'right' },
   NameCell: { fontWeight: 500 }
