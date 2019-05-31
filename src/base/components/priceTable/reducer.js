@@ -1,5 +1,8 @@
 import { ADD_ENTITIES } from 'base/redux/actions';
-import { ADD_PRICE_TABLE_SUCCESS } from './actions';
+import {
+  ADD_PRICE_TABLE_SUCCESS,
+  DELETE_PRICE_TABLES_SUCCESS
+} from './actions';
 
 const initialState = {
   byId: {},
@@ -34,6 +37,29 @@ export default function(state = initialState, action) {
           [priceTable._id]: priceTable
         },
         allIds: [...state.allIds, priceTable._id]
+      };
+    }
+
+    case DELETE_PRICE_TABLES_SUCCESS: {
+      const { priceTableIds } = action.playload;
+
+      const allIds = state.allIds.filter(
+        id => priceTableIds.indexOf(id) === -1
+      );
+
+      const byId = allIds.reduce((ids, id) => {
+        return {
+          ...ids,
+          [id]: {
+            ...state.byId[id]
+          }
+        };
+      }, {});
+
+      return {
+        ...state,
+        allIds,
+        byId
       };
     }
 

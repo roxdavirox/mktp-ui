@@ -24,3 +24,10 @@ export const addPriceTableSuccess = priceTable => ({
   type: ADD_PRICE_TABLE_SUCCESS,
   playload: { priceTable }
 });
+
+export const DELETE_PRICE_TABLES_SUCCESS = 'DELETE_PRICE_TABLES_SUCCESS';
+
+export const deletePriceTablesSuccess = priceTableIds => ({
+  type: DELETE_PRICE_TABLES_SUCCESS,
+  playload: { priceTableIds }
+});
