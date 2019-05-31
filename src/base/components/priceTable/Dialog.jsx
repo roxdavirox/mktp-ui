@@ -55,7 +55,13 @@ class Dialog extends React.Component {
             <Button onClick={onClose} color="primary">
               Cancelar
             </Button>
-            <Button onClick={onAdd} color="primary">
+            <Button
+              onClick={() => {
+                onAdd(this.state.value);
+                onClose();
+              }}
+              color="primary"
+            >
               Adicionar
             </Button>
           </DialogActions>

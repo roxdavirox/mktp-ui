@@ -115,7 +115,8 @@ Datatable.propTypes = {
   data: PropTypes.any.isRequired,
   classes: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
-  onDialog: PropTypes.func.isRequired
+  onDialog: PropTypes.func.isRequired,
+  deletePriceTables: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Datatable);

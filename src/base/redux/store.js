@@ -15,7 +15,10 @@ import {
   addOptionItem
 } from 'base/components/item/middlewares';
 
-import { fetchPriceTables } from 'base/components/priceTable/middlewares';
+import {
+  fetchPriceTables,
+  addPriceTable
+} from 'base/components/priceTable/middlewares';
 
 import { addExistingItemsMiddleware } from '../components/item/middlewares';
 
@@ -34,7 +37,8 @@ export const store = createStore(
       addItemMiddleware,
       addOptionItem,
       addExistingItemsMiddleware,
-      fetchPriceTables
+      fetchPriceTables,
+      addPriceTable
     )
   )
 );
