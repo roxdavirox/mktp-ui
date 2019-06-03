@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'base/components/common/tables/Toolbar.jsx';
-import Loading from './LoadingSkeleton';
+import Loading from './Loading';
 
 const styles = {
   EditCell: { textAlign: 'right' },
