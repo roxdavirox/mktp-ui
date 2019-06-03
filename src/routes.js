@@ -2,6 +2,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import Option from 'base/components/option/Page.jsx';
 import Item from 'base/components/item/Container.jsx';
 import PriceTable from 'base/components/priceTable/Page.jsx';
+import Price from 'base/components/priceTable/price/Page.jsx';
 
 var dashRoutes = [
   {
@@ -33,6 +34,14 @@ var dashRoutes = [
         component: PriceTable
       }
     ]
+  },
+  {
+    path: '/config/price',
+    name: 'Intervalo de preços',
+    mini: '',
+    layout: '/admin',
+    component: Price,
+    invisible: true
   }
 ];
 
