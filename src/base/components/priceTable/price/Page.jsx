@@ -4,16 +4,21 @@ import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import Datatable from './Datatable';
 import { getPrices } from './selectors';
-import { fetchPrices, deletePrices } from './actions';
+import { fetchPrices, deletePrices, addPrice } from './actions';
 import Dialog from './Dialog';
 
 class Page extends React.Component {
   state = { open: false };
 
-  componentDidMount = () => {
-    // from redirect
+  getPriceTableId = () => {
     const { state } = this.props.location;
     const { priceTableId } = state;
+    return priceTableId;
+  };
+
+  componentDidMount = () => {
+    // from redirect
+    const priceTableId = this.getPriceTableId();
     this.props.fetchPrices(priceTableId);
   };
 
@@ -23,9 +28,15 @@ class Page extends React.Component {
 
   render = () => {
     const { open } = this.state;
+    const priceTableId = this.getPriceTableId();
     return (
       <>
-        {/* <Dialog {...this.props} open={open} onClose={this.handleClose} /> */}
+        <Dialog
+          {...this.props}
+          priceTableId={priceTableId}
+          open={open}
+          onClose={this.handleClose}
+        />
         <Datatable {...this.props} onDialog={this.handleOpen} />
       </>
     );
@@ -45,8 +56,8 @@ const mapStateToProps = store => ({
 
 const mapDisptachToProps = {
   fetchPrices,
-  deletePrices
-  // onAdd: addPriceTable
+  deletePrices,
+  onAdd: addPrice
 };
 
 export default connect(

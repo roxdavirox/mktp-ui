@@ -12,6 +12,20 @@ export const fetchPricesSuccess = prices => ({
   playload: { prices }
 });
 
+export const ADD_PRICE = 'ADD_PRICE';
+
+export const addPrice = (price, priceTableId, snack) => ({
+  type: ADD_PRICE,
+  playload: { price, priceTableId, snack }
+});
+
+export const ADD_PRICE_SUCCESS = 'ADD_PRICE_SUCCESS';
+
+export const addPriceSuccess = price => ({
+  type: ADD_PRICE_SUCCESS,
+  playload: { price }
+});
+
 export const DELETE_PRICES = 'DELETE_PRICES';
 
 export const deletePrices = (priceIds, snack) => ({
