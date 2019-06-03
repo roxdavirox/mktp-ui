@@ -1,5 +1,8 @@
 /* eslint-disable no-console */
 import { FETCH_PRICES } from './actions';
+import { normalize } from 'normalizr';
+import { priceSchema } from 'base/redux/schema';
+import { addEntities } from 'base/redux/actions';
 
 const host = process.env.REACT_APP_HOST_API;
 
@@ -13,7 +16,12 @@ export const fetchPrices = ({ dispatch }) => next => action => {
 
     fetch(endpoint)
       .then(res => res.json())
-      .then(res => console.log('preços res:', res))
+      .then(({ prices }) => normalize(prices, [priceSchema]))
+      .then(res => {
+        console.log('normalized response preços:', res);
+        return res;
+      })
+      .then(({ entities }) => dispatch(addEntities(entities)))
       .catch(e => console.log(e));
   }
 

@@ -12,7 +12,7 @@ class Page extends React.Component {
 
   componentDidMount = () => {
     const { priceTableId } = this.props;
-    this.props.fetchPrices(priceTableId);
+    this.props.fetchPrices('5cf5543fca07d71c9abde0cf');
   };
 
   handleOpen = () => this.setState({ open: true });
