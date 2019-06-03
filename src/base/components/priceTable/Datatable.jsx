@@ -60,7 +60,7 @@ class Datatable extends React.Component {
                 pathname: '/admin/config/price',
                 state: {
                   fromRedirect: true,
-                  optionId: value
+                  priceTableId: value
                 }
               }}
             >

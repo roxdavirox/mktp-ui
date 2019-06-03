@@ -11,8 +11,10 @@ class Page extends React.Component {
   state = { open: false };
 
   componentDidMount = () => {
-    const { priceTableId } = this.props;
-    this.props.fetchPrices('5cf5543fca07d71c9abde0cf');
+    // from redirect
+    const { state } = this.props.location;
+    const { priceTableId } = state;
+    this.props.fetchPrices(priceTableId);
   };
 
   handleOpen = () => this.setState({ open: true });
@@ -33,7 +35,8 @@ class Page extends React.Component {
 Page.propTypes = {
   data: PropTypes.array.isRequired,
   priceTableId: PropTypes.any.isRequired,
-  fetchPrices: PropTypes.func.isRequired
+  fetchPrices: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired
 };
 
 const mapStateToProps = store => ({
