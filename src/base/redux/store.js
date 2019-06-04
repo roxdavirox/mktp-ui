@@ -23,7 +23,8 @@ import {
 
 import {
   fetchPrices,
-  addPrice
+  addPrice,
+  deletePrices
 } from 'base/components/priceTable/price/middlewares';
 
 import { addExistingItemsMiddleware } from '../components/item/middlewares';
@@ -47,7 +48,8 @@ export const store = createStore(
       addPriceTable,
       deletePriceTables,
       fetchPrices,
-      addPrice
+      addPrice,
+      deletePrices
     )
   )
 );
