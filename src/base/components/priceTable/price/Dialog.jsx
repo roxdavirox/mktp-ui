@@ -36,7 +36,12 @@ class Dialog extends React.Component {
       end: Number(end),
       value: Number(value)
     };
-    console.log('id da tabela:', priceTableId);
+
+    enqueueSnackbar('Adicionando preço...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+
     onAdd(price, priceTableId, enqueueSnackbar);
   };
 
@@ -88,7 +93,13 @@ class Dialog extends React.Component {
             <Button onClick={onClose} color="primary">
               Cancelar
             </Button>
-            <Button onClick={this.handleAdd} color="primary">
+            <Button
+              onClick={() => {
+                this.handleAdd();
+                onClose();
+              }}
+              color="primary"
+            >
               Adicionar
             </Button>
           </DialogActions>

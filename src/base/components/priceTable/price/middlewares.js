@@ -53,7 +53,13 @@ export const addPrice = ({ dispatch }) => next => action => {
 
     fetch(endpoint, request)
       .then(res => res.json())
-      .then(({ price: p }) => dispatch(addPriceSuccess(p)))
+      .then(({ price: p }) => {
+        dispatch(addPriceSuccess(p));
+        snack('Preço adicionado com sucesso!', {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+      })
       .catch(e => console.log(e));
   }
 
