@@ -32,3 +32,10 @@ export const deletePrices = (priceIds, snack) => ({
   type: DELETE_PRICES,
   playload: { priceIds, snack }
 });
+
+export const DELETE_PRICES_SUCCESS = 'DELETE_PRICES_SUCCESS';
+
+export const deletePricesSuccess = priceIds => ({
+  type: DELETE_PRICES_SUCCESS,
+  playload: { priceIds }
+});

@@ -1,5 +1,11 @@
 /* eslint-disable no-console */
-import { FETCH_PRICES, ADD_PRICE, addPriceSuccess } from './actions';
+import {
+  FETCH_PRICES,
+  ADD_PRICE,
+  addPriceSuccess,
+  DELETE_PRICES,
+  deletePricesSuccess
+} from './actions';
 import { normalize } from 'normalizr';
 import { priceSchema } from 'base/redux/schema';
 import { addEntities } from 'base/redux/actions';
@@ -51,5 +57,42 @@ export const addPrice = ({ dispatch }) => next => action => {
       .catch(e => console.log(e));
   }
 
+  next(action);
+};
+
+export const deletePrices = ({ dispatch }) => next => action => {
+  if (action.type === DELETE_PRICES) {
+    const { priceIds, snack } = action.playload;
+
+    const request = {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ priceIds })
+    };
+
+    const endpoint = getEndpoint('/prices');
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(res => {
+        if (res.deletedCount) {
+          const count = res.deletedCount;
+          dispatch(deletePricesSuccess(priceIds));
+          snack(
+            `${count} Preç${count == 1 ? 'o deletado...' : 'os deletados'}`,
+            {
+              variant: 'success',
+              autoHideDuration: 2000
+            }
+          );
+        }
+
+        return res;
+      })
+      .catch(e => console.log(e));
+  }
   next(action);
 };
