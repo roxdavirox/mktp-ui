@@ -63,16 +63,18 @@ class Page extends React.Component {
 
     return (
       <>
-        <Dialog
-          {...this.props}
-          priceTableId={priceTableId}
-          open={open}
-          onClose={this.handleClose}
-          fnSubmit={add ? this.handleAdd : this.handleEdit}
-          dialogTitle={add ? 'Adicionar preço' : 'Editar preço'}
-          buttonText={add ? 'Adicionar' : 'Editar'}
-          price={price}
-        />
+        {open && (
+          <Dialog
+            {...this.props}
+            priceTableId={priceTableId}
+            open={open}
+            onClose={this.handleClose}
+            fnSubmit={add ? this.handleAdd : this.handleEdit}
+            dialogTitle={add ? 'Adicionar preço' : 'Editar preço'}
+            buttonText={add ? 'Adicionar' : 'Editar'}
+            price={price}
+          />
+        )}
         <Datatable
           {...this.props}
           onDialog={this.handleOpen}
