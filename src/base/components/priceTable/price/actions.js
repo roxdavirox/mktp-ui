@@ -39,3 +39,17 @@ export const deletePricesSuccess = priceIds => ({
   type: DELETE_PRICES_SUCCESS,
   playload: { priceIds }
 });
+
+export const EDIT_PRICE = 'EDIT_PRICE';
+
+export const editPrice = (price, snack) => ({
+  type: EDIT_PRICE,
+  playload: { price, snack }
+});
+
+export const EDIT_PRICE_SUCCESS = 'EDIT_PRICE_SUCCESS';
+
+export const editPriceSuccess = price => ({
+  type: EDIT_PRICE_SUCCESS,
+  playload: { price }
+});

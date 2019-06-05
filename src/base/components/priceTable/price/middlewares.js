@@ -4,7 +4,9 @@ import {
   ADD_PRICE,
   addPriceSuccess,
   DELETE_PRICES,
-  deletePricesSuccess
+  deletePricesSuccess,
+  EDIT_PRICE,
+  editPriceSuccess
 } from './actions';
 import { normalize } from 'normalizr';
 import { priceSchema } from 'base/redux/schema';
@@ -100,5 +102,37 @@ export const deletePrices = ({ dispatch }) => next => action => {
       })
       .catch(e => console.log(e));
   }
+  next(action);
+};
+
+export const editPrice = ({ dispatch }) => next => action => {
+  if (action.type === EDIT_PRICE) {
+    const { price, snack } = action.playload;
+
+    const { _id: priceId, ...body } = price;
+
+    const request = {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ...body })
+    };
+
+    const endpoint = getEndpoint(`/prices/${priceId}`);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ price }) => {
+        dispatch(editPriceSuccess(price));
+        snack('Preço atualizado com sucesso!', {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+      })
+      .catch(e => console.log(e));
+  }
+
   next(action);
 };

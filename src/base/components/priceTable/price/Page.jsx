@@ -5,7 +5,7 @@ import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import Datatable from './Datatable';
 import { getPrices } from './selectors';
-import { fetchPrices, deletePrices, addPrice } from './actions';
+import { fetchPrices, deletePrices, addPrice, editPrice } from './actions';
 import Dialog from './Dialog';
 
 const getPriceTableId = props => {
@@ -33,23 +33,25 @@ class Page extends React.Component {
     });
 
     addPrice(price, priceTableId, enqueueSnackbar);
+    this.handleClose();
   };
 
   handleEdit = price => {
     const { editPrice, enqueueSnackbar } = this.props;
-    const priceTableId = getPriceTableId(this.props);
+    const { price: prevPrice } = this.state;
 
     enqueueSnackbar('Editando preço...', {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    editPrice(price, priceTableId, enqueueSnackbar);
+    editPrice({ ...price, _id: prevPrice._id }, enqueueSnackbar);
+    this.handleClose();
   };
 
-  handleUpdate = price => {
+  handleRowUpdate = price => {
     this.setState({ open: true, mode: 'update', price });
-    console.log('preço dentro do handleUpdate:', price);
+    console.log('preço dentro do handleRowUpdate:', price);
   };
 
   handleOpen = () => this.setState({ open: true });
@@ -78,7 +80,7 @@ class Page extends React.Component {
         <Datatable
           {...this.props}
           onDialog={this.handleOpen}
-          fnUpdate={this.handleUpdate}
+          fnUpdate={this.handleRowUpdate}
         />
       </>
     );
@@ -91,6 +93,7 @@ Page.propTypes = {
   fetchPrices: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   addPrice: PropTypes.func.isRequired,
+  editPrice: PropTypes.func.isRequired,
   deletePrices: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired
 };
@@ -102,7 +105,8 @@ const mapStateToProps = store => ({
 const mapDisptachToProps = {
   fetchPrices,
   deletePrices,
-  addPrice
+  addPrice,
+  editPrice
 };
 
 export default connect(

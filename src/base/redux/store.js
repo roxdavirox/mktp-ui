@@ -24,7 +24,8 @@ import {
 import {
   fetchPrices,
   addPrice,
-  deletePrices
+  deletePrices,
+  editPrice
 } from 'base/components/priceTable/price/middlewares';
 
 import { addExistingItemsMiddleware } from '../components/item/middlewares';
@@ -49,7 +50,8 @@ export const store = createStore(
       deletePriceTables,
       fetchPrices,
       addPrice,
-      deletePrices
+      deletePrices,
+      editPrice
     )
   )
 );

@@ -1,5 +1,5 @@
 import { ADD_ENTITIES } from 'base/redux/actions';
-import { ADD_PRICE_SUCCESS } from './actions';
+import { ADD_PRICE_SUCCESS, EDIT_PRICE_SUCCESS } from './actions';
 
 const initialState = {
   byId: {},
@@ -34,6 +34,18 @@ export default function(state = initialState, action) {
           [price._id]: price
         },
         allIds: [...state.allIds, price._id]
+      };
+    }
+
+    case EDIT_PRICE_SUCCESS: {
+      const { price } = action.playload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [price._id]: price
+        }
       };
     }
 

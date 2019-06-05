@@ -117,8 +117,6 @@ Dialog.propTypes = {
   fnSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
-  priceTableId: PropTypes.string.isRequired,
-  snackText: PropTypes.string.isRequired,
   price: PropTypes.object,
   buttonText: PropTypes.string.isRequired,
   dialogTitle: PropTypes.string.isRequired
