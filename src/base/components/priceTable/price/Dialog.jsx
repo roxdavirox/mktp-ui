@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
@@ -23,12 +24,22 @@ const styles = theme => ({
 class Dialog extends React.Component {
   state = { start: 0, end: 0, value: 0 };
 
+  componentDidMount = ({ price } = this.props) => {
+    if (price) {
+      this.setState({
+        start: price.start,
+        end: price.end,
+        value: price.value
+      });
+    }
+  };
+
   handleStartChange = start => this.setState({ start });
   handleEndChange = end => this.setState({ end });
   handleValueChange = value => this.setState({ value });
 
-  handleAdd = () => {
-    const { onAdd, priceTableId, enqueueSnackbar } = this.props;
+  handleSubmit = () => {
+    const { fnSubmit } = this.props;
     const { start, end, value } = this.state;
 
     const price = {
@@ -37,12 +48,7 @@ class Dialog extends React.Component {
       value: Number(value)
     };
 
-    enqueueSnackbar('Adicionando preço...', {
-      variant: 'info',
-      autoHideDuration: 2000
-    });
-
-    onAdd(price, priceTableId, enqueueSnackbar);
+    fnSubmit(price);
   };
 
   render() {
@@ -55,13 +61,14 @@ class Dialog extends React.Component {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">
-            Cadastrar tabela de preço
+            {this.props.dialogTitle}
           </DialogTitle>
           <DialogContent>
             <form className={classes.container}>
               <FormControl className={classes.formControl}>
                 <TextField
                   autoFocus
+                  value={this.state.start}
                   margin="dense"
                   id="start"
                   label="Inicio"
@@ -71,6 +78,7 @@ class Dialog extends React.Component {
               </FormControl>
               <FormControl className={classes.formControl}>
                 <TextField
+                  value={this.state.end}
                   margin="dense"
                   id="end"
                   label="Fim"
@@ -80,6 +88,7 @@ class Dialog extends React.Component {
               </FormControl>
               <FormControl className={classes.formControl}>
                 <TextField
+                  value={this.state.value}
                   margin="dense"
                   id="value"
                   label="Preço"
@@ -93,14 +102,8 @@ class Dialog extends React.Component {
             <Button onClick={onClose} color="primary">
               Cancelar
             </Button>
-            <Button
-              onClick={() => {
-                this.handleAdd();
-                onClose();
-              }}
-              color="primary"
-            >
-              Adicionar
+            <Button onClick={this.handleSubmit} color="primary">
+              {this.props.buttonText}
             </Button>
           </DialogActions>
         </MuiDialog>
@@ -111,11 +114,14 @@ class Dialog extends React.Component {
 
 Dialog.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onAdd: PropTypes.func.isRequired,
+  fnSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
-  enqueueSnackbar: PropTypes.func.isRequired,
-  priceTableId: PropTypes.string.isRequired
+  priceTableId: PropTypes.string.isRequired,
+  snackText: PropTypes.string.isRequired,
+  price: PropTypes.object,
+  buttonText: PropTypes.string.isRequired,
+  dialogTitle: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(Dialog);

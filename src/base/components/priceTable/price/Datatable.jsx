@@ -1,7 +1,7 @@
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
@@ -29,6 +29,14 @@ class Datatable extends React.Component {
     });
 
     this.props.deletePrices(priceIds, enqueueSnackbar);
+  };
+
+  handleRowUpdate = (priceId, tableMeta) => {
+    console.log('id preço:', priceId);
+    console.log('meta:', tableMeta);
+    const [start, end, value, _id] = tableMeta.rowData;
+    const price = { start, end, value, _id };
+    this.props.fnUpdate(price);
   };
 
   render = () => {
@@ -84,7 +92,7 @@ class Datatable extends React.Component {
             <MoreHorizIcon
               key={tableMeta.columnIndex}
               onClick={() => {
-                // this.props.toggleOptionItems(value);
+                this.handleRowUpdate(value, tableMeta);
               }}
             />
           ),
@@ -132,6 +140,7 @@ Datatable.propTypes = {
   classes: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
   onDialog: PropTypes.func.isRequired,
+  fnUpdate: PropTypes.func.isRequired,
   deletePrices: PropTypes.func.isRequired
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
@@ -7,19 +8,48 @@ import { getPrices } from './selectors';
 import { fetchPrices, deletePrices, addPrice } from './actions';
 import Dialog from './Dialog';
 
-class Page extends React.Component {
-  state = { open: false };
+const getPriceTableId = props => {
+  const { state } = props.location;
+  const { priceTableId } = state;
+  return priceTableId;
+};
 
-  getPriceTableId = () => {
-    const { state } = this.props.location;
-    const { priceTableId } = state;
-    return priceTableId;
-  };
+class Page extends React.Component {
+  state = { open: false, mode: 'add', price: null };
 
   componentDidMount = () => {
     // from redirect
-    const priceTableId = this.getPriceTableId();
+    const priceTableId = getPriceTableId(this.props);
     this.props.fetchPrices(priceTableId);
+  };
+
+  handleAdd = price => {
+    const { addPrice, enqueueSnackbar } = this.props;
+    const priceTableId = getPriceTableId(this.props);
+
+    enqueueSnackbar('Adicionando preço...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+
+    addPrice(price, priceTableId, enqueueSnackbar);
+  };
+
+  handleEdit = price => {
+    const { editPrice, enqueueSnackbar } = this.props;
+    const priceTableId = getPriceTableId(this.props);
+
+    enqueueSnackbar('Editando preço...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+
+    editPrice(price, priceTableId, enqueueSnackbar);
+  };
+
+  handleUpdate = price => {
+    this.setState({ open: true, mode: 'update', price });
+    console.log('preço dentro do handleUpdate:', price);
   };
 
   handleOpen = () => this.setState({ open: true });
@@ -27,8 +57,10 @@ class Page extends React.Component {
   handleClose = () => this.setState({ open: false });
 
   render = () => {
-    const { open } = this.state;
-    const priceTableId = this.getPriceTableId();
+    const { open, mode, price } = this.state;
+    const priceTableId = getPriceTableId(this.props);
+    const add = mode == 'add';
+
     return (
       <>
         <Dialog
@@ -36,8 +68,16 @@ class Page extends React.Component {
           priceTableId={priceTableId}
           open={open}
           onClose={this.handleClose}
+          fnSubmit={add ? this.handleAdd : this.handleEdit}
+          dialogTitle={add ? 'Adicionar preço' : 'Editar preço'}
+          buttonText={add ? 'Adicionar' : 'Editar'}
+          price={price}
         />
-        <Datatable {...this.props} onDialog={this.handleOpen} />
+        <Datatable
+          {...this.props}
+          onDialog={this.handleOpen}
+          fnUpdate={this.handleUpdate}
+        />
       </>
     );
   };
@@ -47,7 +87,10 @@ Page.propTypes = {
   data: PropTypes.array.isRequired,
   priceTableId: PropTypes.any.isRequired,
   fetchPrices: PropTypes.func.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  addPrice: PropTypes.func.isRequired,
+  deletePrices: PropTypes.func.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
@@ -57,7 +100,7 @@ const mapStateToProps = store => ({
 const mapDisptachToProps = {
   fetchPrices,
   deletePrices,
-  onAdd: addPrice
+  addPrice
 };
 
 export default connect(
