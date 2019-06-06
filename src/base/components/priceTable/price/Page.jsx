@@ -33,7 +33,7 @@ class Page extends React.Component {
     });
 
     addPrice(price, priceTableId, enqueueSnackbar);
-    this.handleClose();
+    this.setState({ price: null }, this.handleClose);
   };
 
   handleEdit = price => {
@@ -46,7 +46,7 @@ class Page extends React.Component {
     });
 
     editPrice({ ...price, _id: prevPrice._id }, enqueueSnackbar);
-    this.handleClose();
+    this.setState({ price: null }, this.handleClose);
   };
 
   handleRowUpdate = price => {
@@ -54,14 +54,14 @@ class Page extends React.Component {
     console.log('preço dentro do handleRowUpdate:', price);
   };
 
-  handleOpen = () => this.setState({ open: true });
+  handleOpen = mode => this.setState({ open: true, mode });
 
   handleClose = () => this.setState({ open: false });
 
   render = () => {
     const { open, mode, price } = this.state;
     const priceTableId = getPriceTableId(this.props);
-    const add = mode == 'add';
+    const add = mode === 'add';
 
     return (
       <>
@@ -79,7 +79,7 @@ class Page extends React.Component {
         )}
         <Datatable
           {...this.props}
-          onDialog={this.handleOpen}
+          fnOpen={this.handleOpen}
           fnUpdate={this.handleRowUpdate}
         />
       </>

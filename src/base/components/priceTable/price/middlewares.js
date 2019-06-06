@@ -51,7 +51,7 @@ export const addPrice = ({ dispatch }) => next => action => {
       body: JSON.stringify(body)
     };
 
-    const endpoint = getEndpoint(`/prices/${priceTableId}`);
+    const endpoint = getEndpoint(`/price-tables/${priceTableId}`);
 
     fetch(endpoint, request)
       .then(res => res.json())
