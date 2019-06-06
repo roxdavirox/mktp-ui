@@ -54,7 +54,7 @@ class Page extends React.Component {
     console.log('preço dentro do handleRowUpdate:', price);
   };
 
-  handleOpen = mode => this.setState({ open: true, mode });
+  handleOpen = () => this.setState({ open: true, mode: 'add' });
 
   handleClose = () => this.setState({ open: false });
 

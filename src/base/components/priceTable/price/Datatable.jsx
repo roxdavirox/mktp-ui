@@ -118,10 +118,7 @@ class Datatable extends React.Component {
       },
       customToolbar: () => {
         return (
-          <AddToolbar
-            title="Adicionar Tabela de preço"
-            onClick={() => fnOpen('add')}
-          />
+          <AddToolbar title="Adicionar Tabela de preço" onClick={fnOpen} />
         );
       },
       onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
