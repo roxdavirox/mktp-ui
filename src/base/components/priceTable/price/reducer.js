@@ -1,5 +1,9 @@
 import { ADD_ENTITIES } from 'base/redux/actions';
-import { ADD_PRICE_SUCCESS, EDIT_PRICE_SUCCESS } from './actions';
+import {
+  ADD_PRICE_SUCCESS,
+  EDIT_PRICE_SUCCESS,
+  DELETE_PRICES_SUCCESS
+} from './actions';
 
 const initialState = {
   byId: {},
@@ -46,6 +50,27 @@ export default function(state = initialState, action) {
           ...state.byId,
           [price._id]: price
         }
+      };
+    }
+
+    case DELETE_PRICES_SUCCESS: {
+      const { priceIds } = action.playload;
+
+      const allIds = state.allIds.filter(id => priceIds.indexOf(id) === -1);
+
+      const byId = allIds.reduce((ids, id) => {
+        return {
+          ...ids,
+          [id]: {
+            ...state.byId[id]
+          }
+        };
+      }, {});
+
+      return {
+        ...state,
+        allIds,
+        byId
       };
     }
 
