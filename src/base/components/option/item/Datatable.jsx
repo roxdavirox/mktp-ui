@@ -7,8 +7,16 @@ import {
   AddToolbar,
   BallotToolbar
 } from 'base/components/common/tables/Toolbar';
+import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
 
 class Datatable extends React.Component {
+  handleRowUpdate = (itemId, tableMeta) => {
+    const [name, _id] = tableMeta.rowData;
+    const item = { name, _id };
+    console.log('item update:', item);
+    // this.props.fnUpdate(item);
+  };
+
   render = () => {
     const { data } = this.props;
     const options = {
@@ -59,9 +67,16 @@ class Datatable extends React.Component {
         name: '_id',
         label: ' ',
         options: {
-          display: 'false',
           sort: false,
-          filter: false
+          filter: false,
+          customBodyRender: (value, tableMeta) => (
+            <MoreHorizIcon
+              key={tableMeta.columnIndex}
+              onClick={() => {
+                this.handleRowUpdate(value, tableMeta);
+              }}
+            />
+          )
         }
       }
     ];
@@ -81,7 +96,8 @@ class Datatable extends React.Component {
 Datatable.propTypes = {
   data: PropTypes.any.isRequired,
   fnRowsDelete: PropTypes.func.isRequired,
-  fnOpen: PropTypes.func.isRequired
+  fnOpen: PropTypes.func.isRequired,
+  fnUpdate: PropTypes.func.isRequired
 };
 
 export default withSnackbar(Datatable);

@@ -149,8 +149,24 @@ class Dialog extends React.Component {
       selectedItems,
       fnChangeName
     } = this.props;
-    const add = mode === 'add';
 
+    const forms = {
+      add: (
+        <NewItemForm
+          classes={classes}
+          fnChangeName={fnChangeName}
+          priceTables={priceTables}
+        />
+      ),
+      existing: (
+        <ExistingItems
+          items={allItems}
+          fnSelect={fnSelect}
+          classes={classes}
+          selectedItems={selectedItems}
+        />
+      )
+    };
     return (
       <div>
         <MuiDialog
@@ -159,22 +175,7 @@ class Dialog extends React.Component {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
-          <DialogContent>
-            {add ? (
-              <NewItemForm
-                classes={classes}
-                fnChangeName={fnChangeName}
-                priceTables={priceTables}
-              />
-            ) : (
-              <ExistingItems
-                items={allItems}
-                fnSelect={fnSelect}
-                classes={classes}
-                selectedItems={selectedItems}
-              />
-            )}
-          </DialogContent>
+          <DialogContent>{forms[mode]}</DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancelar

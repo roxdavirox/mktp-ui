@@ -99,7 +99,16 @@ class Page extends React.Component {
   render = () => {
     const { data, allItems } = this.props;
     const { open, mode, selectedItems } = this.state;
-    const add = mode === 'add';
+
+    const dialogHandlers = {
+      add: this.handleAddOptionItem,
+      existing: this.handleExistingItem
+    };
+    const dialogTitles = {
+      add: 'Adicionar item',
+      existing: 'Adicionar itens existentes'
+    };
+
     return (
       <>
         {open && (
@@ -107,8 +116,8 @@ class Page extends React.Component {
             open={open}
             mode={mode}
             fnClose={this.handleClose}
-            dialogTitle={add ? 'Adicionar Item' : 'Adicionar Itens existentes'}
-            fnSubmit={add ? this.handleAddOptionItem : this.handleExistingItem}
+            dialogTitle={dialogTitles[mode]}
+            fnSubmit={dialogHandlers[mode]}
             allItems={allItems}
             fnNameChange={this.handleItemNameChange}
             priceTables={[
