@@ -119,7 +119,10 @@ class Dialog extends React.Component {
     fnClose();
   };
 
-  handleSubmit = () => {};
+  handleSubmit = () => {
+    const { fnSubmit } = this.props;
+    fnSubmit();
+  };
 
   render() {
     const {
