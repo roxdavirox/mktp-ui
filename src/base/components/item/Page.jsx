@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import { fetchItems, addItem, deleteItems } from './actions';
-import ItemDatatable from './Datatable';
-import ItemDialog from './Dialog';
-import Form from './forms/NewItemForm';
+import Datatable from './Datatable';
+import Dialog from './Dialog';
 import { getItems } from './selectors';
-import { AddToolbar } from 'base/components/common/tables/Toolbar';
 
 class Page extends Component {
-  state = { open: false, itemName: '' };
+  state = { open: false };
 
   componentDidMount = ({ fetchItems } = this.props) => fetchItems();
 
@@ -21,15 +19,13 @@ class Page extends Component {
 
   handleItemNameChange = itemName => this.setState({ itemName });
 
-  handleAddItem = () => {
+  handleAddItem = itemName => {
     const { enqueueSnackbar } = this.props;
 
     enqueueSnackbar('Adicionando item...', {
       variant: 'info',
       autoHideDuration: 2000
     });
-
-    const { itemName } = this.state;
 
     if (itemName) {
       this.props.addItem({ name: itemName }, enqueueSnackbar);
@@ -53,36 +49,26 @@ class Page extends Component {
     this.props.deleteItems(deletedItemsIds, enqueueSnackbar);
   };
 
-  render = ({ data } = this.props) => {
+  render = () => {
+    const { data } = this.props;
+    const { open } = this.state;
     return (
       <>
-        <ItemDialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          onAddItem={this.handleAddItem}
-        >
-          <Form
-            onItemNameChange={this.handleItemNameChange}
+        {open && (
+          <Dialog
+            open={open}
+            fnClose={this.handleClose}
+            fnSubmit={this.handleAddItem}
             priceTables={[
               { _id: 123, name: 'Acrilico' },
               { _id: 321, name: 'Base' }
             ]}
           />
-        </ItemDialog>
-        <ItemDatatable
+        )}
+        <Datatable
           data={data}
-          onRowsDelete={this.handleRowsDelete}
-          onDialog={this.handleOpen}
-          toolbars={{
-            AddItem: () => (
-              <AddToolbar
-                title="Adicionar Item"
-                onClick={() => this.handleOpen()}
-                aria-owns="add-menu"
-                aria-haspopup="true"
-              />
-            )
-          }}
+          fnRowsDelete={this.handleRowsDelete}
+          fnOpen={this.handleOpen}
         />
       </>
     );

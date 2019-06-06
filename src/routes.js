@@ -1,6 +1,7 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Option from 'base/components/option/Page.jsx';
-import Item from 'base/components/item/Container.jsx';
+import Item from 'base/components/item/Page.jsx';
+import OptionItem from 'base/components/option/item/Page.jsx';
 import PriceTable from 'base/components/priceTable/Page.jsx';
 import Price from 'base/components/priceTable/price/Page.jsx';
 
@@ -34,6 +35,14 @@ var dashRoutes = [
         component: PriceTable
       }
     ]
+  },
+  {
+    path: '/config/option/item',
+    name: 'Items',
+    mini: '',
+    layout: '/admin',
+    component: OptionItem,
+    invisible: true
   },
   {
     path: '/config/price',

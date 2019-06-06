@@ -1,9 +1,12 @@
 /* eslint-disable react/display-name */
 import React from 'react';
 import PropTypes from 'prop-types';
-import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 import { withSnackbar } from 'notistack';
-import { AddToolbar } from 'base/components/common/tables/Toolbar';
+import MuiDatatable from 'base/components/common/tables/MuiDatatable';
+import {
+  AddToolbar,
+  BallotToolbar
+} from 'base/components/common/tables/Toolbar';
 
 class Datatable extends React.Component {
   render = () => {
@@ -25,12 +28,20 @@ class Datatable extends React.Component {
       },
       customToolbar: () => {
         return (
-          <AddToolbar
-            title="Adicionar Item"
-            onClick={this.props.fnOpen}
-            aria-owns="add-menu"
-            aria-haspopup="true"
-          />
+          <>
+            <AddToolbar
+              title="Adicionar Item"
+              onClick={() => this.props.fnOpen('add')}
+              aria-owns="add-menu"
+              aria-haspopup="true"
+            />
+            <BallotToolbar
+              title="Adicionar Itens existentes"
+              onClick={() => this.props.fnOpen('existing')}
+              aria-owns="add-menu"
+              aria-haspopup="true"
+            />
+          </>
         );
       },
       onRowsDelete: rowsDeleted => this.props.fnRowsDelete(rowsDeleted)

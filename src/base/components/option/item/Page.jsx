@@ -3,27 +3,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import ItemDatatable from './Datatable';
 import {
   addOptionItem,
   addExistingItems,
   deleteOptionItems,
-  fetchItems,
-  NEW_ITEM,
-  EXISTING_ITEM
-} from './actions';
-import { fetchOptions } from '../option/actions';
-import { getOptionsItems, getItems } from './selectors';
+  fetchItems
+} from 'base/components/item/actions';
+import { fetchOptions } from '../actions';
+import { getOptionsItems, getItems } from 'base/components/item/selectors';
 import Dialog from './Dialog';
-import NewOptionItemForm from './forms/NewOptionItemForm';
-import ExistingOptionItemsForm from './forms/ExistingOptionItemsForm';
-import {
-  AddToolbar,
-  BallotToolbar
-} from 'base/components/common/tables/Toolbar';
+import Datatable from './Datatable';
 
-class PageRedirect extends React.Component {
-  state = { open: false, openType: NEW_ITEM, itemName: '', selectedItems: [] };
+const getOptionId = props => {
+  const { state } = props.location;
+  const { optionId } = state;
+  return optionId;
+};
+
+class Page extends React.Component {
+  state = { open: false, mode: 'add', itemName: '', selectedItems: [] };
 
   componentDidMount = ({ fetchOptions, fetchItems } = this.props) => {
     const pageRefreshed =
@@ -34,12 +32,13 @@ class PageRedirect extends React.Component {
     }
   };
 
-  handleOpen = openType => this.setState({ open: true, openType });
+  handleOpen = mode => this.setState({ open: true, mode });
   handleClose = () => this.setState({ open: false });
   handleItemNameChange = itemName => this.setState({ itemName });
 
   handleAddOptionItem = () => {
-    const { enqueueSnackbar, optionId } = this.props;
+    const { enqueueSnackbar } = this.props;
+    const optionId = getOptionId(this.props);
 
     enqueueSnackbar('Adicionando item...', {
       variant: 'info',
@@ -59,7 +58,8 @@ class PageRedirect extends React.Component {
   };
 
   handleExistingItem = () => {
-    const { enqueueSnackbar, optionId } = this.props;
+    const { enqueueSnackbar } = this.props;
+    const optionId = getOptionId(this.props);
 
     enqueueSnackbar('Adicionando item(s)...', {
       variant: 'info',
@@ -80,7 +80,8 @@ class PageRedirect extends React.Component {
   handleSelect = selectedItems => this.setState({ selectedItems });
 
   handleRowsDelete = rows => {
-    const { enqueueSnackbar, data, optionId } = this.props;
+    const { enqueueSnackbar, data } = this.props;
+    const optionId = getOptionId(this.props);
 
     const { data: dataRows } = rows;
     const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
@@ -97,67 +98,37 @@ class PageRedirect extends React.Component {
 
   render = () => {
     const { data, allItems } = this.props;
-    const { open, openType, selectedItems } = this.state;
-    console.log('data page redirect:', data);
-    console.log('allItems page redirect:', allItems);
-    console.log('openType:', this.state.openType);
+    const { open, mode, selectedItems } = this.state;
+    const add = mode === 'add';
     return (
       <>
-        <Dialog
-          open={open}
-          onClose={this.handleClose}
-          onAddItem={
-            openType === NEW_ITEM
-              ? this.handleAddOptionItem
-              : this.handleExistingItem
-          }
-        >
-          {openType === NEW_ITEM ? (
-            <NewOptionItemForm
-              onItemNameChange={this.handleItemNameChange}
-              priceTables={[
-                { _id: 123, name: 'Acrilico' },
-                { _id: 321, name: 'Base' }
-              ]}
-            />
-          ) : (
-            <ExistingOptionItemsForm
-              items={allItems}
-              selectedItems={selectedItems}
-              onSelect={this.handleSelect}
-            />
-          )}
-        </Dialog>
-
-        <ItemDatatable
+        {open && (
+          <Dialog
+            open={open}
+            mode={mode}
+            fnClose={this.handleClose}
+            dialogTitle={add ? 'Adicionar Item' : 'Adicionar Itens existentes'}
+            fnSubmit={add ? this.handleAddOptionItem : this.handleExistingItem}
+            allItems={allItems}
+            priceTables={[
+              { _id: 123, name: 'Acrilico' },
+              { _id: 321, name: 'Base' }
+            ]}
+            selectedItems={selectedItems}
+            fnSelect={this.handleSelect}
+          />
+        )}
+        <Datatable
           data={data}
-          onDialog={this.handleOpen}
-          onRowsDelete={this.handleRowsDelete}
-          toolbars={{
-            AddNew: () => (
-              <AddToolbar
-                title="Adicionar Item"
-                onClick={() => this.handleOpen(NEW_ITEM)}
-                aria-owns="add-menu"
-                aria-haspopup="true"
-              />
-            ),
-            AddExisting: () => (
-              <BallotToolbar
-                title="Adicionar Itens existentes"
-                onClick={() => this.handleOpen(EXISTING_ITEM)}
-                aria-owns="add-menu"
-                aria-haspopup="true"
-              />
-            )
-          }}
+          fnOpen={this.handleOpen}
+          fnRowsDelete={this.handleRowsDelete}
         />
       </>
     );
   };
 }
 
-PageRedirect.propTypes = {
+Page.propTypes = {
   data: PropTypes.any.isRequired,
   allItems: PropTypes.any.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
@@ -167,7 +138,8 @@ PageRedirect.propTypes = {
   deleteOptionItems: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (store, { optionId }) => {
+const mapStateToProps = (store, ownProps) => {
+  const optionId = getOptionId(ownProps);
   console.log('optionId: ', optionId);
 
   const data = getOptionsItems(optionId, store);
@@ -190,4 +162,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withSnackbar(PageRedirect));
+)(withSnackbar(Page));
