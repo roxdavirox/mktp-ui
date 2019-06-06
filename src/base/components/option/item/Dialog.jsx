@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -46,7 +46,7 @@ class NewItemForm extends React.Component {
     this.setState({ priceTable: Number(e.target.value) });
 
   render() {
-    const { classes, priceTables, onItemNameChange } = this.props;
+    const { classes, priceTables, fnChangeName } = this.props;
     return (
       <form className={classes.container}>
         <FormControl className={classes.formControl}>
@@ -56,7 +56,7 @@ class NewItemForm extends React.Component {
             id="name"
             label="Nome"
             fullWidth
-            onChange={e => onItemNameChange(e.target.value)}
+            onChange={e => fnChangeName(e.target.value)}
           />
         </FormControl>
         <FormControl className={classes.formControl}>
@@ -81,6 +81,12 @@ class NewItemForm extends React.Component {
     );
   }
 }
+
+NewItemForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+  priceTables: PropTypes.array.isRequired,
+  fnChangeName: PropTypes.func.isRequired
+};
 
 const ExistingItems = props => {
   const { classes, items, fnSelect, selectedItems } = props;
@@ -113,6 +119,13 @@ const ExistingItems = props => {
   );
 };
 
+ExistingItems.propTypes = {
+  classes: PropTypes.object.isRequired,
+  items: PropTypes.array.isRequired,
+  fnSelect: PropTypes.func.isRequired,
+  selectedItems: PropTypes.array.isRequired
+};
+
 class Dialog extends React.Component {
   handleClose = () => {
     const { fnClose } = this.props;
@@ -133,7 +146,8 @@ class Dialog extends React.Component {
       dialogTitle,
       classes,
       priceTables,
-      selectedItems
+      selectedItems,
+      fnChangeName
     } = this.props;
     const add = mode === 'add';
 
@@ -147,7 +161,11 @@ class Dialog extends React.Component {
           <DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
           <DialogContent>
             {add ? (
-              <NewItemForm classes={classes} priceTables={priceTables} />
+              <NewItemForm
+                classes={classes}
+                fnChangeName={fnChangeName}
+                priceTables={priceTables}
+              />
             ) : (
               <ExistingItems
                 items={allItems}
@@ -177,7 +195,12 @@ Dialog.propTypes = {
   open: PropTypes.bool.isRequired,
   mode: PropTypes.string.isRequired,
   dialogTitle: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  selectedItems: PropTypes.array.isRequired,
+  priceTables: PropTypes.array.isRequired,
+  allItems: PropTypes.array.isRequired,
+  fnChangeName: PropTypes.func.isRequired,
+  fnSelect: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Dialog);

@@ -110,6 +110,7 @@ class Page extends React.Component {
             dialogTitle={add ? 'Adicionar Item' : 'Adicionar Itens existentes'}
             fnSubmit={add ? this.handleAddOptionItem : this.handleExistingItem}
             allItems={allItems}
+            fnNameChange={this.handleItemNameChange}
             priceTables={[
               { _id: 123, name: 'Acrilico' },
               { _id: 321, name: 'Base' }
