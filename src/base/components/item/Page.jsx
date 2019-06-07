@@ -49,6 +49,10 @@ class Page extends Component {
     this.props.deleteItems(deletedItemsIds, enqueueSnackbar);
   };
 
+  handleUpdate = item => {
+    console.log('item:', item);
+  };
+
   render = () => {
     const { data } = this.props;
     const { open } = this.state;
@@ -69,6 +73,7 @@ class Page extends Component {
           data={data}
           fnRowsDelete={this.handleRowsDelete}
           fnOpen={this.handleOpen}
+          fnUpdate={this.handleUpdate}
         />
       </>
     );
