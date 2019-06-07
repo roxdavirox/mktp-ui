@@ -3,15 +3,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 import { withSnackbar } from 'notistack';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 import { AddToolbar } from 'base/components/common/tables/Toolbar';
 import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
+
+const styles = {
+  EditCell: { textAlign: 'right' },
+  NameCell: { fontWeight: 500 }
+};
 
 class Datatable extends React.Component {
   handleRowUpdate = (itemId, tableMeta) => {
     const [name, _id] = tableMeta.rowData;
     const item = { name, _id };
-    console.log('item update:', item);
-    // this.props.fnUpdate(item);
+    this.props.fnUpdate(item);
   };
 
   render = () => {
@@ -65,7 +71,12 @@ class Datatable extends React.Component {
                 this.handleRowUpdate(value, tableMeta);
               }}
             />
-          )
+          ),
+          setCellProps: () => {
+            return {
+              className: classNames({ [this.props.classes.EditCell]: true })
+            };
+          }
         }
       }
     ];
@@ -85,7 +96,9 @@ class Datatable extends React.Component {
 Datatable.propTypes = {
   data: PropTypes.any.isRequired,
   fnRowsDelete: PropTypes.func.isRequired,
-  fnOpen: PropTypes.func.isRequired
+  fnOpen: PropTypes.func.isRequired,
+  fnUpdate: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default withSnackbar(Datatable);
+export default withStyles(styles)(withSnackbar(Datatable));

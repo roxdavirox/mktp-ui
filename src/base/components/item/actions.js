@@ -149,3 +149,17 @@ export const FETCH_ITEMS = 'FETCH_ITEMS';
 export const fetchItems = () => ({
   type: FETCH_ITEMS
 });
+
+export const EDIT_ITEM = 'EDIT_ITEM';
+
+export const editItem = (item, snack) => ({
+  type: EDIT_ITEM,
+  playload: { item, snack }
+});
+
+export const EDIT_ITEM_SUCCESS = 'EDIT_ITEM_SUCCESS';
+
+export const editItemSuccess = item => ({
+  type: EDIT_ITEM_SUCCESS,
+  playload: { item }
+});
