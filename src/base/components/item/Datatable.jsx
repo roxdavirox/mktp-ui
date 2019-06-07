@@ -4,8 +4,16 @@ import PropTypes from 'prop-types';
 import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 import { withSnackbar } from 'notistack';
 import { AddToolbar } from 'base/components/common/tables/Toolbar';
+import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
 
 class Datatable extends React.Component {
+  handleRowUpdate = (itemId, tableMeta) => {
+    const [name, _id] = tableMeta.rowData;
+    const item = { name, _id };
+    console.log('item update:', item);
+    // this.props.fnUpdate(item);
+  };
+
   render = () => {
     const { data } = this.props;
     const options = {
@@ -48,9 +56,16 @@ class Datatable extends React.Component {
         name: '_id',
         label: ' ',
         options: {
-          display: 'false',
           sort: false,
-          filter: false
+          filter: false,
+          customBodyRender: (value, tableMeta) => (
+            <MoreHorizIcon
+              key={tableMeta.columnIndex}
+              onClick={() => {
+                this.handleRowUpdate(value, tableMeta);
+              }}
+            />
+          )
         }
       }
     ];
