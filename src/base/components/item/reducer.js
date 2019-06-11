@@ -63,24 +63,7 @@ export default function(state = initialState, action) {
     }
 
     case DELETE_OPTION_ITEMS_SUCCESS: {
-      const { itemsId } = action.playload;
-
-      const allIds = state.allIds.filter(id => itemsId.indexOf(id) === -1);
-
-      const byId = allIds.reduce((ids, id) => {
-        return {
-          ...ids,
-          [id]: {
-            ...state.byId[id]
-          }
-        };
-      }, {});
-
-      return {
-        ...state,
-        byId,
-        allIds
-      };
+      return state;
     }
 
     case ADD_ITEM_SUCCESS: {
