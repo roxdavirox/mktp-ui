@@ -11,7 +11,7 @@ import {
   editItem
 } from 'base/components/item/actions';
 import { fetchOptions } from '../actions';
-import { getOptionsItems, getItems } from 'base/components/item/selectors';
+import { getOptionsItems } from 'base/components/item/selectors';
 import { getPriceTables } from 'base/components/priceTable/selectors';
 import Dialog from './Dialog';
 import Datatable from './Datatable';
@@ -35,7 +35,9 @@ class Page extends React.Component {
   };
 
   handleOpen = mode => this.setState({ open: true, mode });
-  handleClose = () => this.setState({ open: false, item: null });
+
+  handleClose = () =>
+    this.setState({ open: false, item: null, selectedItems: [] });
 
   handleAddOptionItem = item => {
     const { enqueueSnackbar } = this.props;
@@ -67,21 +69,27 @@ class Page extends React.Component {
   handleExistingItem = () => {
     const { enqueueSnackbar } = this.props;
     const optionId = getOptionId(this.props);
+    const { selectedItems } = this.state;
+
+    if (selectedItems.length <= 0) {
+      enqueueSnackbar('Nenhum item selecionado!', {
+        variant: 'error',
+        autoHideDuration: 2000
+      });
+      this.handleClose();
+      return;
+    }
 
     enqueueSnackbar('Adicionando item(s)...', {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    const { selectedItems } = this.state;
-
-    if (selectedItems) {
-      const itemsId = selectedItems.map(i => i._id);
-      console.log('selectedItems:', itemsId);
-      console.log('adicionando item na opção:', optionId);
-      this.props.addExistingItems(itemsId, optionId, enqueueSnackbar);
-      this.handleClose();
-    }
+    const itemsId = selectedItems.map(i => i._id);
+    console.log('selectedItems:', itemsId);
+    console.log('adicionando item na opção:', optionId);
+    this.props.addExistingItems(itemsId, optionId, enqueueSnackbar);
+    this.handleClose();
   };
 
   handleUpdate = item => this.setState({ open: true, mode: 'edit', item });
@@ -130,7 +138,6 @@ class Page extends React.Component {
 
 Page.propTypes = {
   data: PropTypes.any.isRequired,
-  allItems: PropTypes.any.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   addOptionItem: PropTypes.func.isRequired,
   editItem: PropTypes.func.isRequired,
@@ -145,11 +152,10 @@ const mapStateToProps = (store, ownProps) => {
   console.log('optionId: ', optionId);
 
   const data = getOptionsItems(optionId, store);
-  const dataIds = data.map(d => d._id);
-  const allItems = getItems(store);
+  const itemIds = data.map(item => item._id);
   return {
     data,
-    allItems: allItems.filter(item => dataIds.indexOf(item._id) === -1),
+    itemIds,
     priceTables: getPriceTables(store)
   };
 };

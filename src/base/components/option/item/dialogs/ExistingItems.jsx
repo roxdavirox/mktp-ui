@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
@@ -11,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { getItems } from 'base/components/item/selectors';
 
 const styles = theme => ({
   container: {
@@ -43,11 +45,13 @@ class ExistingItems extends React.Component {
   };
 
   render = () => {
-    const { classes, allItems, fnSelect, selectedItems } = this.props;
+    const { classes, items, fnSelect, selectedItems } = this.props;
     console.log('items selecionados:', selectedItems);
     return (
       <>
-        <DialogTitle id="form-dialog-title">Editar item</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          Adicionar itens existentes
+        </DialogTitle>
         <DialogContent>
           <form className={classes.container}>
             <FormControl className={classes.formControl}>
@@ -61,7 +65,7 @@ class ExistingItems extends React.Component {
                 input={<Input id="select-multiple" />}
                 MenuProps={MenuProps}
               >
-                {allItems.map(item => (
+                {items.map(item => (
                   <MenuItem
                     key={item._id}
                     value={item}
@@ -89,10 +93,22 @@ class ExistingItems extends React.Component {
 
 ExistingItems.propTypes = {
   classes: PropTypes.object.isRequired,
-  allItems: PropTypes.array.isRequired,
+  items: PropTypes.array.isRequired,
   fnSelect: PropTypes.func.isRequired,
   fnClose: PropTypes.func.isRequired,
+  fnExistingItems: PropTypes.func.isRequired,
   selectedItems: PropTypes.array.isRequired
 };
 
-export default withStyles(styles)(ExistingItems);
+const mapStateToProps = (store, ownProps) => {
+  const items = getItems(store);
+  const { itemIds } = ownProps;
+
+  const allItems = items.filter(item => itemIds.indexOf(item._id) === -1);
+
+  return {
+    items: allItems
+  };
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(ExistingItems));
