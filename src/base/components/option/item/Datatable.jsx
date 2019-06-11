@@ -1,7 +1,10 @@
+/* eslint-disable no-console */
 /* eslint-disable react/display-name */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 import {
   AddToolbar,
@@ -9,12 +12,17 @@ import {
 } from 'base/components/common/tables/Toolbar';
 import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
 
+const styles = {
+  EditCell: { textAlign: 'right' },
+  NameCell: { fontWeight: 500 }
+};
+
 class Datatable extends React.Component {
   handleRowUpdate = (itemId, tableMeta) => {
-    const [name, _id] = tableMeta.rowData;
-    const item = { name, _id };
+    const [name, priceTableId, _id] = tableMeta.rowData;
+    const item = { name, priceTableId, _id };
     console.log('item update:', item);
-    // this.props.fnUpdate(item);
+    this.props.fnUpdate(item);
   };
 
   render = () => {
@@ -64,6 +72,14 @@ class Datatable extends React.Component {
         }
       },
       {
+        name: 'priceTableId',
+        options: {
+          filter: false,
+          sort: false,
+          display: 'excluded'
+        }
+      },
+      {
         name: '_id',
         label: ' ',
         options: {
@@ -76,7 +92,12 @@ class Datatable extends React.Component {
                 this.handleRowUpdate(value, tableMeta);
               }}
             />
-          )
+          ),
+          setCellProps: () => {
+            return {
+              className: classNames({ [this.props.classes.EditCell]: true })
+            };
+          }
         }
       }
     ];
@@ -97,7 +118,8 @@ Datatable.propTypes = {
   data: PropTypes.any.isRequired,
   fnRowsDelete: PropTypes.func.isRequired,
   fnOpen: PropTypes.func.isRequired,
-  fnUpdate: PropTypes.func.isRequired
+  fnUpdate: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default withSnackbar(Datatable);
+export default withStyles(styles)(withSnackbar(Datatable));

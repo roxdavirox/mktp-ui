@@ -7,10 +7,12 @@ import {
   addOptionItem,
   addExistingItems,
   deleteOptionItems,
-  fetchItems
+  fetchItems,
+  editItem
 } from 'base/components/item/actions';
 import { fetchOptions } from '../actions';
 import { getOptionsItems, getItems } from 'base/components/item/selectors';
+import { getPriceTables } from 'base/components/priceTable/selectors';
 import Dialog from './Dialog';
 import Datatable from './Datatable';
 
@@ -21,7 +23,7 @@ const getOptionId = props => {
 };
 
 class Page extends React.Component {
-  state = { open: false, mode: 'add', itemName: '', selectedItems: [] };
+  state = { open: false, mode: 'add', item: {}, selectedItems: [] };
 
   componentDidMount = ({ fetchOptions, fetchItems } = this.props) => {
     const pageRefreshed =
@@ -33,10 +35,9 @@ class Page extends React.Component {
   };
 
   handleOpen = mode => this.setState({ open: true, mode });
-  handleClose = () => this.setState({ open: false });
-  handleItemNameChange = itemName => this.setState({ itemName });
+  handleClose = () => this.setState({ open: false, item: null });
 
-  handleAddOptionItem = () => {
+  handleAddOptionItem = item => {
     const { enqueueSnackbar } = this.props;
     const optionId = getOptionId(this.props);
 
@@ -45,16 +46,22 @@ class Page extends React.Component {
       autoHideDuration: 2000
     });
 
-    const { itemName } = this.state;
-
-    if (itemName) {
-      this.props.addOptionItem({
-        name: itemName,
-        optionId,
-        enqueueSnackbar
-      });
+    if (item) {
+      this.props.addOptionItem(item, optionId, enqueueSnackbar);
       this.handleClose();
     }
+  };
+
+  handleEditItem = item => {
+    const { enqueueSnackbar: snack, editItem } = this.props;
+
+    snack('Adicionando item...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+
+    editItem(item, snack);
+    this.handleClose();
   };
 
   handleExistingItem = () => {
@@ -77,6 +84,8 @@ class Page extends React.Component {
     }
   };
 
+  handleUpdate = item => this.setState({ open: true, mode: 'edit', item });
+
   handleSelect = selectedItems => this.setState({ selectedItems });
 
   handleRowsDelete = rows => {
@@ -97,42 +106,23 @@ class Page extends React.Component {
   };
 
   render = () => {
-    const { data, allItems } = this.props;
-    const { open, mode, selectedItems } = this.state;
+    const { open } = this.state;
 
-    const dialogHandlers = {
-      add: this.handleAddOptionItem,
-      existing: this.handleExistingItem
-    };
-    const dialogTitles = {
-      add: 'Adicionar item',
-      existing: 'Adicionar itens existentes'
+    const fns = {
+      fnAdd: this.handleAddOptionItem,
+      fnEdit: this.handleEditItem,
+      fnUpdate: this.handleUpdate,
+      fnExistingItems: this.handleExistingItem,
+      fnSelect: this.handleSelect,
+      fnOpen: this.handleOpen,
+      fnClose: this.handleClose,
+      fnRowsDelete: this.handleRowsDelete
     };
 
     return (
       <>
-        {open && (
-          <Dialog
-            open={open}
-            mode={mode}
-            fnClose={this.handleClose}
-            dialogTitle={dialogTitles[mode]}
-            fnSubmit={dialogHandlers[mode]}
-            allItems={allItems}
-            fnNameChange={this.handleItemNameChange}
-            priceTables={[
-              { _id: 123, name: 'Acrilico' },
-              { _id: 321, name: 'Base' }
-            ]}
-            selectedItems={selectedItems}
-            fnSelect={this.handleSelect}
-          />
-        )}
-        <Datatable
-          data={data}
-          fnOpen={this.handleOpen}
-          fnRowsDelete={this.handleRowsDelete}
-        />
+        {open && <Dialog {...fns} {...this.props} {...this.state} />}
+        <Datatable {...fns} {...this.props} />
       </>
     );
   };
@@ -143,9 +133,11 @@ Page.propTypes = {
   allItems: PropTypes.any.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   addOptionItem: PropTypes.func.isRequired,
+  editItem: PropTypes.func.isRequired,
   addExistingItems: PropTypes.func.isRequired,
   optionId: PropTypes.string.isRequired,
-  deleteOptionItems: PropTypes.func.isRequired
+  deleteOptionItems: PropTypes.func.isRequired,
+  priceTables: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (store, ownProps) => {
@@ -157,7 +149,8 @@ const mapStateToProps = (store, ownProps) => {
   const allItems = getItems(store);
   return {
     data,
-    allItems: allItems.filter(item => dataIds.indexOf(item._id) === -1)
+    allItems: allItems.filter(item => dataIds.indexOf(item._id) === -1),
+    priceTables: getPriceTables(store)
   };
 };
 
@@ -166,7 +159,8 @@ const mapDispatchToProps = {
   addOptionItem,
   addExistingItems,
   fetchItems,
-  deleteOptionItems
+  deleteOptionItems,
+  editItem
 };
 
 export default connect(

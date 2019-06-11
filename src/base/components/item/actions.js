@@ -41,9 +41,9 @@ export const addExistingItemsSuccess = (itemsId, optionId) => ({
 
 export const ADD_OPTION_ITEM = 'ADD_OPTION_ITEM';
 
-export const addOptionItem = playload => ({
+export const addOptionItem = (item, optionId, snack) => ({
   type: ADD_OPTION_ITEM,
-  playload
+  playload: { item, optionId, snack }
 });
 
 export const ADD_OPTION_ITEM_SUCCESS = 'ADD_OPTION_ITEM_SUCCESS';

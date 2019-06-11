@@ -58,7 +58,7 @@ export const addItemMiddleware = ({ dispatch }) => next => action => {
 
 export const addOptionItem = ({ dispatch }) => next => action => {
   if (action.type === ADD_OPTION_ITEM) {
-    const { name, optionId, enqueueSnackbar } = action.playload;
+    const { item, optionId, snack } = action.playload;
 
     const request = {
       method: 'POST',
@@ -66,14 +66,14 @@ export const addOptionItem = ({ dispatch }) => next => action => {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name })
+      body: JSON.stringify(item)
     };
 
     const endpoint = getEndpoint(`/items/${optionId}`);
     fetch(endpoint, request)
       .then(res => res.json())
       .then(({ item }) => {
-        enqueueSnackbar('Item adicionado!', {
+        snack('Item adicionado!', {
           variant: 'success',
           autoHideDuration: 2000
         });
