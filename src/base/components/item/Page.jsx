@@ -1,36 +1,53 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import { fetchItems, addItem, deleteItems } from './actions';
+import { fetchItems, addItem, editItem, deleteItems } from './actions';
 import Datatable from './Datatable';
 import Dialog from './Dialog';
 import { getItems } from './selectors';
+import { getPriceTables } from '../priceTable/selectors';
 
 class Page extends Component {
-  state = { open: false };
+  state = { open: false, mode: 'add', item: {} };
 
   componentDidMount = ({ fetchItems } = this.props) => fetchItems();
 
-  handleOpen = () => this.setState({ open: true });
+  handleOpen = () => this.setState({ open: true, mode: 'add' });
 
-  handleClose = () => this.setState({ open: false });
+  handleClose = () => this.setState({ open: false, item: null });
 
   handleItemNameChange = itemName => this.setState({ itemName });
 
-  handleAddItem = itemName => {
-    const { enqueueSnackbar } = this.props;
+  handleAdd = item => {
+    const { addItem, enqueueSnackbar: snack } = this.props;
 
-    enqueueSnackbar('Adicionando item...', {
+    snack('Adicionando item...', {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    if (itemName) {
-      this.props.addItem({ name: itemName }, enqueueSnackbar);
-      this.handleClose();
-    }
+    const { _id, ...rest } = item;
+
+    const newItem = { ...rest };
+
+    addItem(newItem, snack);
+    this.handleClose();
+  };
+
+  handleEdit = item => {
+    const { enqueueSnackbar: snack, editItem } = this.props;
+    console.log('item:', item);
+
+    snack('Editando item...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+
+    editItem(item, snack);
+    this.handleClose();
   };
 
   handleRowsDelete = rows => {
@@ -50,23 +67,30 @@ class Page extends Component {
   };
 
   handleUpdate = item => {
-    console.log('item:', item);
+    this.setState({ open: true, mode: 'edit', item });
   };
 
   render = () => {
+    const handlers = {
+      add: this.handleAdd,
+      edit: this.handleEdit
+    };
+    const buttonTexts = { add: 'Adicionar', edit: 'Editar' };
+    const titles = { add: 'Adicionar item', edit: 'Editar item '};
+
     const { data } = this.props;
-    const { open } = this.state;
+    const { open, mode, item } = this.state;
     return (
       <>
         {open && (
           <Dialog
             open={open}
+            dialogTitle={titles[mode]}
+            buttonText={buttonTexts[mode]}
             fnClose={this.handleClose}
-            fnSubmit={this.handleAddItem}
-            priceTables={[
-              { _id: 123, name: 'Acrilico' },
-              { _id: 321, name: 'Base' }
-            ]}
+            fnSubmit={handlers[mode]}
+            item={item}
+            {...this.props}
           />
         )}
         <Datatable
@@ -85,17 +109,20 @@ Page.propTypes = {
   fetchItems: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   addItem: PropTypes.func.isRequired,
+  editItem: PropTypes.func.isRequired,
   deleteItems: PropTypes.func.isRequired
 };
 
 const mapStateToProps = store => ({
-  data: getItems(store)
+  data: getItems(store),
+  priceTables: getPriceTables(store)
 });
 
 const mapDispatchToProps = {
   fetchItems,
   addItem,
-  deleteItems
+  deleteItems,
+  editItem
 };
 
 export default connect(

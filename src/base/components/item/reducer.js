@@ -4,7 +4,8 @@ import {
   DELETE_ITEMS_SUCCESS,
   ADD_ITEM_SUCCESS,
   ADD_OPTION_ITEM_SUCCESS,
-  DELETE_OPTION_ITEMS_SUCCESS
+  DELETE_OPTION_ITEMS_SUCCESS,
+  EDIT_ITEM_SUCCESS
 } from './actions';
 
 const initialState = {
@@ -105,6 +106,18 @@ export default function(state = initialState, action) {
           [item._id]: item
         },
         allIds: [...state.allIds, item._id]
+      };
+    }
+
+    case EDIT_ITEM_SUCCESS: {
+      const { item } = action.playload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [item._id]: item
+        }
       };
     }
 

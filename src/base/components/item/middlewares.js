@@ -11,7 +11,9 @@ import {
   FETCH_ITEMS,
   deleteOptionItemsSuccess,
   ADD_EXISTING_ITEMS,
-  addExistingItemsSuccess
+  addExistingItemsSuccess,
+  EDIT_ITEM,
+  editItemSuccess
 } from './actions';
 import { addEntities } from 'base/redux/actions';
 import { itemSchema } from 'base/redux/schema';
@@ -167,7 +169,7 @@ export const deleteOptionItemsMiddleware = ({ dispatch }) => next => action => {
     const body = { itemsId };
 
     const request = {
-      method: 'PUT',
+      method: 'DELETE',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -215,5 +217,35 @@ export const fetchItemsMiddleware = ({ dispatch }) => next => action => {
       .catch(e => console.log(e));
   }
 
+  next(action);
+};
+
+export const editItem = ({ dispatch }) => next => action => {
+  if (action.type === EDIT_ITEM) {
+    const { item, snack } = action.playload;
+
+    const { _id: itemId, ...body } = item;
+
+    const request = {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ...body })
+    };
+    const endpoint = getEndpoint(`/items/${itemId}`);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ item }) => {
+        dispatch(editItemSuccess(item));
+        snack('Item atualizado com sucesso!', {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+      })
+      .catch(e => console.log(e));
+  }
   next(action);
 };

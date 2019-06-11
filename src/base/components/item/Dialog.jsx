@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import MuiDialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,6 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { fetchPriceTables } from '../priceTable/actions';
 
 const styles = theme => ({
   container: {
@@ -26,17 +28,29 @@ const styles = theme => ({
 });
 
 class Dialog extends React.Component {
-  state = { itemName: '', priceTable: '' };
+  state = { itemName: '', priceTableId: '', itemId: '' };
+
+  componentDidMount = () => {
+    const { fetchPriceTables, item } = this.props;
+    if (item) {
+      this.setState({
+        priceTableId: item.priceTableId || '',
+        itemName: item.name || '',
+        itemId: item._id || ''
+      });
+    }
+    fetchPriceTables();
+  };
 
   handleNameChange = e => this.setState({ itemName: e.target.value });
 
-  handlePriceTableChange = e =>
-    this.setState({ priceTable: Number(e.target.value) });
+  handlePriceTableChange = e => this.setState({ priceTableId: e.target.value });
 
   handleSubmit = () => {
-    const { itemName } = this.state;
+    const { itemName, itemId, priceTableId } = this.state;
     const { fnSubmit } = this.props;
-    fnSubmit(itemName);
+    const item = { name: itemName, priceTableId, _id: itemId };
+    fnSubmit(item);
   };
 
   handleClose = () => {
@@ -45,7 +59,7 @@ class Dialog extends React.Component {
   };
 
   render() {
-    const { open, classes, priceTables } = this.props;
+    const { open, dialogTitle, buttonText, classes, priceTables } = this.props;
     return (
       <div>
         <MuiDialog
@@ -53,11 +67,12 @@ class Dialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Cadastrar Item</DialogTitle>
+          <DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
           <DialogContent>
             <form className={classes.container}>
               <FormControl className={classes.formControl}>
                 <TextField
+                  value={this.state.itemName}
                   autoFocus
                   margin="dense"
                   id="name"
@@ -72,7 +87,7 @@ class Dialog extends React.Component {
                 </InputLabel>
                 <Select
                   className={classes.select}
-                  value={this.state.priceTable}
+                  value={this.state.priceTableId}
                   onChange={this.handlePriceTableChange}
                   input={<Input id="price-table-input" />}
                 >
@@ -93,7 +108,7 @@ class Dialog extends React.Component {
               Cancelar
             </Button>
             <Button onClick={this.handleSubmit} color="primary">
-              Adicionar
+              {buttonText}
             </Button>
           </DialogActions>
         </MuiDialog>
@@ -108,7 +123,16 @@ Dialog.propTypes = {
   open: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
   priceTables: PropTypes.array.isRequired,
-  children: PropTypes.object.isRequired
+  children: PropTypes.object.isRequired,
+  fetchPriceTables: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired,
+  dialogTitle: PropTypes.string.isRequired,
+  buttonText: PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(Dialog);
+export default connect(
+  null,
+  {
+    fetchPriceTables
+  }
+)(withStyles(styles)(Dialog));

@@ -15,8 +15,8 @@ const styles = {
 
 class Datatable extends React.Component {
   handleRowUpdate = (itemId, tableMeta) => {
-    const [name, _id] = tableMeta.rowData;
-    const item = { name, _id };
+    const [name, priceTableId, _id] = tableMeta.rowData;
+    const item = { name, priceTableId, _id };
     this.props.fnUpdate(item);
   };
 
@@ -56,6 +56,14 @@ class Datatable extends React.Component {
         options: {
           filter: true,
           sort: true
+        }
+      },
+      {
+        name: 'priceTableId',
+        options: {
+          filter: false,
+          sort: false,
+          display: 'excluded'
         }
       },
       {
