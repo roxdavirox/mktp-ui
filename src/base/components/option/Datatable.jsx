@@ -39,7 +39,7 @@ class DataTable extends React.Component {
   };
 
   render = () => {
-    const { data, onDialog } = this.props;
+    const { data } = this.props;
     const columns = [
       {
         name: 'name',
@@ -100,7 +100,9 @@ class DataTable extends React.Component {
         }
       },
       customToolbar: () => {
-        return <AddToolbar title="Adicionar Opção" onClick={onDialog} />;
+        return (
+          <AddToolbar title="Adicionar Opção" onClick={this.props.fnOpen} />
+        );
       },
       onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
     };
@@ -122,7 +124,7 @@ DataTable.propTypes = {
   classes: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
   toggleOptionItems: PropTypes.func.isRequired,
-  onDialog: PropTypes.func.isRequired
+  fnOpen: PropTypes.func.isRequired
 };
 
 const mapDispatchtoProps = {
