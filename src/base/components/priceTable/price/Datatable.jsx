@@ -120,10 +120,13 @@ class Datatable extends React.Component {
       customToolbar: () => {
         return (
           <>
-            <AddToolbar title="Adicionar Tabela de preço" onClick={fnOpen} />
+            <AddToolbar
+              title="Adicionar Tabela de preço"
+              onClick={() => fnOpen('add')}
+            />
             <ViewListIcon
               title="Gerar intervalos"
-              onClick={() => console.log('gerar intervalos')}
+              onClick={() => fnOpen('range')}
             />
           </>
         );

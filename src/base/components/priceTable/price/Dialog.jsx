@@ -5,12 +5,14 @@ import MuiDialog from '@material-ui/core/Dialog';
 
 import AddPrice from './dialogs/AddPrice';
 import EditPrice from './dialogs/EditPrice';
+import RangePrice from './dialogs/RangePrice';
 
 const Dialog = props => {
   const { open, fnClose, mode } = props;
   const dialogs = {
     add: <AddPrice {...props} />,
-    edit: <EditPrice {...props} />
+    edit: <EditPrice {...props} />,
+    range: <RangePrice {...props} />
   };
 
   return (
