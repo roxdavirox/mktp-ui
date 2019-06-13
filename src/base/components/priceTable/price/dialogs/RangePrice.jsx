@@ -7,6 +7,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = theme => ({
   container: {
@@ -15,12 +19,28 @@ const styles = theme => ({
     width: 300
   },
   formControl: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit - 5,
     minWidth: 120
-  }
+  },
+  select: { height: '37px', width: '80px' }
 });
 
 class RangePrice extends Component {
+  state = {
+    thickness: '15',
+    specificWeigth: '1.19',
+    kgPrice: '15.00',
+    higherSale: '300',
+    lowerSale: '200',
+    lowerSaleQuantity: '100000',
+    unit: 'm²'
+  };
+
+  handleChange = e =>
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+
   handleSubmit = () => {
     this.props.fnClose();
   };
@@ -38,29 +58,88 @@ class RangePrice extends Component {
               <TextField
                 autoFocus
                 margin="dense"
-                name="start"
-                id="start"
-                label="Menor preço de venda"
+                name="thickness"
+                value={this.state.thickness}
+                onChange={this.handleChange}
+                id="thickness"
+                label="Espessura (mm)"
                 fullWidth
               />
             </FormControl>
             <FormControl className={classes.formControl}>
               <TextField
                 margin="dense"
-                id="end"
-                name="end"
-                label="Maior preço de venda"
+                id="specificWeigth"
+                name="specificWeigth"
+                value={this.state.specificWeigth}
+                onChange={this.handleChange}
+                label="Peso específico"
                 fullWidth
               />
             </FormControl>
             <FormControl className={classes.formControl}>
               <TextField
                 margin="dense"
-                name="value"
-                id="value"
+                name="kgPrice"
+                id="kgPrice"
+                value={this.state.kgPrice}
+                onChange={this.handleChange}
+                label="Preço do KG"
+                fullWidth
+              />
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <TextField
+                margin="dense"
+                name="higherSale"
+                id="higherSale"
+                value={this.state.higherSale}
+                onChange={this.handleChange}
+                label="Maior margem de venda"
+                fullWidth
+              />
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <TextField
+                margin="dense"
+                name="lowerSale"
+                id="lowerSale"
+                value={this.state.lowerSale}
+                onChange={this.handleChange}
+                label="Menor margem de venda"
+                fullWidth
+              />
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <TextField
+                margin="dense"
+                name="lowerSaleQuantity"
+                id="lowerSaleQuantity"
+                value={this.state.lowerSaleQuantity}
+                onChange={this.handleChange}
                 label="Quantidade para menor valor de venda"
                 fullWidth
               />
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="unit">
+                Unidade de medida dos intervalos
+              </InputLabel>
+              <Select
+                className={classes.select}
+                value={this.state.unit}
+                onChange={this.handleUnitChange}
+                input={<Input id="unit" />}
+              >
+                <MenuItem value="">
+                  <em>Nenhum</em>
+                </MenuItem>
+                {['m²'].map(unit => (
+                  <MenuItem key={unit} value={unit}>
+                    {unit}
+                  </MenuItem>
+                ))}
+              </Select>
             </FormControl>
           </form>
         </DialogContent>
