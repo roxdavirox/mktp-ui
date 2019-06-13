@@ -6,9 +6,7 @@ import {
   POST_OPTION_FAILURE,
   DELETE_OPTIONS_BEGIN,
   DELETE_OPTIONS_SUCCESS,
-  DELETE_OPTIONS_FAILURE,
-  HIDE_ALERT,
-  SHOW_ALERT
+  DELETE_OPTIONS_FAILURE
 } from './actions';
 
 import { ADD_ENTITIES } from 'base/redux/actions';
@@ -21,9 +19,7 @@ import {
 const initialState = {
   byId: {},
   allIds: [],
-  loading: false,
-  error: null,
-  openAlert: false
+  loading: false
 };
 
 export default function(state = initialState, action) {
@@ -31,9 +27,7 @@ export default function(state = initialState, action) {
     case FETCH_OPTIONS:
       return {
         ...state,
-        loading: true,
-        error: null,
-        openAlert: false
+        loading: true
       };
 
     case ADD_ENTITIES: {
@@ -56,8 +50,7 @@ export default function(state = initialState, action) {
     case FETCH_OPTIONS_FAILURE:
       return {
         ...state,
-        loading: false,
-        error: action.playload.error
+        loading: false
       };
 
     case ADD_OPTION_ITEM_SUCCESS: {
@@ -115,10 +108,7 @@ export default function(state = initialState, action) {
     }
 
     case POST_OPTION: {
-      return {
-        ...state,
-        openAlert: true
-      };
+      return state;
     }
 
     case POST_OPTION_SUCCESS: {
@@ -130,8 +120,7 @@ export default function(state = initialState, action) {
           ...state.byId,
           [option._id]: option
         },
-        allIds: [...state.allIds, option._id],
-        openAlert: false
+        allIds: [...state.allIds, option._id]
       };
     }
 
@@ -140,8 +129,7 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
-        error: error,
-        openAlert: false
+        error: error
       };
     }
 
@@ -178,24 +166,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         error
-      };
-    }
-
-    case SHOW_ALERT: {
-      const { openAlert } = action.playload;
-
-      return {
-        ...state,
-        openAlert
-      };
-    }
-
-    case HIDE_ALERT: {
-      const { openAlert } = action.playload;
-
-      return {
-        ...state,
-        openAlert
       };
     }
 

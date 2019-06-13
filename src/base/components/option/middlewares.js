@@ -14,7 +14,6 @@ import {
   postOptionFailure,
   deleteOptionsSuccess,
   deleteOptionsFailure,
-  hideAlert
 } from "./actions";
 
 const host = process.env.REACT_APP_HOST_API;
@@ -54,8 +53,7 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
         snack(`Error: ${error}`);
         console.log('erro no post:', error);
         dispatch(postOptionFailure(error));
-      })
-      .finally(() => dispatch(hideAlert()));
+      });
   }
 
   next(action);
