@@ -7,6 +7,7 @@ import MuiDatatable from 'base/components/common/tables/MuiDatatable';
 import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'base/components/common/tables/Toolbar.jsx';
 import Loading from './Loading';
+import ViewListIcon from '../../common/icons/ViewListIcon';
 
 const styles = {
   EditCell: { textAlign: 'right' },
@@ -118,7 +119,13 @@ class Datatable extends React.Component {
       },
       customToolbar: () => {
         return (
-          <AddToolbar title="Adicionar Tabela de preço" onClick={fnOpen} />
+          <>
+            <AddToolbar title="Adicionar Tabela de preço" onClick={fnOpen} />
+            <ViewListIcon
+              title="Gerar intervalos"
+              onClick={() => console.log('gerar intervalos')}
+            />
+          </>
         );
       },
       onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
