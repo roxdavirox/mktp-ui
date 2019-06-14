@@ -15,7 +15,7 @@ const getPriceTableId = props => {
 };
 
 class Page extends React.Component {
-  state = { open: false, mode: 'add', price: null };
+  state = { open: false, mode: 'add', price: null, prices: [] };
 
   componentDidMount = () => {
     // from redirect
@@ -31,18 +31,26 @@ class Page extends React.Component {
   handleOpen = mode => this.setState({ open: true, mode });
 
   handleClose = () => this.setState({ open: false, price: null });
-
+  handleTestData = prices => this.setState({ prices });
   render = () => {
     const { state, props } = this;
     const { open } = state;
 
     return (
       <>
-        {open && <Dialog {...props} {...state} fnClose={this.handleClose} />}
+        {open && (
+          <Dialog
+            fnPrices={this.handleTestData}
+            {...props}
+            {...state}
+            fnClose={this.handleClose}
+          />
+        )}
         <Datatable
-          {...props}
+          prices={this.state.prices}
           fnOpen={this.handleOpen}
           fnUpdate={this.handleRowUpdate}
+          {...props}
         />
       </>
     );

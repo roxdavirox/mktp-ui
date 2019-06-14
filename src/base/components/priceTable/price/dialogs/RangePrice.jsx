@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
@@ -11,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { getPriceRange } from './PriceRange';
 
 const styles = theme => ({
   container: {
@@ -30,10 +32,11 @@ class RangePrice extends Component {
     thickness: '15',
     specificWeigth: '1.19',
     kgPrice: '15.00',
-    higherSale: '300',
-    lowerSale: '200',
+    higherSalesMargin: '300',
+    lowerSalesMargin: '200',
     lowerSaleQuantity: '100000',
-    unit: 'm²'
+    unit: 'm²',
+    prices: []
   };
 
   handleChange = e =>
@@ -42,6 +45,32 @@ class RangePrice extends Component {
     });
 
   handleSubmit = () => {
+    const {
+      thickness: espessura,
+      specificWeigth: pesoEspecifico,
+      kgPrice: precoKg,
+      lowerSaleQuantity,
+      lowerSalesMargin,
+      higherSalesMargin
+    } = this.state;
+
+    const pesoMaterial = (10000 * (espessura / 10) * pesoEspecifico) / 1000;
+    console.log(`Peso do material: ${pesoMaterial} kg`);
+    const precoM2 = pesoMaterial * precoKg;
+    console.log(`Preço do m²: R$ ${precoM2}`);
+    const precoCm2 = (precoM2 / 10000).toFixed(4);
+    console.log(`Preço do cm²: R$ ${precoCm2}`);
+
+    const maxLines = 30;
+    const prices = getPriceRange({
+      lowerSaleQuantity,
+      maxLines,
+      priceValue: precoM2,
+      higherSalesMargin,
+      lowerSalesMargin
+    });
+    console.log('prices: ', prices);
+    this.props.fnPrices(prices);
     this.props.fnClose();
   };
 
@@ -93,7 +122,7 @@ class RangePrice extends Component {
                 margin="dense"
                 name="higherSale"
                 id="higherSale"
-                value={this.state.higherSale}
+                value={this.state.higherSalesMargin}
                 onChange={this.handleChange}
                 label="Maior margem de venda"
                 fullWidth
@@ -104,7 +133,7 @@ class RangePrice extends Component {
                 margin="dense"
                 name="lowerSale"
                 id="lowerSale"
-                value={this.state.lowerSale}
+                value={this.state.lowerSalesMargin}
                 onChange={this.handleChange}
                 label="Menor margem de venda"
                 fullWidth
