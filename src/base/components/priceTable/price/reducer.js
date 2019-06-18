@@ -1,6 +1,7 @@
 import { ADD_ENTITIES } from 'base/redux/actions';
 import {
   ADD_PRICE_SUCCESS,
+  ADD_PRICE_RANGE_SUCCESS,
   EDIT_PRICE_SUCCESS,
   DELETE_PRICES_SUCCESS
 } from './actions';
@@ -38,6 +39,18 @@ export default function(state = initialState, action) {
           [price._id]: price
         },
         allIds: [...state.allIds, price._id]
+      };
+    }
+
+    case ADD_PRICE_RANGE_SUCCESS: {
+      const { prices } = action.playload;
+
+      const byId = { ...prices };
+      const allIds = Object.keys(prices);
+      return {
+        ...state,
+        byId,
+        allIds
       };
     }
 

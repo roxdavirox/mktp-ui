@@ -137,7 +137,7 @@ class Datatable extends React.Component {
     return (
       <MuiDatatable
         title={'Intervalos dos preços'}
-        data={this.props.prices}
+        data={data}
         columns={columns}
         options={options}
       />

@@ -26,6 +26,20 @@ export const addPriceSuccess = price => ({
   playload: { price }
 });
 
+export const ADD_PRICE_RANGE = 'ADD_PRICE_RANGE';
+
+export const addPriceRange = (prices, priceTableId, snack) => ({
+  type: ADD_PRICE_RANGE,
+  playload: { prices, priceTableId, snack }
+});
+
+export const ADD_PRICE_RANGE_SUCCESS = 'ADD_PRICE_RANGE_SUCCESS';
+
+export const addPriceRangeSuccess = prices => ({
+  type: ADD_PRICE_RANGE_SUCCESS,
+  playload: { prices }
+});
+
 export const DELETE_PRICES = 'DELETE_PRICES';
 
 export const deletePrices = (priceIds, snack) => ({

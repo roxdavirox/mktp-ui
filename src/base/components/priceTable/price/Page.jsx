@@ -15,7 +15,7 @@ const getPriceTableId = props => {
 };
 
 class Page extends React.Component {
-  state = { open: false, mode: 'add', price: null, prices: [] };
+  state = { open: false, mode: 'add', price: null };
 
   componentDidMount = () => {
     // from redirect
@@ -31,21 +31,13 @@ class Page extends React.Component {
   handleOpen = mode => this.setState({ open: true, mode });
 
   handleClose = () => this.setState({ open: false, price: null });
-  handleTestData = prices => this.setState({ prices });
   render = () => {
     const { state, props } = this;
     const { open } = state;
 
     return (
       <>
-        {open && (
-          <Dialog
-            fnPrices={this.handleTestData}
-            {...props}
-            {...state}
-            fnClose={this.handleClose}
-          />
-        )}
+        {open && <Dialog {...props} {...state} fnClose={this.handleClose} />}
         <Datatable
           prices={this.state.prices}
           fnOpen={this.handleOpen}
@@ -62,8 +54,6 @@ Page.propTypes = {
   priceTableId: PropTypes.string.isRequired,
   fetchPrices: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
-  addPrice: PropTypes.func.isRequired,
-  editPrice: PropTypes.func.isRequired,
   deletePrices: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired
 };

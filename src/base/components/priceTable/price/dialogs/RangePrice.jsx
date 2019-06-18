@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
@@ -13,6 +14,7 @@ import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { getPriceRange } from './PriceRange';
+import { addPriceRange } from '../actions';
 
 const styles = theme => ({
   container: {
@@ -35,8 +37,7 @@ class RangePrice extends Component {
     higherSalesMargin: '300',
     lowerSalesMargin: '200',
     lowerSaleQuantity: '100000',
-    unit: 'm²',
-    prices: []
+    unit: 'm²'
   };
 
   handleChange = e =>
@@ -54,6 +55,8 @@ class RangePrice extends Component {
       higherSalesMargin
     } = this.state;
 
+    const { addPriceRange, enqueueSnackbar, priceTableId } = this.props;
+
     const pesoMaterial = (10000 * (espessura / 10) * pesoEspecifico) / 1000;
     console.log(`Peso do material: ${pesoMaterial} kg`);
     const precoM2 = pesoMaterial * precoKg;
@@ -70,7 +73,12 @@ class RangePrice extends Component {
       lowerSalesMargin
     });
     console.log('prices: ', prices);
-    this.props.fnPrices(prices);
+    enqueueSnackbar('Adicionando intervalo de preços...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+
+    addPriceRange(prices, priceTableId, enqueueSnackbar);
     this.props.fnClose();
   };
 
@@ -189,7 +197,13 @@ RangePrice.propTypes = {
   fnClose: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   priceTableId: PropTypes.string.isRequired,
+  addPriceRange: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(RangePrice);
+const mapDispatchToProps = { addPriceRange };
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(RangePrice));

@@ -3,6 +3,8 @@ import {
   FETCH_PRICES,
   ADD_PRICE,
   addPriceSuccess,
+  ADD_PRICE_RANGE,
+  addPriceRangeSuccess,
   DELETE_PRICES,
   deletePricesSuccess,
   EDIT_PRICE,
@@ -58,6 +60,39 @@ export const addPrice = ({ dispatch }) => next => action => {
       .then(({ price: p }) => {
         dispatch(addPriceSuccess(p));
         snack('Preço adicionado com sucesso!', {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+      })
+      .catch(e => console.log(e));
+  }
+
+  next(action);
+};
+
+export const addPriceRange = ({ dispatch }) => next => action => {
+  if (action.type === ADD_PRICE_RANGE) {
+    const { prices, priceTableId, snack } = action.playload;
+
+    const body = { prices };
+
+    const request = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    };
+
+    const endpoint = getEndpoint(`/prices/${priceTableId}/range`);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ prices }) => normalize(prices, [priceSchema]))
+      .then(({ entities }) => {
+        dispatch(addEntities(entities));
+        snack('Intervalo de preços adicionado com sucesso!', {
           variant: 'success',
           autoHideDuration: 2000
         });
