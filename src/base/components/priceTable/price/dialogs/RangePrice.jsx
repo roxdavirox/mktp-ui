@@ -75,7 +75,7 @@ class RangePrice extends Component {
     console.log('prices: ', prices);
     enqueueSnackbar('Adicionando intervalo de preços...', {
       variant: 'info',
-      autoHideDuration: 2000
+      autoHideDuration: 4000
     });
 
     addPriceRange(prices, priceTableId, enqueueSnackbar);

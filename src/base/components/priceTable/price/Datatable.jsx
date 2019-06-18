@@ -60,8 +60,8 @@ class Datatable extends React.Component {
         name: 'end',
         label: 'Fim',
         options: {
-          filter: true,
-          sort: true,
+          filter: false,
+          sort: false,
           setCellProps: () => {
             return {
               className: classNames({ [this.props.classes.NameCell]: true })
@@ -73,8 +73,8 @@ class Datatable extends React.Component {
         name: 'value',
         label: 'Preço',
         options: {
-          filter: true,
-          sort: true,
+          filter: false,
+          sort: false,
           setCellProps: () => {
             return {
               className: classNames({ [this.props.classes.NameCell]: true })
@@ -109,6 +109,7 @@ class Datatable extends React.Component {
       filterType: 'checkbox',
       download: false,
       print: false,
+      sort: true,
       filter: false,
       viewColumns: false,
       rowHover: false,
