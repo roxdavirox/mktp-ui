@@ -8,5 +8,11 @@ export const getPriceById = (id, store) =>
 
 export const getPrices = store =>
   getPricesState(store)
-    ? getPriceList(store).map(id => getPriceById(id, store))
+    ? getPriceList(store).map(id => {
+        const price = getPriceById(id, store);
+        return {
+          ...price,
+          value: price.value.toFixed(4)
+        };
+      })
     : [];
