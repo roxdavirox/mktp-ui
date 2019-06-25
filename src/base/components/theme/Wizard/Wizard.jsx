@@ -1,33 +1,33 @@
-import React from "react";
-import cx from "classnames";
-import PropTypes from "prop-types";
+import React from 'react';
+import cx from 'classnames';
+import PropTypes from 'prop-types';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 // core components
-import Button from "components/Theme/CustomButtons/Button.jsx";
-import Card from "components/Theme/Card/Card.jsx";
+import Button from 'base/components/theme/CustomButtons/Button.jsx';
+import Card from 'base/components/theme/Card/Card.jsx';
 
-import wizardStyle from "assets/jss/material-dashboard-pro-react/components/wizardStyle.jsx";
+import wizardStyle from 'assets/jss/material-dashboard-pro-react/components/wizardStyle.jsx';
 
 class Wizard extends React.Component {
   constructor(props) {
     super(props);
     var width;
     if (this.props.steps.length === 1) {
-      width = "100%";
+      width = '100%';
     } else {
       if (window.innerWidth < 600) {
         if (this.props.steps.length !== 3) {
-          width = "50%";
+          width = '50%';
         } else {
-          width = 100 / 3 + "%";
+          width = 100 / 3 + '%';
         }
       } else {
         if (this.props.steps.length === 2) {
-          width = "50%";
+          width = '50%';
         } else {
-          width = 100 / 3 + "%";
+          width = 100 / 3 + '%';
         }
       }
     }
@@ -39,7 +39,7 @@ class Wizard extends React.Component {
       finishButton: this.props.steps.length === 1 ? true : false,
       width: width,
       movingTabStyle: {
-        transition: "transform 0s"
+        transition: 'transform 0s'
       },
       allStates: {}
     };
@@ -52,10 +52,10 @@ class Wizard extends React.Component {
   }
   componentDidMount() {
     this.refreshAnimation(0);
-    window.addEventListener("resize", this.updateWidth);
+    window.addEventListener('resize', this.updateWidth);
   }
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateWidth);
+    window.removeEventListener('resize', this.updateWidth);
   }
   updateWidth() {
     this.refreshAnimation(this.state.currentStep);
@@ -200,7 +200,7 @@ class Wizard extends React.Component {
       li_width = 50;
     }
 
-    this.setState({ width: li_width + "%" });
+    this.setState({ width: li_width + '%' });
 
     var step_width = move_distance;
     move_distance = move_distance * index_temp;
@@ -223,8 +223,8 @@ class Wizard extends React.Component {
     var movingTabStyle = {
       width: step_width,
       transform:
-        "translate3d(" + move_distance + "px, " + vertical_level + "px, 0)",
-      transition: "all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1)"
+        'translate3d(' + move_distance + 'px, ' + vertical_level + 'px, 0)',
+      transition: 'all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1)'
     };
     this.setState({ movingTabStyle: movingTabStyle });
   }
@@ -261,7 +261,7 @@ class Wizard extends React.Component {
               })}
             </ul>
             <div
-              className={classes.movingTab + " " + classes[color]}
+              className={classes.movingTab + ' ' + classes[color]}
               style={this.state.movingTabStyle}
             >
               {steps[this.state.currentStep].stepName}
@@ -323,15 +323,15 @@ class Wizard extends React.Component {
 }
 
 Wizard.defaultProps = {
-  color: "primary",
-  title: "Here should go your title",
-  subtitle: "And this would be your subtitle",
-  previousButtonText: "Previous",
-  previousButtonClasses: "",
-  nextButtonClasses: "",
-  nextButtonText: "Next",
-  finishButtonClasses: "",
-  finishButtonText: "Finish"
+  color: 'primary',
+  title: 'Here should go your title',
+  subtitle: 'And this would be your subtitle',
+  previousButtonText: 'Previous',
+  previousButtonClasses: '',
+  nextButtonClasses: '',
+  nextButtonText: 'Next',
+  finishButtonClasses: '',
+  finishButtonText: 'Finish'
 };
 
 Wizard.propTypes = {
@@ -344,12 +344,12 @@ Wizard.propTypes = {
     })
   ).isRequired,
   color: PropTypes.oneOf([
-    "primary",
-    "warning",
-    "danger",
-    "success",
-    "info",
-    "rose"
+    'primary',
+    'warning',
+    'danger',
+    'success',
+    'info',
+    'rose'
   ]),
   title: PropTypes.string,
   subtitle: PropTypes.string,

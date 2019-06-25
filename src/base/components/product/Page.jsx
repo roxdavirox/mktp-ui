@@ -1,11 +1,16 @@
 import React from 'react';
 
 // core components
-import Wizard from 'components/theme/Wizard/Wizard.jsx';
-import GridContainer from 'components/theme/Grid/GridContainer.jsx';
-import GridItem from 'components/theme/Grid/GridItem.jsx';
+import Wizard from 'base/components/theme/Wizard/Wizard.jsx';
+import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
+import GridItem from 'base/components/theme/Grid/GridItem.jsx';
+import Step1 from './steps/Step1';
+import Step2 from './steps/Step2';
 
-const steps = [];
+const steps = [
+  { stepName: 'Produto', stepComponent: Step1, stepId: 'step1' },
+  { stepName: 'Opções', stepComponent: Step2, stepId: 'step2' }
+];
 
 class WizardView extends React.Component {
   render() {
@@ -15,8 +20,8 @@ class WizardView extends React.Component {
           <Wizard
             validate
             steps={steps}
-            title="Build Your Profile"
-            subtitle="This information will let us know more about you."
+            title="Cadastrar produto"
+            subtitle="Preencha as informações com atenção."
             finishButtonClick={e => console.log(e)}
           />
         </GridItem>
