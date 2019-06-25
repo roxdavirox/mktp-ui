@@ -26,18 +26,24 @@ const style = {
 
 class Step1 extends React.Component {
   state = {
-    nameState: ''
+    nameState: '',
+    productName: ''
   };
 
   handleNameChange = e => {
     const { value: name } = e.target;
     const newName = name.length >= 3 ? 'success' : 'error';
 
-    this.setState({ nameState: newName });
+    this.setState({ nameState: newName, productName: name });
   };
 
+  // wizard functions
   isValidated() {
     return this.state.nameState === 'success';
+  }
+
+  sendState() {
+    return this.state;
   }
 
   render() {
