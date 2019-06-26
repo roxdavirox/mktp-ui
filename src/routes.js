@@ -16,11 +16,8 @@ var dashRoutes = [
     views: [
       {
         collapse: true,
-        // path: '/config/products',
         name: 'Produtos',
         mini: 'P',
-        // component: Product,
-        // layout: '/admin'
         views: [
           {
             path: '/config/products/create',
@@ -44,7 +41,7 @@ var dashRoutes = [
         layout: '/admin'
       },
       {
-        path: '/config/item',
+        path: '/config#item',
         name: 'Itens',
         mini: 'I',
         component: Item,
