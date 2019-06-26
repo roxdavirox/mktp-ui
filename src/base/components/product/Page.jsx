@@ -8,8 +8,8 @@ import ProductStep from './steps/ProductStep';
 import OptionStep from './steps/OptionStep';
 
 const steps = [
-  { stepName: 'Produto', stepComponent: ProductStep, stepId: 'ProductStep' },
-  { stepName: 'Opções', stepComponent: OptionStep, stepId: 'OptionStep' }
+  { stepName: 'Produto', stepComponent: ProductStep, stepId: 'productStep' },
+  { stepName: 'Opções', stepComponent: OptionStep, stepId: 'optionStep' }
 ];
 
 class WizardView extends React.Component {
