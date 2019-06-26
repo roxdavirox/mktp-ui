@@ -64,7 +64,7 @@ class DataTable extends React.Component {
           customBodyRender: (value, tableMeta) => (
             <Link
               to={{
-                pathname: '/admin/config/option/item',
+                pathname: '/admin/config/option/items',
                 state: {
                   fromRedirect: true,
                   optionId: value
