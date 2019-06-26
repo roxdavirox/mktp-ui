@@ -10,7 +10,6 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 const getChildRows = (row, rootRows) => {
-  console.log('row', row, 'rootRows', rootRows);
   const childRows = rootRows.filter(r => r.parentId == (row ? row.id : null));
   return childRows.length ? childRows : null;
 };

@@ -20,7 +20,6 @@ import GridItem from 'base/components/theme/Grid/GridItem.jsx';
 // import { generateRows, defaultColumnValues } from './helpers/generator';
 
 const getChildRows = (row, rootRows) => {
-  console.log('row', row, 'rootRows', rootRows);
   const childRows = rootRows.filter(r => r.parentId == (row ? row.id : null));
   return childRows.length ? childRows : null;
 };
@@ -59,7 +58,7 @@ class OptionStep extends React.Component {
     data: [],
     tableColumnExtensions: [{ columnName: 'name', width: 300 }],
     defaultExpandedRowIds: [0],
-    selectionIds: [0, 2, 3]
+    selectionIds: []
   };
 
   componentDidMount = async () => {
