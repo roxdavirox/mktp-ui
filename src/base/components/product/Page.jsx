@@ -42,6 +42,7 @@ class WizardView extends React.Component {
           autoHideDuration: 2000
         });
         console.log('produto', product);
+        this.props.history.push('/admin/config/options');
       });
   };
 

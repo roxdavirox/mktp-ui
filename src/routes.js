@@ -1,5 +1,6 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import Product from 'base/components/product/Page.jsx';
+import ProductCreate from 'base/components/product/Page.jsx';
+import ProductList from 'base/components/product/ProductList.jsx';
 import Option from 'base/components/option/Page.jsx';
 import Item from 'base/components/item/Page.jsx';
 import OptionItem from 'base/components/option/item/Page.jsx';
@@ -14,11 +15,26 @@ var dashRoutes = [
     state: 'configCollapse',
     views: [
       {
-        path: '/config/products',
+        collapse: true,
+        // path: '/config/products',
         name: 'Produtos',
         mini: 'P',
-        component: Product,
-        layout: '/admin'
+        // component: Product,
+        // layout: '/admin'
+        views: [
+          {
+            path: '/config/products/create',
+            name: 'Criar Produto',
+            component: ProductCreate,
+            layout: '/admin'
+          },
+          {
+            path: '/config/products/list',
+            name: 'Listar Produtos',
+            component: ProductList,
+            layout: '/admin'
+          }
+        ]
       },
       {
         path: '/config/options',
