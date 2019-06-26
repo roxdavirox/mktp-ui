@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { withSnackbar } from 'notistack';
 // core components
 import Wizard from 'base/components/theme/Wizard/Wizard.jsx';
 import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
@@ -14,7 +14,17 @@ const steps = [
 
 class WizardView extends React.Component {
   handleFinish = async steps => {
-    const { optionStep: options, productStep } = steps;
+    const { enqueueSnackbar: snack } = this.props;
+    const { optionStep: prevOptions, productStep } = steps;
+    const options = prevOptions.map(op => ({
+      id: op.id,
+      items: op.items.map(i => i.id)
+    }));
+    console.log('options', options);
+    snack('Criando produto...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
     const host = process.env.REACT_APP_HOST_API;
     const request = {
       method: 'POST',
@@ -24,9 +34,15 @@ class WizardView extends React.Component {
       },
       body: JSON.stringify({ name: productStep.productName, options })
     };
-    const response = await fetch(`${host}/products`, request);
-    const data = await response.json();
-    console.log('data response:', data);
+    fetch(`${host}/products`, request)
+      .then(res => res.json())
+      .then(product => {
+        snack('Produto criado com sucesso!', {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+        console.log('produto', product);
+      });
   };
 
   render() {
@@ -46,4 +62,4 @@ class WizardView extends React.Component {
   }
 }
 
-export default WizardView;
+export default withSnackbar(WizardView);
