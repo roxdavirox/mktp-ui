@@ -41,7 +41,7 @@ var dashRoutes = [
         layout: '/admin'
       },
       {
-        path: '/config#item',
+        path: '/confi/items',
         name: 'Itens',
         mini: 'I',
         component: Item,
