@@ -24,7 +24,7 @@ const style = {
   }
 };
 
-class Step1 extends React.Component {
+class ProductStep extends React.Component {
   state = {
     nameState: '',
     productName: ''
@@ -88,4 +88,4 @@ class Step1 extends React.Component {
   }
 }
 
-export default withStyles(style)(Step1);
+export default withStyles(style)(ProductStep);

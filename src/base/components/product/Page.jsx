@@ -4,12 +4,12 @@ import React from 'react';
 import Wizard from 'base/components/theme/Wizard/Wizard.jsx';
 import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
 import GridItem from 'base/components/theme/Grid/GridItem.jsx';
-import Step1 from './steps/Step1';
-import Step2 from './steps/Step2';
+import ProductStep from './steps/ProductStep';
+import OptionStep from './steps/OptionStep';
 
 const steps = [
-  { stepName: 'Produto', stepComponent: Step1, stepId: 'step1' },
-  { stepName: 'Opções', stepComponent: Step2, stepId: 'step2' }
+  { stepName: 'Produto', stepComponent: ProductStep, stepId: 'ProductStep' },
+  { stepName: 'Opções', stepComponent: OptionStep, stepId: 'OptionStep' }
 ];
 
 class WizardView extends React.Component {
