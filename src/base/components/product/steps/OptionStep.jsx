@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
+import _ from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import {
@@ -71,30 +72,32 @@ class OptionStep extends React.Component {
     this.setState({ data: rows });
   };
   handleSelectionChange = selection => {
-    if (!selection) return;
+    if (selection.length < 0) return;
     const { data } = this.state;
 
-    const rows = selection.map(rowId => ({
-      ...data[rowId],
-      optionIndex: data.indexOf(
-        data.find(row => row.id === data[rowId].parentId)
-      )
-    }));
+    const rows = selection
+      .map(rowId => ({
+        ...data[rowId],
+        optionIndex: data[rowId].parentId
+          ? _.indexOf(data, data.find(d => d.id === data[rowId].parentId))
+          : -1
+      }))
+      .filter(row => row.optionIndex >= 0);
 
     const optionIds = rows.map(option => option.optionIndex);
-
-    console.log(optionIds);
+    const newOptionIds = _.uniq(optionIds);
+    console.log('optionsId', newOptionIds);
     console.log(rows);
     console.log(selection);
     this.setState({
-      selectionIds: [...selection, ...optionIds]
+      selectionIds: _.uniq([...selection, ...newOptionIds])
     });
   };
 
   sendState() {
     // retornar os itens selecionados
     const { data, selectionIds } = this.state;
-    if (selectionIds.length < 1) return this.state;
+    if (!data) return this.state;
     const options = selectionIds.map(rowId => data[rowId]);
     const newOptions = options.filter(o => !o.parentId && o.id);
     const newItems = newOptions.map(o => ({
