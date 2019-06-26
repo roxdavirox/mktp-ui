@@ -75,20 +75,26 @@ class OptionStep extends React.Component {
     if (selection.length < 0) return;
     const { data } = this.state;
 
-    const rows = selection
-      .map(rowId => ({
-        ...data[rowId],
-        optionIndex: data[rowId].parentId
-          ? _.indexOf(data, data.find(d => d.id === data[rowId].parentId))
-          : -1
-      }))
-      .filter(row => row.optionIndex >= 0);
+    const rows = selection.map(rowId => ({
+      ...data[rowId],
+      optionIndex: data[rowId].parentId
+        ? _.indexOf(data, data.find(d => d.id === data[rowId].parentId))
+        : -1
+    }));
 
-    const optionIds = rows.map(option => option.optionIndex);
+    const selectedOptionsIndex = rows
+      .filter(row => !row.parentId && row.id)
+      .map(option => option.id)
+      .map(optionId => _.indexOf(data, data.find(d => d.id === optionId)));
+    console.log('selectedOptionsIndex', selectedOptionsIndex);
+
+    const optionIds = rows
+      .filter(option => option.parentId)
+      .map(option => option.optionIndex);
     const newOptionIds = _.uniq(optionIds);
     console.log('optionsId', newOptionIds);
-    console.log(rows);
-    console.log(selection);
+    console.log('rows', rows);
+    console.log('selection', selection);
     this.setState({
       selectionIds: _.uniq([...selection, ...newOptionIds])
     });
