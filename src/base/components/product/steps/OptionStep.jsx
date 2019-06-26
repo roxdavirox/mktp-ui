@@ -92,11 +92,12 @@ class OptionStep extends React.Component {
       .filter(option => option.parentId)
       .map(option => option.optionIndex);
     const newOptionIds = _.uniq(optionIds);
+    const selectionIds = _.uniq([...selection, ...newOptionIds]);
     console.log('optionsId', newOptionIds);
     console.log('rows', rows);
     console.log('selection', selection);
     this.setState({
-      selectionIds: _.uniq([...selection, ...newOptionIds])
+      selectionIds: selectionIds
     });
   };
 
