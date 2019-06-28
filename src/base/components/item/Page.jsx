@@ -76,7 +76,7 @@ class Page extends Component {
       edit: this.handleEdit
     };
     const buttonTexts = { add: 'Adicionar', edit: 'Editar' };
-    const titles = { add: 'Adicionar item', edit: 'Editar item '};
+    const titles = { add: 'Adicionar item', edit: 'Editar item ' };
 
     const { data } = this.props;
     const { open, mode, item } = this.state;
