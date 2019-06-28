@@ -47,7 +47,9 @@ export const addCategory = ({ dispatch }) => next => action => {
         });
 
         dispatch(addCategorySuccess(category));
-        history.push('/admin/config/sub-categories');
+        history.push('/admin/config/sub-categories', {
+          categoryId: category._id
+        });
       })
       .catch(e => console.log(e));
   }
