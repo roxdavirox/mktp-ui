@@ -1,7 +1,10 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
+import { withSnackbar } from 'notistack';
+
 import Button from '@material-ui/core/Button';
 import MuiDialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -28,9 +31,9 @@ const Dialog = props => {
 
   const handleNameChange = e => setName(e.target.value);
 
+  const dispatch = useDispatch();
   const handleSubmit = () => {
     const { enqueueSnackbar: snack, fnClose } = props;
-    const dispatch = useDispatch();
 
     snack(`Adicionando categoria ${name}`, {
       variant: 'info',
@@ -83,4 +86,4 @@ Dialog.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Dialog);
+export default withSnackbar(withStyles(styles)(Dialog));

@@ -1,4 +1,5 @@
 import { ADD_ENTITIES } from 'base/redux/actions';
+import { ADD_CATEGORY_SUCCESS } from './actions';
 
 const initialState = {
   byId: {},
@@ -8,12 +9,6 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case 'FETCH_CATEGORIES':
-      return {
-        ...state,
-        loading: true
-      };
-
     case ADD_ENTITIES: {
       const {
         entities: { categories }
@@ -27,6 +22,19 @@ export default function(state = initialState, action) {
         ...state,
         byId,
         allIds
+      };
+    }
+
+    case ADD_CATEGORY_SUCCESS: {
+      const { category } = action.playload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [category._id]: category
+        },
+        allIds: [...state.allIds, category._id]
       };
     }
 

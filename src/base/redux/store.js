@@ -30,7 +30,10 @@ import {
   editPrice
 } from 'base/components/priceTable/price/middlewares';
 
-import { fetchCategories } from 'base/components/category/middlewares';
+import {
+  fetchCategories,
+  addCategory
+} from 'base/components/category/middlewares';
 
 import { addExistingItemsMiddleware } from '../components/item/middlewares';
 
@@ -58,7 +61,8 @@ export const store = createStore(
       deletePrices,
       editPrice,
       editItem,
-      fetchCategories
+      fetchCategories,
+      addCategory
     )
   )
 );

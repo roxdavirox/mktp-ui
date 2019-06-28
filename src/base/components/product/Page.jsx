@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
 import React from 'react';
 import { withSnackbar } from 'notistack';
 // core components
@@ -6,6 +8,7 @@ import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
 import GridItem from 'base/components/theme/Grid/GridItem.jsx';
 import ProductStep from './steps/ProductStep';
 import OptionStep from './steps/OptionStep';
+import history from 'base/providers/history';
 
 const steps = [
   { stepName: 'Produto', stepComponent: ProductStep, stepId: 'productStep' },
@@ -42,7 +45,7 @@ class WizardView extends React.Component {
           autoHideDuration: 2000
         });
         console.log('produto', product);
-        this.props.history.push('/admin/config/products/list');
+        history.push('/admin/config/products/list');
       });
   };
 
