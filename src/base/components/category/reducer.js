@@ -1,5 +1,5 @@
 import { ADD_ENTITIES } from 'base/redux/actions';
-import { ADD_CATEGORY_SUCCESS } from './actions';
+import { ADD_CATEGORY_SUCCESS, DELETE_CATEGORIES_SUCCESS } from './actions';
 
 const initialState = {
   byId: {},
@@ -35,6 +35,27 @@ export default function(state = initialState, action) {
           [category._id]: category
         },
         allIds: [...state.allIds, category._id]
+      };
+    }
+
+    case DELETE_CATEGORIES_SUCCESS: {
+      const { categoryIds } = action.playload;
+
+      const allIds = state.allIds.filter(id => categoryIds.indexOf(id) === -1);
+
+      const byId = allIds.reduce((ids, id) => {
+        return {
+          ...ids,
+          [id]: {
+            ...state.byId[id]
+          }
+        };
+      }, {});
+
+      return {
+        ...state,
+        byId,
+        allIds
       };
     }
 

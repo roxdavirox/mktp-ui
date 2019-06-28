@@ -5,8 +5,9 @@ import { fetchCategories } from './actions';
 import { getCategories } from './selectors';
 import Datatable from './Datatable';
 import Dialog from './Dialog';
+import { withSnackbar } from 'notistack';
 
-const Page = () => {
+const Page = props => {
   const data = useSelector(state => getCategories(state));
   const dispatch = useDispatch();
   useEffect(() => {
@@ -17,9 +18,9 @@ const Page = () => {
   return (
     <>
       {open && <Dialog open={open} onClose={() => setOpen(false)} />}
-      <Datatable data={data} fnOpen={() => setOpen(true)} />
+      <Datatable data={data} onOpen={() => setOpen(true)} {...props} />
     </>
   );
 };
 
-export default Page;
+export default withSnackbar(Page);

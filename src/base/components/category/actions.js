@@ -17,3 +17,17 @@ export const addCategorySuccess = category => ({
   type: ADD_CATEGORY_SUCCESS,
   playload: { category }
 });
+
+export const DELETE_CATEGORIES = 'DELETE_CATEGORIES';
+
+export const deleteCategories = (categoryIds, snack) => ({
+  type: DELETE_CATEGORIES,
+  playload: { categoryIds, snack }
+});
+
+export const DELETE_CATEGORIES_SUCCESS = 'DELETE_CATEGORIES_SUCCESS';
+
+export const deleteCategoriesSuccess = categoryIds => ({
+  type: DELETE_CATEGORIES_SUCCESS,
+  playload: { categoryIds }
+});

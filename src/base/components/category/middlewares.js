@@ -1,7 +1,13 @@
 /* eslint-disable no-console */
 import { categorySchema } from 'base/redux/schema';
 import { normalize } from 'normalizr';
-import { FETCH_CATEGORIES, ADD_CATEGORY, addCategorySuccess } from './actions';
+import {
+  FETCH_CATEGORIES,
+  ADD_CATEGORY,
+  addCategorySuccess,
+  DELETE_CATEGORIES,
+  deleteCategoriesSuccess
+} from './actions';
 import { addEntities } from 'base/redux/actions';
 import history from 'base/providers/history';
 
@@ -50,6 +56,44 @@ export const addCategory = ({ dispatch }) => next => action => {
         history.push('/admin/config/sub-categories', {
           categoryId: category._id
         });
+      })
+      .catch(e => console.log(e));
+  }
+
+  next(action);
+};
+
+export const deleteDeleteCategories = ({ dispatch }) => next => action => {
+  if (action.type === DELETE_CATEGORIES) {
+    const { categoryIds, snack } = action.playload;
+
+    const request = {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ categoryIds })
+    };
+
+    const endpoint = getEndpoint('/categories');
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(res => {
+        if (res.deletedCount) {
+          const count = res.deletedCount;
+          dispatch(deleteCategoriesSuccess(categoryIds));
+          snack(
+            `${count} categori${count == 1 ? 'a deletada' : 'as deletadas'}`,
+            {
+              variant: 'success',
+              autoHideDuration: 2000
+            }
+          );
+        }
+
+        return res;
       })
       .catch(e => console.log(e));
   }
