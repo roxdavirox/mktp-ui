@@ -30,6 +30,8 @@ import {
   editPrice
 } from 'base/components/priceTable/price/middlewares';
 
+import { fetchCategories } from 'base/components/category/middlewares';
+
 import { addExistingItemsMiddleware } from '../components/item/middlewares';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -55,7 +57,8 @@ export const store = createStore(
       addPriceRange,
       deletePrices,
       editPrice,
-      editItem
+      editItem,
+      fetchCategories
     )
   )
 );

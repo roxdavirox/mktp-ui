@@ -1,6 +1,7 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ProductCreate from 'base/components/product/Page.jsx';
 import ProductList from 'base/components/product/ProductList.jsx';
+import Category from 'base/components/category/Page.jsx';
 import Option from 'base/components/option/Page.jsx';
 import Item from 'base/components/item/Page.jsx';
 import OptionItem from 'base/components/option/item/Page.jsx';
@@ -32,6 +33,13 @@ var dashRoutes = [
             layout: '/admin'
           }
         ]
+      },
+      {
+        path: '/config/categories',
+        name: 'Categorias',
+        mini: 'C',
+        component: Category,
+        layout: '/admin'
       },
       {
         path: '/config/options',

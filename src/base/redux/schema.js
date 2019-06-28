@@ -21,3 +21,6 @@ export const optionSchema = new schema.Entity(
 export const priceTableSchema = new schema.Entity('priceTables', {}, id);
 
 export const priceSchema = new schema.Entity('prices', {}, id);
+
+export const subCategoriesSchema = new schema.Entity('subCategories', {}, id);
+export const categorySchema = new schema.Entity('categories', {}, id);
