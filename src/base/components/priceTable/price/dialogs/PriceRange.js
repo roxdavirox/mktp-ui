@@ -36,7 +36,6 @@ const baseRange = [
 export const generatePriceRange = data => {
   var lowerSaleQuantity = data.lowerSaleQuantity;
   var maxLines = data.maxLines;
-
   if (lowerSaleQuantity < maxLines) {
     maxLines = lowerSaleQuantity;
   }
@@ -52,8 +51,8 @@ export const generatePriceRange = data => {
   lineDivision = maxLines > 1 ? maxLines - 1 : 1;
 
   for (var index = 1, lines = maxLines; index <= maxLines; index++, lines--) {
-    start = baseRange[index - 1].start / 1000;
-    end = baseRange[index - 1].end / 1000; // valor para dividir - unidade mm
+    start = baseRange[index - 1].start / 10000;
+    end = baseRange[index - 1].end / 10000; // valor para dividir - unidade mm
     // first loop?
     if (index === 1) {
       value = data.higherSalesMargin;

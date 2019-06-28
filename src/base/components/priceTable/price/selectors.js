@@ -12,6 +12,8 @@ export const getPrices = store =>
         const price = getPriceById(id, store);
         return {
           ...price,
+          start: price.start.toFixed(4),
+          end: price.end.toFixed(4),
           value: price.value.toFixed(4)
         };
       })
