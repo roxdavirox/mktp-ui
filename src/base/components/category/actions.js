@@ -47,3 +47,17 @@ export const addSubCategorySuccess = (subCategory, categoryId) => ({
   type: ADD_SUB_CATEGORY_SUCCESS,
   playload: { subCategory, categoryId }
 });
+
+export const DELETE_SUB_CATEGORIES = 'DELETE_SUB_CATEGORIES';
+
+export const deleteSubCategories = (subCategoryIds, categoryId, snack) => ({
+  type: DELETE_SUB_CATEGORIES,
+  playload: { subCategoryIds, categoryId, snack }
+});
+
+export const DELETE_SUB_CATEGORIES_SUCCESS = 'DELETE_SUB_CATEGORIES_SUCCESS';
+
+export const deleteSubCategoriesSuccess = (subCategoryIds, categoryId) => ({
+  type: DELETE_SUB_CATEGORIES_SUCCESS,
+  playload: { subCategoryIds, categoryId }
+});

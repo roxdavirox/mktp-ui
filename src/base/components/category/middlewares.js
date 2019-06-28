@@ -8,7 +8,9 @@ import {
   DELETE_CATEGORIES,
   deleteCategoriesSuccess,
   ADD_SUB_CATEGORY,
-  addSubCategorySuccess
+  addSubCategorySuccess,
+  DELETE_SUB_CATEGORIES,
+  deleteSubCategoriesSuccess
 } from './actions';
 import { addEntities } from 'base/redux/actions';
 import history from 'base/providers/history';
@@ -65,7 +67,7 @@ export const addCategory = ({ dispatch }) => next => action => {
   next(action);
 };
 
-export const deleteDeleteCategories = ({ dispatch }) => next => action => {
+export const deleteCategories = ({ dispatch }) => next => action => {
   if (action.type === DELETE_CATEGORIES) {
     const { categoryIds, snack } = action.playload;
 
@@ -129,6 +131,46 @@ export const addSubCategory = ({ dispatch }) => next => action => {
         });
 
         dispatch(addSubCategorySuccess(subCategory, categoryId));
+      })
+      .catch(e => console.log(e));
+  }
+
+  next(action);
+};
+
+export const deleteSubCategories = ({ dispatch }) => next => action => {
+  if (action.type === DELETE_SUB_CATEGORIES) {
+    const { subCategoryIds, categoryId, snack } = action.playload;
+
+    const request = {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ subCategoryIds })
+    };
+
+    const endpoint = getEndpoint('/sub-categories');
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(res => {
+        if (res.deletedCount) {
+          const count = res.deletedCount;
+          dispatch(deleteSubCategoriesSuccess(subCategoryIds, categoryId));
+          snack(
+            `${count} sub-categori${
+              count == 1 ? 'a deletada' : 'as deletadas'
+            }`,
+            {
+              variant: 'success',
+              autoHideDuration: 2000
+            }
+          );
+        }
+
+        return res;
       })
       .catch(e => console.log(e));
   }

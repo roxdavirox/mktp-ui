@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -7,14 +8,20 @@ import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'base/components/common/tables/Toolbar.jsx';
-// import { deleteCategories } from './actions';
+import { deleteSubCategories } from '../actions';
 
 const styles = {
   EditCell: { textAlign: 'right' },
   NameCell: { fontWeight: 500 }
 };
 
-const Datatable = ({ data, classes, onOpen, enqueueSnackbar: snack }) => {
+const Datatable = ({
+  data,
+  classes,
+  onOpen,
+  enqueueSnackbar: snack,
+  categoryId
+}) => {
   const dispatch = useDispatch();
   const handleRowsDelete = rows => {
     const { data: dataRows } = rows;
@@ -28,7 +35,7 @@ const Datatable = ({ data, classes, onOpen, enqueueSnackbar: snack }) => {
       autoHideDuration: 2000
     });
 
-    // dispatch(deleteCategories(rowIds, snack));
+    dispatch(deleteSubCategories(rowIds, categoryId, snack));
   };
 
   const options = {
@@ -66,25 +73,22 @@ const Datatable = ({ data, classes, onOpen, enqueueSnackbar: snack }) => {
       options: {
         sort: false,
         filter: false,
-        // eslint-disable-next-line react/display-name
-        // customBodyRender: (value, tableMeta) => (
-        //   <Link
-        //     to={{
-        //       pathname: '/admin/config/sub-categories',
-        //       state: {
-        //         fromRedirect: true,
-        //         categoryId: value
-        //       }
-        //     }}
-        //   >
-        //     <MoreHorizIcon
-        //       key={tableMeta.columnIndex}
-        //       onClick={() => {
-        //         // this.props.toggleOptionItems(value);
-        //       }}
-        //     />
-        //   </Link>
-        // ),
+
+        customBodyRender: function edit(value, tableMeta) {
+          return (
+            <Link
+              to={{
+                pathname: '/admin/config/sub-categories',
+                state: {
+                  fromRedirect: true,
+                  categoryId: value
+                }
+              }}
+            >
+              <MoreHorizIcon key={tableMeta.columnIndex} />
+            </Link>
+          );
+        },
         setCellProps: () => {
           return {
             className: classNames({ [classes.EditCell]: true })

@@ -38,7 +38,12 @@ const Page = props => {
           onClose={() => setOpen(false)}
         />
       )}
-      <Datatable data={data} onOpen={() => setOpen(true)} {...props} />
+      <Datatable
+        data={data}
+        categoryId={categoryId}
+        onOpen={() => setOpen(true)}
+        {...props}
+      />
     </>
   );
 };
