@@ -74,6 +74,7 @@ export const generatePriceRange = data => {
       value:
         index === maxLines ? data.lowerSalesMargin.toFixed(4) : value.toFixed(4)
     });
+    auxValue = value;
   }
 
   return prices;
