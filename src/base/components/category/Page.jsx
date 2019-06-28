@@ -16,7 +16,7 @@ const Page = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
-      {open && <Dialog open={open} fnClose={() => setOpen(false)} />}
+      {open && <Dialog open={open} onClose={() => setOpen(false)} />}
       <Datatable data={data} fnOpen={() => setOpen(true)} />
     </>
   );

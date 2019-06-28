@@ -26,25 +26,22 @@ const styles = theme => ({
   select: { height: '37px' }
 });
 
-const Dialog = props => {
+const Dialog = ({ enqueueSnackbar: snack, onClose, classes, open }) => {
   const [name, setName] = useState('');
 
   const handleNameChange = e => setName(e.target.value);
 
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    const { enqueueSnackbar: snack, fnClose } = props;
-
     snack(`Adicionando categoria ${name}`, {
       variant: 'info',
       autoHideDuration: 2000
     });
 
     dispatch(addCategory(name, snack));
-    fnClose();
+    onClose();
   };
 
-  const { open, classes, fnClose } = props;
   return (
     <div>
       <MuiDialog open={open} aria-labelledby="form-dialog-title">
@@ -65,7 +62,7 @@ const Dialog = props => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={fnClose} color="primary">
+          <Button onClick={onClose} color="primary">
             Cancelar
           </Button>
           <Button onClick={handleSubmit} color="primary">
