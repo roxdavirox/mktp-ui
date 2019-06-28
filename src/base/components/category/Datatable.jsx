@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
+import { AddToolbar } from 'base/components/common/tables/Toolbar.jsx';
 
 const styles = {
   EditCell: { textAlign: 'right' },
@@ -29,16 +30,9 @@ const Datatable = props => {
         noMatch: 'Nenhuma categoria'
       }
     },
-    // customToolbar: () => {
-    //   return (
-    //     <AddToolbar
-    //       title="Adicionar Item"
-    //       onClick={this.props.fnOpen}
-    //       aria-owns="add-menu"
-    //       aria-haspopup="true"
-    //     />
-    //   );
-    // },
+    customToolbar: function addCategory() {
+      return <AddToolbar title="Adicionar Opção" onClick={props.fnOpen} />;
+    },
     onRowsDelete: rowsDeleted => this.props.fnRowsDelete(rowsDeleted)
   };
   const columns = [
