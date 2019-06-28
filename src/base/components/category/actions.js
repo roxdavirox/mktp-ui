@@ -31,3 +31,19 @@ export const deleteCategoriesSuccess = categoryIds => ({
   type: DELETE_CATEGORIES_SUCCESS,
   playload: { categoryIds }
 });
+
+// subCategories functions
+
+export const ADD_SUB_CATEGORY = 'ADD_SUB_CATEGORY';
+
+export const addSubCategory = (name, categoryId, snack) => ({
+  type: ADD_SUB_CATEGORY,
+  playload: { name, categoryId, snack }
+});
+
+export const ADD_SUB_CATEGORY_SUCCESS = 'ADD_SUB_CATEGORY_SUCCESS';
+
+export const addSubCategorySuccess = (subCategory, categoryId) => ({
+  type: ADD_SUB_CATEGORY_SUCCESS,
+  playload: { subCategory, categoryId }
+});

@@ -1,5 +1,9 @@
 import { ADD_ENTITIES } from 'base/redux/actions';
-import { ADD_CATEGORY_SUCCESS, DELETE_CATEGORIES_SUCCESS } from './actions';
+import {
+  ADD_CATEGORY_SUCCESS,
+  DELETE_CATEGORIES_SUCCESS,
+  ADD_SUB_CATEGORY_SUCCESS
+} from './actions';
 
 const initialState = {
   byId: {},
@@ -56,6 +60,24 @@ export default function(state = initialState, action) {
         ...state,
         byId,
         allIds
+      };
+    }
+
+    case ADD_SUB_CATEGORY_SUCCESS: {
+      const { subCategory, categoryId } = action.playload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [categoryId]: {
+            ...state.byId[categoryId],
+            subCategories: [
+              ...state.byId[categoryId].subCategories,
+              subCategory
+            ]
+          }
+        }
       };
     }
 

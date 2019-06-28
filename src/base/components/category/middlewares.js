@@ -6,7 +6,9 @@ import {
   ADD_CATEGORY,
   addCategorySuccess,
   DELETE_CATEGORIES,
-  deleteCategoriesSuccess
+  deleteCategoriesSuccess,
+  ADD_SUB_CATEGORY,
+  addSubCategorySuccess
 } from './actions';
 import { addEntities } from 'base/redux/actions';
 import history from 'base/providers/history';
@@ -94,6 +96,39 @@ export const deleteDeleteCategories = ({ dispatch }) => next => action => {
         }
 
         return res;
+      })
+      .catch(e => console.log(e));
+  }
+
+  next(action);
+};
+
+// sub categories
+
+export const addSubCategory = ({ dispatch }) => next => action => {
+  if (action.type === ADD_SUB_CATEGORY) {
+    const { name, categoryId, snack } = action.playload;
+
+    const request = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name })
+    };
+
+    const endpoint = getEndpoint(`/categories/${categoryId}`);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ subCategory }) => {
+        snack(`Sub-categoria ${name} adicionada com sucesso!`, {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+
+        dispatch(addSubCategorySuccess(subCategory, categoryId));
       })
       .catch(e => console.log(e));
   }
