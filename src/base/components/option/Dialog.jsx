@@ -38,7 +38,7 @@ class Dialog extends React.Component {
     });
 
     postOption(name, snack);
-    this.props.fnClose();
+    this.props.onClose();
   };
 
   render() {
@@ -67,7 +67,7 @@ class Dialog extends React.Component {
             </form>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.props.fnClose} color="primary">
+            <Button onClick={this.props.onClose} color="primary">
               Cancelar
             </Button>
             <Button onClick={this.handleSubmit} color="primary">
@@ -81,8 +81,7 @@ class Dialog extends React.Component {
 }
 
 Dialog.propTypes = {
-  fnClose: PropTypes.func.isRequired,
-  fnSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   postOption: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,

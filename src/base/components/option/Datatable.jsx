@@ -101,7 +101,7 @@ class DataTable extends React.Component {
       },
       customToolbar: () => {
         return (
-          <AddToolbar title="Adicionar Opção" onClick={this.props.fnOpen} />
+          <AddToolbar title="Adicionar Opção" onClick={this.props.onOpen} />
         );
       },
       onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
@@ -124,7 +124,7 @@ DataTable.propTypes = {
   classes: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
   toggleOptionItems: PropTypes.func.isRequired,
-  fnOpen: PropTypes.func.isRequired
+  onOpen: PropTypes.func.isRequired
 };
 
 const mapDispatchtoProps = {
