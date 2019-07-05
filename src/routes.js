@@ -8,6 +8,7 @@ import Item from 'base/components/item/Page.jsx';
 import OptionItem from 'base/components/option/item/Page.jsx';
 import PriceTable from 'base/components/priceTable/Page.jsx';
 import Price from 'base/components/priceTable/price/Page.jsx';
+import EditorPage from 'base/components/Editor/Page.jsx';
 
 var dashRoutes = [
   {
@@ -63,6 +64,13 @@ var dashRoutes = [
         mini: 'TP',
         layout: '/admin',
         component: PriceTable
+      },
+      {
+        path: '/config/editor',
+        name: 'Editor',
+        mini: 'E',
+        component: EditorPage,
+        layout: '/admin',
       }
     ]
   },
