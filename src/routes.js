@@ -9,6 +9,7 @@ import OptionItem from 'base/components/option/item/Page.jsx';
 import PriceTable from 'base/components/priceTable/Page.jsx';
 import Price from 'base/components/priceTable/price/Page.jsx';
 import EditorPage from 'base/components/Editor/Page.jsx';
+import LoginPage from 'base/components/theme/Views/Pages/LoginPage.jsx';
 
 var dashRoutes = [
   {
@@ -96,6 +97,14 @@ var dashRoutes = [
     mini: '',
     layout: '/admin',
     component: Price,
+    invisible: true
+  },
+  {
+    path: '/user',
+    name: 'Login',
+    mini: '',
+    layout: '/auth',
+    component: LoginPage,
     invisible: true
   }
 ];

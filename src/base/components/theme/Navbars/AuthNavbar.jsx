@@ -143,7 +143,7 @@ class AuthNavbar extends React.Component {
               </Button>
             </div>
           </Hidden>
-          <Hidden smDown>{list}</Hidden>
+          {/* <Hidden smDown>{list}</Hidden> */}
           <Hidden mdUp>
             <Button
               className={classes.sidebarButton}

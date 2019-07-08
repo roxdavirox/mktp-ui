@@ -28,7 +28,7 @@ const Editor = ({ classes }) => {
       //   // Specify the empty product size.
       //   surfaces: [{ width: 800, height: 600 }]
       // },
-      'cafaafba-12bf-4eeb-8cd0-e78015ccfaee',
+      'afdb11b9-6c6f-4055-a749-e72ee1742b07',
       {
         // Set a user id.
         userId: 'someUserId'
