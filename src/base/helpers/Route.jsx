@@ -22,3 +22,16 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
     }}
   />
 );
+
+export const PublicRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props => {
+      const user = localStorage.getItem('user');
+      if (user) {
+        return <Redirect to="/admin" />;
+      }
+      return <Component {...props} />
+    }}
+  />
+);
