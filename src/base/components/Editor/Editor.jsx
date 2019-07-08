@@ -24,14 +24,13 @@ const Editor = ({ classes }) => {
     //Loading the editor.
     IframeApi.loadEditor(
       iframe,
-      // {
-      //   // Specify the empty product size.
-      //   surfaces: [{ width: 800, height: 600 }]
-      // },
-      'afdb11b9-6c6f-4055-a749-e72ee1742b07',
       {
-        // Set a user id.
-        userId: 'someUserId'
+        // Specify the empty product size.
+        surfaces: [{ width: 800, height: 600 }]
+      },
+      {
+        // masterUserId
+        userId: '5d234507acca31173a43b303'
       }
     )
       .then(edt => setEditor(edt))
