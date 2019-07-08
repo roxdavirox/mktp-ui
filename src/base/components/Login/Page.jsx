@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { withSnackbar } from 'notistack';
 
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -23,7 +24,8 @@ import CardFooter from 'base/components/theme/Card/CardFooter.jsx';
 import loginPageStyle from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle.jsx';
 import AuthService from 'base/services/auth.service';
 import history from 'base/providers/history';
-const Page = props => {
+
+const Page = ({ enqueueSnackbar: snack, classes }) => {
   const [cardAnimation, setAnimation] = useState('cardHidden');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,15 +34,18 @@ const Page = props => {
     setTimeout(() => setAnimation(''), 700);
   }, []);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     AuthService.Login(email, password).then(user => {
       if (user) {
-        history.push('/admin');
+        snack(`Usuario autenticado com sucesso!`, {
+          variant: 'success',
+          autoHideDuration: 1000
+        });
+        setTimeout(() => history.push('/admin'), 1000);
       }
     });
   };
 
-  const { classes } = props;
   return (
     <div className={classes.container}>
       <GridContainer justify="center">
@@ -110,7 +115,8 @@ const Page = props => {
 };
 
 Page.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
-export default withStyles(loginPageStyle)(Page);
+export default withSnackbar(withStyles(loginPageStyle)(Page));

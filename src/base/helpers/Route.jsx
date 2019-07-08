@@ -31,7 +31,7 @@ export const PublicRoute = ({ component: Component, ...rest }) => (
       if (user) {
         return <Redirect to="/admin" />;
       }
-      return <Component {...props} />
+      return <Component {...props} />;
     }}
   />
 );

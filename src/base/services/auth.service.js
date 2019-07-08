@@ -13,9 +13,10 @@ const Login = async (email, password) => {
     .then(res => res.json())
     .then(res => {
       const { user, token } = res;
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('token', JSON.stringify(token));
-
+      if (user && token) {
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', JSON.stringify(token));
+      }
       return user;
     });
 };
