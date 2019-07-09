@@ -14,39 +14,22 @@ import { getEndpoint } from 'base/helpers/api';
 
 const Templates = () => {
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
   useEffect(() => {
-    const endpoint = getEndpoint('/categories');
-    fetch(endpoint)
+    const endpointCategories = getEndpoint('/categories');
+    fetch(endpointCategories)
       .then(res => res.json())
       .then(({ categories }) => setCategories(categories));
+
+    const endpointProducts = getEndpoint('/products/templates');
+    fetch(endpointProducts)
+      .then(res => res.json())
+      .then(products => {
+        const newProducts = products.map(p => ({ ...p, image: ProductImg }));
+        setProducts(newProducts);
+      });
   }, []);
 
-  const templates = [
-    {
-      id: 1,
-      url: '/product/edit',
-      img: ProductImg,
-      name: 'Cartão de visita'
-    },
-    {
-      id: 2,
-      url: '/product/edit',
-      img: ProductImg,
-      name: 'Placa de homenagem'
-    },
-    {
-      id: 3,
-      url: '/product/edit',
-      img: ProductImg,
-      name: 'Music'
-    },
-    {
-      id: 4,
-      url: '/product/edit',
-      img: ProductImg,
-      name: 'Simples'
-    }
-  ];
   return (
     <GridContainer>
       <GridItem xs={4} sm={4} md={4} lg={3}>
@@ -54,13 +37,13 @@ const Templates = () => {
       </GridItem>
       <GridItem xs={8} sm={4} md={4} lg={8}>
         <GridContainer>
-          {templates.map(t => (
-            <GridItem sm={6} md={3} lg={4} key={t.id}>
+          {products.map(p => (
+            <GridItem sm={6} md={3} lg={4} key={p._id}>
               <Card product>
                 <CardHeader image>
-                  <img src={t.img} alt="cardProduct" />
+                  <img src={p.image} alt="cardProduct" />
                 </CardHeader>
-                <CardBody>{t.name}</CardBody>
+                <CardBody>{p.name}</CardBody>
                 <CardFooter />
               </Card>
             </GridItem>
