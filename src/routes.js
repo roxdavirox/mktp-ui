@@ -1,6 +1,7 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ProductCreate from 'base/components/product/Page.jsx';
 import ProductList from 'base/components/product/ProductList.jsx';
+import Templates from 'base/components/product/Template/Templates.jsx';
 import Category from 'base/components/category/Page.jsx';
 import SubCategory from 'base/components/category/subCategory/Page.jsx';
 import Option from 'base/components/option/Page.jsx';
@@ -33,6 +34,12 @@ var dashRoutes = [
             path: '/config/products/list',
             name: 'Listar Produtos',
             component: ProductList,
+            layout: '/admin'
+          },
+          {
+            path: '/config/products/templates',
+            name: 'Templates dos produtos',
+            component: Templates,
             layout: '/admin'
           }
         ]
@@ -71,7 +78,7 @@ var dashRoutes = [
         name: 'Editor',
         mini: 'E',
         component: EditorPage,
-        layout: '/admin',
+        layout: '/admin'
       }
     ]
   },
