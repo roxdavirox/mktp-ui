@@ -32,13 +32,13 @@ var dashRoutes = [
           },
           {
             path: '/config/products/list',
-            name: 'Listar Produtos',
+            name: 'Opções',
             component: ProductList,
             layout: '/admin'
           },
           {
             path: '/config/products/templates',
-            name: 'Templates dos produtos',
+            name: 'Templates',
             component: Templates,
             layout: '/admin'
           }

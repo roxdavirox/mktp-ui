@@ -7,13 +7,13 @@ import Radio from '@material-ui/core/Radio';
 
 import basicsStyle from 'assets/jss/material-dashboard-pro-react/views/basicsStyle.jsx';
 
-const ProductCategory = ({ classes }) => {
+const ProductCategory = ({ classes, categories }) => {
   const [selectedEnabled, setEnabled] = useState('a');
   const handleChange = e => setEnabled(e.target.value);
   return (
     <>
       <div className={classes.title}>
-        <h3>Categorias</h3>
+        <h3>Categoria</h3>
       </div>
       <div
         className={
@@ -45,36 +45,44 @@ const ProductCategory = ({ classes }) => {
           label="Todas"
         />
       </div>
-      <div
-        className={
-          classes.checkboxAndRadio + ' ' + classes.checkboxAndRadioHorizontal
-        }
-      >
-        <FormControlLabel
-          control={
-            <Radio
-              checked={selectedEnabled === 'b'}
-              onChange={handleChange}
-              value="b"
-              name=""
-              aria-label="B"
-              icon={<FiberManualRecord className={classes.radioUnchecked} />}
-              checkedIcon={
-                <FiberManualRecord className={classes.radioChecked} />
+      {categories &&
+        categories.map(c => (
+          <div
+            className={
+              classes.checkboxAndRadio +
+              ' ' +
+              classes.checkboxAndRadioHorizontal
+            }
+            key={c._id}
+          >
+            <FormControlLabel
+              control={
+                <Radio
+                  checked={selectedEnabled === c._id}
+                  onChange={handleChange}
+                  value={c._id}
+                  name=""
+                  aria-label="B"
+                  icon={
+                    <FiberManualRecord className={classes.radioUnchecked} />
+                  }
+                  checkedIcon={
+                    <FiberManualRecord className={classes.radioChecked} />
+                  }
+                  classes={{
+                    checked: classes.radio,
+                    root: classes.radioRoot
+                  }}
+                />
               }
               classes={{
-                checked: classes.radio,
-                root: classes.radioRoot
+                label: classes.label,
+                root: classes.labelRoot
               }}
+              label={c.name}
             />
-          }
-          classes={{
-            label: classes.label,
-            root: classes.labelRoot
-          }}
-          label="Adesivos & Papelaria"
-        />
-      </div>
+          </div>
+        ))}
     </>
   );
 };
