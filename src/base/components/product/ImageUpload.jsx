@@ -64,19 +64,19 @@ class ImageUpload extends React.Component {
         <div>
           {this.state.file === null ? (
             <Button {...addButtonProps} onClick={() => this.handleClick()}>
-              {avatar ? 'Add Photo' : 'Select image'}
+              {avatar ? 'Add Photo' : 'Selecione uma imagem'}
             </Button>
           ) : (
             <span>
               <Button {...changeButtonProps} onClick={() => this.handleClick()}>
-                Change
+                Alterar
               </Button>
               {avatar ? <br /> : null}
               <Button
                 {...removeButtonProps}
                 onClick={() => this.handleRemove()}
               >
-                <i className="fas fa-times" /> Remove
+                <i className="fas fa-times" /> Excluir
               </Button>
             </span>
           )}

@@ -326,12 +326,12 @@ Wizard.defaultProps = {
   color: 'primary',
   title: 'Here should go your title',
   subtitle: 'And this would be your subtitle',
-  previousButtonText: 'Previous',
+  previousButtonText: 'Voltar',
   previousButtonClasses: '',
   nextButtonClasses: '',
-  nextButtonText: 'Next',
+  nextButtonText: 'Proximo',
   finishButtonClasses: '',
-  finishButtonText: 'Finish'
+  finishButtonText: 'Cadastrar'
 };
 
 Wizard.propTypes = {
