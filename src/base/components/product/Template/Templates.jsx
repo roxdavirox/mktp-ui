@@ -39,27 +39,23 @@ const Templates = () => {
     }
   ];
   return (
-    <GridContainer justify="center">
-      <GridItem xs={12} sm={8} lg={12}>
+    <GridContainer>
+      <GridItem xs={4} sm={4} md={4} lg={3}>
+        <Categories />
+      </GridItem>
+      <GridItem xs={8} sm={4} md={4} lg={8}>
         <GridContainer>
-          <GridItem xs={4} sm={4} md={4} lg={3}>
-            <Categories />
-          </GridItem>
-          <GridItem xs={8} sm={4} md={4} lg={8}>
-            <GridContainer>
-              {templates.map(t => (
-                <GridItem sm={6} md={3} lg={6} key={t.id}>
-                  <Card product>
-                    <CardHeader image>
-                      <img src={t.img} alt="cardProduct" />
-                    </CardHeader>
-                    <CardBody>{t.title}</CardBody>
-                    <CardFooter />
-                  </Card>
-                </GridItem>
-              ))}
-            </GridContainer>
-          </GridItem>
+          {templates.map(t => (
+            <GridItem sm={6} md={3} lg={4} key={t.id}>
+              <Card product>
+                <CardHeader image>
+                  <img src={t.img} alt="cardProduct" />
+                </CardHeader>
+                <CardBody>{t.title}</CardBody>
+                <CardFooter />
+              </Card>
+            </GridItem>
+          ))}
         </GridContainer>
       </GridItem>
     </GridContainer>
