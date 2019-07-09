@@ -15,7 +15,7 @@ import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-
+import { getEndpoint } from 'base/helpers/api';
 const style = theme => ({
   infoText: {
     fontWeight: '300',
@@ -38,15 +38,27 @@ const style = theme => ({
 class ProductStep extends React.Component {
   state = {
     nameState: '',
-    productName: ''
+    productName: '',
+    categories: [],
+    categoryId: ''
   };
-
+  componentDidMount() {
+    const endpoint = getEndpoint('/categories');
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(({ categories }) => this.setState({ categories }));
+  }
   handleNameChange = e => {
     const { value: name } = e.target;
     const newName = name.length >= 3 ? 'success' : 'error';
 
     this.setState({ nameState: newName, productName: name });
   };
+
+  handleChangeSelect = e =>
+    this.setState({
+      categoryId: e.target.value
+    });
 
   // wizard functions
   isValidated() {
@@ -59,13 +71,7 @@ class ProductStep extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { nameState } = this.state;
-    const categories = [
-      {
-        _id: 1,
-        name: 'Adesivos e papelaria'
-      }
-    ];
+    const { nameState, categories } = this.state;
 
     return (
       <>
@@ -105,8 +111,8 @@ class ProductStep extends React.Component {
               <InputLabel htmlFor="category-input">Categoria</InputLabel>
               <Select
                 className={classes.select}
-                value={this.state.priceTableId}
-                onChange={this.handlePriceTableChange}
+                value={this.state.categoryId}
+                onChange={this.handleChangeSelect}
                 input={<Input id="category-input" />}
               >
                 <MenuItem value="">

@@ -19,6 +19,7 @@ class WizardView extends React.Component {
   handleFinish = async steps => {
     const { enqueueSnackbar: snack } = this.props;
     const { optionStep: prevOptions, productStep } = steps;
+    const { productName: name, categoryId } = productStep;
     const options = prevOptions.map(op => ({
       id: op.id,
       items: op.items.map(i => i.id)
@@ -35,7 +36,7 @@ class WizardView extends React.Component {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name: productStep.productName, options })
+      body: JSON.stringify({ name, categoryId, options })
     };
     fetch(`${host}/products`, request)
       .then(res => res.json())
