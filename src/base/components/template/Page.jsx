@@ -42,7 +42,15 @@ const Page = withStyles(style)(({ classes }) => {
           image: getRandomImage()
         }));
         setProducts([
-          { _id: 0, name: 'Criar template', image: dropImage },
+          {
+            _id: 0,
+            name: (
+              <a href="#" style={{ color: 'blue' }}>
+                Criar template
+              </a>
+            ),
+            image: dropImage
+          },
           ...newProducts
         ]);
       });
