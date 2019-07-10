@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { withStyles } from '@material-ui/core/styles';
 import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
 import GridItem from 'base/components/theme/Grid/GridItem.jsx';
 
@@ -12,13 +12,25 @@ import product1 from 'assets/img/templates/cartao/template1.jpeg';
 import product2 from 'assets/img/templates/cartao/template2.jpeg';
 import product3 from 'assets/img/templates/cartao/template3.jpeg';
 import product4 from 'assets/img/templates/cartao/template4.jpeg';
+import dropImage from 'assets/img/templates/drop-file.png';
+
+const style = {
+  container: {
+    '& img': {
+      maxWidth: '200px',
+      maxHeight: '150px',
+      width: 'auto',
+      height: 'auto'
+    }
+  }
+};
 
 const getRandomImage = () => {
   const images = [product1, product2, product3, product4];
   return images[Math.floor(Math.random() * 3)];
 };
 
-const Page = () => {
+const Page = withStyles(style)(({ classes }) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const endpointProducts = getEndpoint('/products/templates');
@@ -29,7 +41,10 @@ const Page = () => {
           ...p,
           image: getRandomImage()
         }));
-        setProducts(newProducts);
+        setProducts([
+          { _id: 0, name: 'Criar template', image: dropImage },
+          ...newProducts
+        ]);
       });
   }, []);
   return (
@@ -38,12 +53,12 @@ const Page = () => {
         <TemplateCategories categories={categories} />
       </GridItem>
       <GridItem xs={8} sm={4} md={4} lg={8}>
-        <GridContainer>
+        <GridContainer className={classes.container}>
           <Templates products={products} />
         </GridContainer>
       </GridItem>
     </GridContainer>
   );
-};
+});
 
 export default Page;
