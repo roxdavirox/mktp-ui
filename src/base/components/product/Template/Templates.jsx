@@ -11,6 +11,7 @@ import CardFooter from 'base/components/theme/Card/CardFooter.jsx';
 import ProductCategory from './ProductCategory.jsx';
 import ProductImg from './CartaoVisita.jpg';
 import { getEndpoint } from 'base/helpers/api';
+import history from 'base/providers/history';
 
 const Templates = () => {
   const [categories, setCategories] = useState([]);
@@ -40,7 +41,10 @@ const Templates = () => {
           {products.map(p => (
             <GridItem sm={6} md={3} lg={4} key={p._id}>
               <Card product>
-                <CardHeader image>
+                <CardHeader
+                  image
+                  onClick={() => history.push('/admin/config/templates')}
+                >
                   <img src={p.image} alt="cardProduct" />
                 </CardHeader>
                 <CardBody>{p.name}</CardBody>

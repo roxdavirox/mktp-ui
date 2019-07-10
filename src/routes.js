@@ -11,6 +11,7 @@ import PriceTable from 'base/components/priceTable/Page.jsx';
 import Price from 'base/components/priceTable/price/Page.jsx';
 import EditorPage from 'base/components/Editor/Page.jsx';
 import LoginPage from 'base/components/Login/Page.jsx';
+import ProductTemplates from 'base/components/template/Page.jsx';
 
 var dashRoutes = [
   {
@@ -112,6 +113,14 @@ var dashRoutes = [
     mini: '',
     layout: '/auth',
     component: LoginPage,
+    invisible: true
+  },
+  {
+    path: '/config/templates',
+    name: 'Templates',
+    mini: '',
+    layout: '/admin',
+    component: ProductTemplates,
     invisible: true
   }
 ];
