@@ -142,9 +142,9 @@ class Dashboard extends React.Component {
       <div className={classes.wrapper}>
         <Sidebar
           routes={routes}
-          logoText={'Dashboard'}
+          logoText={'Custom place'}
           logo={logo}
-          image={this.state.image}
+          // image={this.state.image}
           handleDrawerToggle={this.handleDrawerToggle}
           open={this.state.mobileOpen}
           color={this.state.color}
@@ -173,7 +173,7 @@ class Dashboard extends React.Component {
             </div>
           )}
           {this.getRoute() ? <Footer fluid /> : null}
-          <FixedPlugin
+          {/* <FixedPlugin
             handleImageClick={this.handleImageClick}
             handleColorClick={this.handleColorClick}
             handleBgColorClick={this.handleBgColorClick}
@@ -185,7 +185,7 @@ class Dashboard extends React.Component {
             fixedClasses={this.state.fixedClasses}
             sidebarMinimize={this.sidebarMinimize.bind(this)}
             miniActive={this.state.miniActive}
-          />
+          /> */}
         </div>
       </div>
     );
