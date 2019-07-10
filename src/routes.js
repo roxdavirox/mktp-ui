@@ -73,13 +73,6 @@ var dashRoutes = [
         mini: 'TP',
         layout: '/admin',
         component: PriceTable
-      },
-      {
-        path: '/config/editor',
-        name: 'Editor',
-        mini: 'E',
-        component: EditorPage,
-        layout: '/admin'
       }
     ]
   },
@@ -121,6 +114,14 @@ var dashRoutes = [
     mini: '',
     layout: '/admin',
     component: ProductTemplates,
+    invisible: true
+  },
+  {
+    path: '/template/create',
+    name: 'Editor',
+    mini: 'E',
+    component: EditorPage,
+    layout: '/admin',
     invisible: true
   }
 ];

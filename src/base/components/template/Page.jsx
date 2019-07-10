@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
 import GridItem from 'base/components/theme/Grid/GridItem.jsx';
 
@@ -45,9 +46,9 @@ const Page = withStyles(style)(({ classes }) => {
           {
             _id: 0,
             name: (
-              <a href="#" style={{ color: 'blue' }}>
+              <Link to="/admin/template/create" style={{ color: 'blue' }}>
                 Criar template
-              </a>
+              </Link>
             ),
             image: dropImage
           },
