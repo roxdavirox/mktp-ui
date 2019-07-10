@@ -31,8 +31,8 @@ class Dashboard extends React.Component {
       mobileOpen: false,
       miniActive: false,
       image: image,
-      color: 'blue',
-      bgColor: 'black',
+      color: 'purple',
+      bgColor: 'white',
       hasImage: true,
       fixedClasses: 'dropdown'
     };
