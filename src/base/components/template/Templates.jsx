@@ -36,8 +36,14 @@ const Templates = withStyles(style)(({ products, classes }) => {
         <CardHeader
           className={classes.cardHeader}
           image
-          noShadow
-          onClick={() => history.push('/admin/config/templates')}
+          onClick={() =>
+            history.push({
+              pathname: '/admin/config/templates',
+              state: {
+                templateCategory: p.templateCategory
+              }
+            })
+          }
         >
           <img src={p.image} alt="cardProduct" className={classes.img} />
         </CardHeader>

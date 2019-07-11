@@ -1,8 +1,8 @@
 import React from 'react';
-import Editor from './Editor.jsx';
+import TemplateEditor from './TemplateEditor.jsx';
 
-const Page = () => {
-  return <Editor />;
+const Page = props => {
+  return <TemplateEditor {...props} />;
 };
 
 export default Page;

@@ -6,6 +6,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
 import GridItem from 'base/components/theme/Grid/GridItem.jsx';
 import Button from '@material-ui/core/Button';
+import history from 'base/providers/history';
+import { getEndpoint, createPostRequest } from 'base/helpers/api';
 
 const styles = {
   container: {
@@ -13,8 +15,9 @@ const styles = {
   }
 };
 
-const Editor = ({ classes }) => {
+const TemplateEditor = ({ classes, location }) => {
   const [editor, setEditor] = useState(null);
+  console.log('location: ', location);
   useEffect(() => {
     const {
       CustomersCanvas: { IframeApi }
@@ -39,26 +42,37 @@ const Editor = ({ classes }) => {
       });
   }, []);
   const handleFinish = () => {
-    editor.finishProductDesign().then(function(result) {
-      console.log('result', result);
-      var stateId = result.stateId;
-      console.log('State is saved successfully. Its id is ' + stateId);
+    const { templateCategory } = location.state;
+    const templateCategoryId = templateCategory._id;
+    editor.finishProductDesign().then(result => {
+      const { proofImageUrls, stateId } = result;
+      const [imageUrl] = proofImageUrls;
+      console.log('resultado: ', result);
+      const request = createPostRequest({
+        name: 'DefaultName',
+        stateId,
+        imageUrl
+      });
+      const endpoint = getEndpoint(`/templates/${templateCategoryId}`);
+      fetch(endpoint, request)
+        .then(res => res.json())
+        .then(category => console.log(category));
     });
   };
   return (
     <>
       <GridContainer className={classes.container}>
         <GridItem xs={12} lg={12}>
-          <iframe id="editorFrame" width="100%" height="600px" />{' '}
           <Button onClick={handleFinish}>Finalizar</Button>
+          <iframe id="editorFrame" width="100%" height="600px" />{' '}
         </GridItem>
       </GridContainer>
     </>
   );
 };
 
-Editor.propTypes = {
+TemplateEditor.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Editor);
+export default withStyles(styles)(TemplateEditor);

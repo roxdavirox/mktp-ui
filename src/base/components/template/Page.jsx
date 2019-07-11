@@ -33,6 +33,8 @@ const getRandomImage = () => {
 
 const Page = withStyles(style)(({ classes }) => {
   const [products, setProducts] = useState([]);
+  const [selectedEnabled, setEnabled] = useState('a');
+
   useEffect(() => {
     const endpointProducts = getEndpoint('/products/templates');
     fetch(endpointProducts)
@@ -42,6 +44,7 @@ const Page = withStyles(style)(({ classes }) => {
           ...p,
           image: getRandomImage()
         }));
+
         setProducts([
           {
             _id: 0,
@@ -56,14 +59,23 @@ const Page = withStyles(style)(({ classes }) => {
         ]);
       });
   }, []);
+
+  const selectedProducts = products.filter(
+    p => p.templateCategory._id != selectedEnabled
+  );
+
   return (
     <GridContainer>
       <GridItem xs={4} sm={4} md={4} lg={3}>
-        <TemplateCategories categories={categories} />
+        <TemplateCategories
+          categories={categories}
+          onSelectCategory={setEnabled}
+          selectedEnabled={selectedEnabled}
+        />
       </GridItem>
       <GridItem xs={8} sm={4} md={4} lg={8}>
         <GridContainer className={classes.container}>
-          <Templates products={products} />
+          <Templates products={selectedProducts} />
         </GridContainer>
       </GridItem>
     </GridContainer>
