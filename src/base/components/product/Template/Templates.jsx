@@ -38,20 +38,26 @@ const Templates = () => {
       </GridItem>
       <GridItem xs={8} sm={4} md={4} lg={8}>
         <GridContainer>
-          {products.map(p => (
-            <GridItem sm={6} md={3} lg={4} key={p._id}>
-              <Card product>
-                <CardHeader
-                  image
-                  onClick={() => history.push('/admin/config/templates')}
-                >
-                  <img src={p.image} alt="cardProduct" />
-                </CardHeader>
-                <CardBody>{p.name}</CardBody>
-                <CardFooter />
-              </Card>
-            </GridItem>
-          ))}
+          {products &&
+            products.map(p => (
+              <GridItem sm={6} md={3} lg={4} key={p._id}>
+                <Card product>
+                  <CardHeader
+                    image
+                    onClick={() =>
+                      history.push({
+                        pathname: '/admin/config/templates',
+                        state: { product: p }
+                      })
+                    }
+                  >
+                    <img src={p.image} alt="cardProduct" />
+                  </CardHeader>
+                  <CardBody>{p.name}</CardBody>
+                  <CardFooter />
+                </Card>
+              </GridItem>
+            ))}
         </GridContainer>
       </GridItem>
     </GridContainer>
