@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -31,51 +32,72 @@ const getRandomImage = () => {
   return images[Math.floor(Math.random() * 3)];
 };
 
-const Page = withStyles(style)(({ classes }) => {
-  const [products, setProducts] = useState([]);
-  const [selectedEnabled, setEnabled] = useState('a');
+const Page = withStyles(style)(({ classes, location }) => {
+  const [templates, setProductTemplates] = useState([]);
+  const [templateCategorySelectedId, setTemplateId] = useState('a');
+  const {
+    state: { product }
+  } = location;
 
   useEffect(() => {
-    const endpointProducts = getEndpoint('/products/templates');
-    fetch(endpointProducts)
-      .then(res => res.json())
-      .then(products => {
-        const newProducts = products.map(p => ({
-          ...p,
-          image: getRandomImage()
-        }));
+    if (templateCategorySelectedId !== 'a') {
+      console.log('templateCategorySelectedId:', templateCategorySelectedId);
+      const templateCategoryId = templateCategorySelectedId;
+      const allProductTemplates = getEndpoint(
+        `/product-templates/${templateCategoryId}`
+      );
 
-        setProducts([
-          {
-            _id: 0,
-            name: (
-              <Link to="/admin/template/create" style={{ color: 'blue' }}>
-                Criar template
-              </Link>
-            ),
-            image: dropImage
-          },
-          ...newProducts
-        ]);
-      });
-  }, []);
+      fetch(allProductTemplates)
+        .then(res => res.json())
+        .then(productTemplates => {
+          if (!!productTemplates) return [];
 
-  const selectedProducts = products.filter(
-    p => p.templateCategory._id != selectedEnabled
+          const newTemplates = productTemplates.map(p => ({
+            ...p,
+            image: getRandomImage()
+          }));
+
+          setProductTemplates(newTemplates);
+        })
+        .catch(e => console.log(e));
+    }
+  }, [templateCategorySelectedId]);
+
+  const { templatesCategory } = product;
+
+  const newTemplates = templates.filter(
+    t => t.templateCategory._id === templateCategorySelectedId
   );
+
+  const templateCreate = {
+    _id: 0,
+    name: (
+      <Link to="/admin/template/create" style={{ color: 'blue' }}>
+        Criar template
+      </Link>
+    ),
+    image: dropImage
+  };
+
+  const productTemplates =
+    templateCategorySelectedId !== 'a'
+      ? [templateCreate, ...newTemplates]
+      : newTemplates;
+
+  const handleChangeTemplateSelected = id => setTemplateId(id);
 
   return (
     <GridContainer>
       <GridItem xs={4} sm={4} md={4} lg={3}>
         <TemplateCategories
-          categories={categories}
-          onSelectCategory={setEnabled}
-          selectedEnabled={selectedEnabled}
+          categories={templatesCategory}
+          onSelectCategory={handleChangeTemplateSelected}
+          selectedEnabled={templateCategorySelectedId}
         />
       </GridItem>
       <GridItem xs={8} sm={4} md={4} lg={8}>
         <GridContainer className={classes.container}>
-          <Templates products={selectedProducts} />
+          <Templates productTemplates={productTemplates} />
         </GridContainer>
       </GridItem>
     </GridContainer>
