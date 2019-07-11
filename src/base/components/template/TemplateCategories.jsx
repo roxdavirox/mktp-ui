@@ -7,9 +7,14 @@ import Radio from '@material-ui/core/Radio';
 
 import basicsStyle from 'assets/jss/material-dashboard-pro-react/views/basicsStyle.jsx';
 
-const TemplateCategories = ({ classes, categories }) => {
-  const [selectedEnabled, setEnabled] = useState('a');
-  const handleChange = e => setEnabled(e.target.value);
+const TemplateCategories = ({
+  classes,
+  categories,
+  onSelectCategory,
+  selectedEnabled
+}) => {
+  // const [selectedEnabled, setEnabled] = useState('a');
+  const handleChange = e => onSelectCategory(e.target.value);
   return (
     <>
       <div className={classes.title}>
@@ -89,7 +94,9 @@ const TemplateCategories = ({ classes, categories }) => {
 
 TemplateCategories.propTypes = {
   classes: PropTypes.object,
-  categories: PropTypes.array.isRequired
+  categories: PropTypes.array.isRequired,
+  onSelectCategory: PropTypes.func.isRequired,
+  selectedEnabled: PropTypes.string.isRequired
 };
 
 export default withStyles(basicsStyle)(TemplateCategories);

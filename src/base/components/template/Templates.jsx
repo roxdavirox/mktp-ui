@@ -29,9 +29,9 @@ const style = {
   }
 };
 
-const Templates = withStyles(style)(({ products, classes }) => {
-  return products.map(p => (
-    <GridItem sm={6} md={3} lg={4} key={p._id}>
+const Templates = withStyles(style)(({ productTemplates, classes }) => {
+  return productTemplates.map(pt => (
+    <GridItem sm={6} md={3} lg={4} key={pt._id}>
       <Card product plain>
         <CardHeader
           className={classes.cardHeader}
@@ -40,14 +40,14 @@ const Templates = withStyles(style)(({ products, classes }) => {
             history.push({
               pathname: '/admin/config/templates',
               state: {
-                templateCategory: p.templateCategory
+                templateCategory: pt.templateCategory
               }
             })
           }
         >
-          <img src={p.image} alt="cardProduct" className={classes.img} />
+          <img src={pt.image} alt="cardProduct" className={classes.img} />
         </CardHeader>
-        <CardBody className={classes.cardBody}>{p.name}</CardBody>
+        <CardBody className={classes.cardBody}>{pt.name}</CardBody>
         <CardFooter />
       </Card>
     </GridItem>
