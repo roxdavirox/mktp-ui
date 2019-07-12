@@ -63,7 +63,7 @@ const Page = withStyles(style)(({ classes, location }) => {
       })
       .catch(e => console.log(e));
   }, [templateCategorySelectedId]);
-
+  console.log('location', location);
   const { templatesCategory } = product;
 
   const newTemplates = templates.filter(
@@ -73,7 +73,13 @@ const Page = withStyles(style)(({ classes, location }) => {
   const templateCreate = {
     _id: 0,
     name: (
-      <Link to="/admin/template/create" style={{ color: 'blue' }}>
+      <Link
+        to={{
+          pathname: '/admin/template/create',
+          state: { templateCategoryId: templateCategorySelectedId }
+        }}
+        style={{ color: 'blue' }}
+      >
         Criar template
       </Link>
     ),

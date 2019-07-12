@@ -42,18 +42,19 @@ const TemplateEditor = ({ classes, location }) => {
       });
   }, []);
   const handleFinish = () => {
-    const { templateCategory } = location.state;
-    const templateCategoryId = templateCategory._id;
+    const { templateCategoryId } = location.state;
+
     editor.finishProductDesign().then(result => {
       const { proofImageUrls, stateId } = result;
-      const [imageUrl] = proofImageUrls;
+      const [arrImage] = proofImageUrls;
+      const [imageUrl] = arrImage;
       console.log('resultado: ', result);
       const request = createPostRequest({
         name: 'DefaultName',
         stateId,
         imageUrl
       });
-      const endpoint = getEndpoint(`/templates/${templateCategoryId}`);
+      const endpoint = getEndpoint(`/product-templates/${templateCategoryId}`);
       fetch(endpoint, request)
         .then(res => res.json())
         .then(category => console.log(category));
