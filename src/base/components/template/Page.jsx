@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
@@ -51,8 +52,8 @@ const Page = withStyles(style)(({ classes, location }) => {
 
     fetch(endpoint)
       .then(res => res.json())
-      .then(productTemplates => {
-        if (!!productTemplates) return [];
+      .then(({ productTemplates }) => {
+        console.log('productTemplates', productTemplates);
 
         const newTemplates = productTemplates.map(p => ({
           ...p,
@@ -65,10 +66,10 @@ const Page = withStyles(style)(({ classes, location }) => {
   }, [templateCategorySelectedId]);
   console.log('location', location);
   const { templatesCategory } = product;
-
   const newTemplates = templates.filter(
-    t => t.templateCategory._id === templateCategorySelectedId
+    t => t.templateCategory === templateCategorySelectedId
   );
+  console.log('new templates', newTemplates);
 
   const templateCreate = {
     _id: 0,
@@ -92,7 +93,7 @@ const Page = withStyles(style)(({ classes, location }) => {
       : newTemplates;
 
   const handleChangeTemplateSelected = id => setTemplateId(id);
-
+  console.log('templates filtrados', productTemplates);
   return (
     <GridContainer>
       <GridItem xs={4} sm={4} md={4} lg={3}>
