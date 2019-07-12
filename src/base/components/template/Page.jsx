@@ -40,27 +40,29 @@ const Page = withStyles(style)(({ classes, location }) => {
   } = location;
 
   useEffect(() => {
-    if (templateCategorySelectedId !== 'a') {
-      console.log('templateCategorySelectedId:', templateCategorySelectedId);
-      const templateCategoryId = templateCategorySelectedId;
-      const allProductTemplates = getEndpoint(
-        `/product-templates/${templateCategoryId}`
-      );
+    const templateCategoryId = templateCategorySelectedId;
 
-      fetch(allProductTemplates)
-        .then(res => res.json())
-        .then(productTemplates => {
-          if (!!productTemplates) return [];
+    const endpoint = getEndpoint(
+      templateCategorySelectedId !== 'a'
+        ? `/product-templates/${templateCategoryId}`
+        : '/product-templates'
+    );
 
-          const newTemplates = productTemplates.map(p => ({
-            ...p,
-            image: getRandomImage()
-          }));
+    console.log('endpoint:', endpoint);
 
-          setProductTemplates(newTemplates);
-        })
-        .catch(e => console.log(e));
-    }
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(productTemplates => {
+        if (!!productTemplates) return [];
+
+        const newTemplates = productTemplates.map(p => ({
+          ...p,
+          image: getRandomImage()
+        }));
+
+        setProductTemplates(newTemplates);
+      })
+      .catch(e => console.log(e));
   }, [templateCategorySelectedId]);
 
   const { templatesCategory } = product;
