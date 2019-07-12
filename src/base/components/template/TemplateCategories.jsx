@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -13,7 +13,6 @@ const TemplateCategories = ({
   onSelectCategory,
   selectedEnabled
 }) => {
-  // const [selectedEnabled, setEnabled] = useState('a');
   const handleChange = e => onSelectCategory(e.target.value);
   return (
     <>

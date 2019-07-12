@@ -8,7 +8,6 @@ import GridItem from 'base/components/theme/Grid/GridItem.jsx';
 import TemplateCategories from './TemplateCategories.jsx';
 import Templates from './Templates';
 import { getEndpoint } from 'base/helpers/api';
-import { categories } from 'base/helpers/categories';
 
 import product1 from 'assets/img/templates/cartao/template1.jpeg';
 import product2 from 'assets/img/templates/cartao/template2.jpeg';
