@@ -57,7 +57,13 @@ const TemplateEditor = ({ classes, location }) => {
       const endpoint = getEndpoint(`/product-templates/${templateCategoryId}`);
       fetch(endpoint, request)
         .then(res => res.json())
-        .then(category => console.log(category));
+        .then(category => {
+          history.push({
+            pathname: '/admin/config/templates',
+            state: { category, ...location.state }
+          });
+        })
+        .catch(e => console.log(e));
     });
   };
   return (
@@ -73,7 +79,8 @@ const TemplateEditor = ({ classes, location }) => {
 };
 
 TemplateEditor.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  location: PropTypes.object
 };
 
 export default withStyles(styles)(TemplateEditor);

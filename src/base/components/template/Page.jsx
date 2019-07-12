@@ -48,24 +48,12 @@ const Page = withStyles(style)(({ classes, location }) => {
         : '/product-templates'
     );
 
-    console.log('endpoint:', endpoint);
-
     fetch(endpoint)
       .then(res => res.json())
-      .then(({ productTemplates }) => {
-        console.log('productTemplates', productTemplates);
-
-        const newTemplates = productTemplates.map(p => ({
-          ...p,
-          image: getRandomImage()
-        }));
-
-        setProductTemplates(newTemplates);
-      })
+      .then(({ productTemplates }) => setProductTemplates(productTemplates))
       .catch(e => console.log(e));
   }, [templateCategorySelectedId]);
-  console.log('location', location);
-  const { templatesCategory } = product;
+
   const newTemplates = templates.filter(
     t => t.templateCategory === templateCategorySelectedId
   );
@@ -77,23 +65,27 @@ const Page = withStyles(style)(({ classes, location }) => {
       <Link
         to={{
           pathname: '/admin/template/create',
-          state: { templateCategoryId: templateCategorySelectedId }
+          state: {
+            templateCategoryId: templateCategorySelectedId,
+            ...location.state
+          }
         }}
         style={{ color: 'blue' }}
       >
         Criar template
       </Link>
     ),
-    image: dropImage
+    imageUrl: dropImage
   };
 
+  const { templatesCategory } = product;
   const productTemplates =
     templateCategorySelectedId !== 'a'
       ? [templateCreate, ...newTemplates]
-      : newTemplates;
+      : templates;
 
   const handleChangeTemplateSelected = id => setTemplateId(id);
-  console.log('templates filtrados', productTemplates);
+
   return (
     <GridContainer>
       <GridItem xs={4} sm={4} md={4} lg={3}>
@@ -105,7 +97,7 @@ const Page = withStyles(style)(({ classes, location }) => {
       </GridItem>
       <GridItem xs={8} sm={4} md={4} lg={8}>
         <GridContainer className={classes.container}>
-          <Templates productTemplates={productTemplates} />
+          <Templates productTemplates={productTemplates} location={location} />
         </GridContainer>
       </GridItem>
     </GridContainer>

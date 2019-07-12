@@ -29,29 +29,32 @@ const style = {
   }
 };
 
-const Templates = withStyles(style)(({ productTemplates, classes }) => {
-  return productTemplates.map(pt => (
-    <GridItem sm={6} md={3} lg={4} key={pt._id}>
-      <Card product plain>
-        <CardHeader
-          className={classes.cardHeader}
-          image
-          onClick={() =>
-            history.push({
-              pathname: '/admin/config/templates',
-              state: {
-                templateCategory: pt.templateCategory
-              }
-            })
-          }
-        >
-          <img src={pt.image} alt="cardProduct" className={classes.img} />
-        </CardHeader>
-        <CardBody className={classes.cardBody}>{pt.name}</CardBody>
-        <CardFooter />
-      </Card>
-    </GridItem>
-  ));
-});
+const Templates = withStyles(style)(
+  ({ productTemplates, classes, location }) => {
+    return productTemplates.map(pt => (
+      <GridItem sm={6} md={3} lg={4} key={pt._id}>
+        <Card product plain>
+          <CardHeader
+            className={classes.cardHeader}
+            image
+            onClick={() =>
+              history.push({
+                pathname: '/admin/config/templates',
+                state: {
+                  templateCategory: pt.templateCategory,
+                  ...location.state
+                }
+              })
+            }
+          >
+            <img src={pt.imageUrl} alt="cardProduct" className={classes.img} />
+          </CardHeader>
+          <CardBody className={classes.cardBody}>{pt.name}</CardBody>
+          <CardFooter />
+        </Card>
+      </GridItem>
+    ));
+  }
+);
 
 export default Templates;
