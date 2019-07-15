@@ -37,6 +37,7 @@ const style = theme => ({
 
 class ProductStep extends React.Component {
   state = {
+    imageFile: null,
     nameState: '',
     productName: '',
     categories: [],
@@ -69,6 +70,11 @@ class ProductStep extends React.Component {
     return this.state;
   }
 
+  handleImageChange = imageFile =>
+    this.setState({
+      imageFile
+    });
+
   render() {
     const { classes } = this.props;
     const { nameState, categories } = this.state;
@@ -80,7 +86,7 @@ class ProductStep extends React.Component {
             <h4 className={classes.infoText}>Digite o nome do produto</h4>
           </GridItem>
           <GridItem xs={12} sm={4}>
-            <ImageUpload />
+            <ImageUpload onImageChange={this.handleImageChange} />
           </GridItem>
           <GridItem xs={12} sm={6}>
             <CustomInput

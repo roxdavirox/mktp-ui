@@ -29,6 +29,7 @@ class ImageUpload extends React.Component {
         file: file,
         imagePreviewUrl: reader.result
       });
+      this.props.onImageChange(file);
     };
     reader.readAsDataURL(file);
   }
@@ -90,7 +91,8 @@ ImageUpload.propTypes = {
   avatar: PropTypes.bool,
   addButtonProps: PropTypes.object,
   changeButtonProps: PropTypes.object,
-  removeButtonProps: PropTypes.object
+  removeButtonProps: PropTypes.object,
+  onImageChange: PropTypes.func
 };
 
 export default ImageUpload;

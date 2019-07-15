@@ -19,7 +19,7 @@ class WizardView extends React.Component {
   handleFinish = async steps => {
     const { enqueueSnackbar: snack } = this.props;
     const { optionStep: prevOptions, productStep } = steps;
-    const { productName: name, categoryId } = productStep;
+    const { productName: name, categoryId, imageFile } = productStep;
     const options = prevOptions.map(op => ({
       id: op.id,
       items: op.items.map(i => i.id)
@@ -30,14 +30,17 @@ class WizardView extends React.Component {
       autoHideDuration: 2000
     });
     const host = process.env.REACT_APP_HOST_API;
+    const data = new FormData();
+    data.append('image', imageFile);
+    data.append('name', name);
+    data.append('categoryId', categoryId);
+    data.append('options', options);
+
     const request = {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name, categoryId, options })
+      body: data
     };
+
     fetch(`${host}/products`, request)
       .then(res => res.json())
       .then(product => {
