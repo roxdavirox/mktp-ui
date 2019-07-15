@@ -34,7 +34,7 @@ class WizardView extends React.Component {
     data.append('image', imageFile);
     data.append('name', name);
     data.append('categoryId', categoryId);
-    data.append('options', options);
+    data.append('options', JSON.stringify(options));
 
     const request = {
       method: 'POST',
