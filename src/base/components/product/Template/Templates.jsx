@@ -9,7 +9,6 @@ import CardFooter from 'base/components/theme/Card/CardFooter.jsx';
 
 // feature
 import ProductCategory from './ProductCategory.jsx';
-import ProductImg from './CartaoVisita.jpg';
 import { getEndpoint } from 'base/helpers/api';
 import history from 'base/providers/history';
 
@@ -25,10 +24,7 @@ const Templates = () => {
     const endpointProducts = getEndpoint('/products/templates');
     fetch(endpointProducts)
       .then(res => res.json())
-      .then(products => {
-        const newProducts = products.map(p => ({ ...p, image: ProductImg }));
-        setProducts(newProducts);
-      });
+      .then(products => setProducts(products));
   }, []);
 
   return (
@@ -51,7 +47,7 @@ const Templates = () => {
                       })
                     }
                   >
-                    <img src={p.image} alt="cardProduct" />
+                    <img src={p.imageUrl} alt="cardProduct" />
                   </CardHeader>
                   <CardBody>{p.name}</CardBody>
                   <CardFooter />
