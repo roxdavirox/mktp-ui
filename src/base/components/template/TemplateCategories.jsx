@@ -4,20 +4,31 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import Radio from '@material-ui/core/Radio';
-
+import Add from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
 import basicsStyle from 'assets/jss/material-dashboard-pro-react/views/basicsStyle.jsx';
 
 const TemplateCategories = ({
   classes,
   categories,
   onSelectCategory,
+  onOpenAddCategoryDialog,
   selectedEnabled
 }) => {
   const handleChange = e => onSelectCategory(e.target.value);
   return (
     <>
       <div className={classes.title}>
-        <h3>Categoria</h3>
+        <h3 style={{ display: 'flex', justifyContent: 'space-between' }}>
+          Categoria{' '}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onOpenAddCategoryDialog}
+          >
+            <Add />
+          </Button>
+        </h3>
       </div>
       <div
         className={
@@ -95,6 +106,7 @@ TemplateCategories.propTypes = {
   classes: PropTypes.object,
   categories: PropTypes.array.isRequired,
   onSelectCategory: PropTypes.func.isRequired,
+  onOpenAddCategoryDialog: PropTypes.func.isRequired,
   selectedEnabled: PropTypes.string.isRequired
 };
 

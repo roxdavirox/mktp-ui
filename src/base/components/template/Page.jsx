@@ -9,13 +9,9 @@ import GridItem from 'base/components/theme/Grid/GridItem.jsx';
 import TemplateCategories from './TemplateCategories.jsx';
 import Templates from './Templates';
 import { getEndpoint } from 'base/helpers/api';
-
-import product1 from 'assets/img/templates/cartao/template1.jpeg';
-import product2 from 'assets/img/templates/cartao/template2.jpeg';
-import product3 from 'assets/img/templates/cartao/template3.jpeg';
-import product4 from 'assets/img/templates/cartao/template4.jpeg';
+import AddCategoryDialog from './AddCategoryDialog.jsx';
 import dropImage from 'assets/img/templates/drop-file.png';
-
+import { createPostRequest } from 'base/helpers/api';
 const style = {
   container: {
     '& img': {
@@ -27,13 +23,10 @@ const style = {
   }
 };
 
-const getRandomImage = () => {
-  const images = [product1, product2, product3, product4];
-  return images[Math.floor(Math.random() * 3)];
-};
-
 const Page = withStyles(style)(({ classes, location }) => {
+  const [openDialog, setDialogState] = useState(false);
   const [templates, setProductTemplates] = useState([]);
+  const [templatesCategory, setTemplatesCategory] = useState([]);
   const [templateCategorySelectedId, setTemplateId] = useState('a');
   const {
     state: { product }
@@ -53,6 +46,16 @@ const Page = withStyles(style)(({ classes, location }) => {
       .then(({ productTemplates }) => setProductTemplates(productTemplates))
       .catch(e => console.log(e));
   }, [templateCategorySelectedId]);
+
+  useEffect(() => {
+    const { _id: productId } = product;
+    const endpoint = getEndpoint(`/templates-category/${productId}`);
+
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(({ templatesCategory }) => setTemplatesCategory(templatesCategory))
+      .catch(e => console.log(e));
+  }, []);
 
   const newTemplates = templates.filter(
     t => t.templateCategory === templateCategorySelectedId
@@ -78,7 +81,6 @@ const Page = withStyles(style)(({ classes, location }) => {
     imageUrl: dropImage
   };
 
-  const { templatesCategory } = product;
   const productTemplates =
     templateCategorySelectedId !== 'a'
       ? [templateCreate, ...newTemplates]
@@ -86,21 +88,46 @@ const Page = withStyles(style)(({ classes, location }) => {
 
   const handleChangeTemplateSelected = id => setTemplateId(id);
 
+  const handleAddCategory = async categoryName => {
+    const { _id: productId } = product;
+    const endpoint = getEndpoint(`/templates-category/${productId}`);
+    const request = createPostRequest({ name: categoryName });
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ templateCategory }) =>
+        setTemplatesCategory([...templatesCategory, templateCategory])
+      )
+      .catch(e => console.log(e));
+  };
+
   return (
-    <GridContainer>
-      <GridItem xs={4} sm={4} md={4} lg={3}>
-        <TemplateCategories
-          categories={templatesCategory}
-          onSelectCategory={handleChangeTemplateSelected}
-          selectedEnabled={templateCategorySelectedId}
+    <>
+      {openDialog && (
+        <AddCategoryDialog
+          open={openDialog}
+          onClose={() => setDialogState(false)}
+          onAddCategory={handleAddCategory}
         />
-      </GridItem>
-      <GridItem xs={8} sm={4} md={4} lg={8}>
-        <GridContainer className={classes.container}>
-          <Templates productTemplates={productTemplates} location={location} />
-        </GridContainer>
-      </GridItem>
-    </GridContainer>
+      )}
+      <GridContainer>
+        <GridItem xs={4} sm={4} md={4} lg={3}>
+          <TemplateCategories
+            categories={templatesCategory}
+            onSelectCategory={handleChangeTemplateSelected}
+            selectedEnabled={templateCategorySelectedId}
+            onOpenAddCategoryDialog={() => setDialogState(true)}
+          />
+        </GridItem>
+        <GridItem xs={8} sm={4} md={4} lg={8}>
+          <GridContainer className={classes.container}>
+            <Templates
+              productTemplates={productTemplates}
+              location={location}
+            />
+          </GridContainer>
+        </GridItem>
+      </GridContainer>
+    </>
   );
 });
 
