@@ -10,16 +10,16 @@ const generateTree = data => {
     name: p.name,
     parentId: null,
     options: p.options.map(op => ({
-      _id: op.id,
-      id: op.id + p._id,
-      name: op.name,
+      _id: op._id,
+      id: op._id + p._id,
+      name: op.option.name,
       parentId: p._id,
       items: op.items.map(item => {
         const items = {
           _id: item._id,
-          id: item._id + op.id,
+          id: item._id + op._id,
           name: item.name,
-          parentId: op.id + p._id
+          parentId: op._id + p._id
         };
         return items;
       })
