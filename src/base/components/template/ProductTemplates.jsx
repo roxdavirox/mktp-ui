@@ -50,9 +50,7 @@ const CreateTemplate = (templateCategoryId, location, classes) => (
       >
         <img src={dropImage} alt="cardProduct" className={classes.img} />
       </CardHeader>
-      <CardBody className={classes.cardBody}>
-        Criar template {templateCategoryId}
-      </CardBody>
+      <CardBody className={classes.cardBody}>Criar template</CardBody>
       <CardFooter />
     </Card>
   </GridItem>
