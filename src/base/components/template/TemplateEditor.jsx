@@ -42,7 +42,7 @@ const TemplateEditor = ({ classes, location }) => {
       });
   }, []);
   const handleFinish = () => {
-    const { templateCategoryId } = location.state;
+    const { templateCategoryId, product } = location.state;
 
     editor.finishProductDesign().then(result => {
       const { proofImageUrls, stateId } = result;
@@ -52,7 +52,8 @@ const TemplateEditor = ({ classes, location }) => {
       const request = createPostRequest({
         name: 'DefaultName',
         stateId,
-        imageUrl
+        imageUrl,
+        productId: product._id
       });
       const endpoint = getEndpoint(`/product-templates/${templateCategoryId}`);
       fetch(endpoint, request)
