@@ -59,9 +59,10 @@ const TemplateEditor = ({ classes, location }) => {
       fetch(endpoint, request)
         .then(res => res.json())
         .then(category => {
+          const { product } = location.state;
           history.push({
             pathname: '/admin/config/templates',
-            state: { category, ...location.state }
+            state: { product, category }
           });
         })
         .catch(e => console.log(e));

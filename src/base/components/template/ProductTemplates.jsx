@@ -31,15 +31,9 @@ const style = {
   }
 };
 
-const newTemplate = {
-  _id: 0,
-  name: 'Criar template',
-  imageUrl: dropImage
-};
-
 // eslint-disable-next-line react/display-name
-const CreateTemplate = (templateCategoryId, location, classes) => pt => (
-  <GridItem sm={6} md={3} lg={4} key={pt._id}>
+const CreateTemplate = (templateCategoryId, location, classes) => (
+  <GridItem sm={6} md={3} lg={4} key={0}>
     <Card product plain>
       <CardHeader
         className={classes.cardHeader}
@@ -48,15 +42,17 @@ const CreateTemplate = (templateCategoryId, location, classes) => pt => (
           history.push({
             pathname: '/admin/template/create',
             state: {
-              templateCategoryId: templateCategoryId,
+              templateCategoryId,
               ...location.state
             }
           })
         }
       >
-        <img src={pt.imageUrl} alt="cardProduct" className={classes.img} />
+        <img src={dropImage} alt="cardProduct" className={classes.img} />
       </CardHeader>
-      <CardBody className={classes.cardBody}>{pt.name}</CardBody>
+      <CardBody className={classes.cardBody}>
+        Criar template {templateCategoryId}
+      </CardBody>
       <CardFooter />
     </Card>
   </GridItem>
@@ -64,15 +60,11 @@ const CreateTemplate = (templateCategoryId, location, classes) => pt => (
 
 const Templates = withStyles(style)(
   ({ productTemplates, classes, location, templateCategorySelectedId }) => {
-    const NewTemplate = CreateTemplate(
-      templateCategorySelectedId,
-      location,
-      classes
-    )(newTemplate);
-
+    console.log('selectedId', templateCategorySelectedId);
     return (
       <>
-        {templateCategorySelectedId !== 'a' && NewTemplate}
+        {templateCategorySelectedId !== 'a' &&
+          CreateTemplate(templateCategorySelectedId, location, classes)}
         {productTemplates.map(pt => (
           <GridItem sm={6} md={3} lg={4} key={pt._id}>
             <Card product plain>
