@@ -1,19 +1,20 @@
 /* eslint-disable no-console */
 import {
-  ADD_ITEM,
   ADD_OPTION_ITEM,
   addOptionItemSucess,
-  addItemSuccess,
-  DELETE_ITEMS,
-  deleteItemsSuccess,
-  DELETE_OPTION_ITEMS,
-  FETCH_ITEMS,
-  deleteOptionItemsSuccess,
   ADD_EXISTING_ITEMS,
   addExistingItemsSuccess,
+  DELETE_OPTION_ITEMS,
+  deleteOptionItemsSuccess,
+  FETCH_ITEMS,
+  addItemSuccess,
+  ADD_ITEM,
   EDIT_ITEM,
-  editItemSuccess
+  editItemSuccess,
+  DELETE_ITEMS,
+  deleteItemsSuccess
 } from './actions';
+
 import { addEntities } from 'redux/actions';
 import { itemSchema } from 'redux/schema';
 import { normalize } from 'normalizr';
@@ -22,7 +23,59 @@ const host = process.env.REACT_APP_HOST_API;
 
 const getEndpoint = route => `${host}${route}`;
 
-export const addItemMiddleware = ({ dispatch }) => next => action => {
+export const fetchItems = ({ dispatch }) => next => action => {
+  if (action.type === FETCH_ITEMS) {
+    const url = getEndpoint('/items');
+
+    fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        console.log('items response:', res);
+        return res;
+      })
+      .then(({ items }) => normalize(items, [itemSchema]))
+      .then(res => {
+        console.log('normalized response:', res);
+        return res;
+      })
+      .then(({ entities }) => dispatch(addEntities(entities)))
+      .catch(e => console.log(e));
+  }
+
+  next(action);
+};
+
+export const editItem = ({ dispatch }) => next => action => {
+  if (action.type === EDIT_ITEM) {
+    const { item, snack } = action.playload;
+
+    const { _id: itemId, ...body } = item;
+
+    const request = {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ...body })
+    };
+    const endpoint = getEndpoint(`/items/${itemId}`);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ item }) => {
+        dispatch(editItemSuccess(item));
+        snack('Item atualizado com sucesso!', {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+      })
+      .catch(e => console.log(e));
+  }
+  next(action);
+};
+
+export const addItem = ({ dispatch }) => next => action => {
   if (action.type === ADD_ITEM) {
     const { item, snack } = action.playload;
 
@@ -81,7 +134,7 @@ export const addOptionItem = ({ dispatch }) => next => action => {
   next(action);
 };
 
-export const addExistingItemsMiddleware = ({ dispatch }) => next => action => {
+export const addExistingItems = ({ dispatch }) => next => action => {
   if (action.type === ADD_EXISTING_ITEMS) {
     const { itemsId, optionId, snack } = action.playload;
 
@@ -119,7 +172,7 @@ export const addExistingItemsMiddleware = ({ dispatch }) => next => action => {
   next(action);
 };
 
-export const deleteItemsMiddleware = ({ dispatch }) => next => action => {
+export const deleteItems = ({ dispatch }) => next => action => {
   if (action.type === DELETE_ITEMS) {
     const { itemsId, snack } = action.playload;
 
@@ -158,7 +211,7 @@ export const deleteItemsMiddleware = ({ dispatch }) => next => action => {
   next(action);
 };
 
-export const deleteOptionItemsMiddleware = ({ dispatch }) => next => action => {
+export const deleteOptionItems = ({ dispatch }) => next => action => {
   if (action.type === DELETE_OPTION_ITEMS) {
     const { itemsId, optionId, snack } = action.playload;
 
@@ -191,57 +244,5 @@ export const deleteOptionItemsMiddleware = ({ dispatch }) => next => action => {
       .catch(error => console.log('error ao deletar option items: ', error));
   }
 
-  next(action);
-};
-
-export const fetchItemsMiddleware = ({ dispatch }) => next => action => {
-  if (action.type === FETCH_ITEMS) {
-    const url = getEndpoint('/items');
-
-    fetch(url)
-      .then(res => res.json())
-      .then(res => {
-        console.log('items response:', res);
-        return res;
-      })
-      .then(({ items }) => normalize(items, [itemSchema]))
-      .then(res => {
-        console.log('normalized response:', res);
-        return res;
-      })
-      .then(({ entities }) => dispatch(addEntities(entities)))
-      .catch(e => console.log(e));
-  }
-
-  next(action);
-};
-
-export const editItem = ({ dispatch }) => next => action => {
-  if (action.type === EDIT_ITEM) {
-    const { item, snack } = action.playload;
-
-    const { _id: itemId, ...body } = item;
-
-    const request = {
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ ...body })
-    };
-    const endpoint = getEndpoint(`/items/${itemId}`);
-
-    fetch(endpoint, request)
-      .then(res => res.json())
-      .then(({ item }) => {
-        dispatch(editItemSuccess(item));
-        snack('Item atualizado com sucesso!', {
-          variant: 'success',
-          autoHideDuration: 2000
-        });
-      })
-      .catch(e => console.log(e));
-  }
   next(action);
 };
