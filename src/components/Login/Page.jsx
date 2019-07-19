@@ -12,18 +12,18 @@ import Email from '@material-ui/icons/Email';
 // import LockOutline from "@material-ui/icons/LockOutline";
 
 // core components
-import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
-import GridItem from 'base/components/theme/Grid/GridItem.jsx';
-import CustomInput from 'base/components/theme/CustomInput/CustomInput.jsx';
-import Button from 'base/components/theme/CustomButtons/Button.jsx';
-import Card from 'base/components/theme/Card/Card.jsx';
-import CardBody from 'base/components/theme/Card/CardBody.jsx';
-import CardHeader from 'base/components/theme/Card/CardHeader.jsx';
-import CardFooter from 'base/components/theme/Card/CardFooter.jsx';
+import GridContainer from 'components/theme/Grid/GridContainer.jsx';
+import GridItem from 'components/theme/Grid/GridItem.jsx';
+import CustomInput from 'components/theme/CustomInput/CustomInput.jsx';
+import Button from 'components/theme/CustomButtons/Button.jsx';
+import Card from 'components/theme/Card/Card.jsx';
+import CardBody from 'components/theme/Card/CardBody.jsx';
+import CardHeader from 'components/theme/Card/CardHeader.jsx';
+import CardFooter from 'components/theme/Card/CardFooter.jsx';
 
 import loginPageStyle from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle.jsx';
-import AuthService from 'base/services/auth.service';
-import history from 'base/providers/history';
+import AuthService from 'services/auth.service';
+import history from 'providers/history';
 
 const Page = ({ enqueueSnackbar: snack, classes }) => {
   const [cardAnimation, setAnimation] = useState('cardHidden');

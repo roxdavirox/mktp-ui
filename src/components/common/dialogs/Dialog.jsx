@@ -6,9 +6,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 // import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
-import ItemMuiDatatable from 'base/components/Table/ItemMuiDatatable.jsx';
-import CustomAddButton from 'base/components/CustomButtons/CustomAddButton.jsx';
-import CustomInput from 'base/components/CustomInput/CustomInput.jsx';
+import ItemMuiDatatable from 'components/Table/ItemMuiDatatable.jsx';
+import CustomAddButton from 'components/CustomButtons/CustomAddButton.jsx';
+import CustomInput from 'components/CustomInput/CustomInput.jsx';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Close from '@material-ui/icons/Close';
 

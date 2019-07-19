@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable prettier/prettier */
-import { optionSchema } from "base/redux/schema";
+import { optionSchema } from "redux/schema";
 import { normalize } from "normalizr";
 
-import { addEntities } from "base/redux/actions";
+import { addEntities } from "redux/actions";
 
 import {
   fetchOptionsFailure,

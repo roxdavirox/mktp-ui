@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { categorySchema } from 'base/redux/schema';
+import { categorySchema } from 'redux/schema';
 import { normalize } from 'normalizr';
 import {
   FETCH_CATEGORIES,
@@ -12,8 +12,8 @@ import {
   DELETE_SUB_CATEGORIES,
   deleteSubCategoriesSuccess
 } from './actions';
-import { addEntities } from 'base/redux/actions';
-import history from 'base/providers/history';
+import { addEntities } from 'redux/actions';
+import history from 'providers/history';
 
 const host = process.env.REACT_APP_HOST_API;
 

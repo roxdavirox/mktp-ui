@@ -9,10 +9,10 @@ import {
   deleteOptionItems,
   fetchItems,
   editItem
-} from 'base/components/item/actions';
+} from 'components/item/actions';
 import { fetchOptions } from '../actions';
-import { getOptionsItems } from 'base/components/item/selectors';
-import { getPriceTables } from 'base/components/priceTable/selectors';
+import { getOptionsItems } from 'components/item/selectors';
+import { getPriceTables } from 'components/priceTable/selectors';
 import Dialog from './Dialog';
 import Datatable from './Datatable';
 

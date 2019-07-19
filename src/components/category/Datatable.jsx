@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import MuiDatatable from 'base/components/common/tables/MuiDatatable';
+import MuiDatatable from 'components/common/tables/MuiDatatable';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
-import { AddToolbar } from 'base/components/common/tables/Toolbar.jsx';
+import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
+import { AddToolbar } from 'components/common/tables/Toolbar.jsx';
 import { deleteCategories } from './actions';
 
 const styles = {

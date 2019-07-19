@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 // core
-import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
-import GridItem from 'base/components/theme/Grid/GridItem.jsx';
-import Card from 'base/components/theme/Card/Card.jsx';
-import CardBody from 'base/components/theme/Card/CardBody.jsx';
-import CardHeader from 'base/components/theme/Card/CardHeader.jsx';
-import CardFooter from 'base/components/theme/Card/CardFooter.jsx';
+import GridContainer from 'components/theme/Grid/GridContainer.jsx';
+import GridItem from 'components/theme/Grid/GridItem.jsx';
+import Card from 'components/theme/Card/Card.jsx';
+import CardBody from 'components/theme/Card/CardBody.jsx';
+import CardHeader from 'components/theme/Card/CardHeader.jsx';
+import CardFooter from 'components/theme/Card/CardFooter.jsx';
 
 // feature
 import ProductCategory from './ProductCategory.jsx';
-import { getEndpoint } from 'base/helpers/api';
-import history from 'base/providers/history';
+import { getEndpoint } from 'helpers/api';
+import history from 'providers/history';
 
 const Templates = () => {
   const [categories, setCategories] = useState([]);

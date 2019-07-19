@@ -15,8 +15,8 @@ import {
   EDIT_ITEM,
   editItemSuccess
 } from './actions';
-import { addEntities } from 'base/redux/actions';
-import { itemSchema } from 'base/redux/schema';
+import { addEntities } from 'redux/actions';
+import { itemSchema } from 'redux/schema';
 import { normalize } from 'normalizr';
 
 const host = process.env.REACT_APP_HOST_API;

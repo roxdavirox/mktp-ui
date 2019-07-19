@@ -1,4 +1,4 @@
-import { ADD_ENTITIES } from 'base/redux/actions';
+import { ADD_ENTITIES } from 'redux/actions';
 import {
   ADD_CATEGORY_SUCCESS,
   DELETE_CATEGORIES_SUCCESS,

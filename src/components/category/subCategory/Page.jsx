@@ -6,7 +6,7 @@ import { fetchCategories } from '../actions';
 import Datatable from './Datatable';
 import Dialog from './Dialog';
 import { withSnackbar } from 'notistack';
-import history from 'base/providers/history';
+import history from 'providers/history';
 
 const getCategoryId = () => {
   const { state } = history.location;

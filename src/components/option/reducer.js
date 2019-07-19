@@ -9,7 +9,7 @@ import {
   DELETE_OPTIONS_FAILURE
 } from './actions';
 
-import { ADD_ENTITIES } from 'base/redux/actions';
+import { ADD_ENTITIES } from 'redux/actions';
 import {
   ADD_OPTION_ITEM_SUCCESS,
   DELETE_OPTION_ITEMS_SUCCESS,

@@ -15,8 +15,8 @@ import {
   TableTreeColumn
 } from '@devexpress/dx-react-grid-material-ui';
 // theme components
-import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
-import GridItem from 'base/components/theme/Grid/GridItem.jsx';
+import GridContainer from 'components/theme/Grid/GridContainer.jsx';
+import GridItem from 'components/theme/Grid/GridItem.jsx';
 // import { generateRows, defaultColumnValues } from './helpers/generator';
 
 const getChildRows = (row, rootRows) => {

@@ -12,8 +12,8 @@ import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { getPriceTables } from 'base/components/priceTable/selectors';
-import { fetchPriceTables } from 'base/components/priceTable/actions';
+import { getPriceTables } from 'components/priceTable/selectors';
+import { fetchPriceTables } from 'components/priceTable/actions';
 
 const styles = theme => ({
   container: {
