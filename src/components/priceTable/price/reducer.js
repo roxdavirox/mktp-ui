@@ -1,4 +1,4 @@
-import { ADD_ENTITIES } from 'base/redux/actions';
+import { ADD_ENTITIES } from 'redux/actions';
 import {
   ADD_PRICE_SUCCESS,
   ADD_PRICE_RANGE_SUCCESS,

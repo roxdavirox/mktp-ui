@@ -6,8 +6,8 @@ import {
   DELETE_PRICE_TABLES,
   deletePriceTablesSuccess
 } from './actions';
-import { addEntities } from 'base/redux/actions';
-import { priceTableSchema } from 'base/redux/schema';
+import { addEntities } from 'redux/actions';
+import { priceTableSchema } from 'redux/schema';
 import { normalize } from 'normalizr';
 
 const host = process.env.REACT_APP_HOST_API;

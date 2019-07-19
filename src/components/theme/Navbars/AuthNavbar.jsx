@@ -22,7 +22,7 @@ import LockOpen from "@material-ui/icons/LockOpen";
 import MonetizationOn from "@material-ui/icons/MonetizationOn";
 
 // core components
-import Button from "base/components/theme/CustomButtons/Button";
+import Button from "components/theme/CustomButtons/Button";
 
 import authNavbarStyle from "assets/jss/material-dashboard-pro-react/components/authNavbarStyle.jsx";
 

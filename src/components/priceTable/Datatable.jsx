@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import MuiDatatable from 'base/components/common/tables/MuiDatatable';
-import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
-import { AddToolbar } from 'base/components/common/tables/Toolbar.jsx';
+import MuiDatatable from 'components/common/tables/MuiDatatable';
+import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
+import { AddToolbar } from 'components/common/tables/Toolbar.jsx';
 import Loading from './LoadingSkeleton';
 
 const styles = {

@@ -1,4 +1,4 @@
-import { ADD_ENTITIES } from 'base/redux/actions';
+import { ADD_ENTITIES } from 'redux/actions';
 import {
   ADD_PRICE_TABLE_SUCCESS,
   DELETE_PRICE_TABLES_SUCCESS

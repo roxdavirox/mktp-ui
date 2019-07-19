@@ -3,14 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
-import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
-import GridItem from 'base/components/theme/Grid/GridItem.jsx';
+import GridContainer from 'components/theme/Grid/GridContainer.jsx';
+import GridItem from 'components/theme/Grid/GridItem.jsx';
 
 import TemplateCategories from './TemplateCategories.jsx';
 import ProductTemplates from './ProductTemplates.jsx';
 import AddCategoryDialog from './AddCategoryDialog.jsx';
 
-import { createPostRequest, getEndpoint } from 'base/helpers/api';
+import { createPostRequest, getEndpoint } from 'helpers/api';
 
 const style = {
   container: {

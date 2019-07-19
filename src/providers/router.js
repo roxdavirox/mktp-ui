@@ -4,7 +4,7 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import AuthLayout from '../layouts/Auth';
 import AdminLayout from '../layouts/Admin';
-import { PrivateRoute, PublicRoute } from 'base/helpers/Route.jsx';
+import { PrivateRoute, PublicRoute } from 'helpers/Route.jsx';
 
 const RouterProvider = () => (
   <Router history={history}>

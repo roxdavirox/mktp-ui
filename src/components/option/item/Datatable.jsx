@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import MuiDatatable from 'base/components/common/tables/MuiDatatable';
+import MuiDatatable from 'components/common/tables/MuiDatatable';
 import {
   AddToolbar,
   BallotToolbar
-} from 'base/components/common/tables/Toolbar';
-import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
+} from 'components/common/tables/Toolbar';
+import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 
 const styles = {
   EditCell: { textAlign: 'right' },

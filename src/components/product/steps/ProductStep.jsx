@@ -6,16 +6,17 @@ import { withStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Build from '@material-ui/icons/Build';
 // theme components
-import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
-import GridItem from 'base/components/theme/Grid/GridItem.jsx';
-import CustomInput from 'base/components/theme/CustomInput/CustomInput.jsx';
+import GridContainer from 'components/theme/Grid/GridContainer.jsx';
+import GridItem from 'components/theme/Grid/GridItem.jsx';
+import CustomInput from 'components/theme/CustomInput/CustomInput.jsx';
 import ImageUpload from '../ImageUpload.jsx';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import { getEndpoint } from 'base/helpers/api';
+import { getEndpoint } from 'helpers/api';
+
 const style = theme => ({
   infoText: {
     fontWeight: '300',

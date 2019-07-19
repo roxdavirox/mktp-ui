@@ -1,12 +1,12 @@
 /* eslint-disable react/display-name */
 import React from 'react';
 import PropTypes from 'prop-types';
-import MuiDatatable from 'base/components/common/tables/MuiDatatable';
+import MuiDatatable from 'components/common/tables/MuiDatatable';
 import { withSnackbar } from 'notistack';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { AddToolbar } from 'base/components/common/tables/Toolbar';
-import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
+import { AddToolbar } from 'components/common/tables/Toolbar';
+import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 
 const styles = {
   EditCell: { textAlign: 'right' },

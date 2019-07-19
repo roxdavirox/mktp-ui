@@ -11,8 +11,8 @@ import {
   editPriceSuccess
 } from './actions';
 import { normalize } from 'normalizr';
-import { priceSchema } from 'base/redux/schema';
-import { addEntities } from 'base/redux/actions';
+import { priceSchema } from 'redux/schema';
+import { addEntities } from 'redux/actions';
 
 const host = process.env.REACT_APP_HOST_API;
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
-import GridItem from 'base/components/theme/Grid/GridItem.jsx';
-import Card from 'base/components/theme/Card/Card.jsx';
-import CardBody from 'base/components/theme/Card/CardBody.jsx';
-import CardHeader from 'base/components/theme/Card/CardHeader.jsx';
-import CardFooter from 'base/components/theme/Card/CardFooter.jsx';
-import history from 'base/providers/history';
+import GridItem from 'components/theme/Grid/GridItem.jsx';
+import Card from 'components/theme/Card/Card.jsx';
+import CardBody from 'components/theme/Card/CardBody.jsx';
+import CardHeader from 'components/theme/Card/CardHeader.jsx';
+import CardFooter from 'components/theme/Card/CardFooter.jsx';
+import history from 'providers/history';
 import dropImage from 'assets/img/templates/drop-file.png';
 
 const style = {

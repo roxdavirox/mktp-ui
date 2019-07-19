@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import GridContainer from 'base/components/theme/Grid/GridContainer.jsx';
-import GridItem from 'base/components/theme/Grid/GridItem.jsx';
+import GridContainer from 'components/theme/Grid/GridContainer.jsx';
+import GridItem from 'components/theme/Grid/GridItem.jsx';
 import Button from '@material-ui/core/Button';
-import history from 'base/providers/history';
-import { getEndpoint, createPostRequest } from 'base/helpers/api';
+import history from 'providers/history';
+import { getEndpoint, createPostRequest } from 'helpers/api';
 
 const styles = {
   container: {

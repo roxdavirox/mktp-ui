@@ -5,10 +5,10 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 //Common components
-import MuiDatatable from 'base/components/common/tables/MuiDatatable';
+import MuiDatatable from 'components/common/tables/MuiDatatable';
 //Theme components
-import MoreHorizIcon from 'base/components/common/icons/MoreHorizIcon.jsx';
-import { AddToolbar } from 'base/components/common/tables/Toolbar.jsx';
+import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
+import { AddToolbar } from 'components/common/tables/Toolbar.jsx';
 import OptionLoading from './LoadingSkeleton';
 import { toggleOptionItems } from '../item/actions';
 import { deleteOptionsBegin } from './actions';

@@ -5,7 +5,7 @@ import {
   postOptionMiddleware,
   deleteOptionsMiddleware,
   fetchOptionsMiddleware
-} from 'base/components/option/middlewares';
+} from 'components/option/middlewares';
 
 import {
   fetchItemsMiddleware,
@@ -14,13 +14,13 @@ import {
   addItemMiddleware,
   addOptionItem,
   editItem
-} from 'base/components/item/middlewares';
+} from 'components/item/middlewares';
 
 import {
   fetchPriceTables,
   addPriceTable,
   deletePriceTables
-} from 'base/components/priceTable/middlewares';
+} from 'components/priceTable/middlewares';
 
 import {
   fetchPrices,
@@ -28,7 +28,7 @@ import {
   addPriceRange,
   deletePrices,
   editPrice
-} from 'base/components/priceTable/price/middlewares';
+} from 'components/priceTable/price/middlewares';
 
 import {
   fetchCategories,
@@ -36,7 +36,7 @@ import {
   deleteCategories,
   addSubCategory,
   deleteSubCategories
-} from 'base/components/category/middlewares';
+} from 'components/category/middlewares';
 
 import { addExistingItemsMiddleware } from '../components/item/middlewares';
 
