@@ -12,10 +12,11 @@ import {
   DELETE_OPTIONS,
   deleteOptionsSuccess,
 } from "./actions";
-
-const host = process.env.REACT_APP_HOST_API;
-
-const getEndpoint = route => `${host}${route}`;
+import {
+  getEndpoint,
+  createPostRequest,
+  createDeleteRequest
+} from 'helpers/api';
 
 export const fetchOptions = ({ dispatch }) => next => action => {
   if (action.type === FETCH_OPTIONS) {
@@ -44,20 +45,10 @@ export const fetchOptions = ({ dispatch }) => next => action => {
 export const addOption = ({ dispatch }) => next => action => {
   if (action.type === ADD_OPTION) {
     const { optionName, snack } = action.playload;
-
     const option = {
       name: optionName
     };
-
-    const request = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(option)
-    };
-
+    const request = createPostRequest(option);
     const endpoint = getEndpoint("/options");
 
     fetch(endpoint, request)
@@ -84,19 +75,8 @@ export const deleteOptions = ({
 }) => next => action => {
   if (action.type === DELETE_OPTIONS) {
     const { optionsId, snack } = action.playload;
-
     const body = { optionsId };
-
-    console.log('optionsid:', optionsId);
-    const request = {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(body)
-    };
-
+    const request = createDeleteRequest(body);
     const endpoint = getEndpoint("/options");
 
     fetch(endpoint, request)
