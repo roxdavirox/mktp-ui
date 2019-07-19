@@ -5,7 +5,7 @@ import {
   postOptionMiddleware,
   deleteOptionsMiddleware,
   fetchOptionsMiddleware
-} from 'components/option/middlewares';
+} from 'components/pages/Option/middlewares';
 
 import {
   fetchItemsMiddleware,
@@ -14,13 +14,13 @@ import {
   addItemMiddleware,
   addOptionItem,
   editItem
-} from 'components/item/middlewares';
+} from 'components/pages/Item/middlewares';
 
 import {
   fetchPriceTables,
   addPriceTable,
   deletePriceTables
-} from 'components/priceTable/middlewares';
+} from 'components/pages/PriceTable/middlewares';
 
 import {
   fetchPrices,
@@ -28,7 +28,7 @@ import {
   addPriceRange,
   deletePrices,
   editPrice
-} from 'components/priceTable/price/middlewares';
+} from 'components/pages/PriceTable/price/middlewares';
 
 import {
   fetchCategories,
@@ -36,9 +36,9 @@ import {
   deleteCategories,
   addSubCategory,
   deleteSubCategories
-} from 'components/category/middlewares';
+} from 'components/pages/Category/middlewares';
 
-import { addExistingItemsMiddleware } from '../components/item/middlewares';
+import { addExistingItemsMiddleware } from 'components/pages/Item/middlewares';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
