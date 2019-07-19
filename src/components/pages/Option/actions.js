@@ -3,25 +3,18 @@ export const FETCH_OPTIONS = 'FETCH_OPTIONS';
 
 export const fetchOptions = () => ({ type: FETCH_OPTIONS });
 
-export const FETCH_OPTIONS_FAILURE = 'FETCH_OPTIONS_FAILURE';
-
-export const fetchOptionsFailure = error => ({
-  type: FETCH_OPTIONS_FAILURE,
-  playload: { error }
-});
-
 // add new option
-export const POST_OPTION = 'POST_OPTION';
+export const ADD_OPTION = 'ADD_OPTION';
 
-export const postOption = (optionName, snack) => ({
-  type: POST_OPTION,
+export const addOption = (optionName, snack) => ({
+  type: ADD_OPTION,
   playload: { optionName, snack }
 });
 
-export const POST_OPTION_SUCCESS = 'POST_OPTION_SUCCESS';
+export const ADD_OPTION_SUCCESS = 'ADD_OPTION_SUCCESS';
 
-export const postOptionSuccess = option => ({
-  type: POST_OPTION_SUCCESS,
+export const addOptionSuccess = option => ({
+  type: ADD_OPTION_SUCCESS,
   playload: { option }
 });
 

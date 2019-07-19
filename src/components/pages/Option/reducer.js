@@ -1,12 +1,9 @@
 import {
   FETCH_OPTIONS,
-  FETCH_OPTIONS_FAILURE,
-  POST_OPTION,
-  POST_OPTION_SUCCESS,
-  POST_OPTION_FAILURE,
+  ADD_OPTION,
+  ADD_OPTION_SUCCESS,
   DELETE_OPTIONS_BEGIN,
-  DELETE_OPTIONS_SUCCESS,
-  DELETE_OPTIONS_FAILURE
+  DELETE_OPTIONS_SUCCESS
 } from './actions';
 
 import { ADD_ENTITIES } from 'redux/actions';
@@ -47,11 +44,22 @@ export default function(state = initialState, action) {
       };
     }
 
-    case FETCH_OPTIONS_FAILURE:
+    case ADD_OPTION: {
+      return state;
+    }
+
+    case ADD_OPTION_SUCCESS: {
+      const { option } = action.playload;
+
       return {
         ...state,
-        loading: false
+        byId: {
+          ...state.byId,
+          [option._id]: option
+        },
+        allIds: [...state.allIds, option._id]
       };
+    }
 
     case ADD_OPTION_ITEM_SUCCESS: {
       const { item, optionId } = action.playload;
@@ -107,32 +115,6 @@ export default function(state = initialState, action) {
       };
     }
 
-    case POST_OPTION: {
-      return state;
-    }
-
-    case POST_OPTION_SUCCESS: {
-      const { option } = action.playload;
-
-      return {
-        ...state,
-        byId: {
-          ...state.byId,
-          [option._id]: option
-        },
-        allIds: [...state.allIds, option._id]
-      };
-    }
-
-    case POST_OPTION_FAILURE: {
-      const { error } = action.playload;
-
-      return {
-        ...state,
-        error: error
-      };
-    }
-
     case DELETE_OPTIONS_BEGIN: {
       return {
         ...state
@@ -157,15 +139,6 @@ export default function(state = initialState, action) {
         ...state,
         byId,
         allIds
-      };
-    }
-
-    case DELETE_OPTIONS_FAILURE: {
-      const { error } = action.playload;
-
-      return {
-        ...state,
-        error
       };
     }
 

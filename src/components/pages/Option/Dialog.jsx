@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import { postOption } from './actions';
+import { addOption } from './actions';
 
 const styles = theme => ({
   container: {
@@ -29,7 +29,7 @@ class Dialog extends React.Component {
   handleNameChange = e => this.setState({ optionName: e.target.value });
 
   handleSubmit = () => {
-    const { postOption, enqueueSnackbar: snack } = this.props;
+    const { addOption, enqueueSnackbar: snack } = this.props;
     const { optionName: name } = this.state;
 
     snack(`Adicionando opção ${name}`, {
@@ -37,7 +37,7 @@ class Dialog extends React.Component {
       autoHideDuration: 2000
     });
 
-    postOption(name, snack);
+    addOption(name, snack);
     this.props.onClose();
   };
 
@@ -82,7 +82,7 @@ class Dialog extends React.Component {
 
 Dialog.propTypes = {
   onClose: PropTypes.func.isRequired,
-  postOption: PropTypes.func.isRequired,
+  addOption: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired
@@ -90,5 +90,5 @@ Dialog.propTypes = {
 
 export default connect(
   null,
-  { postOption }
+  { addOption }
 )(withStyles(styles)(Dialog));
