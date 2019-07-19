@@ -10,7 +10,7 @@ import MuiDatatable from 'components/common/tables/MuiDatatable';
 import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'components/common/tables/Toolbar.jsx';
 import OptionLoading from './LoadingSkeleton';
-import { toggleOptionItems } from '../Item/actions';
+
 import { deleteOptionsBegin } from './actions';
 
 import { withSnackbar } from 'notistack';
@@ -71,12 +71,7 @@ class DataTable extends React.Component {
                 }
               }}
             >
-              <MoreHorizIcon
-                key={tableMeta.columnIndex}
-                onClick={() => {
-                  // this.props.toggleOptionItems(value);
-                }}
-              />
+              <MoreHorizIcon key={tableMeta.columnIndex} />
             </Link>
           ),
           setCellProps: () => {
@@ -123,12 +118,10 @@ DataTable.propTypes = {
   deleteOptionsBegin: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
-  toggleOptionItems: PropTypes.func.isRequired,
   onOpen: PropTypes.func.isRequired
 };
 
 const mapDispatchtoProps = {
-  toggleOptionItems,
   deleteOptionsBegin
 };
 
