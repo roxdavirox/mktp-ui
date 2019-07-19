@@ -1,6 +1,5 @@
 import { ADD_ENTITIES } from 'redux/actions';
 import {
-  TOGGLE_OPTION_ITEMS,
   DELETE_ITEMS_SUCCESS,
   ADD_ITEM_SUCCESS,
   ADD_OPTION_ITEM_SUCCESS,
@@ -16,12 +15,6 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case TOGGLE_OPTION_ITEMS:
-      return {
-        ...state,
-        optionId: action.playload.optionId
-      };
-
     case ADD_ENTITIES: {
       const {
         entities: { items }

@@ -4,7 +4,6 @@ import {
   ADD_OPTION_ITEM,
   addOptionItemSucess,
   addItemSuccess,
-  postItemFailure,
   DELETE_ITEMS,
   deleteItemsSuccess,
   DELETE_OPTION_ITEMS,
@@ -47,10 +46,7 @@ export const addItemMiddleware = ({ dispatch }) => next => action => {
           autoHideDuration: 2000
         });
       })
-      .catch(error => {
-        snack(`Error: ${error}`);
-        dispatch(postItemFailure(error));
-      });
+      .catch(e => console.log(e));
   }
 
   next(action);
