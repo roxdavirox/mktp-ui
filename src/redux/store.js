@@ -28,7 +28,7 @@ import {
   addPriceRange,
   deletePrices,
   editPrice
-} from 'components/pages/PriceTable/price/middlewares';
+} from 'components/pages/PriceTable/Price/middlewares';
 
 import {
   fetchCategories,

@@ -13,7 +13,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import AdminNavbar from 'components/theme/Navbars/AdminNavbar.jsx';
 import Footer from 'components/theme/Footer/Footer.jsx';
 import Sidebar from 'components/theme/Sidebar/Sidebar.jsx';
-import FixedPlugin from 'components/theme/FixedPlugin/FixedPlugin.jsx';
 
 import routes from 'routes';
 
