@@ -12,15 +12,16 @@ import {
 import { normalize } from 'normalizr';
 import { priceSchema } from 'redux/schema';
 import { addEntities } from 'redux/actions';
-
-const host = process.env.REACT_APP_HOST_API;
-
-const getEndpoint = route => `${host}${route}`;
+import {
+  getEndpoint,
+  createPostRequest,
+  createPutRequest,
+  createDeleteRequest
+} from 'helpers/api';
 
 export const fetchPrices = ({ dispatch }) => next => action => {
   if (action.type === FETCH_PRICES) {
     const { priceTableId } = action.playload;
-
     const endpoint = getEndpoint(`/prices/${priceTableId}`);
 
     fetch(endpoint)
@@ -40,18 +41,8 @@ export const fetchPrices = ({ dispatch }) => next => action => {
 export const addPrice = ({ dispatch }) => next => action => {
   if (action.type === ADD_PRICE) {
     const { price, priceTableId, snack } = action.playload;
-
     const body = { price };
-
-    const request = {
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    };
-
+    const request = createPutRequest(body);
     const endpoint = getEndpoint(`/price-tables/${priceTableId}`);
 
     fetch(endpoint, request)
@@ -72,18 +63,8 @@ export const addPrice = ({ dispatch }) => next => action => {
 export const addPriceRange = ({ dispatch }) => next => action => {
   if (action.type === ADD_PRICE_RANGE) {
     const { prices, priceTableId, snack } = action.playload;
-
     const body = { prices };
-
-    const request = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    };
-
+    const request = createPostRequest(body);
     const endpoint = getEndpoint(`/prices/${priceTableId}/range`);
 
     fetch(endpoint, request)
@@ -105,16 +86,7 @@ export const addPriceRange = ({ dispatch }) => next => action => {
 export const deletePrices = ({ dispatch }) => next => action => {
   if (action.type === DELETE_PRICES) {
     const { priceIds, snack } = action.playload;
-
-    const request = {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ priceIds })
-    };
-
+    const request = createDeleteRequest({ priceIds });
     const endpoint = getEndpoint('/prices');
 
     fetch(endpoint, request)
@@ -142,18 +114,8 @@ export const deletePrices = ({ dispatch }) => next => action => {
 export const editPrice = ({ dispatch }) => next => action => {
   if (action.type === EDIT_PRICE) {
     const { price, snack } = action.playload;
-
     const { _id: priceId, ...body } = price;
-
-    const request = {
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ ...body })
-    };
-
+    const request = createPutRequest({ ...body });
     const endpoint = getEndpoint(`/prices/${priceId}`);
 
     fetch(endpoint, request)
