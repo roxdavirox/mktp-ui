@@ -9,10 +9,11 @@ import {
 import { addEntities } from 'redux/actions';
 import { priceTableSchema } from 'redux/schema';
 import { normalize } from 'normalizr';
-
-const host = process.env.REACT_APP_HOST_API;
-
-const getEndpoint = route => `${host}${route}`;
+import {
+  getEndpoint,
+  createPostRequest,
+  createDeleteRequest
+} from 'helpers/api';
 
 export const fetchPriceTables = ({ dispatch }) => next => action => {
   if (action.type === FETCH_PRICE_TABLES) {
@@ -35,17 +36,8 @@ export const fetchPriceTables = ({ dispatch }) => next => action => {
 export const addPriceTable = ({ dispatch }) => next => action => {
   if (action.type === ADD_PRICE_TABLE) {
     const { name } = action.playload;
-
     const endpoint = getEndpoint('/price-tables');
-
-    const request = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name })
-    };
+    const request = createPostRequest({ name });
 
     fetch(endpoint, request)
       .then(res => res.json())
@@ -59,16 +51,7 @@ export const addPriceTable = ({ dispatch }) => next => action => {
 export const deletePriceTables = ({ dispatch }) => next => action => {
   if (action.type === DELETE_PRICE_TABLES) {
     const { priceTableIds, snack } = action.playload;
-
-    const request = {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ priceTableIds })
-    };
-
+    const request = createDeleteRequest({ priceTableIds });
     const endpoint = getEndpoint('/price-tables');
 
     fetch(endpoint, request)
