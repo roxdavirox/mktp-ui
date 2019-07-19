@@ -6,14 +6,11 @@ import { normalize } from "normalizr";
 import { addEntities } from "redux/actions";
 
 import {
-  fetchOptionsFailure,
   FETCH_OPTIONS,
-  POST_OPTION,
+  ADD_OPTION,
   DELETE_OPTIONS_BEGIN,
-  postOptionSuccess,
-  postOptionFailure,
+  addOptionSuccess,
   deleteOptionsSuccess,
-  deleteOptionsFailure,
 } from "./actions";
 
 const host = process.env.REACT_APP_HOST_API;
@@ -21,7 +18,7 @@ const host = process.env.REACT_APP_HOST_API;
 const getEndpoint = route => `${host}${route}`;
 
 export const postOptionMiddleware = ({ dispatch }) => next => action => {
-  if (action.type === POST_OPTION) {
+  if (action.type === ADD_OPTION) {
     const { optionName, snack } = action.playload;
 
     const option = {
@@ -47,12 +44,11 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
           autoHideDuration: 2000
         });
 
-        dispatch(postOptionSuccess(option));
+        dispatch(addOptionSuccess(option));
       })
       .catch(error => {
         snack(`Error: ${error}`);
         console.log('erro no post:', error);
-        dispatch(postOptionFailure(error));
       });
   }
 
@@ -75,7 +71,9 @@ export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
         return res;
       })
       .then(({ entities }) => dispatch(addEntities(entities)))
-      .catch(error => dispatch(fetchOptionsFailure(error)));
+      .catch(error => {
+        console.log(`Error on delete Options ${error}`);
+      });
   }
 
   next(action);
@@ -117,7 +115,7 @@ export const deleteOptionsMiddleware = ({
       })
       .catch(error => {
         snack(`Error: ${error}`);
-        dispatch(deleteOptionsFailure(error));
+        console.log(`Error on delete Options ${error}`);
       });
   }
 
