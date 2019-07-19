@@ -8,12 +8,13 @@ import {
 } from 'components/pages/Option/middlewares';
 
 import {
-  fetchItemsMiddleware,
-  deleteItemsMiddleware,
-  deleteOptionItemsMiddleware,
-  addItemMiddleware,
+  fetchItems,
+  addItem,
   addOptionItem,
-  editItem
+  addExistingItems,
+  editItem,
+  deleteItems,
+  deleteOptionItems
 } from 'components/pages/Item/middlewares';
 
 import {
@@ -38,8 +39,6 @@ import {
   deleteSubCategories
 } from 'components/pages/Category/middlewares';
 
-import { addExistingItemsMiddleware } from 'components/pages/Item/middlewares';
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
@@ -49,12 +48,12 @@ export const store = createStore(
       addOption,
       deleteOptions,
       fetchOptions,
-      fetchItemsMiddleware,
-      deleteItemsMiddleware,
-      deleteOptionItemsMiddleware,
-      addItemMiddleware,
+      fetchItems,
+      deleteItems,
+      deleteOptionItems,
+      addItem,
       addOptionItem,
-      addExistingItemsMiddleware,
+      addExistingItems,
       fetchPriceTables,
       addPriceTable,
       deletePriceTables,
