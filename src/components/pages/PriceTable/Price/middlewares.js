@@ -4,7 +4,6 @@ import {
   ADD_PRICE,
   addPriceSuccess,
   ADD_PRICE_RANGE,
-  addPriceRangeSuccess,
   DELETE_PRICES,
   deletePricesSuccess,
   EDIT_PRICE,

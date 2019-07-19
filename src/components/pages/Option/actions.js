@@ -19,10 +19,10 @@ export const addOptionSuccess = option => ({
 });
 
 // delete options rows
-export const DELETE_OPTIONS_BEGIN = 'DELETE_OPTIONS_BEGIN';
+export const DELETE_OPTIONS = 'DELETE_OPTIONS';
 
 export const deleteOptionsBegin = (optionsId, snack) => ({
-  type: DELETE_OPTIONS_BEGIN,
+  type: DELETE_OPTIONS,
   playload: { optionsId, snack }
 });
 
