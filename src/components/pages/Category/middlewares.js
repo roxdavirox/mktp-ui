@@ -14,10 +14,11 @@ import {
 } from './actions';
 import { addEntities } from 'redux/actions';
 import history from 'providers/history';
-
-const host = process.env.REACT_APP_HOST_API;
-
-const getEndpoint = route => `${host}${route}`;
+import {
+  getEndpoint,
+  createPostRequest,
+  createDeleteRequest
+} from 'helpers/api';
 
 export const fetchCategories = ({ dispatch }) => next => action => {
   if (action.type === FETCH_CATEGORIES) {
@@ -36,16 +37,7 @@ export const fetchCategories = ({ dispatch }) => next => action => {
 export const addCategory = ({ dispatch }) => next => action => {
   if (action.type === ADD_CATEGORY) {
     const { name, snack } = action.playload;
-
-    const request = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name })
-    };
-
+    const request = createPostRequest({ name });
     const endpoint = getEndpoint('/categories');
 
     fetch(endpoint, request)
@@ -70,16 +62,7 @@ export const addCategory = ({ dispatch }) => next => action => {
 export const deleteCategories = ({ dispatch }) => next => action => {
   if (action.type === DELETE_CATEGORIES) {
     const { categoryIds, snack } = action.playload;
-
-    const request = {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ categoryIds })
-    };
-
+    const request = createDeleteRequest({ categoryIds });
     const endpoint = getEndpoint('/categories');
 
     fetch(endpoint, request)
@@ -110,16 +93,7 @@ export const deleteCategories = ({ dispatch }) => next => action => {
 export const addSubCategory = ({ dispatch }) => next => action => {
   if (action.type === ADD_SUB_CATEGORY) {
     const { name, categoryId, snack } = action.playload;
-
-    const request = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name })
-    };
-
+    const request = createPostRequest({ name });
     const endpoint = getEndpoint(`/categories/${categoryId}`);
 
     fetch(endpoint, request)
@@ -141,16 +115,7 @@ export const addSubCategory = ({ dispatch }) => next => action => {
 export const deleteSubCategories = ({ dispatch }) => next => action => {
   if (action.type === DELETE_SUB_CATEGORIES) {
     const { subCategoryIds, categoryId, snack } = action.playload;
-
-    const request = {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ subCategoryIds })
-    };
-
+    const request = createDeleteRequest({ subCategoryIds });
     const endpoint = getEndpoint('/sub-categories');
 
     fetch(endpoint, request)
