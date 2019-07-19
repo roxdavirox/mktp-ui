@@ -1,8 +1,8 @@
-import options from 'components/option/reducer';
-import items from 'components/item/reducer';
-import priceTables from 'components/priceTable/reducer';
-import prices from 'components/priceTable/price/reducer';
-import categories from 'components/category/reducer';
+import options from 'components/pages/Option/reducer';
+import items from 'components/pages/Item/reducer';
+import priceTables from 'components/pages/PriceTable/reducer';
+import prices from 'components/pages/PriceTable/Price/reducer';
+import categories from 'components/pages/Category/reducer';
 
 import { combineReducers } from 'redux';
 
