@@ -18,10 +18,12 @@ import {
 import { addEntities } from 'redux/actions';
 import { itemSchema } from 'redux/schema';
 import { normalize } from 'normalizr';
-
-const host = process.env.REACT_APP_HOST_API;
-
-const getEndpoint = route => `${host}${route}`;
+import {
+  getEndpoint,
+  createPostRequest,
+  createDeleteRequest,
+  createPutRequest
+} from 'helpers/api';
 
 export const fetchItems = ({ dispatch }) => next => action => {
   if (action.type === FETCH_ITEMS) {
@@ -48,17 +50,8 @@ export const fetchItems = ({ dispatch }) => next => action => {
 export const editItem = ({ dispatch }) => next => action => {
   if (action.type === EDIT_ITEM) {
     const { item, snack } = action.playload;
-
     const { _id: itemId, ...body } = item;
-
-    const request = {
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ ...body })
-    };
+    const request = createPutRequest({ ...body });
     const endpoint = getEndpoint(`/items/${itemId}`);
 
     fetch(endpoint, request)
@@ -78,16 +71,7 @@ export const editItem = ({ dispatch }) => next => action => {
 export const addItem = ({ dispatch }) => next => action => {
   if (action.type === ADD_ITEM) {
     const { item, snack } = action.playload;
-
-    const request = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(item)
-    };
-
+    const request = createPostRequest(item);
     const endpoint = getEndpoint('/items');
 
     fetch(endpoint, request)
@@ -108,17 +92,9 @@ export const addItem = ({ dispatch }) => next => action => {
 export const addOptionItem = ({ dispatch }) => next => action => {
   if (action.type === ADD_OPTION_ITEM) {
     const { item, optionId, snack } = action.playload;
-
-    const request = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(item)
-    };
-
+    const request = createPostRequest(item);
     const endpoint = getEndpoint(`/items/${optionId}`);
+
     fetch(endpoint, request)
       .then(res => res.json())
       .then(({ item }) => {
@@ -137,19 +113,9 @@ export const addOptionItem = ({ dispatch }) => next => action => {
 export const addExistingItems = ({ dispatch }) => next => action => {
   if (action.type === ADD_EXISTING_ITEMS) {
     const { itemsId, optionId, snack } = action.playload;
-
     console.log('add optionId:', optionId);
     const body = { itemsId };
-
-    const request = {
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    };
-
+    const request = createPutRequest(body);
     const endpoint = getEndpoint(`/options/${optionId}`);
 
     fetch(endpoint, request)
@@ -175,20 +141,10 @@ export const addExistingItems = ({ dispatch }) => next => action => {
 export const deleteItems = ({ dispatch }) => next => action => {
   if (action.type === DELETE_ITEMS) {
     const { itemsId, snack } = action.playload;
-
     const body = {
       itemsId
     };
-    console.log('middleware items: ', itemsId);
-    const request = {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    };
-
+    const request = createDeleteRequest(body);
     const endpoint = getEndpoint('/items');
 
     fetch(endpoint, request)
@@ -214,19 +170,10 @@ export const deleteItems = ({ dispatch }) => next => action => {
 export const deleteOptionItems = ({ dispatch }) => next => action => {
   if (action.type === DELETE_OPTION_ITEMS) {
     const { itemsId, optionId, snack } = action.playload;
-
     const body = { itemsId };
-
-    const request = {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    };
-
+    const request = createDeleteRequest(body);
     const endpoint = getEndpoint(`/items/${optionId}`);
+
     fetch(endpoint, request)
       .then(res => res.json())
       .then(res => {
