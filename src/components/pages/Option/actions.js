@@ -18,13 +18,6 @@ export const addOptionSuccess = option => ({
   playload: { option }
 });
 
-export const POST_OPTION_FAILURE = 'POST_OPTION_FAILURE';
-
-export const postOptionFailure = error => ({
-  type: POST_OPTION_FAILURE,
-  playload: { error }
-});
-
 // delete options rows
 export const DELETE_OPTIONS_BEGIN = 'DELETE_OPTIONS_BEGIN';
 
@@ -38,11 +31,4 @@ export const DELETE_OPTIONS_SUCCESS = 'DELETE_OPTIONS_SUCCESS';
 export const deleteOptionsSuccess = optionsId => ({
   type: DELETE_OPTIONS_SUCCESS,
   playload: { optionsId }
-});
-
-export const DELETE_OPTIONS_FAILURE = 'DELETE_OPTIONS_FAILURE';
-
-export const deleteOptionsFailure = error => ({
-  type: DELETE_OPTIONS_FAILURE,
-  playload: { error }
 });
