@@ -9,6 +9,7 @@ import GridItem from 'components/theme/Grid/GridItem.jsx';
 import ProductStep from './steps/ProductStep';
 import OptionStep from './steps/OptionStep';
 import history from 'providers/history';
+import { getEndpoint, createPostRequest } from 'helpers/api';
 
 const steps = [
   { stepName: 'Produto', stepComponent: ProductStep, stepId: 'productStep' },
@@ -29,19 +30,16 @@ class ProductPage extends React.Component {
       variant: 'info',
       autoHideDuration: 2000
     });
-    const host = process.env.REACT_APP_HOST_API;
+
     const data = new FormData();
     data.append('image', imageFile);
     data.append('name', name);
     data.append('categoryId', categoryId);
     data.append('options', JSON.stringify(options));
 
-    const request = {
-      method: 'POST',
-      body: data
-    };
-
-    fetch(`${host}/products`, request)
+    const request = createPostRequest(data);
+    const endpoint = getEndpoint('/products');
+    fetch(endpoint, request)
       .then(res => res.json())
       .then(product => {
         snack('Produto criado com sucesso!', {
