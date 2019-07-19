@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import Datatable from './Datatable';
+import { getEndpoint } from 'helpers/api';
 
 const generateTree = data => {
   console.log('data', data);
@@ -58,9 +59,8 @@ const ProductListPage = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const host = process.env.REACT_APP_HOST_API;
-
-    fetch(`${host}/products`)
+    const endpoint = getEndpoint('/products');
+    fetch(endpoint)
       .then(res => res.json())
       .then(products => generateTree(products))
       .then(data => setData(data));
