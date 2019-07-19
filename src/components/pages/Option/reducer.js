@@ -1,10 +1,4 @@
-import {
-  FETCH_OPTIONS,
-  ADD_OPTION,
-  ADD_OPTION_SUCCESS,
-  DELETE_OPTIONS_BEGIN,
-  DELETE_OPTIONS_SUCCESS
-} from './actions';
+import { ADD_OPTION_SUCCESS, DELETE_OPTIONS_SUCCESS } from './actions';
 
 import { ADD_ENTITIES } from 'redux/actions';
 import {
@@ -21,12 +15,6 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case FETCH_OPTIONS:
-      return {
-        ...state,
-        loading: true
-      };
-
     case ADD_ENTITIES: {
       const {
         entities: { options }
@@ -42,10 +30,6 @@ export default function(state = initialState, action) {
         allIds,
         loading: false
       };
-    }
-
-    case ADD_OPTION: {
-      return state;
     }
 
     case ADD_OPTION_SUCCESS: {
@@ -112,12 +96,6 @@ export default function(state = initialState, action) {
             ]
           }
         }
-      };
-    }
-
-    case DELETE_OPTIONS_BEGIN: {
-      return {
-        ...state
       };
     }
 

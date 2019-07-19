@@ -8,8 +8,8 @@ import { addEntities } from "redux/actions";
 import {
   FETCH_OPTIONS,
   ADD_OPTION,
-  DELETE_OPTIONS_BEGIN,
   addOptionSuccess,
+  DELETE_OPTIONS,
   deleteOptionsSuccess,
 } from "./actions";
 
@@ -17,7 +17,31 @@ const host = process.env.REACT_APP_HOST_API;
 
 const getEndpoint = route => `${host}${route}`;
 
-export const postOptionMiddleware = ({ dispatch }) => next => action => {
+export const fetchOptions = ({ dispatch }) => next => action => {
+  if (action.type === FETCH_OPTIONS) {
+    const endpoint = getEndpoint("/options");
+
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(res => {
+        console.log('response:',res);
+        return res;
+      })
+      .then(({ options }) => normalize(options, [optionSchema]))
+      .then(res => {
+        console.log('normalized response:',res);
+        return res;
+      })
+      .then(({ entities }) => dispatch(addEntities(entities)))
+      .catch(error => {
+        console.log(`Error on delete Options ${error}`);
+      });
+  }
+
+  next(action);
+};
+
+export const addOption = ({ dispatch }) => next => action => {
   if (action.type === ADD_OPTION) {
     const { optionName, snack } = action.playload;
 
@@ -55,34 +79,10 @@ export const postOptionMiddleware = ({ dispatch }) => next => action => {
   next(action);
 };
 
-export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
-  if (action.type === FETCH_OPTIONS) {
-    const endpoint = getEndpoint("/options");
-
-    fetch(endpoint)
-      .then(res => res.json())
-      .then(res => {
-        console.log('response:',res);
-        return res;
-      })
-      .then(({ options }) => normalize(options, [optionSchema]))
-      .then(res => {
-        console.log('normalized response:',res);
-        return res;
-      })
-      .then(({ entities }) => dispatch(addEntities(entities)))
-      .catch(error => {
-        console.log(`Error on delete Options ${error}`);
-      });
-  }
-
-  next(action);
-};
-
-export const deleteOptionsMiddleware = ({
+export const deleteOptions = ({
   dispatch
 }) => next => action => {
-  if (action.type === DELETE_OPTIONS_BEGIN) {
+  if (action.type === DELETE_OPTIONS) {
     const { optionsId, snack } = action.playload;
 
     const body = { optionsId };

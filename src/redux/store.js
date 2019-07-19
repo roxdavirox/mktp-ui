@@ -2,9 +2,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { reducers } from './reducers';
 
 import {
-  postOptionMiddleware,
-  deleteOptionsMiddleware,
-  fetchOptionsMiddleware
+  addOption,
+  deleteOptions,
+  fetchOptions
 } from 'components/pages/Option/middlewares';
 
 import {
@@ -46,9 +46,9 @@ export const store = createStore(
   reducers,
   composeEnhancers(
     applyMiddleware(
-      postOptionMiddleware,
-      deleteOptionsMiddleware,
-      fetchOptionsMiddleware,
+      addOption,
+      deleteOptions,
+      fetchOptions,
       fetchItemsMiddleware,
       deleteItemsMiddleware,
       deleteOptionItemsMiddleware,

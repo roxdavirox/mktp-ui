@@ -40,20 +40,6 @@ export const addPriceRangeSuccess = prices => ({
   playload: { prices }
 });
 
-export const DELETE_PRICES = 'DELETE_PRICES';
-
-export const deletePrices = (priceIds, snack) => ({
-  type: DELETE_PRICES,
-  playload: { priceIds, snack }
-});
-
-export const DELETE_PRICES_SUCCESS = 'DELETE_PRICES_SUCCESS';
-
-export const deletePricesSuccess = priceIds => ({
-  type: DELETE_PRICES_SUCCESS,
-  playload: { priceIds }
-});
-
 export const EDIT_PRICE = 'EDIT_PRICE';
 
 export const editPrice = (price, snack) => ({
@@ -66,4 +52,18 @@ export const EDIT_PRICE_SUCCESS = 'EDIT_PRICE_SUCCESS';
 export const editPriceSuccess = price => ({
   type: EDIT_PRICE_SUCCESS,
   playload: { price }
+});
+
+export const DELETE_PRICES = 'DELETE_PRICES';
+
+export const deletePrices = (priceIds, snack) => ({
+  type: DELETE_PRICES,
+  playload: { priceIds, snack }
+});
+
+export const DELETE_PRICES_SUCCESS = 'DELETE_PRICES_SUCCESS';
+
+export const deletePricesSuccess = priceIds => ({
+  type: DELETE_PRICES_SUCCESS,
+  playload: { priceIds }
 });
