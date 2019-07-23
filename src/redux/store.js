@@ -32,12 +32,12 @@ import {
 } from 'components/pages/PriceTable/Price/middlewares';
 
 import {
-  fetchCategories,
-  addCategory,
-  deleteCategories,
-  addSubCategory,
-  deleteSubCategories
-} from 'components/pages/Category/middlewares';
+  fetchCategoriesMiddleware,
+  addCategoryMiddleware,
+  deleteCategoriesMiddleware,
+  addSubCategoryMiddleware,
+  deleteSubCategoriesMiddleware
+} from 'store/ducks/category';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -63,11 +63,11 @@ export const store = createStore(
       deletePrices,
       editPrice,
       editItem,
-      fetchCategories,
-      addCategory,
-      deleteCategories,
-      addSubCategory,
-      deleteSubCategories
+      fetchCategoriesMiddleware,
+      addCategoryMiddleware,
+      deleteCategoriesMiddleware,
+      addSubCategoryMiddleware,
+      deleteSubCategoriesMiddleware
     )
   )
 );

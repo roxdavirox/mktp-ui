@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { normalize } from 'normalizr';
+import history from 'providers/history';
 import { categorySchema } from '../schemas';
 import { addEntities, ADD_ENTITIES } from '../actions';
 import {
@@ -65,123 +66,128 @@ export const deleteSubCategoriesSuccess = (subCategoryIds, categoryId) => ({
 });
 
 // middlewares
-export const middlewares = {
-  fetchCategories: ({ dispatch }) => next => action => {
-    if (action.type === types.FETCH_CATEGORIES) {
-      const endpoint = getEndpoint('/categories');
 
-      fetch(endpoint)
-        .then(res => res.json())
-        .then(({ categories }) => normalize(categories, [categorySchema]))
-        .then(({ entities }) => dispatch(addEntities(entities)))
-        .catch(e => console.log(e));
-    }
+export const fetchCategoriesMiddleware = ({ dispatch }) => next => action => {
+  if (action.type === types.FETCH_CATEGORIES) {
+    const endpoint = getEndpoint('/categories');
 
-    next(action);
-  },
-  addCategory: ({ dispatch }) => next => action => {
-    if (action.type === types.ADD_CATEGORY) {
-      const { name, snack } = action.playload;
-      const request = createPostRequest({ name });
-      const endpoint = getEndpoint('/categories');
-
-      fetch(endpoint, request)
-        .then(res => res.json())
-        .then(({ category }) => {
-          snack(`Categoria ${name} adicionada com sucesso!`, {
-            variant: 'success',
-            autoHideDuration: 2000
-          });
-
-          dispatch(addCategorySuccess(category));
-          history.push('/admin/config/sub-categories', {
-            categoryId: category._id
-          });
-        })
-        .catch(e => console.log(e));
-    }
-
-    next(action);
-  },
-  deleteCategories: ({ dispatch }) => next => action => {
-    if (action.type === types.DELETE_CATEGORIES) {
-      const { categoryIds, snack } = action.playload;
-      const request = createDeleteRequest({ categoryIds });
-      const endpoint = getEndpoint('/categories');
-
-      fetch(endpoint, request)
-        .then(res => res.json())
-        .then(res => {
-          if (res.deletedCount) {
-            const count = res.deletedCount;
-            dispatch(deleteCategoriesSuccess(categoryIds));
-            snack(
-              `${count} categori${count == 1 ? 'a deletada' : 'as deletadas'}`,
-              {
-                variant: 'success',
-                autoHideDuration: 2000
-              }
-            );
-          }
-
-          return res;
-        })
-        .catch(e => console.log(e));
-    }
-
-    next(action);
-  },
-  addSubCategory: ({ dispatch }) => next => action => {
-    if (action.type === types.ADD_SUB_CATEGORY) {
-      const { name, categoryId, snack } = action.playload;
-      const request = createPostRequest({ name });
-      const endpoint = getEndpoint(`/categories/${categoryId}`);
-
-      fetch(endpoint, request)
-        .then(res => res.json())
-        .then(({ subCategory }) => {
-          snack(`Sub-categoria ${name} adicionada com sucesso!`, {
-            variant: 'success',
-            autoHideDuration: 2000
-          });
-
-          dispatch(addSubCategorySuccess(subCategory, categoryId));
-        })
-        .catch(e => console.log(e));
-    }
-
-    next(action);
-  },
-  deleteSubCategories: ({ dispatch }) => next => action => {
-    if (action.type === types.DELETE_SUB_CATEGORIES) {
-      const { subCategoryIds, categoryId, snack } = action.playload;
-      const request = createDeleteRequest({ subCategoryIds });
-      const endpoint = getEndpoint('/sub-categories');
-
-      fetch(endpoint, request)
-        .then(res => res.json())
-        .then(res => {
-          if (res.deletedCount) {
-            const count = res.deletedCount;
-            dispatch(deleteSubCategoriesSuccess(subCategoryIds, categoryId));
-            snack(
-              `${count} sub-categori${
-                count == 1 ? 'a deletada' : 'as deletadas'
-              }`,
-              {
-                variant: 'success',
-                autoHideDuration: 2000
-              }
-            );
-          }
-
-          return res;
-        })
-        .catch(e => console.log(e));
-    }
-
-    next(action);
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(({ categories }) => normalize(categories, [categorySchema]))
+      .then(({ entities }) => dispatch(addEntities(entities)))
+      .catch(e => console.log(e));
   }
+
+  next(action);
+};
+
+export const addCategoryMiddleware = ({ dispatch }) => next => action => {
+  if (action.type === types.ADD_CATEGORY) {
+    const { name, snack } = action.playload;
+    const request = createPostRequest({ name });
+    const endpoint = getEndpoint('/categories');
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ category }) => {
+        snack(`Categoria ${name} adicionada com sucesso!`, {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+
+        dispatch(addCategorySuccess(category));
+        history.push('/admin/config/sub-categories', {
+          categoryId: category._id
+        });
+      })
+      .catch(e => console.log(e));
+  }
+
+  next(action);
+};
+
+export const deleteCategoriesMiddleware = ({ dispatch }) => next => action => {
+  if (action.type === types.DELETE_CATEGORIES) {
+    const { categoryIds, snack } = action.playload;
+    const request = createDeleteRequest({ categoryIds });
+    const endpoint = getEndpoint('/categories');
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(res => {
+        if (res.deletedCount) {
+          const count = res.deletedCount;
+          dispatch(deleteCategoriesSuccess(categoryIds));
+          snack(
+            `${count} categori${count == 1 ? 'a deletada' : 'as deletadas'}`,
+            {
+              variant: 'success',
+              autoHideDuration: 2000
+            }
+          );
+        }
+
+        return res;
+      })
+      .catch(e => console.log(e));
+  }
+
+  next(action);
+};
+
+export const addSubCategoryMiddleware = ({ dispatch }) => next => action => {
+  if (action.type === types.ADD_SUB_CATEGORY) {
+    const { name, categoryId, snack } = action.playload;
+    const request = createPostRequest({ name });
+    const endpoint = getEndpoint(`/categories/${categoryId}`);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ subCategory }) => {
+        snack(`Sub-categoria ${name} adicionada com sucesso!`, {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+
+        dispatch(addSubCategorySuccess(subCategory, categoryId));
+      })
+      .catch(e => console.log(e));
+  }
+
+  next(action);
+};
+
+export const deleteSubCategoriesMiddleware = ({
+  dispatch
+}) => next => action => {
+  if (action.type === types.DELETE_SUB_CATEGORIES) {
+    const { subCategoryIds, categoryId, snack } = action.playload;
+    const request = createDeleteRequest({ subCategoryIds });
+    const endpoint = getEndpoint('/sub-categories');
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(res => {
+        if (res.deletedCount) {
+          const count = res.deletedCount;
+          dispatch(deleteSubCategoriesSuccess(subCategoryIds, categoryId));
+          snack(
+            `${count} sub-categori${
+              count == 1 ? 'a deletada' : 'as deletadas'
+            }`,
+            {
+              variant: 'success',
+              autoHideDuration: 2000
+            }
+          );
+        }
+
+        return res;
+      })
+      .catch(e => console.log(e));
+  }
+
+  next(action);
 };
 
 // reducers
