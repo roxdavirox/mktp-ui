@@ -216,7 +216,7 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    case itemTypes.DELETE_OPTIONS_SUCCESS: {
+    case types.DELETE_OPTIONS_SUCCESS: {
       const { optionsId } = action.playload;
 
       const allIds = state.allIds.filter(id => optionsId.indexOf(id) === -1);

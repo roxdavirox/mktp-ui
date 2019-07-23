@@ -29,7 +29,6 @@ const PriceTablePage = props => {
 };
 
 PriceTablePage.propTypes = {
-  data: PropTypes.array.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
