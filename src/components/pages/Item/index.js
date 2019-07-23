@@ -98,10 +98,10 @@ const ItemPage = props => {
       {open && (
         <Dialog
           open={open}
+          onClose={handleClose}
+          onSubmit={handlers[mode]}
           dialogTitle={titles[mode]}
           buttonText={buttonTexts[mode]}
-          fnClose={handleClose}
-          fnSubmit={handlers[mode]}
           item={item}
           priceTables={priceTables}
           {...props}
@@ -109,21 +109,16 @@ const ItemPage = props => {
       )}
       <Datatable
         data={data}
-        fnRowsDelete={handleRowsDelete}
-        fnOpen={handleOpen}
-        fnUpdate={handleUpdate}
+        onRowsDelete={handleRowsDelete}
+        onOpen={handleOpen}
+        onUpdate={handleUpdate}
       />
     </>
   );
 };
 
 ItemPage.propTypes = {
-  data: PropTypes.any.isRequired,
-  fetchItems: PropTypes.func.isRequired,
-  enqueueSnackbar: PropTypes.func.isRequired,
-  addItem: PropTypes.func.isRequired,
-  editItem: PropTypes.func.isRequired,
-  deleteItems: PropTypes.func.isRequired
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
 export default withSnackbar(ItemPage);

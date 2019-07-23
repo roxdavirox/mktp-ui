@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import MuiDialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -27,99 +27,93 @@ const styles = theme => ({
   select: { height: '37px' }
 });
 
-class Dialog extends React.Component {
-  state = { itemName: '', priceTableId: '', itemId: '' };
+const Dialog = props => {
+  const [itemName, setItemName] = useState('');
+  const [priceTableId, setPriceTableId] = useState('');
+  const [itemId, setItemId] = useState('');
+  const dispatch = useDispatch();
 
-  componentDidMount = () => {
-    const { fetchPriceTables, item } = this.props;
+  useEffect(() => {
+    const { fetchPriceTables, item } = props;
     if (item) {
-      this.setState({
-        priceTableId: item.priceTableId || '',
-        itemName: item.name || '',
-        itemId: item._id || ''
-      });
+      setPriceTableId(item.priceTableId || '');
+      setItemName(item.name || '');
+      setItemId(item._id || '');
     }
-    fetchPriceTables();
-  };
+    dispatch(fetchPriceTables());
+  }, []);
 
-  handleNameChange = e => this.setState({ itemName: e.target.value });
+  const handleNameChange = e => setItemName(e.target.value);
 
-  handlePriceTableChange = e => this.setState({ priceTableId: e.target.value });
+  const handlePriceTableChange = e => setPriceTableId(e.target.value);
 
-  handleSubmit = () => {
-    const { itemName, itemId, priceTableId } = this.state;
-    const { fnSubmit } = this.props;
+  const handleSubmit = () => {
     const item = { name: itemName, priceTableId, _id: itemId };
-    fnSubmit(item);
+    props.onSubmit(item);
   };
 
-  handleClose = () => {
-    const { fnClose } = this.props;
-    fnClose();
-  };
+  const handleClose = () => props.onClose();
 
-  render() {
-    const { open, dialogTitle, buttonText, classes, priceTables } = this.props;
-    return (
-      <div>
-        <MuiDialog
-          open={open}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
-          <DialogContent>
-            <form className={classes.container}>
-              <FormControl className={classes.formControl}>
-                <TextField
-                  value={this.state.itemName}
-                  autoFocus
-                  margin="dense"
-                  id="name"
-                  label="Nome"
-                  fullWidth
-                  onChange={this.handleNameChange}
-                />
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="price-table-input">
-                  Tabela de preço
-                </InputLabel>
-                <Select
-                  className={classes.select}
-                  value={this.state.priceTableId}
-                  onChange={this.handlePriceTableChange}
-                  input={<Input id="price-table-input" />}
-                >
-                  <MenuItem value="">
-                    <em>Nenhum</em>
+  const { open, dialogTitle, buttonText, classes, priceTables } = props;
+  return (
+    <div>
+      <MuiDialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
+        <DialogContent>
+          <form className={classes.container}>
+            <FormControl className={classes.formControl}>
+              <TextField
+                value={itemName}
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Nome"
+                fullWidth
+                onChange={handleNameChange}
+              />
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="price-table-input">
+                Tabela de preço
+              </InputLabel>
+              <Select
+                className={classes.select}
+                value={priceTableId}
+                onChange={handlePriceTableChange}
+                input={<Input id="price-table-input" />}
+              >
+                <MenuItem value="">
+                  <em>Nenhum</em>
+                </MenuItem>
+                {priceTables.map(p => (
+                  <MenuItem key={p._id} value={p._id}>
+                    {p.name}
                   </MenuItem>
-                  {priceTables.map(p => (
-                    <MenuItem key={p._id} value={p._id}>
-                      {p.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </form>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancelar
-            </Button>
-            <Button onClick={this.handleSubmit} color="primary">
-              {buttonText}
-            </Button>
-          </DialogActions>
-        </MuiDialog>
-      </div>
-    );
-  }
-}
+                ))}
+              </Select>
+            </FormControl>
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleSubmit} color="primary">
+            {buttonText}
+          </Button>
+        </DialogActions>
+      </MuiDialog>
+    </div>
+  );
+};
 
 Dialog.propTypes = {
-  fnClose: PropTypes.func.isRequired,
-  fnSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
   priceTables: PropTypes.array.isRequired,
@@ -130,9 +124,4 @@ Dialog.propTypes = {
   buttonText: PropTypes.string.isRequired
 };
 
-export default connect(
-  null,
-  {
-    fetchPriceTables
-  }
-)(withStyles(styles)(Dialog));
+export default withStyles(styles)(Dialog);

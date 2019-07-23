@@ -13,99 +13,94 @@ const styles = {
   NameCell: { fontWeight: 500 }
 };
 
-class Datatable extends React.Component {
-  handleRowUpdate = (itemId, tableMeta) => {
+const Datatable = ({ data, onUpdate, onRowsDelete, onOpen, classes }) => {
+  const handleRowUpdate = (itemId, tableMeta) => {
     const [name, priceTableId, _id] = tableMeta.rowData;
     const item = { name, priceTableId, _id };
-    this.props.fnUpdate(item);
+    onUpdate(item);
   };
 
-  render = () => {
-    const { data } = this.props;
-    const options = {
-      filterType: 'checkbox',
-      download: false,
-      print: false,
-      filter: false,
-      viewColumns: false,
-      rowHover: false,
-      rowsPerPageOptions: [5, 10, 15],
-      rowsPerPage: 5,
-      responsive: 'stacked',
-      textLabels: {
-        body: {
-          noMatch: 'Nenhum item'
-        }
-      },
-      customToolbar: () => {
-        return (
-          <AddToolbar
-            title="Adicionar Item"
-            onClick={this.props.fnOpen}
-            aria-owns="add-menu"
-            aria-haspopup="true"
+  const options = {
+    filterType: 'checkbox',
+    download: false,
+    print: false,
+    filter: false,
+    viewColumns: false,
+    rowHover: false,
+    rowsPerPageOptions: [5, 10, 15],
+    rowsPerPage: 5,
+    responsive: 'stacked',
+    textLabels: {
+      body: {
+        noMatch: 'Nenhum item'
+      }
+    },
+    customToolbar: () => {
+      return (
+        <AddToolbar
+          title="Adicionar Item"
+          onClick={onOpen}
+          aria-owns="add-menu"
+          aria-haspopup="true"
+        />
+      );
+    },
+    onRowsDelete: rowsDeleted => onRowsDelete(rowsDeleted)
+  };
+  const columns = [
+    {
+      name: 'name',
+      label: 'Nome',
+      options: {
+        filter: true,
+        sort: true
+      }
+    },
+    {
+      name: 'priceTableId',
+      options: {
+        filter: false,
+        sort: false,
+        display: 'excluded'
+      }
+    },
+    {
+      name: '_id',
+      label: ' ',
+      options: {
+        sort: false,
+        filter: false,
+        customBodyRender: (value, tableMeta) => (
+          <MoreHorizIcon
+            key={tableMeta.columnIndex}
+            onClick={() => handleRowUpdate(value, tableMeta)}
           />
-        );
-      },
-      onRowsDelete: rowsDeleted => this.props.fnRowsDelete(rowsDeleted)
-    };
-    const columns = [
-      {
-        name: 'name',
-        label: 'Nome',
-        options: {
-          filter: true,
-          sort: true
-        }
-      },
-      {
-        name: 'priceTableId',
-        options: {
-          filter: false,
-          sort: false,
-          display: 'excluded'
-        }
-      },
-      {
-        name: '_id',
-        label: ' ',
-        options: {
-          sort: false,
-          filter: false,
-          customBodyRender: (value, tableMeta) => (
-            <MoreHorizIcon
-              key={tableMeta.columnIndex}
-              onClick={() => {
-                this.handleRowUpdate(value, tableMeta);
-              }}
-            />
-          ),
-          setCellProps: () => {
-            return {
-              className: classNames({ [this.props.classes.EditCell]: true })
-            };
-          }
+        ),
+        setCellProps: () => {
+          return {
+            className: classNames({ [classes.EditCell]: true })
+          };
         }
       }
-    ];
-    return (
-      <div>
-        <MuiDatatable
-          title="Itens"
-          data={data}
-          options={options}
-          columns={columns}
-        />{' '}
-      </div>
-    );
-  };
-}
+    }
+  ];
+  return (
+    <div>
+      <MuiDatatable
+        title="Itens"
+        data={data}
+        options={options}
+        columns={columns}
+      />{' '}
+    </div>
+  );
+};
 
 Datatable.propTypes = {
   data: PropTypes.any.isRequired,
-  fnRowsDelete: PropTypes.func.isRequired,
-  fnOpen: PropTypes.func.isRequired,
-  fnUpdate: PropTypes.func.isRequired,
+  onRowsDelete: PropTypes.func.isRequired,
+  onOpen: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
 };
 
