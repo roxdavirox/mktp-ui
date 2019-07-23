@@ -2,51 +2,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MuiDialog from '@material-ui/core/Dialog';
-import AddItem from './dialogs/AddItem';
-import EditItem from './dialogs/EditItem';
+import AddItemDialog from './dialogs/AddItemDialog';
+import EditItemDialog from './dialogs/EditItemDialog';
 import ExistingItems from './dialogs/ExistingItems';
 
-class Dialog extends React.Component {
-  handleClose = () => {
-    const { fnClose } = this.props;
-    fnClose();
+const Dialog = props => {
+  const { onClose, open, mode } = props;
+  const handleClose = () => onClose();
+
+  const dialogs = {
+    add: <AddItemDialog {...props} />,
+    edit: <EditItemDialog {...props} />,
+    existing: <ExistingItems {...props} />
   };
 
-  render() {
-    const { open, mode } = this.props;
-
-    const dialogs = {
-      add: <AddItem {...this.props} />,
-      edit: <EditItem {...this.props} />,
-      existing: <ExistingItems {...this.props} />
-    };
-
-    return (
-      <div>
-        <MuiDialog
-          open={open}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          {dialogs[mode]}
-        </MuiDialog>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <MuiDialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        {dialogs[mode]}
+      </MuiDialog>
+    </div>
+  );
+};
 
 Dialog.propTypes = {
-  fnClose: PropTypes.func.isRequired,
-  fnSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onChangeName: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   mode: PropTypes.string.isRequired,
-  dialogTitle: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
   selectedItems: PropTypes.array.isRequired,
-  priceTables: PropTypes.array.isRequired,
-  allItems: PropTypes.array.isRequired,
-  fnChangeName: PropTypes.func.isRequired,
-  fnSelect: PropTypes.func.isRequired
+  priceTables: PropTypes.array.isRequired
 };
 
 export default Dialog;

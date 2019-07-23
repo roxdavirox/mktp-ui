@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import Dialog from './Dialog';
 import Datatable from './Datatable';
@@ -14,73 +14,75 @@ import {
   editItem,
   getOptionsItems
 } from 'store/ducks/item';
-import { getPriceTables } from 'store/ducks/priceTable';
+// import { getPriceTables } from 'store/ducks/priceTable';
 
-const getOptionId = props => {
-  const { state } = props.location;
+const getOptionId = location => {
+  const { state } = location;
   const { optionId } = state;
   return optionId;
 };
 
-class OptionItemPage extends React.Component {
-  state = { open: false, mode: 'add', item: {}, selectedItems: [] };
+const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
+  const [open, setOpen] = useState(false);
+  const [mode, setDialogMode] = useState('add');
+  const [item, setItem] = useState({});
+  const [selectedItems, setSelectedItems] = useState([]);
+  const dispatch = useDispatch();
+  const optionId = getOptionId(location);
 
-  componentDidMount = ({ fetchOptions, fetchItems } = this.props) => {
+  useEffect(() => {
     const pageRefreshed =
       window.performance && performance.navigation.type == 1;
     if (pageRefreshed) {
-      fetchOptions();
-      fetchItems();
+      dispatch(fetchOptions());
+      dispatch(fetchItems());
     }
+  }, []);
+
+  const handleOpen = mode => {
+    setOpen(true);
+    setDialogMode(mode);
   };
 
-  handleOpen = mode => this.setState({ open: true, mode });
+  const handleClose = () => {
+    setOpen(false);
+    setItem(null);
+    setSelectedItems([]);
+  };
 
-  handleClose = () =>
-    this.setState({ open: false, item: null, selectedItems: [] });
-
-  handleAddOptionItem = item => {
-    const { enqueueSnackbar } = this.props;
-    const optionId = getOptionId(this.props);
-
-    enqueueSnackbar('Adicionando item...', {
+  const handleAddOptionItem = item => {
+    snack('Adicionandoitem...', {
       variant: 'info',
       autoHideDuration: 2000
     });
 
     if (item) {
-      this.props.addOptionItem(item, optionId, enqueueSnackbar);
-      this.handleClose();
+      dispatch(addOptionItem(item, optionId, snack));
+      handleClose();
     }
   };
 
-  handleEditItem = item => {
-    const { enqueueSnackbar: snack, editItem } = this.props;
-
+  const handleEditItem = item => {
     snack('Adicionando item...', {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    editItem(item, snack);
-    this.handleClose();
+    dispatch(editItem(item, snack));
+    handleClose();
   };
 
-  handleExistingItem = () => {
-    const { enqueueSnackbar } = this.props;
-    const optionId = getOptionId(this.props);
-    const { selectedItems } = this.state;
-
+  const handleExistingItem = () => {
     if (selectedItems.length <= 0) {
-      enqueueSnackbar('Nenhum item selecionado!', {
+      snack('Nenhum item selecionado!', {
         variant: 'error',
         autoHideDuration: 2000
       });
-      this.handleClose();
+      handleClose();
       return;
     }
 
-    enqueueSnackbar('Adicionando item(s)...', {
+    snack('Adicionando item(s)...', {
       variant: 'info',
       autoHideDuration: 2000
     });
@@ -88,53 +90,59 @@ class OptionItemPage extends React.Component {
     const itemsId = selectedItems.map(i => i._id);
     console.log('selectedItems:', itemsId);
     console.log('adicionando item na opção:', optionId);
-    this.props.addExistingItems(itemsId, optionId, enqueueSnackbar);
-    this.handleClose();
+    dispatch(addExistingItems(itemsId, optionId, snack));
+    handleClose();
   };
 
-  handleUpdate = item => this.setState({ open: true, mode: 'edit', item });
+  const handleUpdate = item => {
+    setOpen(true);
+    setDialogMode('edit');
+    setItem(item);
+  };
 
-  handleSelect = selectedItems => this.setState({ selectedItems });
+  const handleSelect = items => setSelectedItems(items);
 
-  handleRowsDelete = rows => {
-    const { enqueueSnackbar, data } = this.props;
-    const optionId = getOptionId(this.props);
-
+  const handleRowsDelete = rows => {
     const { data: dataRows } = rows;
     const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
 
     const deletedItemsIds = indexRows.map(index => data[index]._id);
 
-    enqueueSnackbar('Deletando...', {
+    snack('Deletando...', {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    this.props.deleteOptionItems(deletedItemsIds, optionId, enqueueSnackbar);
+    dispatch(deleteOptionItems(deletedItemsIds, optionId, snack));
   };
 
-  render = () => {
-    const { open } = this.state;
-
-    const fns = {
-      fnAdd: this.handleAddOptionItem,
-      fnEdit: this.handleEditItem,
-      fnUpdate: this.handleUpdate,
-      fnExistingItems: this.handleExistingItem,
-      fnSelect: this.handleSelect,
-      fnOpen: this.handleOpen,
-      fnClose: this.handleClose,
-      fnRowsDelete: this.handleRowsDelete
-    };
-
-    return (
-      <>
-        {open && <Dialog {...fns} {...this.props} {...this.state} />}
-        <Datatable {...fns} {...this.props} />
-      </>
-    );
-  };
-}
+  const data = useSelector(store => getOptionsItems(optionId, store));
+  const itemsId = data.map(item => item._id);
+  return (
+    <>
+      {open && (
+        <Dialog
+          selectedItems={selectedItems}
+          open={open}
+          onExistingItems={handleExistingItem}
+          onSelect={handleSelect}
+          onClose={handleClose}
+          mode={mode}
+          item={item}
+          onEdit={handleEditItem}
+          onAddOptionItem={handleAddOptionItem}
+          itemsId={itemsId}
+        />
+      )}
+      <Datatable
+        data={data}
+        onUpdate={handleUpdate}
+        onOpen={handleOpen}
+        onRowsDelete={handleRowsDelete}
+      />
+    </>
+  );
+};
 
 OptionItemPage.propTypes = {
   data: PropTypes.any.isRequired,
@@ -144,32 +152,8 @@ OptionItemPage.propTypes = {
   addExistingItems: PropTypes.func.isRequired,
   optionId: PropTypes.string.isRequired,
   deleteOptionItems: PropTypes.func.isRequired,
-  priceTables: PropTypes.array.isRequired
+  priceTables: PropTypes.array.isRequired,
+  location: PropTypes.object
 };
 
-const mapStateToProps = (store, ownProps) => {
-  const optionId = getOptionId(ownProps);
-  console.log('optionId: ', optionId);
-
-  const data = getOptionsItems(optionId, store);
-  const itemIds = data.map(item => item._id);
-  return {
-    data,
-    itemIds,
-    priceTables: getPriceTables(store)
-  };
-};
-
-const mapDispatchToProps = {
-  fetchOptions,
-  addOptionItem,
-  addExistingItems,
-  fetchItems,
-  deleteOptionItems,
-  editItem
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withSnackbar(OptionItemPage));
+export default withSnackbar(OptionItemPage);

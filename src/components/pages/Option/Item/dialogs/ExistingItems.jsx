@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
@@ -39,76 +39,72 @@ const MenuProps = {
   }
 };
 
-class ExistingItems extends React.Component {
-  handleSubmit = () => {
-    this.props.fnExistingItems();
+const ExistingItems = props => {
+  const handleSubmit = () => {
+    const { onExistingItems } = props;
+    onExistingItems();
   };
 
-  render = () => {
-    const { classes, items, fnSelect, selectedItems } = this.props;
-    console.log('items selecionados:', selectedItems);
-    return (
-      <>
-        <DialogTitle id="form-dialog-title">
-          Adicionar itens existentes
-        </DialogTitle>
-        <DialogContent>
-          <form className={classes.container}>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="select-multiple">
-                Selecionar itens existentes
-              </InputLabel>
-              <Select
-                multiple
-                value={selectedItems}
-                onChange={e => fnSelect(e.target.value)}
-                input={<Input id="select-multiple" />}
-                MenuProps={MenuProps}
-              >
-                {items.map(item => (
-                  <MenuItem
-                    key={item._id}
-                    value={item}
-                    style={{ fontWeight: 'fontWeigthMedium' }}
-                  >
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.props.fnClose} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={this.handleSubmit} color="primary">
-            Adicionar
-          </Button>
-        </DialogActions>
-      </>
-    );
+  const handleClose = () => {
+    const { onClose } = props;
+    onClose();
   };
-}
+  const { classes, onSelect, selectedItems } = props;
+
+  const items = useSelector(store => getItems(store));
+  const { itemsId } = props;
+  const allItems = items.filter(item => itemsId.indexOf(item._id) === -1);
+  console.log('items selecionados:', selectedItems);
+  return (
+    <>
+      <DialogTitle id="form-dialog-title">
+        Adicionar itens existentes
+      </DialogTitle>
+      <DialogContent>
+        <form className={classes.container}>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="select-multiple">
+              Selecionar itens existentes
+            </InputLabel>
+            <Select
+              multiple
+              value={selectedItems}
+              onChange={e => onSelect(e.target.value)}
+              input={<Input id="select-multiple" />}
+              MenuProps={MenuProps}
+            >
+              {allItems.map(item => (
+                <MenuItem
+                  key={item._id}
+                  value={item}
+                  style={{ fontWeight: 'fontWeigthMedium' }}
+                >
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </form>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          Cancelar
+        </Button>
+        <Button onClick={handleSubmit} color="primary">
+          Adicionar
+        </Button>
+      </DialogActions>
+    </>
+  );
+};
 
 ExistingItems.propTypes = {
   classes: PropTypes.object.isRequired,
-  items: PropTypes.array.isRequired,
-  fnSelect: PropTypes.func.isRequired,
-  fnClose: PropTypes.func.isRequired,
-  fnExistingItems: PropTypes.func.isRequired,
-  selectedItems: PropTypes.array.isRequired
+  onSelect: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onExistingItems: PropTypes.func.isRequired,
+  selectedItems: PropTypes.array.isRequired,
+  itemsId: PropTypes.array.isRequired
 };
 
-const mapStateToProps = (store, ownProps) => {
-  const items = getItems(store);
-  const { itemIds } = ownProps;
-
-  const allItems = items.filter(item => itemIds.indexOf(item._id) === -1);
-
-  return {
-    items: allItems
-  };
-};
-
-export default connect(mapStateToProps)(withStyles(styles)(ExistingItems));
+export default withStyles(styles)(ExistingItems);
