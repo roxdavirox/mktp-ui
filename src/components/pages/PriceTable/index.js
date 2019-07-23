@@ -1,54 +1,36 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import Datatable from './Datatable';
-import Dialog from './Dialog';
-import {
-  fetchPriceTables,
-  deletePriceTables,
-  addPriceTable,
-  getPriceTables
-} from 'store/ducks/priceTable';
+import AddPriceTableDialog from './AddPriceTableDialog';
+import { fetchPriceTables, getPriceTables } from 'store/ducks/priceTable';
 
-class PriceTablePage extends React.Component {
-  state = { open: false };
+// eslint-disable-next-line no-unused-vars
+const PriceTablePage = props => {
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
-  componentDidMount = () => {
-    this.props.fetchPriceTables();
-  };
+  useEffect(() => {
+    dispatch(fetchPriceTables());
+  }, []);
 
-  handleOpen = () => this.setState({ open: true });
+  const handleOpen = () => setOpen(true);
 
-  handleClose = () => this.setState({ open: false });
+  const handleClose = () => setOpen(false);
 
-  render = () => {
-    const { open } = this.state;
-    return (
-      <>
-        <Dialog {...this.props} open={open} onClose={this.handleClose} />
-        <Datatable {...this.props} onDialog={this.handleOpen} />
-      </>
-    );
-  };
-}
+  const data = useSelector(store => getPriceTables(store));
+  return (
+    <>
+      <AddPriceTableDialog open={open} onClose={handleClose} />
+      <Datatable data={data} onOpen={handleOpen} />
+    </>
+  );
+};
 
 PriceTablePage.propTypes = {
   data: PropTypes.array.isRequired,
   fetchPriceTables: PropTypes.func.isRequired
 };
 
-const mapStateToProps = store => ({
-  data: getPriceTables(store)
-});
-
-const mapDisptachToProps = {
-  fetchPriceTables,
-  deletePriceTables,
-  onAdd: addPriceTable
-};
-
-export default connect(
-  mapStateToProps,
-  mapDisptachToProps
-)(withSnackbar(PriceTablePage));
+export default withSnackbar(PriceTablePage);
