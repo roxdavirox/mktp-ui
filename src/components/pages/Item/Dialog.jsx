@@ -34,7 +34,7 @@ const Dialog = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const { fetchPriceTables, item } = props;
+    const { item } = props;
     if (item) {
       setPriceTableId(item.priceTableId || '');
       setItemName(item.name || '');
