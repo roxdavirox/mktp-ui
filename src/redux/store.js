@@ -24,12 +24,12 @@ import {
 } from 'store/ducks/priceTable';
 
 import {
-  fetchPrices,
-  addPrice,
-  addPriceRange,
-  deletePrices,
-  editPrice
-} from 'components/pages/PriceTable/Price/middlewares';
+  fetchPricesMiddleware,
+  addPriceMiddleware,
+  addPriceRangeMiddleware,
+  deletePricesMiddleware,
+  editPriceMiddleware
+} from 'store/ducks/price';
 
 import {
   fetchCategoriesMiddleware,
@@ -58,11 +58,11 @@ export const store = createStore(
       fetchPriceTablesMiddleware,
       addPriceTableMiddleware,
       deletePriceTablesMiddleware,
-      fetchPrices,
-      addPrice,
-      addPriceRange,
-      deletePrices,
-      editPrice,
+      fetchPricesMiddleware,
+      addPriceMiddleware,
+      addPriceRangeMiddleware,
+      deletePricesMiddleware,
+      editPriceMiddleware,
       fetchCategoriesMiddleware,
       addCategoryMiddleware,
       deleteCategoriesMiddleware,
