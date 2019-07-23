@@ -22,15 +22,22 @@ const styles = theme => ({
   }
 });
 
-const Dialog = ({ open, onClose, classes }) => {
+const Dialog = ({ enqueueSnackbar: snack, classes, open, onClose }) => {
   const [priceTableName, setPriceTableName] = useState('');
   const dispatch = useDispatch();
 
   const handleNameChange = e => setPriceTableName(e.target.value);
 
   const handleSubmit = () => {
-    dispatch(addPriceTable(priceTableName));
+    snack('Adicionando preço...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+    dispatch(addPriceTable(priceTableName, snack));
+    handleClose();
   };
+
+  const handleClose = () => onClose();
 
   return (
     <div>
@@ -72,7 +79,8 @@ const Dialog = ({ open, onClose, classes }) => {
 Dialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Dialog);

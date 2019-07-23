@@ -48,6 +48,7 @@ const PricePage = props => {
           open={open}
           onClose={handleClose}
           priceTableId={priceTableId}
+          {...props}
         />
       )}
       <Datatable

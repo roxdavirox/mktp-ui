@@ -3,14 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MuiDialog from '@material-ui/core/Dialog';
 
-import AddPrice from './dialogs/AddPrice';
+import AddPriceDialog from './dialogs/AddPriceDialog';
 import EditPrice from './dialogs/EditPrice';
 import RangePrice from './dialogs/RangePrice';
 
 const Dialog = props => {
   const { open, onClose, mode } = props;
   const dialogs = {
-    add: <AddPrice {...props} />,
+    add: <AddPriceDialog {...props} />,
     edit: <EditPrice {...props} />,
     range: <RangePrice {...props} />
   };

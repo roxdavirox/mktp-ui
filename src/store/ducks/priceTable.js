@@ -20,9 +20,9 @@ export const fetchPriceTables = () => ({
   type: types.FETCH_PRICE_TABLES
 });
 
-export const addPriceTable = name => ({
+export const addPriceTable = (name, snack) => ({
   type: types.ADD_PRICE_TABLE,
-  playload: { name }
+  playload: { name, snack }
 });
 
 export const addPriceTableSuccess = priceTable => ({
@@ -61,13 +61,19 @@ export const fetchPriceTablesMiddleware = ({ dispatch }) => next => action => {
 
 export const addPriceTableMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_PRICE_TABLE) {
-    const { name } = action.playload;
+    const { name, snack } = action.playload;
     const endpoint = getEndpoint('/price-tables');
     const request = createPostRequest({ name });
 
     fetch(endpoint, request)
       .then(res => res.json())
-      .then(({ priceTable }) => dispatch(addPriceTableSuccess(priceTable)))
+      .then(({ priceTable }) => {
+        snack('Tabela de Preço adicionada com sucesso!', {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+        dispatch(addPriceTableSuccess(priceTable));
+      })
       .catch(e => console.log(e));
   }
 

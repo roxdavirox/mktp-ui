@@ -22,7 +22,7 @@ const PriceTablePage = props => {
   const data = useSelector(store => getPriceTables(store));
   return (
     <>
-      <AddPriceTableDialog open={open} onClose={handleClose} />
+      <AddPriceTableDialog open={open} onClose={handleClose} {...props} />
       <Datatable data={data} onOpen={handleOpen} {...props} />
     </>
   );
