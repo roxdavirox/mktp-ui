@@ -12,7 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import { addCategory } from './actions';
+import { addCategory } from 'store/ducks/category';
 
 const styles = theme => ({
   container: {

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategories } from './actions';
+import { fetchCategories } from 'store/ducks/category';
 import { getCategories } from './selectors';
 import Datatable from './Datatable';
 import Dialog from './Dialog';
