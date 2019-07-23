@@ -2,7 +2,7 @@ import options from 'components/pages/Option/reducer';
 import items from 'components/pages/Item/reducer';
 import priceTables from 'components/pages/PriceTable/reducer';
 import prices from 'components/pages/PriceTable/Price/reducer';
-import categories from 'components/pages/Category/reducer';
+import categories from 'store/ducks/category';
 
 import { combineReducers } from 'redux';
 
