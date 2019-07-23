@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
 import Datatable from './Datatable';
 import { getEndpoint } from 'helpers/api';
 

@@ -88,7 +88,8 @@ const ProductCategory = ({ classes, categories }) => {
 };
 
 ProductCategory.propTypes = {
-  classes: PropTypes.object
+  classes: PropTypes.object,
+  categories: PropTypes.array
 };
 
 export default withStyles(basicsStyle)(ProductCategory);
