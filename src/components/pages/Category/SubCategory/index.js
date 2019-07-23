@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSubcategories } from './selectors';
-import { fetchCategories } from '../actions';
-import Datatable from './Datatable';
-import Dialog from './Dialog';
 import { withSnackbar } from 'notistack';
 import history from 'providers/history';
+import { fetchCategories, getSubcategories } from 'store/ducks/category';
+import Datatable from './Datatable';
+import Dialog from './Dialog';
 
 const getCategoryId = () => {
   const { state } = history.location;

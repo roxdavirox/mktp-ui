@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { withSnackbar } from 'notistack';
-import { addSubCategory } from '../actions';
 import Button from '@material-ui/core/Button';
 import MuiDialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,6 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
+import { addSubCategory } from 'store/ducks/category';
 
 const styles = theme => ({
   container: {

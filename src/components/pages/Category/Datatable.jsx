@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'components/common/tables/Toolbar.jsx';
-import { deleteCategories } from './actions';
+import { deleteCategories } from 'store/ducks/category';
 
 const styles = {
   EditCell: { textAlign: 'right' },
