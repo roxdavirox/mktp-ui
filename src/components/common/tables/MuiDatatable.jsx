@@ -3,14 +3,7 @@ import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 
-const MuiDatatable = ({ title, data, columns, options }) => (
-  <MUIDataTable
-    title={title ? title : ''}
-    data={data}
-    columns={columns}
-    options={options}
-  />
-);
+const MuiDatatable = props => <MUIDataTable {...props} />;
 
 MuiDatatable.propTypes = {
   title: PropTypes.any,

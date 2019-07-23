@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import Datatable from './Datatable';
 import Dialog from './Dialog';
@@ -15,19 +15,29 @@ import {
 } from 'store/ducks/item';
 import { getPriceTables } from 'store/ducks/priceTable';
 
-class ItemPage extends Component {
-  state = { open: false, mode: 'add', item: {} };
+const ItemPage = props => {
+  const [open, setOpen] = useState(false);
+  const [mode, setDialogMode] = useState('add');
+  const [item, setItem] = useState({});
+  const data = useSelector(store => getItems(store));
+  const priceTables = useSelector(store => getPriceTables(store));
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, []);
 
-  componentDidMount = ({ fetchItems } = this.props) => fetchItems();
+  const handleOpen = () => {
+    setOpen(true);
+    setDialogMode('add');
+  };
 
-  handleOpen = () => this.setState({ open: true, mode: 'add' });
+  const handleClose = () => {
+    setOpen(false);
+    setItem(null);
+  };
 
-  handleClose = () => this.setState({ open: false, item: null });
-
-  handleItemNameChange = itemName => this.setState({ itemName });
-
-  handleAdd = item => {
-    const { addItem, enqueueSnackbar: snack } = this.props;
+  const handleAdd = item => {
+    const { enqueueSnackbar: snack } = props;
 
     snack('Adicionando item...', {
       variant: 'info',
@@ -38,25 +48,24 @@ class ItemPage extends Component {
 
     const newItem = { ...rest };
 
-    addItem(newItem, snack);
-    this.handleClose();
+    dispatch(addItem(newItem, snack));
+    handleClose();
   };
 
-  handleEdit = item => {
-    const { enqueueSnackbar: snack, editItem } = this.props;
-    console.log('item:', item);
+  const handleEdit = item => {
+    const { enqueueSnackbar: snack } = props;
 
     snack('Editando item...', {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    editItem(item, snack);
-    this.handleClose();
+    dispatch(editItem(item, snack));
+    handleClose();
   };
 
-  handleRowsDelete = rows => {
-    const { enqueueSnackbar, data } = this.props;
+  const handleRowsDelete = rows => {
+    const { enqueueSnackbar } = props;
 
     const { data: dataRows } = rows;
     const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
@@ -68,46 +77,45 @@ class ItemPage extends Component {
       autoHideDuration: 2000
     });
 
-    this.props.deleteItems(deletedItemsIds, enqueueSnackbar);
+    dispatch(deleteItems(deletedItemsIds, enqueueSnackbar));
   };
 
-  handleUpdate = item => {
-    this.setState({ open: true, mode: 'edit', item });
+  const handleUpdate = item => {
+    setOpen(true);
+    setDialogMode('edit');
+    setItem(item);
   };
 
-  render = () => {
-    const handlers = {
-      add: this.handleAdd,
-      edit: this.handleEdit
-    };
-    const buttonTexts = { add: 'Adicionar', edit: 'Editar' };
-    const titles = { add: 'Adicionar item', edit: 'Editar item ' };
+  const handlers = {
+    add: handleAdd,
+    edit: handleEdit
+  };
+  const buttonTexts = { add: 'Adicionar', edit: 'Editar' };
+  const titles = { add: 'Adicionar item', edit: 'Editar item ' };
 
-    const { data } = this.props;
-    const { open, mode, item } = this.state;
-    return (
-      <>
-        {open && (
-          <Dialog
-            open={open}
-            dialogTitle={titles[mode]}
-            buttonText={buttonTexts[mode]}
-            fnClose={this.handleClose}
-            fnSubmit={handlers[mode]}
-            item={item}
-            {...this.props}
-          />
-        )}
-        <Datatable
-          data={data}
-          fnRowsDelete={this.handleRowsDelete}
-          fnOpen={this.handleOpen}
-          fnUpdate={this.handleUpdate}
+  return (
+    <>
+      {open && (
+        <Dialog
+          open={open}
+          dialogTitle={titles[mode]}
+          buttonText={buttonTexts[mode]}
+          fnClose={handleClose}
+          fnSubmit={handlers[mode]}
+          item={item}
+          priceTables={priceTables}
+          {...props}
         />
-      </>
-    );
-  };
-}
+      )}
+      <Datatable
+        data={data}
+        fnRowsDelete={handleRowsDelete}
+        fnOpen={handleOpen}
+        fnUpdate={handleUpdate}
+      />
+    </>
+  );
+};
 
 ItemPage.propTypes = {
   data: PropTypes.any.isRequired,
@@ -118,19 +126,4 @@ ItemPage.propTypes = {
   deleteItems: PropTypes.func.isRequired
 };
 
-const mapStateToProps = store => ({
-  data: getItems(store),
-  priceTables: getPriceTables(store)
-});
-
-const mapDispatchToProps = {
-  fetchItems,
-  addItem,
-  deleteItems,
-  editItem
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withSnackbar(ItemPage));
+export default withSnackbar(ItemPage);
