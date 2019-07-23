@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import Datatable from './Datatable';
-import { getPriceTables } from './selectors';
-import { fetchPriceTables, deletePriceTables, addPriceTable } from './actions';
 import Dialog from './Dialog';
+import {
+  fetchPriceTables,
+  deletePriceTables,
+  addPriceTable,
+  getPriceTables
+} from 'store/ducks/priceTable';
 
 class PriceTablePage extends React.Component {
   state = { open: false };

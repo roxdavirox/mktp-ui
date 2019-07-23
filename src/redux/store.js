@@ -18,10 +18,10 @@ import {
 } from 'store/ducks/item';
 
 import {
-  fetchPriceTables,
-  addPriceTable,
-  deletePriceTables
-} from 'components/pages/PriceTable/middlewares';
+  fetchPriceTablesMiddleware,
+  addPriceTableMiddleware,
+  deletePriceTablesMiddleware
+} from 'store/ducks/priceTable';
 
 import {
   fetchPrices,
@@ -55,9 +55,9 @@ export const store = createStore(
       editItemMiddleware,
       deleteItemsMiddleware,
       deleteOptionItemsMiddleware,
-      fetchPriceTables,
-      addPriceTable,
-      deletePriceTables,
+      fetchPriceTablesMiddleware,
+      addPriceTableMiddleware,
+      deletePriceTablesMiddleware,
       fetchPrices,
       addPrice,
       addPriceRange,
