@@ -1,52 +1,58 @@
 /* eslint-disable no-console */
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import Datatable from './Datatable';
 import Dialog from './Dialog';
-import { fetchPrices, deletePrices, getPrices } from 'store/ducks/price';
+import { fetchPrices, getPrices } from 'store/ducks/price';
 
-const getPriceTableId = props => {
-  const { state } = props.location;
-  const { priceTableId } = state;
-  return priceTableId;
+const PricePage = props => {
+  const [open, setOpen] = useState(false);
+  const [mode, setDialogMode] = useState('add');
+  const [price, setPrice] = useState(null);
+  const { location } = props;
+  const {
+    state: { priceTableId }
+  } = location;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPrices(priceTableId));
+  }, []);
+
+  const handleRowUpdate = price => {
+    setOpen(true);
+    setDialogMode('edit');
+    setPrice(price);
+  };
+
+  const handleOpen = mode => {
+    setOpen(true);
+    setDialogMode(mode);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setPrice(null);
+  };
+
+  const data = useSelector(store => getPrices(store));
+
+  return (
+    <>
+      {open && (
+        <Dialog price={price} mode={mode} open={open} onClose={handleClose} />
+      )}
+      <Datatable
+        data={data}
+        onOpen={handleOpen}
+        onUpdate={handleRowUpdate}
+        {...props}
+      />
+    </>
+  );
 };
-
-class PricePage extends React.Component {
-  state = { open: false, mode: 'add', price: null };
-
-  componentDidMount = () => {
-    // from redirect
-    const { fetchPrices, priceTableId } = this.props;
-    fetchPrices(priceTableId);
-  };
-
-  handleRowUpdate = price => {
-    this.setState({ open: true, mode: 'edit', price });
-    console.log('preço dentro do handleRowUpdate:', price);
-  };
-
-  handleOpen = mode => this.setState({ open: true, mode });
-
-  handleClose = () => this.setState({ open: false, price: null });
-  render = () => {
-    const { state, props } = this;
-    const { open } = state;
-
-    return (
-      <>
-        {open && <Dialog {...props} {...state} fnClose={this.handleClose} />}
-        <Datatable
-          prices={this.state.prices}
-          fnOpen={this.handleOpen}
-          fnUpdate={this.handleRowUpdate}
-          {...props}
-        />
-      </>
-    );
-  };
-}
 
 PricePage.propTypes = {
   data: PropTypes.array.isRequired,
@@ -57,17 +63,4 @@ PricePage.propTypes = {
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (store, ownProps) => ({
-  data: getPrices(store),
-  priceTableId: getPriceTableId(ownProps)
-});
-
-const mapDisptachToProps = {
-  fetchPrices,
-  deletePrices
-};
-
-export default connect(
-  mapStateToProps,
-  mapDisptachToProps
-)(withSnackbar(PricePage));
+export default withSnackbar(PricePage);

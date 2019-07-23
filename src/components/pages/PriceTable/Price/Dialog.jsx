@@ -8,7 +8,7 @@ import EditPrice from './dialogs/EditPrice';
 import RangePrice from './dialogs/RangePrice';
 
 const Dialog = props => {
-  const { open, fnClose, mode } = props;
+  const { open, onClose, mode } = props;
   const dialogs = {
     add: <AddPrice {...props} />,
     edit: <EditPrice {...props} />,
@@ -19,7 +19,7 @@ const Dialog = props => {
     <div>
       <MuiDialog
         open={open}
-        onClose={fnClose}
+        onClose={onClose}
         aria-labelledby="form-dialog-title"
       >
         {dialogs[mode]}
@@ -29,8 +29,7 @@ const Dialog = props => {
 };
 
 Dialog.propTypes = {
-  fnClose: PropTypes.func.isRequired,
-  fnSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
   price: PropTypes.object,

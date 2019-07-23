@@ -23,14 +23,14 @@ const PriceTablePage = props => {
   return (
     <>
       <AddPriceTableDialog open={open} onClose={handleClose} />
-      <Datatable data={data} onOpen={handleOpen} />
+      <Datatable data={data} onOpen={handleOpen} {...props} />
     </>
   );
 };
 
 PriceTablePage.propTypes = {
   data: PropTypes.array.isRequired,
-  fetchPriceTables: PropTypes.func.isRequired
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
 export default withSnackbar(PriceTablePage);
