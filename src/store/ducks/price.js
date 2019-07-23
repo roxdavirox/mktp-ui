@@ -193,7 +193,7 @@ const initialState = {
   allIds: []
 };
 
-export default function(state = initialState, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_ENTITIES: {
       const {

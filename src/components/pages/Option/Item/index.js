@@ -3,18 +3,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import { fetchOptions } from '../actions';
+import Dialog from './Dialog';
+import Datatable from './Datatable';
+import { fetchOptions } from 'store/ducks/option';
 import {
   addOptionItem,
   addExistingItems,
   deleteOptionItems,
   fetchItems,
-  editItem
-} from 'components/pages/Item/actions';
-import { getOptionsItems } from 'components/pages/Item/selectors';
-import { getPriceTables } from 'components/pages/PriceTable/selectors';
-import Dialog from './Dialog';
-import Datatable from './Datatable';
+  editItem,
+  getOptionsItems
+} from 'store/ducks/item';
+import { getPriceTables } from 'store/ducks/priceTable';
 
 const getOptionId = props => {
   const { state } = props.location;

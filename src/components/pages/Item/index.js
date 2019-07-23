@@ -13,7 +13,7 @@ import {
   deleteItems,
   getItems
 } from 'store/ducks/item';
-import { getPriceTables } from '../PriceTable/selectors';
+import { getPriceTables } from 'store/ducks/priceTable';
 
 class ItemPage extends Component {
   state = { open: false, mode: 'add', item: {} };

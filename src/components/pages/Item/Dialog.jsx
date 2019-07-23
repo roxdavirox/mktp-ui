@@ -13,7 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { fetchPriceTables } from '../PriceTable/actions';
+import { fetchPriceTables } from 'store/ducks/priceTable';
 
 const styles = theme => ({
   container: {

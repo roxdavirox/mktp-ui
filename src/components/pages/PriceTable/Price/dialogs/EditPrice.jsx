@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import { editPrice } from '../actions';
+import { editPrice } from 'store/ducks/price';
 
 const styles = theme => ({
   container: {
