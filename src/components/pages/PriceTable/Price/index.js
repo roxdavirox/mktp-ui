@@ -42,7 +42,13 @@ const PricePage = props => {
   return (
     <>
       {open && (
-        <Dialog price={price} mode={mode} open={open} onClose={handleClose} />
+        <Dialog
+          price={price}
+          mode={mode}
+          open={open}
+          onClose={handleClose}
+          priceTableId={priceTableId}
+        />
       )}
       <Datatable
         data={data}

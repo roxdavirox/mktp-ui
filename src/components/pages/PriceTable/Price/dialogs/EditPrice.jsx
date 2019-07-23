@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -21,29 +21,25 @@ const styles = theme => ({
   }
 });
 
-class EditPrice extends Component {
-  state = { start: 0, end: 0, value: 0, priceId: '' };
+const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(0);
+  const [value, setValue] = useState(0);
+  const [priceId, setPriceId] = useState('');
+  const dispatch = useDispatch();
 
-  componentDidMount = ({ price } = this.props) => {
+  useEffect(() => {
     if (price) {
-      this.setState({
-        start: price.start,
-        end: price.end,
-        value: price.value,
-        priceId: price._id
-      });
+      setStart(price.start);
+      setEnd(price.end);
+      setValue(price.value);
+      setPriceId(price._id);
     }
-  };
+  }, []);
 
-  handleChange = e =>
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+  const handleClose = () => onClose();
 
-  handleSubmit = () => {
-    const { editPrice, enqueueSnackbar } = this.props;
-    const { start, end, value, priceId } = this.state;
-
+  const handleSubmit = () => {
     const price = {
       start: Number(start),
       end: Number(end),
@@ -51,82 +47,74 @@ class EditPrice extends Component {
       _id: priceId
     };
 
-    enqueueSnackbar('Atualizando preço...', {
+    snack('Atualizando preço...', {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    editPrice(price, enqueueSnackbar);
-    this.props.fnClose();
+    dispatch(editPrice(price, snack));
+    handleClose();
   };
 
-  render() {
-    const { classes } = this.props;
-    return (
-      <>
-        <DialogTitle id="form-dialog-title">Editar preço</DialogTitle>
-        <DialogContent>
-          <form className={classes.container}>
-            <FormControl className={classes.formControl}>
-              <TextField
-                autoFocus
-                value={this.state.start}
-                margin="dense"
-                name="start"
-                id="start"
-                label="Inicio"
-                fullWidth
-                onChange={this.handleChange}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <TextField
-                value={this.state.end}
-                margin="dense"
-                id="end"
-                name="end"
-                label="Fim"
-                fullWidth
-                onChange={this.handleChange}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <TextField
-                value={this.state.value}
-                margin="dense"
-                name="value"
-                id="value"
-                label="Preço"
-                fullWidth
-                onChange={this.handleChange}
-              />
-            </FormControl>
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.props.fnClose} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={this.handleSubmit} color="primary">
-            Editar
-          </Button>
-        </DialogActions>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <DialogTitle id="form-dialog-title">Editar preço</DialogTitle>
+      <DialogContent>
+        <form className={classes.container}>
+          <FormControl className={classes.formControl}>
+            <TextField
+              autoFocus
+              value={start}
+              margin="dense"
+              name="start"
+              id="start"
+              label="Inicio"
+              fullWidth
+              onChange={e => setStart(e.target.value)}
+            />
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <TextField
+              value={end}
+              margin="dense"
+              id="end"
+              name="end"
+              label="Fim"
+              fullWidth
+              onChange={e => setEnd(e.target.value)}
+            />
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <TextField
+              value={value}
+              margin="dense"
+              name="value"
+              id="value"
+              label="Preço"
+              fullWidth
+              onChange={e => setValue(e.target.value)}
+            />
+          </FormControl>
+        </form>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          Cancelar
+        </Button>
+        <Button onClick={handleSubmit} color="primary">
+          Editar
+        </Button>
+      </DialogActions>
+    </>
+  );
+};
 
 EditPrice.propTypes = {
-  editPrice: PropTypes.func.isRequired,
-  fnClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  price: PropTypes.object.isRequired,
   priceTableId: PropTypes.string.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
-export default connect(
-  null,
-  {
-    editPrice
-  }
-)(withStyles(styles)(EditPrice));
+export default withStyles(styles)(EditPrice);
