@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import MuiDialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -23,72 +23,65 @@ const styles = theme => ({
   select: { height: '37px' }
 });
 
-class Dialog extends React.Component {
-  state = { optionName: '' };
+const Dialog = ({ enqueueSnackbar: snack, classes, onClose, open }) => {
+  const [optionName, setOptionName] = useState('');
+  const dispatch = useDispatch();
 
-  handleNameChange = e => this.setState({ optionName: e.target.value });
+  const handleNameChange = e => setOptionName(e.target.value);
 
-  handleSubmit = () => {
-    const { addOption, enqueueSnackbar: snack } = this.props;
-    const { optionName: name } = this.state;
-
-    snack(`Adicionando opção ${name}`, {
+  const handleSubmit = () => {
+    snack(`Adicionando opção ${optionName}`, {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    addOption(name, snack);
-    this.props.onClose();
+    dispatch(addOption(optionName, snack));
+    handleClose();
   };
 
-  render() {
-    const { open, classes } = this.props;
-    return (
-      <div>
-        <MuiDialog
-          open={open}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Adicionar Opção</DialogTitle>
-          <DialogContent>
-            <form className={classes.container}>
-              <FormControl className={classes.formControl}>
-                <TextField
-                  value={this.state.optionName}
-                  autoFocus
-                  margin="dense"
-                  id="name"
-                  label="Nome"
-                  fullWidth
-                  onChange={this.handleNameChange}
-                />
-              </FormControl>
-            </form>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.props.onClose} color="primary">
-              Cancelar
-            </Button>
-            <Button onClick={this.handleSubmit} color="primary">
-              Adicionar
-            </Button>
-          </DialogActions>
-        </MuiDialog>
-      </div>
-    );
-  }
-}
+  const handleClose = () => onClose();
+
+  return (
+    <div>
+      <MuiDialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Adicionar Opção</DialogTitle>
+        <DialogContent>
+          <form className={classes.container}>
+            <FormControl className={classes.formControl}>
+              <TextField
+                value={optionName}
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Nome"
+                fullWidth
+                onChange={handleNameChange}
+              />
+            </FormControl>
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleSubmit} color="primary">
+            Adicionar
+          </Button>
+        </DialogActions>
+      </MuiDialog>
+    </div>
+  );
+};
 
 Dialog.propTypes = {
   onClose: PropTypes.func.isRequired,
-  addOption: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired
 };
 
-export default connect(
-  null,
-  { addOption }
-)(withStyles(styles)(Dialog));
+export default withStyles(styles)(Dialog);

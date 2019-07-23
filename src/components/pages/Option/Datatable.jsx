@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -20,115 +20,99 @@ const optionStyle = {
   NameCell: { fontWeight: 500 }
 };
 
-class DataTable extends React.Component {
-  handleRowsDelete = rows => {
-    const { deleteOptions, enqueueSnackbar, data } = this.props;
+const DataTable = ({ enqueueSnackbar: snack, classes, onOpen, data }) => {
+  const dispatch = useDispatch();
 
+  const handleRowsDelete = rows => {
     const { data: dataRows } = rows;
 
     const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
 
     const deletedOptionsIds = indexRows.map(index => data[index]._id);
 
-    enqueueSnackbar('Deletando...', {
+    snack('Deletando...', {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    deleteOptions(deletedOptionsIds, enqueueSnackbar);
+    dispatch(deleteOptions(deletedOptionsIds, snack));
   };
 
-  render = () => {
-    const { data } = this.props;
-    const columns = [
-      {
-        name: 'name',
-        label: 'Name',
-        options: {
-          filter: true,
-          sort: true,
-          setCellProps: () => {
-            return {
-              className: classNames({ [this.props.classes.NameCell]: true })
-            };
-          }
-        }
-      },
-      {
-        name: '_id',
-        label: ' ',
-        options: {
-          sort: false,
-          filter: false,
-          // eslint-disable-next-line react/display-name
-          customBodyRender: (value, tableMeta) => (
-            <Link
-              to={{
-                pathname: '/admin/config/option/items',
-                state: {
-                  fromRedirect: true,
-                  optionId: value
-                }
-              }}
-            >
-              <MoreHorizIcon key={tableMeta.columnIndex} />
-            </Link>
-          ),
-          setCellProps: () => {
-            return {
-              className: classNames({ [this.props.classes.EditCell]: true })
-            };
-          }
+  const columns = [
+    {
+      name: 'name',
+      label: 'Name',
+      options: {
+        filter: true,
+        sort: true,
+        setCellProps: () => {
+          return {
+            className: classNames({ [classes.NameCell]: true })
+          };
         }
       }
-    ];
-    const options = {
-      filterType: 'checkbox',
-      download: false,
-      print: false,
-      filter: false,
-      viewColumns: false,
-      rowHover: false,
-      textLabels: {
-        body: {
-          noMatch: <OptionLoading />
+    },
+    {
+      name: '_id',
+      label: ' ',
+      options: {
+        sort: false,
+        filter: false,
+        // eslint-disable-next-line react/display-name
+        customBodyRender: (value, tableMeta) => (
+          <Link
+            to={{
+              pathname: '/admin/config/option/items',
+              state: {
+                fromRedirect: true,
+                optionId: value
+              }
+            }}
+          >
+            <MoreHorizIcon key={tableMeta.columnIndex} />
+          </Link>
+        ),
+        setCellProps: () => {
+          return {
+            className: classNames({ [classes.EditCell]: true })
+          };
         }
-      },
-      customToolbar: () => {
-        return (
-          <AddToolbar title="Adicionar Opção" onClick={this.props.onOpen} />
-        );
-      },
-      onRowsDelete: rowsDeleted => this.handleRowsDelete(rowsDeleted)
-    };
-
-    return (
-      <MuiDatatable
-        title={'Opções'}
-        data={data}
-        columns={columns}
-        options={options}
-      />
-    );
+      }
+    }
+  ];
+  const options = {
+    filterType: 'checkbox',
+    download: false,
+    print: false,
+    filter: false,
+    viewColumns: false,
+    rowHover: false,
+    textLabels: {
+      body: {
+        noMatch: <OptionLoading />
+      }
+    },
+    customToolbar: function add() {
+      return <AddToolbar title="Adicionar Opção" onClick={onOpen} />;
+    },
+    onRowsDelete: rowsDeleted => handleRowsDelete(rowsDeleted)
   };
-}
+
+  return (
+    <MuiDatatable
+      title={'Opções'}
+      data={data}
+      columns={columns}
+      options={options}
+    />
+  );
+};
 
 DataTable.propTypes = {
   data: PropTypes.any.isRequired,
-  deleteOptions: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
   onOpen: PropTypes.func.isRequired
 };
 
-const mapDispatchtoProps = {
-  deleteOptions
-};
-
-const styleDatatable = withStyles(optionStyle)(DataTable);
-const snackDatatable = withSnackbar(styleDatatable);
-
-export default connect(
-  null,
-  mapDispatchtoProps
-)(snackDatatable);
+export default withSnackbar(withStyles(optionStyle)(DataTable));
