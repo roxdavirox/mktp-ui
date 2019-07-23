@@ -12,8 +12,7 @@ import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { getPriceTables } from 'components/pages/PriceTable/selectors';
-import { fetchPriceTables } from 'components/pages/PriceTable/actions';
+import { getPriceTables, fetchPriceTables } from 'store/ducks/priceTable';
 
 const styles = theme => ({
   container: {

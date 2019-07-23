@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { optionSchema } from 'redux/schema';
+import { optionSchema } from 'store/schemas';
 import { normalize } from 'normalizr';
 
 import { addEntities, ADD_ENTITIES } from 'store/actions';

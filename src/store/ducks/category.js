@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { normalize } from 'normalizr';
 import history from 'providers/history';
-import { categorySchema } from '../schemas';
-import { addEntities, ADD_ENTITIES } from '../actions';
+import { categorySchema } from 'store/schemas';
+import { addEntities, ADD_ENTITIES } from 'store/actions';
 import {
   getEndpoint,
   createPostRequest,
