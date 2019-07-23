@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
 
-import { fetchOptions } from './actions';
 import Datatable from './Datatable';
 import Dialog from './Dialog';
-import { getOptions } from './selectors';
+import { fetchOptions, getOptions } from 'store/ducks/option';
 
 const OptionPage = props => {
   const [open, setOpen] = useState(false);

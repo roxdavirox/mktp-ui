@@ -11,7 +11,7 @@ import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'components/common/tables/Toolbar.jsx';
 import OptionLoading from './LoadingSkeleton';
 
-import { deleteOptionsBegin } from './actions';
+import { deleteOptions } from 'store/ducks/option';
 
 import { withSnackbar } from 'notistack';
 
@@ -22,7 +22,7 @@ const optionStyle = {
 
 class DataTable extends React.Component {
   handleRowsDelete = rows => {
-    const { deleteOptionsBegin, enqueueSnackbar, data } = this.props;
+    const { deleteOptions, enqueueSnackbar, data } = this.props;
 
     const { data: dataRows } = rows;
 
@@ -35,7 +35,7 @@ class DataTable extends React.Component {
       autoHideDuration: 2000
     });
 
-    deleteOptionsBegin(deletedOptionsIds, enqueueSnackbar);
+    deleteOptions(deletedOptionsIds, enqueueSnackbar);
   };
 
   render = () => {
@@ -115,14 +115,14 @@ class DataTable extends React.Component {
 
 DataTable.propTypes = {
   data: PropTypes.any.isRequired,
-  deleteOptionsBegin: PropTypes.func.isRequired,
+  deleteOptions: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
   onOpen: PropTypes.func.isRequired
 };
 
 const mapDispatchtoProps = {
-  deleteOptionsBegin
+  deleteOptions
 };
 
 const styleDatatable = withStyles(optionStyle)(DataTable);

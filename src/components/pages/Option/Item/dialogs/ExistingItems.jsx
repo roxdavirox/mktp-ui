@@ -12,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { getItems } from 'components/pages/Item/selectors';
+import { getItems } from 'store/ducks/item';
 
 const styles = theme => ({
   container: {

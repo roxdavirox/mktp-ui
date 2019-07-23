@@ -2,20 +2,20 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { reducers } from './reducers';
 
 import {
-  addOption,
-  deleteOptions,
-  fetchOptions
-} from 'components/pages/Option/middlewares';
+  addOptionMiddleware,
+  deleteOptionsMiddleware,
+  fetchOptionsMiddleware
+} from 'store/ducks/option';
 
 import {
-  fetchItems,
-  addItem,
-  addOptionItem,
-  addExistingItems,
-  editItem,
-  deleteItems,
-  deleteOptionItems
-} from 'components/pages/Item/middlewares';
+  fetchItemsMiddleware,
+  addItemMiddleware,
+  addOptionItemMiddleware,
+  addExistingItemsMiddleware,
+  editItemMiddleware,
+  deleteItemsMiddleware,
+  deleteOptionItemsMiddleware
+} from 'store/ducks/item';
 
 import {
   fetchPriceTables,
@@ -45,15 +45,16 @@ export const store = createStore(
   reducers,
   composeEnhancers(
     applyMiddleware(
-      addOption,
-      deleteOptions,
-      fetchOptions,
-      fetchItems,
-      deleteItems,
-      deleteOptionItems,
-      addItem,
-      addOptionItem,
-      addExistingItems,
+      addOptionMiddleware,
+      deleteOptionsMiddleware,
+      fetchOptionsMiddleware,
+      fetchItemsMiddleware,
+      addItemMiddleware,
+      addOptionItemMiddleware,
+      addExistingItemsMiddleware,
+      editItemMiddleware,
+      deleteItemsMiddleware,
+      deleteOptionItemsMiddleware,
       fetchPriceTables,
       addPriceTable,
       deletePriceTables,
@@ -62,7 +63,6 @@ export const store = createStore(
       addPriceRange,
       deletePrices,
       editPrice,
-      editItem,
       fetchCategoriesMiddleware,
       addCategoryMiddleware,
       deleteCategoriesMiddleware,

@@ -4,10 +4,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import { fetchItems, addItem, editItem, deleteItems } from './actions';
 import Datatable from './Datatable';
 import Dialog from './Dialog';
-import { getItems } from './selectors';
+import {
+  fetchItems,
+  addItem,
+  editItem,
+  deleteItems,
+  getItems
+} from 'store/ducks/item';
 import { getPriceTables } from '../PriceTable/selectors';
 
 class ItemPage extends Component {
