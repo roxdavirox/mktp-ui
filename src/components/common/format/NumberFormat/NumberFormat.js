@@ -8,7 +8,7 @@ const NumberFormat = props => (
     decimalSeparator={','}
     thousandSeparator={'.'}
     displayType={'text'}
-    prefix={'R$'}
+    isNumericString
     {...props}
   />
 );

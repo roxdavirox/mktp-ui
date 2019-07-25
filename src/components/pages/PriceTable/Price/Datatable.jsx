@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MuiDatatable from 'components/common/tables/MuiDatatable';
-import NumberFormat from 'components/common/format/NumberFormat';
+import BraziliaPriceFormat from 'components/common/format/NumberFormat/BraziliaPriceFormat';
+import PriceFormat from 'components/common/format/NumberFormat/PriceFormat';
 import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'components/common/tables/Toolbar.jsx';
 import ViewListIcon from 'components/common/icons/ViewListIcon';
@@ -60,6 +61,9 @@ const Datatable = ({
           return {
             className: classNames({ [classes.NameCell]: true })
           };
+        },
+        customBodyRender: function renderFormatedValue(value) {
+          return <PriceFormat value={value} />;
         }
       }
     },
@@ -73,6 +77,9 @@ const Datatable = ({
           return {
             className: classNames({ [classes.NameCell]: true })
           };
+        },
+        customBodyRender: function renderFormatedValue(value) {
+          return <PriceFormat value={value} />;
         }
       }
     },
@@ -88,7 +95,7 @@ const Datatable = ({
           };
         },
         customBodyRender: function renderFormatedValue(value) {
-          return <NumberFormat value={value} />;
+          return <BraziliaPriceFormat value={value} />;
         }
       }
     },
