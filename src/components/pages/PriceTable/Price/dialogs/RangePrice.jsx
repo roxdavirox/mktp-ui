@@ -40,7 +40,6 @@ const RangePrice = ({
   const [kgPrice, setKgPrice] = useState('15.00');
   const [higherSalesMargin, setHigherSalesMargin] = useState('300');
   const [lowerSalesMargin, setLowerSalesMargin] = useState('200');
-  const [lowerSaleQuantity, setLowerSaleQuantity] = useState('100000');
   const [unit, setUnit] = useState('m²');
   const dispatch = useDispatch();
 
@@ -60,7 +59,6 @@ const RangePrice = ({
 
     const maxLines = 30;
     const prices = getPriceRange({
-      lowerSaleQuantity,
       maxLines,
       priceValue: precoM2,
       higherSalesMargin,
@@ -136,17 +134,6 @@ const RangePrice = ({
               value={lowerSalesMargin}
               onChange={e => setLowerSalesMargin(e.target.value)}
               label="Menor margem de venda"
-              fullWidth
-            />
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <TextField
-              margin="dense"
-              name="lowerSaleQuantity"
-              id="lowerSaleQuantity"
-              value={lowerSaleQuantity}
-              onChange={e => setLowerSaleQuantity(e.target.value)}
-              label="Quantidade para menor valor de venda"
               fullWidth
             />
           </FormControl>

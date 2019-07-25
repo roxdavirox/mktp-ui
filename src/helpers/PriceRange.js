@@ -34,7 +34,7 @@ const baseRange = [
 ];
 
 export const generatePriceRange = data => {
-  var lowerSaleQuantity = data.lowerSaleQuantity;
+  var lowerSaleQuantity = 5000; // fixo em 5k
   var maxLines = data.maxLines;
   if (lowerSaleQuantity < maxLines) {
     maxLines = lowerSaleQuantity;
