@@ -35,11 +35,11 @@ const RangePrice = ({
   onClose,
   priceTableId
 }) => {
-  const [thickness, setThickness] = useState('15');
-  const [specificWeigth, setSpecificWeigth] = useState('1.19');
-  const [kgPrice, setKgPrice] = useState('15.00');
-  const [higherSalesMargin, setHigherSalesMargin] = useState('300');
-  const [lowerSalesMargin, setLowerSalesMargin] = useState('200');
+  const [thickness, setThickness] = useState('');
+  const [specificWeigth, setSpecificWeigth] = useState('');
+  const [kgPrice, setKgPrice] = useState('');
+  const [higherSalesMargin, setHigherSalesMargin] = useState('');
+  const [lowerSalesMargin, setLowerSalesMargin] = useState('');
   const [unit, setUnit] = useState('m²');
   const dispatch = useDispatch();
 
