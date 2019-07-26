@@ -17,7 +17,8 @@ import Icon from '@material-ui/core/Icon';
 
 // core components
 import AdminNavbarLinks from 'components/theme/Navbars/AdminNavbarLinks.jsx';
-
+import history from 'providers/history';
+import AuthService from 'services/auth.service';
 import sidebarStyle from 'assets/jss/material-dashboard-pro-react/components/sidebarStyle.jsx';
 
 import avatar from 'assets/img/default-avatar.png';
@@ -294,6 +295,10 @@ class Sidebar extends React.Component {
       );
     });
   };
+  handleLogout() {
+    AuthService.Logout();
+    history.push('/');
+  }
   render() {
     const {
       classes,
@@ -402,31 +407,13 @@ class Sidebar extends React.Component {
                       classes.itemLink + ' ' + classes.userCollapseLinks
                     }
                   >
-                    <span className={collapseItemMini}>
+                    {/* <span className={collapseItemMini}>
                       {rtlActive ? 'هوع' : 'EP'}
-                    </span>
+                    </span> */}
                     <ListItemText
-                      primary={
-                        rtlActive ? 'تعديل الملف الشخصي' : 'Edit Profile'
-                      }
+                      primary={'logout'}
                       disableTypography={true}
-                      className={collapseItemText}
-                    />
-                  </NavLink>
-                </ListItem>
-                <ListItem className={classes.collapseItem}>
-                  <NavLink
-                    to="#"
-                    className={
-                      classes.itemLink + ' ' + classes.userCollapseLinks
-                    }
-                  >
-                    <span className={collapseItemMini}>
-                      {rtlActive ? 'و' : 'S'}
-                    </span>
-                    <ListItemText
-                      primary={rtlActive ? 'إعدادات' : 'Settings'}
-                      disableTypography={true}
+                      onClick={this.handleLogout}
                       className={collapseItemText}
                     />
                   </NavLink>
