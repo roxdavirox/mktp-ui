@@ -1,10 +1,11 @@
 import React from 'react';
 import history from './history';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Router, Switch, Redirect } from 'react-router-dom';
 
 import AuthLayout from 'components/layouts/Auth';
 import AdminLayout from 'components/layouts/Admin';
-import { PrivateRoute, PublicRoute } from 'helpers/Route.jsx';
+import PublicRoute from 'components/common/routes/PublicRoute';
+import PrivateRoute from 'componens/common/routes/PrivateRoute';
 
 const RouterProvider = () => (
   <Router history={history}>
