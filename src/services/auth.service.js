@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 const host = process.env.REACT_APP_HOST_API;
 
 const getEndpoint = route => `${host}${route}`;
@@ -14,19 +16,25 @@ const Login = async (email, password) => {
     .then(res => {
       const { user, token } = res;
       if (user && token) {
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('token', JSON.stringify(token));
+        Cookies.set('jwt', JSON.stringify(token));
+        Cookies.set('user', JSON.stringify(user));
       }
       return user;
     });
 };
 
+const GetToken = () => Cookies.get('jwt');
+
+const GetUser = () => Cookies.get('user');
+
 const Logout = async () => {
-  localStorage.removeItem('user');
-  localStorage.removeItem('token');
+  Cookies.remove('jwt');
+  Cookies.remove('user');
 };
 
 export default {
   Login,
-  Logout
+  Logout,
+  GetUser,
+  GetToken
 };

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
 
@@ -24,11 +25,13 @@ import CardFooter from 'components/theme/Card/CardFooter.jsx';
 import loginPageStyle from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle.jsx';
 import AuthService from 'services/auth.service';
 import history from 'providers/history';
+import { setUser } from 'store/ducks/auth';
 
 const LoginPage = ({ enqueueSnackbar: snack, classes }) => {
   const [cardAnimation, setAnimation] = useState('cardHidden');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => setAnimation(''), 700);
@@ -37,6 +40,7 @@ const LoginPage = ({ enqueueSnackbar: snack, classes }) => {
   const handleLogin = async () => {
     AuthService.Login(email, password).then(user => {
       if (user) {
+        dispatch(setUser(user));
         snack(`Usuario autenticado com sucesso!`, {
           variant: 'success',
           autoHideDuration: 1000

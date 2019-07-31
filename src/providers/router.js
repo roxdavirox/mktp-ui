@@ -5,7 +5,7 @@ import { Router, Switch, Redirect } from 'react-router-dom';
 import AuthLayout from 'components/layouts/Auth';
 import AdminLayout from 'components/layouts/Admin';
 import PublicRoute from 'components/common/routes/PublicRoute';
-import PrivateRoute from 'componens/common/routes/PrivateRoute';
+import PrivateRoute from 'components/common/routes/PrivateRoute';
 
 const RouterProvider = () => (
   <Router history={history}>
