@@ -41,7 +41,7 @@
     "redux-devtools-extension": "^2.13.8"
   },
   "scripts": {
-    "dev": "REACT_APP_HOST_API=http://localhost:3001 yarn start",
+    "dev": "HOST=admin.mktp.com PORT=3002 REACT_APP_HOST_API=http://localhost:3001 yarn start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
