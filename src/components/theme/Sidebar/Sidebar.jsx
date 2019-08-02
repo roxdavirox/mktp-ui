@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { NavLink } from 'react-router-dom';
 import cx from 'classnames';
-
+import { withCookies } from 'react-cookie';
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
 import Drawer from '@material-ui/core/Drawer';
@@ -63,6 +63,7 @@ class Sidebar extends React.Component {
       miniActive: true,
       ...this.getCollapseStates(props.routes)
     };
+    this.handleLogout = this.handleLogout.bind(this);
   }
   // this creates the intial state of this component based on the collapse routes
   // that it gets through this.props.routes
@@ -296,8 +297,10 @@ class Sidebar extends React.Component {
     });
   };
   handleLogout() {
-    AuthService.Logout();
-    history.push('/');
+    // AuthService.Logout();
+    const { cookies } = this.props;
+    cookies.remove('jwt', { domain: 'mktp.com' });
+    history.push('/auth/user');
   }
   render() {
     const {
@@ -543,6 +546,7 @@ Sidebar.defaultProps = {
 
 Sidebar.propTypes = {
   classes: PropTypes.object.isRequired,
+  cookies: PropTypes.object.isRequired,
   bgColor: PropTypes.oneOf(['white', 'black', 'blue']),
   rtlActive: PropTypes.bool,
   color: PropTypes.oneOf([
@@ -560,4 +564,4 @@ Sidebar.propTypes = {
   routes: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default withStyles(sidebarStyle)(Sidebar);
+export default withCookies(withStyles(sidebarStyle)(Sidebar));
