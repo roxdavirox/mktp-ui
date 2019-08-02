@@ -27,6 +27,7 @@ import AuthService from 'services/auth.service';
 import history from 'providers/history';
 import { setUser } from 'store/ducks/auth';
 import { useCookies } from 'react-cookie';
+import jwtDecode from 'jwt-decode';
 
 const LoginPage = ({ enqueueSnackbar: snack, classes }) => {
   const [cardAnimation, setAnimation] = useState('cardHidden');
@@ -54,7 +55,10 @@ const LoginPage = ({ enqueueSnackbar: snack, classes }) => {
     });
   };
 
-  console.log('ck', cookie['jwt']);
+  const jwt = cookie['jwt'];
+  console.log('jwt', jwt);
+  const token = jwtDecode(jwt);
+  console.log('token', token);
   return (
     <div className={classes.container}>
       <GridContainer justify="center">

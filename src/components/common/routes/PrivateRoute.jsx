@@ -3,16 +3,19 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import AuthService from 'services/auth.service';
 import { useCookies } from 'react-cookie';
+import jwtDecode from 'jwt-decode';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const [cookies, setCookie, removeCookie] = useCookies('jwt');
+  const [cookies] = useCookies('jwt');
   const jwt = cookies['jwt'];
+  const token = jwtDecode(jwt);
   return (
     <Route
       {...rest}
       render={props => {
+        const { id: userId } = token;
         // const currentUser = AuthService.GetUser();
-        if (!jwt) {
+        if (userId === null) {
           // not logged in so redirect to login page with the return url
           return (
             <Redirect

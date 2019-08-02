@@ -13,6 +13,7 @@
     "fetch": "^1.1.0",
     "history": "4.7.2",
     "js-cookie": "^2.2.0",
+    "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "moment": "2.24.0",
     "mui-datatables": "^2.0.0-beta.59",

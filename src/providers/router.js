@@ -12,7 +12,7 @@ const RouterProvider = () => (
     <Switch>
       <PrivateRoute path="/admin" component={AdminLayout} />
       <PublicRoute path="/auth" component={AuthLayout} />
-      <Redirect path="/" to="/auth/user" />
+      <Redirect path="/" to="/admin" />
     </Switch>
   </Router>
 );
