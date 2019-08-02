@@ -55,10 +55,6 @@ const LoginPage = ({ enqueueSnackbar: snack, classes }) => {
     });
   };
 
-  const jwt = cookie['jwt'];
-  console.log('jwt', jwt);
-  const token = jwtDecode(jwt);
-  console.log('token', token);
   return (
     <div className={classes.container}>
       <GridContainer justify="center">
