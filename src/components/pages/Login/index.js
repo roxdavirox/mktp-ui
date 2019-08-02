@@ -26,20 +26,24 @@ import loginPageStyle from 'assets/jss/material-dashboard-pro-react/views/loginP
 import AuthService from 'services/auth.service';
 import history from 'providers/history';
 import { setUser } from 'store/ducks/auth';
+import { useCookies } from 'react-cookie';
 
 const LoginPage = ({ enqueueSnackbar: snack, classes }) => {
   const [cardAnimation, setAnimation] = useState('cardHidden');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-
+  const [cookie, setCookie, removeCookie] = useCookies('jwt');
   useEffect(() => {
     setTimeout(() => setAnimation(''), 700);
   }, []);
 
   const handleLogin = async () => {
-    AuthService.Login(email, password).then(user => {
+    // tirar usuario do token com decode
+    AuthService.Login(email, password).then(res => {
+      const { user, token } = res;
       if (user) {
+        setCookie('jwt', JSON.stringify(token), { domain: 'mktp.com' });
         dispatch(setUser(user));
         snack(`Usuario autenticado com sucesso!`, {
           variant: 'success',
@@ -50,6 +54,7 @@ const LoginPage = ({ enqueueSnackbar: snack, classes }) => {
     });
   };
 
+  console.log('ck', cookie['jwt']);
   return (
     <div className={classes.container}>
       <GridContainer justify="center">

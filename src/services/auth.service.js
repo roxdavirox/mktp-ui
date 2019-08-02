@@ -11,23 +11,18 @@ const Login = async (email, password) => {
     body: JSON.stringify({ email, password })
   };
   const endpoint = getEndpoint('/auth/authenticate');
-  return fetch(endpoint, requestOptions)
-    .then(res => res.json())
-    .then(res => {
-      const { user, token } = res;
-      if (user && token) {
-        Cookies.set('jwt', JSON.stringify(token));
-        Cookies.set('user', JSON.stringify(user));
-      }
-      return user;
-    });
+  return fetch(endpoint, requestOptions).then(res => res.json());
 };
 
+// const GetToken = () => window.localStorage.getItem('jwt');
 const GetToken = () => Cookies.get('jwt');
 
 const GetUser = () => Cookies.get('user');
+// const GetUser = () => window.localStorage.getItem('user');
 
 const Logout = async () => {
+  // window.localStorage.removeItem('jwt');
+  // window.localStorage.removeItem('user');
   Cookies.remove('jwt');
   Cookies.remove('user');
 };
