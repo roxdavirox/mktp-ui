@@ -12,7 +12,6 @@
     "classnames": "^2.2.6",
     "fetch": "^1.1.0",
     "history": "4.7.2",
-    "js-cookie": "^2.2.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "moment": "2.24.0",
@@ -43,7 +42,7 @@
     "redux-devtools-extension": "^2.13.8"
   },
   "scripts": {
-    "dev": "HOST=admin.mktp.com PORT=3002 REACT_APP_HOST_API=http://localhost:3001 yarn start",
+    "dev": "yarn start HOST=admin.mktp.com PORT=3002 REACT_APP_HOST_API=http://localhost:3001",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

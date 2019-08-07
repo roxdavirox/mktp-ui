@@ -27,7 +27,7 @@ import AuthService from 'services/auth.service';
 import history from 'providers/history';
 import { setUser } from 'store/ducks/auth';
 import { useCookies } from 'react-cookie';
-import jwtDecode from 'jwt-decode';
+// import jwtDecode from 'jwt-decode';
 
 const LoginPage = ({ enqueueSnackbar: snack, classes }) => {
   const [cardAnimation, setAnimation] = useState('cardHidden');
