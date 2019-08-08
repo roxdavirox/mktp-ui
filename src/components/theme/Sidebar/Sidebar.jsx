@@ -18,7 +18,7 @@ import Icon from '@material-ui/core/Icon';
 // core components
 import AdminNavbarLinks from 'components/theme/Navbars/AdminNavbarLinks.jsx';
 import history from 'providers/history';
-import AuthService from 'services/auth.service';
+// import AuthService from 'services/auth.service';
 import sidebarStyle from 'assets/jss/material-dashboard-pro-react/components/sidebarStyle.jsx';
 
 import avatar from 'assets/img/default-avatar.png';
