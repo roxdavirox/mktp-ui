@@ -10,6 +10,7 @@
     "@material-ui/icons": "3.0.2",
     "chartist": "0.10.1",
     "classnames": "^2.2.6",
+    "dotenv": "^8.0.0",
     "fetch": "^1.1.0",
     "history": "4.7.2",
     "jsonwebtoken": "^8.5.1",
@@ -43,7 +44,7 @@
     "redux-devtools-extension": "^2.13.8"
   },
   "scripts": {
-    "dev": "yarn start HOST=admin.mktp.com PORT=3002 REACT_APP_HOST_API=http://localhost:3001",
+    "dev": "yarn start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
