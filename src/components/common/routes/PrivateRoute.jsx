@@ -7,8 +7,9 @@ import jwt from 'jsonwebtoken';
 
 const isAuthenticated = cookies => {
   const { jwt: authToken } = cookies;
+  console.log('cookies', cookies);
   const decodedJwt = jwt.decode(authToken);
-  return decodedJwt !== null || authToken !== null;
+  return decodedJwt !== null && authToken !== null;
 };
 
 const PrivateRoute = ({ component: Component, ...rest }) => {

@@ -24,18 +24,15 @@ const TemplateEditor = ({ classes, location }) => {
     } = window;
     //Getting the iframe element to display the editor in.
     var iframe = document.getElementById('editorFrame');
+    const productDefinition = {
+      // Specify the empty product size.
+      surfaces: [{ width: 800, height: 600 }]
+    };
     //Loading the editor.
-    IframeApi.loadEditor(
-      iframe,
-      {
-        // Specify the empty product size.
-        surfaces: [{ width: 800, height: 600 }]
-      },
-      {
-        // masterUserId
-        userId: '5d234507acca31173a43b303'
-      }
-    )
+    IframeApi.loadEditor(iframe, productDefinition, {
+      // masterUserId
+      userId: '5d234507acca31173a43b303'
+    })
       .then(edt => setEditor(edt))
       .catch(err => {
         console.error('The editor failed to load with an exception: ', err);
