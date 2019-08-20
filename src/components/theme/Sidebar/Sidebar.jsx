@@ -299,7 +299,8 @@ class Sidebar extends React.Component {
   handleLogout() {
     // AuthService.Logout();
     const { cookies } = this.props;
-    cookies.remove('jwt', { domain: 'mktp.com' });
+    const domain = process.env.REACT_APP_COOKIE_DOMAIN;
+    cookies.remove('jwt', { domain });
     history.push('/auth/user');
   }
   render() {
