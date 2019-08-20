@@ -44,7 +44,8 @@ const LoginPage = ({ enqueueSnackbar: snack, classes }) => {
     AuthService.Login(email, password).then(res => {
       const { user, token } = res;
       if (user) {
-        setCookie('jwt', JSON.stringify(token), { domain: 'mktp.com' });
+        const domain = process.env.REACT_APP_COOKIE_DOMAIN;
+        setCookie('jwt', JSON.stringify(token), { domain });
         dispatch(setUser(user));
         snack(`Usuario autenticado com sucesso!`, {
           variant: 'success',
