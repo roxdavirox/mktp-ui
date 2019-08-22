@@ -3,28 +3,66 @@ import React, { useState, useEffect } from 'react';
 import Datatable from './Datatable';
 import { getEndpoint } from 'helpers/api';
 
+const parseProducts = data => {
+  // loop do produto
+  var products = [];
+  var newOptions = [];
+  var newOption = {};
+  var newItems = [];
+  if (!data) return [];
+
+  for (let i = 0; i < data.length; i++) {
+    const { options } = data[i];
+    if (!options) break;
+
+    // loop das opções do produto
+    for (let j = 0; j < options.length; j++) {
+      newOption = {
+        _id: options[j]._id,
+        id: options[j]._id + data[i]._id,
+        name: options[j].name,
+        parentId: data[i]._id,
+        items: []
+      };
+
+      const { items } = options[j];
+      if (!items) break;
+
+      for (let k = 0; k < items.length; k++) {
+        newItems.push({
+          _id: items[k]._id,
+          id: items[k]._id + options[j]._id,
+          name: items[k].name,
+          parentId: options[j]._id + data[i]._id
+        });
+      }
+      // adiciona items
+      newOption = {
+        items: newItems,
+        ...newOption
+      };
+      newOptions.push(newOption);
+    }
+
+    products.push({
+      id: data[i]._id,
+      name: data[i].name,
+      parentId: null,
+      options: newOptions
+    });
+    //reseta os dados
+    newOptions = [];
+    newOption = {};
+    newItems = [];
+  }
+
+  return products;
+};
+
 const generateTree = data => {
   console.log('data', data);
-  const products = data.map(p => ({
-    id: p._id,
-    name: p.name,
-    parentId: null,
-    options: p.options.map(op => ({
-      _id: op._id,
-      id: op._id + p._id,
-      name: op.option.name,
-      parentId: p._id,
-      items: op.items.map(item => {
-        const items = {
-          _id: item._id,
-          id: item._id + op._id,
-          name: item.name,
-          parentId: op._id + p._id
-        };
-        return items;
-      })
-    }))
-  }));
+  const products = parseProducts(data);
+
   console.log('produtos', products);
   const productRows = products.map(p => ({ id: p.id, name: p.name }));
   console.log('product rows', productRows);
