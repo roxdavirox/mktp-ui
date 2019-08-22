@@ -26,21 +26,21 @@ const parseProducts = data => {
       };
 
       const { items } = options[j];
-      if (!items) break;
-
-      for (let k = 0; k < items.length; k++) {
-        newItems.push({
-          _id: items[k]._id,
-          id: items[k]._id + options[j]._id,
-          name: items[k].name,
-          parentId: options[j]._id + data[i]._id
-        });
+      if (items) {
+        for (let k = 0; k < items.length; k++) {
+          newItems.push({
+            _id: items[k]._id,
+            id: items[k]._id + options[j]._id,
+            name: items[k].name,
+            parentId: options[j]._id + data[i]._id
+          });
+        }
+        // adiciona items
+        newOption = {
+          items: newItems,
+          ...newOption
+        };
       }
-      // adiciona items
-      newOption = {
-        items: newItems,
-        ...newOption
-      };
       newOptions.push(newOption);
     }
 
