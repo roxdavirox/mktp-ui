@@ -21,28 +21,29 @@ const parseProducts = data => {
         _id: options[j].option._id,
         id: options[j].option._id + data[i]._id,
         name: options[j].option.name,
-        parentId: data[i]._id,
-        items: []
+        parentId: data[i]._id
       };
 
       const { items } = options[j];
       if (items) {
         console.log('items da opção', items);
         for (let k = 0; k < items.length; k++) {
-          newItems.push({
+          var item = {
             _id: items[k]._id,
             id: items[k]._id + options[j].option._id,
             name: items[k].name,
             parentId: options[j].option._id + data[i]._id
-          });
+          };
+          console.log('adicionando item', item);
+          newItems.push(item);
         }
+        console.log('newItems', newItems);
         // adiciona items
-        newOption = {
-          items: newItems,
-          ...newOption
-        };
       }
-      newOptions.push(newOption);
+      newOptions.push({
+        items: newItems,
+        ...newOption
+      });
     }
 
     products.push({
