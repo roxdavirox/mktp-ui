@@ -32,10 +32,10 @@ class ProductPage extends React.Component {
     });
 
     const data = new FormData();
-    data.append('image', imageFile);
     data.append('name', name);
     data.append('categoryId', categoryId);
     data.append('options', JSON.stringify(options));
+    data.append('image', imageFile);
 
     const request = {
       method: 'POST',

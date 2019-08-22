@@ -18,21 +18,22 @@ const parseProducts = data => {
     // loop das opções do produto
     for (let j = 0; j < options.length; j++) {
       newOption = {
-        _id: options[j]._id,
-        id: options[j]._id + data[i]._id,
-        name: options[j].name,
+        _id: options[j].option._id,
+        id: options[j].option._id + data[i]._id,
+        name: options[j].option.name,
         parentId: data[i]._id,
         items: []
       };
 
       const { items } = options[j];
       if (items) {
+        console.log('items da opção', items);
         for (let k = 0; k < items.length; k++) {
           newItems.push({
             _id: items[k]._id,
-            id: items[k]._id + options[j]._id,
+            id: items[k]._id + options[j].option._id,
             name: items[k].name,
-            parentId: options[j]._id + data[i]._id
+            parentId: options[j].option._id + data[i]._id
           });
         }
         // adiciona items
@@ -70,6 +71,7 @@ const generateTree = data => {
   const options = products
     .map(p => p.options)
     .reduce((options, option) => [...options, ...option], productRows);
+  console.log('options', options);
   const optionRows = options.map(o => ({
     id: o.id,
     name: o.name,
