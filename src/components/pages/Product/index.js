@@ -9,7 +9,7 @@ import GridItem from 'components/theme/Grid/GridItem.jsx';
 import ProductStep from './steps/ProductStep';
 import OptionStep from './steps/OptionStep';
 import history from 'providers/history';
-import { getEndpoint, createPostRequest } from 'helpers/api';
+import { getEndpoint } from 'helpers/api';
 
 const steps = [
   { stepName: 'Produto', stepComponent: ProductStep, stepId: 'productStep' },
@@ -37,7 +37,11 @@ class ProductPage extends React.Component {
     data.append('categoryId', categoryId);
     data.append('options', JSON.stringify(options));
 
-    const request = createPostRequest(data);
+    const request = {
+      method: 'POST',
+      body: data
+    };
+
     const endpoint = getEndpoint('/products');
     fetch(endpoint, request)
       .then(res => res.json())
