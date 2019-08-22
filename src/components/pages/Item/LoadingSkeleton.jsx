@@ -9,7 +9,7 @@ const ItemLoadingSkeleton = ({ isLoading }) =>
       <Skeleton count={3} height={32} />
     </div>
   ) : (
-    'Nenhum item'
+    'Nenhum item cadastrado'
   );
 
 const mapStateToProps = store => ({ isLoading: store.items.loading });

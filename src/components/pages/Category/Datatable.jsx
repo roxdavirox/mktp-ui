@@ -43,7 +43,7 @@ const Datatable = ({ data, classes, onOpen, enqueueSnackbar: snack }) => {
     responsive: 'stacked',
     textLabels: {
       body: {
-        noMatch: 'Nenhuma categoria'
+        noMatch: 'Nenhuma categoria cadastrada'
       }
     },
     customToolbar: function addCategory() {
