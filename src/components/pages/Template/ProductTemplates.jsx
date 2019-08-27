@@ -1,5 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+//core
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 import GridItem from 'components/theme/Grid/GridItem.jsx';
 import Card from 'components/theme/Card/Card.jsx';
@@ -9,7 +12,7 @@ import CardFooter from 'components/theme/Card/CardFooter.jsx';
 import history from 'providers/history';
 import dropImage from 'assets/img/templates/drop-file.png';
 
-const style = {
+const style = theme => ({
   cardHeader: {
     display: 'flex',
     justifyContent: 'center'
@@ -28,8 +31,11 @@ const style = {
     borderRadius: '6px',
     display: 'flex',
     alignItems: 'center'
+  },
+  button: {
+    margin: theme.spacing.unit
   }
-};
+});
 
 // eslint-disable-next-line react/display-name
 const CreateTemplate = (templateCategoryId, location, classes) => (
@@ -48,7 +54,12 @@ const CreateTemplate = (templateCategoryId, location, classes) => (
           })
         }
       >
-        <img src={dropImage} alt="cardProduct" className={classes.img} />
+        {/* <img src={dropImage} alt="cardProduct" className={classes.img} />
+         */}
+        <Button variant="contained" color="default" className={classes.button}>
+          Enviar
+          <CloudUploadIcon className={classes.rightIcon} />
+        </Button>
       </CardHeader>
       <CardBody className={classes.cardBody}>Criar template</CardBody>
       <CardFooter />
@@ -58,6 +69,7 @@ const CreateTemplate = (templateCategoryId, location, classes) => (
 
 const Templates = withStyles(style)(
   ({ productTemplates, classes, location, templateCategorySelectedId }) => {
+    // eslint-disable-next-line no-console
     console.log('selectedId', templateCategorySelectedId);
     return (
       <>
