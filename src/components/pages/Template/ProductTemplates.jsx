@@ -38,31 +38,21 @@ const style = theme => ({
 });
 
 // eslint-disable-next-line react/display-name
-const CreateTemplate = (templateCategoryId, location, classes) => (
+const CreateTemplate = (onDialog, classes) => (
   <GridItem sm={6} md={3} lg={4} key={0}>
     <Card product plain>
       <CardHeader className={classes.cardHeader} image>
-        {/* <img src={dropImage} alt="cardProduct" className={classes.img} />
-         */}
         <Button
           variant="contained"
           color="default"
           className={classes.button}
-          onClick={() =>
-            history.push({
-              pathname: '/admin/template/create',
-              state: {
-                templateCategoryId,
-                ...location.state
-              }
-            })
-          }
+          onClick={() => onDialog('design')}
         >
           Enviar
           <CloudUploadIcon className={classes.rightIcon} />
         </Button>
       </CardHeader>
-      <CardBody className={classes.cardBody}>Criar template</CardBody>
+      <CardBody className={classes.cardBody}>Enviar template</CardBody>
       <CardFooter />
     </Card>
   </GridItem>
@@ -83,6 +73,7 @@ const Templates = withStyles(style)(
                 className={classes.cardHeader}
                 image
                 onClick={() =>
+                  //abre o editor com o template selecionado(clicado)
                   history.push({
                     pathname: '/admin/config/templates',
                     state: {

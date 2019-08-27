@@ -8,7 +8,7 @@ import GridItem from 'components/theme/Grid/GridItem.jsx';
 
 import TemplateCategories from './TemplateCategories.jsx';
 import ProductTemplates from './ProductTemplates.jsx';
-import AddCategoryDialog from './AddCategoryDialog.jsx';
+import Dialog from './Dialog';
 
 import { createPostRequest, getEndpoint } from 'helpers/api';
 
@@ -25,6 +25,7 @@ const style = {
 
 const TemplatePage = withStyles(style)(({ classes, location }) => {
   const [openDialog, setDialogState] = useState(false);
+  const [dialogType, setDialogType] = useState('');
   const [productTemplates, setProductTemplates] = useState([]);
   const [templatesCategory, setTemplatesCategory] = useState([]);
   const [templateCategorySelectedId, setTemplateId] = useState('a');
@@ -72,12 +73,19 @@ const TemplatePage = withStyles(style)(({ classes, location }) => {
       .catch(e => console.log(e));
   };
 
+  const handleOpenDialog = type => {
+    setDialogState(true);
+    setDialogType(type);
+  };
+
   return (
     <>
       {openDialog && (
-        <AddCategoryDialog
+        <Dialog
           open={openDialog}
+          type={dialogType}
           onClose={() => setDialogState(false)}
+          onOpen={handleOpenDialog}
           onAddCategory={handleAddCategory}
         />
       )}
