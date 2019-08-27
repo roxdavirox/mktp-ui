@@ -41,22 +41,23 @@ const style = theme => ({
 const CreateTemplate = (templateCategoryId, location, classes) => (
   <GridItem sm={6} md={3} lg={4} key={0}>
     <Card product plain>
-      <CardHeader
-        className={classes.cardHeader}
-        image
-        onClick={() =>
-          history.push({
-            pathname: '/admin/template/create',
-            state: {
-              templateCategoryId,
-              ...location.state
-            }
-          })
-        }
-      >
+      <CardHeader className={classes.cardHeader} image>
         {/* <img src={dropImage} alt="cardProduct" className={classes.img} />
          */}
-        <Button variant="contained" color="default" className={classes.button}>
+        <Button
+          variant="contained"
+          color="default"
+          className={classes.button}
+          onClick={() =>
+            history.push({
+              pathname: '/admin/template/create',
+              state: {
+                templateCategoryId,
+                ...location.state
+              }
+            })
+          }
+        >
           Enviar
           <CloudUploadIcon className={classes.rightIcon} />
         </Button>
