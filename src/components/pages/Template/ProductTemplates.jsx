@@ -10,7 +10,7 @@ import CardBody from 'components/theme/Card/CardBody.jsx';
 import CardHeader from 'components/theme/Card/CardHeader.jsx';
 import CardFooter from 'components/theme/Card/CardFooter.jsx';
 import history from 'providers/history';
-import dropImage from 'assets/img/templates/drop-file.png';
+// import dropImage from 'assets/img/templates/drop-file.png';,
 
 const style = theme => ({
   cardHeader: {
@@ -38,7 +38,7 @@ const style = theme => ({
 });
 
 // eslint-disable-next-line react/display-name
-const CreateTemplate = (onDialog, classes) => (
+const CreateTemplate = (onOpenDialog, classes) => (
   <GridItem sm={6} md={3} lg={4} key={0}>
     <Card product plain>
       <CardHeader className={classes.cardHeader} image>
@@ -59,13 +59,19 @@ const CreateTemplate = (onDialog, classes) => (
 );
 
 const Templates = withStyles(style)(
-  ({ productTemplates, classes, location, templateCategorySelectedId }) => {
+  ({
+    productTemplates,
+    classes,
+    location,
+    templateCategorySelectedId,
+    onOpen: onOpenDialog
+  }) => {
     // eslint-disable-next-line no-console
     console.log('selectedId', templateCategorySelectedId);
     return (
       <>
         {templateCategorySelectedId !== 'a' &&
-          CreateTemplate(templateCategorySelectedId, location, classes)}
+          CreateTemplate(onOpenDialog, classes)}
         {productTemplates.map(pt => (
           <GridItem sm={6} md={3} lg={4} key={pt._id}>
             <Card product plain>
