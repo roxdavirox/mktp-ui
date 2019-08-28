@@ -51,7 +51,7 @@ const CreateTemplate = ({ onOpenDialog, classes }) => (
           <CloudUploadIcon className={classes.rightIcon} />
         </Button>
       </CardHeader>
-      <CardBody className={classes.cardBody}>Enviar template</CardBody>
+      <CardBody className={classes.cardBody}>Adicionar template</CardBody>
       <CardFooter />
     </Card>
   </GridItem>

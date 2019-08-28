@@ -78,7 +78,7 @@ const AddDesignTemplateDialog = ({
             Cancelar
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            Adicionar
+            Enviar
           </Button>
         </DialogActions>
       </MuiDialog>
