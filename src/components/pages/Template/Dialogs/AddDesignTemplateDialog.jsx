@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -27,39 +28,47 @@ const styles = theme => ({
 const AddDesignTemplateDialog = ({
   enqueueSnackbar: snack,
   onClose,
-  onAddCategory,
+  onAddDesignTemplate,
   classes,
   open
 }) => {
-  const [name, setName] = useState('');
-
-  const handleNameChange = e => setName(e.target.value);
-
   const handleSubmit = () => {
-    snack(`Adicionando categoria ${name}`, {
+    snack(`Adicionando template`, {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    onAddCategory(name);
     onClose();
   };
 
   return (
     <div>
       <MuiDialog open={open} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Adicionar categoria</DialogTitle>
+        <DialogTitle id="form-dialog-title">Adicionar Template</DialogTitle>
         <DialogContent>
           <form className={classes.container}>
             <FormControl className={classes.formControl}>
-              <TextField
-                value={name}
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Nome"
-                fullWidth
-                onChange={handleNameChange}
+              <label htmlFor="preview">
+                Selecione uma imagem de visualização do template:
+              </label>
+              <input
+                type="file"
+                id="preview"
+                name="preview"
+                accept="image/png, image/jpeg"
+                onChange={e => console.log(e.target.files)}
+              />
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <label htmlFor="photoshop">
+                Selecione o arquivo PSD do template:
+              </label>
+              <input
+                type="file"
+                id="photoshop"
+                name="photoshop"
+                accept="image/psd"
+                onChange={e => console.log(e.target.files)}
               />
             </FormControl>
           </form>
@@ -79,9 +88,7 @@ const AddDesignTemplateDialog = ({
 
 AddDesignTemplateDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onAddCategory: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired
 };
 
