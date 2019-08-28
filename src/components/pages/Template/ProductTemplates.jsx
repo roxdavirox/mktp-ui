@@ -48,7 +48,6 @@ const CreateTemplate = ({ onOpenDialog, classes }) => (
           className={classes.button}
           onClick={() => onOpenDialog()}
         >
-          Enviar
           <CloudUploadIcon className={classes.rightIcon} />
         </Button>
       </CardHeader>
