@@ -3,14 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MuiDialog from '@material-ui/core/Dialog';
 
-import AddCategoryDialog from './dialogs/AddCategoryDialog';
-import AddDesignTemplateDialog from './dialogs/AddDesignTemplateDialog';
+import AddCategoryDialog from './Dialogs/AddCategoryDialog';
+import AddDesignTemplateDialog from './Dialogs/AddDesignTemplateDialog';
 
 const Dialog = props => {
   const { open, onClose, type } = props;
   const dialogs = {
-    design: <AddCategoryDialog {...props} />,
-    category: <AddDesignTemplateDialog {...props} />
+    category: <AddCategoryDialog {...props} />,
+    design: <AddDesignTemplateDialog {...props} />
   };
 
   return (

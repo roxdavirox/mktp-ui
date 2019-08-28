@@ -85,8 +85,8 @@ const TemplatePage = withStyles(style)(({ classes, location }) => {
           open={openDialog}
           type={dialogType}
           onClose={() => setDialogState(false)}
-          onOpen={handleOpenDialog}
-          onAddCategory={handleAddCategory}
+          // onOpen={handleOpenDialog}
+          // onAddCategory={handleAddCategory}
         />
       )}
       <GridContainer>
@@ -95,7 +95,7 @@ const TemplatePage = withStyles(style)(({ classes, location }) => {
             categories={templatesCategory}
             onSelectCategory={handleChangeTemplateSelected}
             selectedEnabled={templateCategorySelectedId}
-            onOpenAddCategoryDialog={() => setDialogState(true)}
+            onOpenAddCategoryDialog={() => handleOpenDialog('category')}
           />
         </GridItem>
         <GridItem xs={8} sm={4} md={4} lg={8}>
@@ -103,6 +103,7 @@ const TemplatePage = withStyles(style)(({ classes, location }) => {
             <ProductTemplates
               productTemplates={productTemplates}
               location={location}
+              onOpenDialog={() => handleOpenDialog('design')}
               templateCategorySelectedId={templateCategorySelectedId}
             />
           </GridContainer>

@@ -38,7 +38,7 @@ const style = theme => ({
 });
 
 // eslint-disable-next-line react/display-name
-const CreateTemplate = (onOpenDialog, classes) => (
+const CreateTemplate = ({ onOpenDialog, classes }) => (
   <GridItem sm={6} md={3} lg={4} key={0}>
     <Card product plain>
       <CardHeader className={classes.cardHeader} image>
@@ -46,7 +46,7 @@ const CreateTemplate = (onOpenDialog, classes) => (
           variant="contained"
           color="default"
           className={classes.button}
-          onClick={() => onDialog('design')}
+          onClick={() => onOpenDialog()}
         >
           Enviar
           <CloudUploadIcon className={classes.rightIcon} />
@@ -64,14 +64,15 @@ const Templates = withStyles(style)(
     classes,
     location,
     templateCategorySelectedId,
-    onOpen: onOpenDialog
+    onOpenDialog
   }) => {
     // eslint-disable-next-line no-console
     console.log('selectedId', templateCategorySelectedId);
     return (
       <>
-        {templateCategorySelectedId !== 'a' &&
-          CreateTemplate(onOpenDialog, classes)}
+        {templateCategorySelectedId !== 'a' && (
+          <CreateTemplate onOpenDialog={onOpenDialog} classes={classes} />
+        )}
         {productTemplates.map(pt => (
           <GridItem sm={6} md={3} lg={4} key={pt._id}>
             <Card product plain>
