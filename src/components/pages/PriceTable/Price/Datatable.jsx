@@ -8,8 +8,11 @@ import MuiDatatable from 'components/common/tables/MuiDatatable';
 import BraziliaPriceFormat from 'components/common/format/NumberFormat/BraziliaPriceFormat';
 import PriceFormat from 'components/common/format/NumberFormat/PriceFormat';
 import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
-import { AddToolbar } from 'components/common/tables/Toolbar.jsx';
-import ViewListIcon from 'components/common/icons/ViewListIcon';
+import {
+  AddToolbar,
+  ViewListToolbar
+} from 'components/common/tables/Toolbar.jsx';
+
 import Loading from './Loading';
 import { deletePrices } from 'store/ducks/price';
 
@@ -142,7 +145,7 @@ const Datatable = ({
             title="Adicionar Tabela de preço"
             onClick={() => onOpen('add')}
           />
-          <ViewListIcon
+          <ViewListToolbar
             title="Gerar intervalos"
             onClick={() => onOpen('range')}
           />

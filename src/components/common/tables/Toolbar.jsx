@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import BallotIcon from '../icons/BallotIcon';
+import ViewListIcon from '../icons/ViewListIcon';
 import PropTypes from 'prop-types';
 
 export const CustomToolbar = ({ children, title, ...rest }) => {
@@ -31,5 +32,11 @@ export const AddToolbar = props => (
 export const BallotToolbar = props => (
   <CustomToolbar {...props}>
     <BallotIcon style={{ padding: 0 }} />
+  </CustomToolbar>
+);
+
+export const ViewListToolbar = props => (
+  <CustomToolbar {...props}>
+    <ViewListIcon />
   </CustomToolbar>
 );
