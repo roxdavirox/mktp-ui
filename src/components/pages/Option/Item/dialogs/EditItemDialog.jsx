@@ -30,14 +30,14 @@ const styles = theme => ({
 
 const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
   const [itemName, setItemName] = useState('');
-  const [priceTableId, setPriceTableId] = useState('');
+  const [priceTableId, setPriceTableId] = useState('0');
   const [itemId, setItemId] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (item) {
       setItemName(item.name || '');
-      setPriceTableId(item.priceTableId || '');
+      setPriceTableId(item.priceTableId || '0');
       setItemId(item._id || '');
     }
     dispatch(fetchPriceTables());
@@ -79,8 +79,8 @@ const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
               onChange={handlePriceTableChange}
               input={<Input id="price-table-input" />}
             >
-              <MenuItem value="">
-                <em>Nenhum</em>
+              <MenuItem key="0" value="0">
+                Nenhum
               </MenuItem>
               {priceTables.map(p => (
                 <MenuItem key={p._id} value={p._id}>
