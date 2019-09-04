@@ -67,35 +67,35 @@ const AddPriceDialog = ({
           <FormControl className={classes.formControl}>
             <TextField
               autoFocus
-              value={this.state.start}
+              value={start}
               margin="dense"
               id="start"
               name="start"
               label="Inicio"
               fullWidth
-              onChange={this.handleChange}
+              onChange={e => setStart(e.target.value)}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
             <TextField
-              value={this.state.end}
+              value={end}
               margin="dense"
               id="end"
               name="end"
               label="Fim"
               fullWidth
-              onChange={this.handleChange}
+              onChange={e => setEnd(e.target.value)}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
             <TextField
-              value={this.state.value}
+              value={value}
               margin="dense"
               id="value"
               name="value"
               label="Preço"
               fullWidth
-              onChange={this.handleChange}
+              onChange={e => setValue(e.target.value)}
             />
           </FormControl>
         </form>
