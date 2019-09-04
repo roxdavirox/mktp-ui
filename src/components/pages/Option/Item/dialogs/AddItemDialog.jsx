@@ -30,7 +30,7 @@ const styles = theme => ({
 
 const AddItemDialog = ({ classes, onAddOptionItem, onClose }) => {
   const [itemName, setItemName] = useState('');
-  const [priceTableId, setPriceTableId] = useState('');
+  const [priceTableId, setPriceTableId] = useState('0');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -73,8 +73,8 @@ const AddItemDialog = ({ classes, onAddOptionItem, onClose }) => {
               onChange={handlePriceTableChange}
               input={<Input id="price-table-input" />}
             >
-              <MenuItem value="">
-                <em>Nenhum</em>
+              <MenuItem key="0" value="0">
+                Nenhum
               </MenuItem>
               {priceTables.map(p => (
                 <MenuItem key={p._id} value={p._id}>
