@@ -13,7 +13,8 @@ const parseProducts = data => {
 
   for (let i = 0; i < data.length; i++) {
     const { options } = data[i];
-    if (!options) break;
+    if (options.length) break;
+    console.log('data[i]', data[i]);
 
     // loop das opções do produto
     for (let j = 0; j < options.length; j++) {
