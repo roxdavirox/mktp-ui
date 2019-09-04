@@ -33,7 +33,7 @@ var dashRoutes = [
           },
           {
             path: '/config/products/list',
-            name: 'Opções',
+            name: 'Opções detalhadas',
             component: ProductList,
             layout: '/admin'
           },
