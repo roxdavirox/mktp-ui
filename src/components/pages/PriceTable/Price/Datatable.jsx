@@ -142,7 +142,7 @@ const Datatable = ({
       return (
         <>
           <AddToolbar
-            title="Adicionar Tabela de preço"
+            title="Adicionar novo preço"
             onClick={() => onOpen('add')}
           />
           <ViewListToolbar
