@@ -13,6 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import AdminNavbar from 'components/theme/Navbars/AdminNavbar.jsx';
 import Footer from 'components/theme/Footer/Footer.jsx';
 import Sidebar from 'components/theme/Sidebar/Sidebar.jsx';
+import FixedPlugin from 'components/theme/FixedPlugin/FixedPlugin.jsx';
 
 import routes from 'routes';
 
@@ -172,7 +173,7 @@ class Dashboard extends React.Component {
             </div>
           )}
           {this.getRoute() ? <Footer fluid /> : null}
-          {/* <FixedPlugin
+          <FixedPlugin
             handleImageClick={this.handleImageClick}
             handleColorClick={this.handleColorClick}
             handleBgColorClick={this.handleBgColorClick}
@@ -184,7 +185,7 @@ class Dashboard extends React.Component {
             fixedClasses={this.state.fixedClasses}
             sidebarMinimize={this.sidebarMinimize.bind(this)}
             miniActive={this.state.miniActive}
-          /> */}
+          />
         </div>
       </div>
     );
