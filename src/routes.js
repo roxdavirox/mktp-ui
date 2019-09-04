@@ -39,7 +39,7 @@ var dashRoutes = [
           },
           {
             path: '/config/products/templates',
-            name: 'Templates',
+            name: 'Templates dos produtos',
             component: Templates,
             layout: '/admin'
           }

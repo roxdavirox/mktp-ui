@@ -51,7 +51,7 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
   };
 
   const handleAddOptionItem = item => {
-    snack('Adicionandoitem...', {
+    snack('Adicionando item...', {
       variant: 'info',
       autoHideDuration: 2000
     });
@@ -63,7 +63,7 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
   };
 
   const handleEditItem = item => {
-    snack('Adicionando item...', {
+    snack('Atualizando item...', {
       variant: 'info',
       autoHideDuration: 2000
     });
