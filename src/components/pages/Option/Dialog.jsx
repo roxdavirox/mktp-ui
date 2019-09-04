@@ -41,6 +41,13 @@ const Dialog = ({ enqueueSnackbar: snack, classes, onClose, open }) => {
 
   const handleClose = () => onClose();
 
+  const handleEnterKey = e => {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   return (
     <div>
       <MuiDialog
@@ -60,6 +67,7 @@ const Dialog = ({ enqueueSnackbar: snack, classes, onClose, open }) => {
                 label="Nome"
                 fullWidth
                 onChange={handleNameChange}
+                onKeyDown={handleEnterKey}
               />
             </FormControl>
           </form>
