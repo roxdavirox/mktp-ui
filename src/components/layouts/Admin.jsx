@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
       miniActive: false,
       image: image,
       color: 'purple',
-      bgColor: 'white',
+      bgColor: 'black',
       hasImage: true,
       fixedClasses: 'dropdown'
     };
@@ -144,7 +144,7 @@ class Dashboard extends React.Component {
           routes={routes}
           logoText={'Custom place'}
           logo={logo}
-          // image={this.state.image}
+          image={this.state.image}
           handleDrawerToggle={this.handleDrawerToggle}
           open={this.state.mobileOpen}
           color={this.state.color}
