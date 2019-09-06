@@ -32,6 +32,7 @@ const AddDesignTemplateDialog = ({
   classes,
   open
 }) => {
+  const [name, setDesignTemplateName] = useState('defaultName');
   const [img, setImg] = useState('');
   const [psd, setPsd] = useState('');
 
@@ -41,7 +42,7 @@ const AddDesignTemplateDialog = ({
       autoHideDuration: 2000
     });
 
-    onAddDesignTemplate(img, psd);
+    onAddDesignTemplate(name, img, psd);
     onClose();
   };
 
@@ -61,6 +62,15 @@ const AddDesignTemplateDialog = ({
         <DialogTitle id="form-dialog-title">Adicionar Template</DialogTitle>
         <DialogContent>
           <form className={classes.container}>
+            <FormControl className={classes.formControl}>
+              <label htmlFor="preview">Nome do Template</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                onChange={e => setDesignTemplateName(e.target.value)}
+              />
+            </FormControl>
             <FormControl className={classes.formControl}>
               <label htmlFor="preview">
                 Selecione uma imagem de visualização do template:
