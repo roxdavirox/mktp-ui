@@ -86,7 +86,7 @@ const TemplatePage = withStyles(style)(({ classes, location }) => {
           type={dialogType}
           onClose={() => setDialogState(false)}
           // onOpen={handleOpenDialog}
-          // onAddCategory={handleAddCategory}
+          onAddCategory={handleAddCategory}
         />
       )}
       <GridContainer>
