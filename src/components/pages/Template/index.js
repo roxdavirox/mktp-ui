@@ -73,6 +73,29 @@ const TemplatePage = withStyles(style)(({ classes, location }) => {
       .catch(e => console.log(e));
   };
 
+  const handleAddDesignTemplate = async (img, psd) => {
+    const data = new FormData();
+    data.append('img', img);
+    data.append('psd', psd);
+    console.log('img:', img);
+    console.log('psd:', psd);
+    // send request to backend and backend send to CC-API
+    const request = {
+      method: 'POST',
+      body: data
+    };
+    const templateCategoryId = templateCategorySelectedId;
+    console.log(
+      'enviando arquivos para categoria de template com id:',
+      templateCategoryId
+    );
+    const endpoint = getEndpoint(`/product-templates/${templateCategoryId}`);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(res => console.log('response do upload de arquivos: ', res));
+  };
+
   const handleOpenDialog = type => {
     setDialogState(true);
     setDialogType(type);
@@ -86,6 +109,7 @@ const TemplatePage = withStyles(style)(({ classes, location }) => {
           type={dialogType}
           onClose={() => setDialogState(false)}
           // onOpen={handleOpenDialog}
+          onAddDesignTemplate={handleAddDesignTemplate}
           onAddCategory={handleAddCategory}
         />
       )}

@@ -32,13 +32,27 @@ const AddDesignTemplateDialog = ({
   classes,
   open
 }) => {
+  const [img, setImg] = useState('');
+  const [psd, setPsd] = useState('');
+
   const handleSubmit = () => {
     snack(`Adicionando template`, {
       variant: 'info',
       autoHideDuration: 2000
     });
 
+    onAddDesignTemplate(img, psd);
     onClose();
+  };
+
+  const handleChangeImg = e => {
+    const [imageFile] = e.target.files;
+    setImg(imageFile);
+  };
+
+  const handleChangePsd = e => {
+    const [psdFile] = e.target.files;
+    setPsd(psdFile);
   };
 
   return (
@@ -56,7 +70,7 @@ const AddDesignTemplateDialog = ({
                 id="preview"
                 name="preview"
                 accept="image/png, image/jpeg"
-                onChange={e => console.log(e.target.files)}
+                onChange={handleChangeImg}
               />
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -68,7 +82,7 @@ const AddDesignTemplateDialog = ({
                 id="photoshop"
                 name="photoshop"
                 accept="image/psd"
-                onChange={e => console.log(e.target.files)}
+                onChange={handleChangePsd}
               />
             </FormControl>
           </form>
