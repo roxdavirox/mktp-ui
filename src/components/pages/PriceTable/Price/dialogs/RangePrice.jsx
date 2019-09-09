@@ -53,7 +53,7 @@ const RangePrice = ({
   const handleClose = () => onClose();
 
   const handleSubmit = () => {
-    const espessura = thickness;
+    const espessura = thickness.floatValue;
     const pesoEspecifico = specificWeigth.floatValue;
     const precoKg = kgPrice.floatValue;
 
@@ -91,15 +91,18 @@ const RangePrice = ({
       <DialogContent>
         <form className={classes.container}>
           <FormControl className={classes.formControl}>
-            <TextField
+            <ReactNumberFormat
               autoFocus
               margin="dense"
               name="thickness"
-              value={thickness}
-              onChange={e => setThickness(e.target.value)}
               id="thickness"
               label="Espessura (mm)"
               fullWidth
+              // format
+              customInput={TextField}
+              value={thickness.formattedValue}
+              onValueChange={value => setThickness(value)}
+              suffix={' mm'}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
