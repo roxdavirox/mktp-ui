@@ -15,6 +15,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { addPriceRange } from 'store/ducks/price';
 import { getPriceRange } from 'helpers/PriceRange';
+import ReactNumberFormat from 'react-number-format';
 
 const styles = theme => ({
   container: {
@@ -53,8 +54,8 @@ const RangePrice = ({
 
   const handleSubmit = () => {
     const espessura = thickness;
-    const pesoEspecifico = specificWeigth;
-    const precoKg = kgPrice;
+    const pesoEspecifico = specificWeigth.floatValue;
+    const precoKg = kgPrice.floatValue;
 
     const pesoMaterial = (10000 * (espessura / 10) * pesoEspecifico) / 1000;
     console.log(`Peso do material: ${pesoMaterial} kg`);
@@ -67,8 +68,8 @@ const RangePrice = ({
     const prices = getPriceRange({
       maxLines,
       priceValue: precoM2,
-      higherSalesMargin,
-      lowerSalesMargin,
+      higherSalesMargin: higherSalesMargin.floatValue,
+      lowerSalesMargin: lowerSalesMargin.floatValue,
       unit: unitsObj[unit].value, // metro ou centimentros quadrados  - cm² m²,
       precoDivisor: unitsObj[unit].precoDivisor
     });
@@ -81,7 +82,7 @@ const RangePrice = ({
     dispatch(addPriceRange(prices, priceTableId, snack));
     handleClose();
   };
-
+  console.log('peso especifico:', specificWeigth);
   return (
     <>
       <DialogTitle id="form-dialog-title">
@@ -102,47 +103,64 @@ const RangePrice = ({
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <TextField
-              margin="dense"
+            <ReactNumberFormat
               id="specificWeigth"
               name="specificWeigth"
-              value={specificWeigth}
-              onChange={e => setSpecificWeigth(e.target.value)}
+              margin="dense"
               label="Peso específico"
               fullWidth
+              // format props
+              value={specificWeigth.formattedValue}
+              customInput={TextField}
+              onValueChange={value => setSpecificWeigth(value)}
+              prefix={'Kg '}
+              decimalSeparator={','}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <TextField
+            <ReactNumberFormat
               margin="dense"
               name="kgPrice"
               id="kgPrice"
-              value={kgPrice}
-              onChange={e => setKgPrice(e.target.value)}
               label="Preço do KG"
               fullWidth
+              // format
+              customInput={TextField}
+              value={kgPrice.formattedValue}
+              prefix={'R$ '}
+              fixedDecimalScale
+              decimalSeparator={','}
+              thousandSeparator={'.'}
+              decimalScale={2}
+              onValueChange={value => setKgPrice(value)}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <TextField
+            <ReactNumberFormat
               margin="dense"
               name="higherSale"
               id="higherSale"
-              value={higherSalesMargin}
-              onChange={e => setHigherSalesMargin(e.target.value)}
               label="Maior margem de venda"
               fullWidth
+              // format
+              customInput={TextField}
+              onValueChange={value => setHigherSalesMargin(value)}
+              value={higherSalesMargin.formattedValue}
+              suffix={'%'}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <TextField
+            <ReactNumberFormat
               margin="dense"
               name="lowerSale"
               id="lowerSale"
-              value={lowerSalesMargin}
-              onChange={e => setLowerSalesMargin(e.target.value)}
               label="Menor margem de venda"
               fullWidth
+              // format
+              customInput={TextField}
+              value={lowerSalesMargin.formattedValue}
+              onValueChange={value => setLowerSalesMargin(value)}
+              suffix={'%'}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
