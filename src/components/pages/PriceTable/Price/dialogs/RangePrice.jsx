@@ -29,7 +29,11 @@ const styles = theme => ({
   select: { height: '37px', width: '80px' }
 });
 
-const units = [{ unit: 'm²', value: 10000 }, { unit: 'cm²', value: 1 }];
+const units = ['m²', 'cm²'];
+const unitsObj = {
+  'm²': { value: 10000, precoDivisor: 1 },
+  'cm²': { value: 1, precoDivisor: 10000 }
+};
 
 const RangePrice = ({
   enqueueSnackbar: snack,
@@ -42,7 +46,7 @@ const RangePrice = ({
   const [kgPrice, setKgPrice] = useState('');
   const [higherSalesMargin, setHigherSalesMargin] = useState('');
   const [lowerSalesMargin, setLowerSalesMargin] = useState('');
-  const [unit, setUnit] = useState(10000); // inicia em m²
+  const [unit, setUnit] = useState('m²'); // inicia em m²
   const dispatch = useDispatch();
 
   const handleClose = () => onClose();
@@ -65,7 +69,8 @@ const RangePrice = ({
       priceValue: precoM2,
       higherSalesMargin,
       lowerSalesMargin,
-      unit // metro ou centimentros quadrados  - cm² m²
+      unit: unitsObj[unit].value, // metro ou centimentros quadrados  - cm² m²,
+      precoDivisor: unitsObj[unit].precoDivisor
     });
     console.log('prices: ', prices);
     snack('Adicionando intervalo de preços...', {
@@ -154,8 +159,8 @@ const RangePrice = ({
                 <em>Nenhum</em>
               </MenuItem>
               {units.map(u => (
-                <MenuItem key={u.unit} value={u.value}>
-                  {u.unit}
+                <MenuItem key={u} value={u}>
+                  {u}
                 </MenuItem>
               ))}
             </Select>

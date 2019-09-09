@@ -33,12 +33,8 @@ const baseRange = [
   { start: 30001, end: 100000 } //30
 ];
 
-const units = {
-  'm²': 10000,
-  'cm²': 1
-};
-
 export const generatePriceRange = data => {
+  console.log('dados p gera preços:', data);
   var lowerSaleQuantity = 5000; // fixo em 5k
   var maxLines = data.maxLines;
   if (lowerSaleQuantity < maxLines) {
@@ -55,14 +51,14 @@ export const generatePriceRange = data => {
 
   lineDivision = maxLines > 1 ? maxLines - 1 : 1;
 
-  const { unit } = data;
+  const { unit, precoDivisor } = data;
 
   for (var index = 1, lines = maxLines; index <= maxLines; index++, lines--) {
     start = baseRange[index - 1].start / unit;
     end = baseRange[index - 1].end / unit; // valor para dividir - unidade mm
     // first loop?
     if (index === 1) {
-      value = data.higherSalesMargin;
+      value = data.higherSalesMargin / precoDivisor;
       auxValue = value;
       prices.push({
         start,
@@ -73,7 +69,9 @@ export const generatePriceRange = data => {
     }
     value =
       auxValue -
-      (data.higherSalesMargin - data.lowerSalesMargin) / lineDivision;
+      (data.higherSalesMargin - data.lowerSalesMargin) /
+        lineDivision /
+        precoDivisor; // aqui divide o valor do preço
 
     prices.push({
       start,
