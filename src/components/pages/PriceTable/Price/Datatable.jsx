@@ -94,14 +94,13 @@ const Datatable = ({
           };
         },
         customBodyRender: function renderFormatedValue(value, tableMeta) {
-          const { rowIndex, rowData } = tableMeta;
+          const { rowIndex } = tableMeta;
+          console.log('tableMeta', tableMeta);
           const isLastPriceInterval = rowIndex === dataLength - 1;
-          const [lastValue] = rowData;
-          return isLastPriceInterval ? (
-            <PriceFormat value={lastValue} />
-          ) : (
-            <PriceFormat value={value} />
-          );
+          const lastValue = isLastPriceInterval
+            ? data[rowIndex - 1].end
+            : value;
+          return <PriceFormat value={lastValue} />;
         }
       }
     },
@@ -175,7 +174,7 @@ const Datatable = ({
   };
 
   const priceTableName = useSelector(store => selectPriceTableName(store));
-
+  console.log('data:', data);
   return (
     <MuiDatatable
       title={<h2>Tabela de preço: {priceTableName}</h2>}
