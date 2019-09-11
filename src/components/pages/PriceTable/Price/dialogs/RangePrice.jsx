@@ -176,9 +176,6 @@ const RangePrice = ({
               onChange={e => setUnit(e.target.value)}
               input={<Input id="unit" />}
             >
-              <MenuItem value="">
-                <em>Nenhum</em>
-              </MenuItem>
               {units.map(u => (
                 <MenuItem key={u} value={u}>
                   {u}
