@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 export const calculate = p => v => v * ((p <= 1 ? 1 : p) / 100) + v;
 
 const baseRange = [
