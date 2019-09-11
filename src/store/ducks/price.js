@@ -13,6 +13,7 @@ export const types = {
   FETCH_PRICES: 'FETCH_PRICES',
   FETCH_PRICES_SUCCESS: 'FETCH_PRICES_SUCCESS',
   SET_UNIT_INTERVAL: 'SET_UNIT_INTERVAL',
+  SET_PRICE_TABLE_NAME: 'SET_PRICE_TABLE_NAME',
   ADD_PRICE: 'ADD_PRICE',
   ADD_PRICE_SUCCESS: 'ADD_PRICE_SUCCESS',
   ADD_PRICE_RANGE: 'ADD_PRICE_RANGE',
@@ -36,6 +37,11 @@ export const fetchPricesSuccess = prices => ({
 export const setUnitInterval = unit => ({
   type: types.SET_UNIT_INTERVAL,
   playload: { unit }
+});
+
+export const setPriceTableName = name => ({
+  type: types.SET_PRICE_TABLE_NAME,
+  playload: { name }
 });
 
 export const addPrice = (price, priceTableId, snack) => ({
@@ -88,7 +94,8 @@ export const fetchPricesMiddleware = ({ dispatch }) => next => action => {
       .then(res => res.json())
       .then(res => {
         const { priceTable } = res;
-        const { unit } = priceTable;
+        const { unit, name } = priceTable;
+        dispatch(setPriceTableName(name));
         dispatch(setUnitInterval(unit));
         return res;
       })
@@ -137,7 +144,8 @@ export const addPriceRangeMiddleware = ({ dispatch }) => next => action => {
       .then(res => res.json())
       .then(res => {
         const { priceTable } = res;
-        const { unit } = priceTable;
+        const { unit, name } = priceTable;
+        dispatch(setPriceTableName(name));
         dispatch(setUnitInterval(unit));
         return res;
       })
@@ -209,7 +217,8 @@ export const editPriceMiddleware = ({ dispatch }) => next => action => {
 const initialState = {
   byId: {},
   allIds: [],
-  unit: ''
+  unit: '',
+  name: ''
 };
 
 export default function reducer(state = initialState, action) {
@@ -234,6 +243,11 @@ export default function reducer(state = initialState, action) {
       const { unit } = action.playload;
 
       return { ...state, unit };
+    }
+
+    case types.SET_PRICE_TABLE_NAME: {
+      const { name } = action.playload;
+      return { ...state, name };
     }
 
     case types.ADD_PRICE_SUCCESS: {

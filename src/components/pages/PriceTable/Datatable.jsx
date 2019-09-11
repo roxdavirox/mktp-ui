@@ -95,7 +95,7 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
 
   return (
     <MuiDatatable
-      title={'Tabela de preço'}
+      title={<h2>Tabelas de preço</h2>}
       data={data}
       columns={columns}
       options={options}

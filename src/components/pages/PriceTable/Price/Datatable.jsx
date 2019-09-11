@@ -22,6 +22,7 @@ const styles = {
 };
 
 const selectUnit = store => store.prices.unit;
+const selectPriceTableName = store => store.prices.name;
 
 const Datatable = ({
   enqueueSnackbar: snack,
@@ -158,9 +159,11 @@ const Datatable = ({
     onRowsDelete: rowsDeleted => handleRowsDelete(rowsDeleted)
   };
 
+  const priceTableName = useSelector(store => selectPriceTableName(store));
+
   return (
     <MuiDatatable
-      title={'Intervalos dos preços'}
+      title={<h2>Tabela de preço: {priceTableName}</h2>}
       data={data}
       columns={columns}
       options={options}
