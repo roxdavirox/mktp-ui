@@ -12,6 +12,7 @@ import {
 export const types = {
   FETCH_PRICES: 'FETCH_PRICES',
   FETCH_PRICES_SUCCESS: 'FETCH_PRICES_SUCCESS',
+  SET_UNIT_INTERVAL: 'SET_UNIT_INTERVAL',
   ADD_PRICE: 'ADD_PRICE',
   ADD_PRICE_SUCCESS: 'ADD_PRICE_SUCCESS',
   ADD_PRICE_RANGE: 'ADD_PRICE_RANGE',
@@ -32,6 +33,11 @@ export const fetchPricesSuccess = prices => ({
   playload: { prices }
 });
 
+export const setUnitInterval = unit => ({
+  type: types.SET_UNIT_INTERVAL,
+  playload: { unit }
+});
+
 export const addPrice = (price, priceTableId, snack) => ({
   type: types.ADD_PRICE,
   playload: { price, priceTableId, snack }
@@ -42,9 +48,9 @@ export const addPriceSuccess = price => ({
   playload: { price }
 });
 
-export const addPriceRange = (prices, priceTableId, snack) => ({
+export const addPriceRange = (prices, unit, priceTableId, snack) => ({
   type: types.ADD_PRICE_RANGE,
-  playload: { prices, priceTableId, snack }
+  playload: { prices, unit, priceTableId, snack }
 });
 
 export const addPriceRangeSuccess = prices => ({
@@ -80,7 +86,13 @@ export const fetchPricesMiddleware = ({ dispatch }) => next => action => {
 
     fetch(endpoint)
       .then(res => res.json())
-      .then(({ prices }) => normalize(prices, [priceSchema]))
+      .then(res => {
+        const { priceTable } = res;
+        const { unit } = priceTable;
+        dispatch(setUnitInterval(unit));
+        return res;
+      })
+      .then(({ priceTable }) => normalize(priceTable.prices, [priceSchema]))
       .then(res => {
         console.log('normalized response preços:', res);
         return res;
@@ -116,14 +128,20 @@ export const addPriceMiddleware = ({ dispatch }) => next => action => {
 
 export const addPriceRangeMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_PRICE_RANGE) {
-    const { prices, priceTableId, snack } = action.playload;
-    const body = { prices };
+    const { prices, unit, priceTableId, snack } = action.playload;
+    const body = { prices, unit };
     const request = createPostRequest(body);
     const endpoint = getEndpoint(`/prices/${priceTableId}/range`);
 
     fetch(endpoint, request)
       .then(res => res.json())
-      .then(({ prices }) => normalize(prices, [priceSchema]))
+      .then(res => {
+        const { priceTable } = res;
+        const { unit } = priceTable;
+        dispatch(setUnitInterval(unit));
+        return res;
+      })
+      .then(({ priceTable }) => normalize(priceTable.prices, [priceSchema]))
       .then(({ entities }) => {
         dispatch(addEntities(entities));
         snack('Intervalo de preços adicionado com sucesso!', {
@@ -190,7 +208,8 @@ export const editPriceMiddleware = ({ dispatch }) => next => action => {
 // reducers
 const initialState = {
   byId: {},
-  allIds: []
+  allIds: [],
+  unit: ''
 };
 
 export default function reducer(state = initialState, action) {
@@ -209,6 +228,12 @@ export default function reducer(state = initialState, action) {
         byId,
         allIds
       };
+    }
+
+    case types.SET_UNIT_INTERVAL: {
+      const { unit } = action.playload;
+
+      return { ...state, unit };
     }
 
     case types.ADD_PRICE_SUCCESS: {

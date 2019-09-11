@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -21,6 +21,8 @@ const styles = {
   NameCell: { fontWeight: 500 }
 };
 
+const selectUnit = store => store.prices.unit;
+
 const Datatable = ({
   enqueueSnackbar: snack,
   classes,
@@ -29,6 +31,7 @@ const Datatable = ({
   onOpen
 }) => {
   const dispatch = useDispatch();
+  const unit = useSelector(store => selectUnit(store));
 
   const handleRowsDelete = rows => {
     const { data: dataRows } = rows;
@@ -56,7 +59,7 @@ const Datatable = ({
   const columns = [
     {
       name: 'start',
-      label: 'Inicio',
+      label: `Inicio (${unit || 'unidade'})`,
       options: {
         filter: true,
         sort: true,
@@ -72,7 +75,7 @@ const Datatable = ({
     },
     {
       name: 'end',
-      label: 'Fim',
+      label: `Fim (${unit || 'unidade'})`,
       options: {
         filter: false,
         sort: false,

@@ -79,7 +79,7 @@ const RangePrice = ({
       autoHideDuration: 4000
     });
 
-    dispatch(addPriceRange(prices, priceTableId, snack));
+    dispatch(addPriceRange(prices, unit, priceTableId, snack));
     handleClose();
   };
   console.log('peso especifico:', specificWeigth);
