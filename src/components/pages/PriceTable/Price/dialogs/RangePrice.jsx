@@ -116,7 +116,7 @@ const RangePrice = ({
               value={specificWeigth.formattedValue}
               customInput={TextField}
               onValueChange={value => setSpecificWeigth(value)}
-              prefix={'Kg '}
+              suffix={' Kg'}
               decimalSeparator={','}
             />
           </FormControl>
