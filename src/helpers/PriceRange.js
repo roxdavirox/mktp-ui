@@ -75,9 +75,11 @@ export const generatePriceRange = data => {
 
     prices.push({
       start,
-      end: index === maxLines ? lowerSaleQuantity : end,
+      end,
       value:
-        index === maxLines ? data.lowerSalesMargin.toFixed(4) : value.toFixed(4)
+        index === maxLines
+          ? data.lowerSalesMargin.toFixed(4) / precoDivisor
+          : value.toFixed(4)
     });
     auxValue = value;
   }
