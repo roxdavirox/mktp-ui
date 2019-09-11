@@ -66,7 +66,6 @@ PricePage.propTypes = {
   priceTableId: PropTypes.string.isRequired,
   fetchPrices: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
-  deletePrices: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
