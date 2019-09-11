@@ -57,6 +57,8 @@ const Datatable = ({
     onUpdate(price);
   };
 
+  const dataLength = data.length;
+
   const columns = [
     {
       name: 'start',
@@ -69,8 +71,14 @@ const Datatable = ({
             className: classNames({ [classes.NameCell]: true })
           };
         },
-        customBodyRender: function renderFormatedValue(value) {
-          return <PriceFormat value={value} />;
+        customBodyRender: function renderFormatedValue(value, tableMeta) {
+          const { rowIndex } = tableMeta;
+          const isLastPriceInterval = rowIndex === dataLength - 1;
+          return isLastPriceInterval ? (
+            'Acima de: '
+          ) : (
+            <PriceFormat value={value} />
+          );
         }
       }
     },
@@ -85,8 +93,15 @@ const Datatable = ({
             className: classNames({ [classes.NameCell]: true })
           };
         },
-        customBodyRender: function renderFormatedValue(value) {
-          return <PriceFormat value={value} />;
+        customBodyRender: function renderFormatedValue(value, tableMeta) {
+          const { rowIndex, rowData } = tableMeta;
+          const isLastPriceInterval = rowIndex === dataLength - 1;
+          const [lastValue] = rowData;
+          return isLastPriceInterval ? (
+            <PriceFormat value={lastValue} />
+          ) : (
+            <PriceFormat value={value} />
+          );
         }
       }
     },
