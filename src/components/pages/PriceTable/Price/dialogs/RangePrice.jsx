@@ -103,6 +103,7 @@ const RangePrice = ({
               value={thickness.formattedValue}
               onValueChange={value => setThickness(value)}
               suffix={' mm'}
+              decimalSeparator={','}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
