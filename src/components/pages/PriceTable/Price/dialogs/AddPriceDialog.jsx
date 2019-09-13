@@ -45,12 +45,12 @@ const AddPriceDialog = ({
   }, []);
 
   const handleSubmit = () => {
-    for (var i = 0; i < data.length - 1; i++) {
+    for (var i = 0; i < data.length; i++) {
       if (
         // (data[i].end < start.floatValue &&
         //   end.floatValue < data[i + 1].start) ||
-        start.floatValue > data[data.length - 1].end &&
-        i + 1 == data.length - 1
+        start.floatValue > data[data.length-1].end &&
+        i == data.length - 1
       ) {
         console.log(
           'i =',
