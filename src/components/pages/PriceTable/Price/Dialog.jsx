@@ -31,7 +31,7 @@ const Dialog = props => {
 Dialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  classes: PropTypes.object.isRequired,
+  // classes: PropTypes.object.isRequired,
   price: PropTypes.object,
   mode: PropTypes.string.isRequired
 };

@@ -36,7 +36,6 @@ const AddPriceDialog = ({
   const dispatch = useDispatch();
 
   const data = useSelector(store => getPrices(store));
-  console.log('data inside add price:', data);
   useEffect(() => {
     if (price) {
       setStart(price.start);
@@ -48,11 +47,19 @@ const AddPriceDialog = ({
   const handleSubmit = () => {
     for (var i = 0; i < data.length - 1; i++) {
       if (
-        (data[i].end < start.floatValue &&
-          end.floatValue < data[i + 1].start) ||
-        (start.floatValue > data[data.length - 1].end && i === data.length)
+        // (data[i].end < start.floatValue &&
+        //   end.floatValue < data[i + 1].start) ||
+        start.floatValue > data[data.length - 1].end &&
+        i + 1 == data.length - 1
       ) {
-        console.log('data[i].start', data[i].start, 'data[i].end', data[i].end);
+        console.log(
+          'i =',
+          i,
+          'data[i].start',
+          data[i].start,
+          'data[i].end',
+          data[i].end
+        );
         console.log(
           'start.floatValue:',
           start.floatValue,
@@ -60,7 +67,16 @@ const AddPriceDialog = ({
           end.floatValue
         );
       }
+      console.log(
+        'i',
+        i,
+        'data length',
+        data.length,
+        'i === data.length -1',
+        i === data.length - 1
+      );
     }
+    console.log('resultado:', start.floatValue > data[data.length -1].end);
     // const price = {
     //   start: Number(start.floatValue),
     //   end: Number(end.floatValue),
@@ -152,9 +168,9 @@ const AddPriceDialog = ({
 
 AddPriceDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
   priceTableId: PropTypes.string.isRequired,
-  price: PropTypes.object.isRequired,
+  price: PropTypes.object,
   enqueueSnackbar: PropTypes.func.isRequired
 };
 

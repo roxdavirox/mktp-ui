@@ -50,8 +50,6 @@ const Datatable = ({
   };
 
   const handleRowUpdate = (priceId, tableMeta) => {
-    console.log('id preço:', priceId);
-    console.log('meta:', tableMeta);
     const [start, end, value, _id] = tableMeta.rowData;
     const price = { start, end, value, _id };
     onUpdate(price);
@@ -173,7 +171,7 @@ const Datatable = ({
   };
 
   const priceTableName = useSelector(store => selectPriceTableName(store));
-  console.log('data:', data);
+
   return (
     <MuiDatatable
       title={<h2>Tabela de preço: {priceTableName}</h2>}
