@@ -95,7 +95,6 @@ const Datatable = ({
         },
         customBodyRender: function renderFormatedValue(value, tableMeta) {
           const { rowIndex } = tableMeta;
-          console.log('tableMeta', tableMeta);
           const isLastPriceInterval = rowIndex === dataLength - 1;
           const lastValue = isLastPriceInterval
             ? data[rowIndex - 1].end

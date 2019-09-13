@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -8,7 +9,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import { addPrice } from 'store/ducks/price';
+import { addPrice, getPrices } from 'store/ducks/price';
+import ReactNumberFormat from 'react-number-format';
 
 const styles = theme => ({
   container: {
@@ -33,6 +35,8 @@ const AddPriceDialog = ({
   const [value, setValue] = useState(0);
   const dispatch = useDispatch();
 
+  const data = useSelector(store => getPrices(store));
+  console.log('data inside add price:', data);
   useEffect(() => {
     if (price) {
       setStart(price.start);
@@ -42,18 +46,33 @@ const AddPriceDialog = ({
   }, []);
 
   const handleSubmit = () => {
-    const price = {
-      start: Number(start),
-      end: Number(end),
-      value: Number(value)
-    };
+    for (var i = 0; i < data.length - 1; i++) {
+      if (
+        (data[i].end < start.floatValue &&
+          end.floatValue < data[i + 1].start) ||
+        (start.floatValue > data[data.length - 1].end && i === data.length)
+      ) {
+        console.log('data[i].start', data[i].start, 'data[i].end', data[i].end);
+        console.log(
+          'start.floatValue:',
+          start.floatValue,
+          'end.floatValue',
+          end.floatValue
+        );
+      }
+    }
+    // const price = {
+    //   start: Number(start.floatValue),
+    //   end: Number(end.floatValue),
+    //   value: Number(value.floatValue)
+    // };
 
-    snack('Adicionando preço...', {
-      variant: 'info',
-      autoHideDuration: 2000
-    });
+    // snack('Adicionando preço...', {
+    //   variant: 'info',
+    //   autoHideDuration: 2000
+    // });
 
-    dispatch(addPrice(price, priceTableId, snack));
+    // dispatch(addPrice(price, priceTableId, snack));
     handleClose();
   };
 
@@ -65,37 +84,56 @@ const AddPriceDialog = ({
       <DialogContent>
         <form className={classes.container}>
           <FormControl className={classes.formControl}>
-            <TextField
+            <ReactNumberFormat
               autoFocus
-              value={start}
               margin="dense"
               id="start"
               name="start"
               label="Inicio"
               fullWidth
-              onChange={e => setStart(e.target.value)}
+              // format
+              customInput={TextField}
+              value={start.formattedValue}
+              fixedDecimalScale
+              decimalSeparator={','}
+              thousandSeparator={'.'}
+              decimalScale={4}
+              onValueChange={_value => setStart(_value)}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <TextField
-              value={end}
+            <ReactNumberFormat
               margin="dense"
               id="end"
               name="end"
               label="Fim"
               fullWidth
-              onChange={e => setEnd(e.target.value)}
+              // format
+              customInput={TextField}
+              value={end.formattedValue}
+              fixedDecimalScale
+              decimalSeparator={','}
+              thousandSeparator={'.'}
+              decimalScale={4}
+              onValueChange={_value => setEnd(_value)}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <TextField
-              value={value}
+            <ReactNumberFormat
               margin="dense"
               id="value"
               name="value"
               label="Preço"
               fullWidth
-              onChange={e => setValue(e.target.value)}
+              // format
+              customInput={TextField}
+              value={value.formattedValue}
+              prefix={'R$ '}
+              fixedDecimalScale
+              decimalSeparator={','}
+              thousandSeparator={'.'}
+              decimalScale={4}
+              onValueChange={_value => setValue(_value)}
             />
           </FormControl>
         </form>
