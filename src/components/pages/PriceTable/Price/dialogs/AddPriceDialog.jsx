@@ -30,53 +30,24 @@ const AddPriceDialog = ({
   onClose,
   priceTableId
 }) => {
+  const data = useSelector(store => getPrices(store));
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(0);
   const [value, setValue] = useState(0);
+  const [disableButton, setButtonState] = useState(true);
   const dispatch = useDispatch();
 
-  const data = useSelector(store => getPrices(store));
   useEffect(() => {
     if (price) {
       setStart(price.start);
       setEnd(price.end);
       setValue(price.value);
+    } else {
+      setStart(Number(data[data.length - 1].end) + 0.0001);
     }
   }, []);
 
   const handleSubmit = () => {
-    for (var i = 0; i < data.length; i++) {
-      if (
-        // (data[i].end < start.floatValue &&
-        //   end.floatValue < data[i + 1].start) ||
-        start.floatValue > data[data.length-1].end &&
-        i == data.length - 1
-      ) {
-        console.log(
-          'i =',
-          i,
-          'data[i].start',
-          data[i].start,
-          'data[i].end',
-          data[i].end
-        );
-        console.log(
-          'start.floatValue:',
-          start.floatValue,
-          'end.floatValue',
-          end.floatValue
-        );
-      }
-      console.log(
-        'i',
-        i,
-        'data length',
-        data.length,
-        'i === data.length -1',
-        i === data.length - 1
-      );
-    }
-    console.log('resultado:', start.floatValue > data[data.length -1].end);
     // const price = {
     //   start: Number(start.floatValue),
     //   end: Number(end.floatValue),
@@ -92,8 +63,55 @@ const AddPriceDialog = ({
     handleClose();
   };
 
-  const handleClose = () => onClose();
+  const handleInputValidations = () => {
+    console.log('validando inputs');
+    for (var i = 0; i < data.length; i++) {
+      // verifica se o intervalo pode ser adicionado ao meio
+      if (
+        i !== data.length - 1 && //não é a ultima linha ?
+        // i != 0 && // não é a primeira linha?
+        start.floatValue > data[i].end &&
+        end.floatValue < data[i + 1].start &&
+        end.floatValue > start.floatValue &&
+        value.floatValue > 0
+      ) {
+        console.log('é possivel adicionar aqui');
+        console.log('data[i]', data[i]);
+        console.log('data[i+1]', data[i + 1]);
+        console.log('inicio:', start.floatValue, 'final:', end.floatValue);
+        setButtonState(false);
+        return;
+      }
 
+      if (
+        // eslint-disable-next-line prettier/prettier
+        start.floatValue > data[data.length - 1].end &&
+        end.floatValue > start.floatValue &&
+        i == data.length - 1 && // ultima linha?
+        value.floatValue > 0
+      ) {
+        console.log(
+          'a ultima linha possui o valor inicial maior que o ultimo valor final'
+        );
+        console.log(
+          'index =',
+          i,
+          'Ultimo valor:',
+          data[data.length - 1].end,
+          'Próximo valor: ',
+          start.floatValue
+        );
+        setButtonState(false);
+        return;
+      }
+    }
+    setButtonState(true);
+  };
+
+  const handleClose = () => onClose();
+  console.log('data end', data[data.length - 1].end);
+  console.log('start', start);
+  console.log('end', end);
   return (
     <>
       <DialogTitle id="form-dialog-title">Adicionar preço</DialogTitle>
@@ -101,15 +119,17 @@ const AddPriceDialog = ({
         <form className={classes.container}>
           <FormControl className={classes.formControl}>
             <ReactNumberFormat
-              autoFocus
+              // autoFocus
               margin="dense"
               id="start"
               name="start"
               label="Inicio"
               fullWidth
+              onKeyUp={handleInputValidations}
+              defaultValue={Number(data[data.length - 1].end) + 0.0001}
               // format
               customInput={TextField}
-              value={start.formattedValue}
+              value={start.formattedValue || start}
               fixedDecimalScale
               decimalSeparator={','}
               thousandSeparator={'.'}
@@ -119,11 +139,13 @@ const AddPriceDialog = ({
           </FormControl>
           <FormControl className={classes.formControl}>
             <ReactNumberFormat
+              autoFocus
               margin="dense"
               id="end"
               name="end"
               label="Fim"
               fullWidth
+              onKeyUp={handleInputValidations}
               // format
               customInput={TextField}
               value={end.formattedValue}
@@ -141,6 +163,7 @@ const AddPriceDialog = ({
               name="value"
               label="Preço"
               fullWidth
+              onKeyUp={handleInputValidations}
               // format
               customInput={TextField}
               value={value.formattedValue}
@@ -158,7 +181,7 @@ const AddPriceDialog = ({
         <Button onClick={handleClose} color="primary">
           Cancelar
         </Button>
-        <Button onClick={handleSubmit} color="primary">
+        <Button onClick={handleSubmit} color="primary" disabled={disableButton}>
           Adicionar
         </Button>
       </DialogActions>
