@@ -55,8 +55,8 @@ export const generatePriceRange = data => {
   const { unit, precoDivisor } = data;
 
   for (var index = 1, lines = maxLines; index <= maxLines; index++, lines--) {
-    start = baseRange[index - 1].start / unit;
-    end = baseRange[index - 1].end / unit; // valor para dividir - unidade mm
+    start = (baseRange[index - 1].start / unit).toFixed(4);
+    end = (baseRange[index - 1].end / unit).toFixed(4); // valor para dividir - unidade mm
     // first loop?
     if (index === 1) {
       value = data.higherSalesMargin / precoDivisor;
@@ -73,7 +73,7 @@ export const generatePriceRange = data => {
       (data.higherSalesMargin - data.lowerSalesMargin) /
         lineDivision /
         precoDivisor; // aqui divide o valor do preço
-
+    start = unit == 1 ? start - 0.9999 : start; // caso a unidade seja cm² o valor 801 vira 800.0001
     prices.push({
       start,
       end,
