@@ -35,6 +35,7 @@ const AddPriceDialog = ({
   const [end, setEnd] = useState(0);
   const [value, setValue] = useState(0);
   const [disableButton, setButtonState] = useState(true);
+  const [isEndPrice, setEndPriceState] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,18 +49,22 @@ const AddPriceDialog = ({
   }, []);
 
   const handleSubmit = () => {
-    // const price = {
-    //   start: Number(start.floatValue),
-    //   end: Number(end.floatValue),
-    //   value: Number(value.floatValue)
-    // };
+    const price = {
+      start: Number(start.floatValue),
+      end: Number(end.floatValue),
+      value: Number(value.floatValue)
+    };
 
-    // snack('Adicionando preço...', {
-    //   variant: 'info',
-    //   autoHideDuration: 2000
-    // });
+    snack('Adicionando preço...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
 
-    // dispatch(addPrice(price, priceTableId, snack));
+    if (isEndPrice) {
+      // dispatch para o endpoint que adicionar no final
+    }
+
+    dispatch(addPrice(price, priceTableId, snack));
     handleClose();
   };
 
