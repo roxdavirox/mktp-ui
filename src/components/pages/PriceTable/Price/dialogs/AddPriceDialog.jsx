@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import { addPrice, getPrices } from 'store/ducks/price';
+import { addPrice, getPrices, addLastPrice } from 'store/ducks/price';
 import ReactNumberFormat from 'react-number-format';
 
 const styles = theme => ({
@@ -62,6 +62,7 @@ const AddPriceDialog = ({
 
     if (isEndPrice) {
       // dispatch para o endpoint que adicionar no final
+      dispatch(addLastPrice(price, priceTableId, snack));
     }
 
     dispatch(addPrice(price, priceTableId, snack));
@@ -107,6 +108,7 @@ const AddPriceDialog = ({
           start.floatValue
         );
         setButtonState(false);
+        setEndPriceState(true);
         return;
       }
     }

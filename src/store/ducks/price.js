@@ -16,6 +16,8 @@ export const types = {
   SET_PRICE_TABLE_NAME: 'SET_PRICE_TABLE_NAME',
   ADD_PRICE: 'ADD_PRICE',
   ADD_PRICE_SUCCESS: 'ADD_PRICE_SUCCESS',
+  ADD_LAST_PRICE: 'ADD_LAST_PRICE',
+  ADD_LAST_PRICE_SUCCESS: 'ADD_LAST_PRICE_SUCCESS',
   ADD_PRICE_RANGE: 'ADD_PRICE_RANGE',
   ADD_PRICE_RANGE_SUCCESS: 'ADD_PRICE_RANGE_SUCCESS',
   EDIT_PRICE: 'EDIT_PRICE',
@@ -52,6 +54,22 @@ export const addPrice = (price, priceTableId, snack) => ({
 export const addPriceSuccess = price => ({
   type: types.ADD_PRICE_SUCCESS,
   playload: { price }
+});
+
+export const addLastPrice = (price, priceTableId, snack) => ({
+  type: types.ADD_LAST_PRICE,
+  playload: {
+    price,
+    priceTableId,
+    snack
+  }
+});
+
+export const addLastPriceSuccess = prices => ({
+  type: types.ADD_LAST_PRICE_SUCCESS,
+  playload: {
+    prices
+  }
 });
 
 export const addPriceRange = (prices, unit, priceTableId, snack) => ({
@@ -122,6 +140,29 @@ export const addPriceMiddleware = ({ dispatch }) => next => action => {
       .then(res => res.json())
       .then(({ price: p }) => {
         dispatch(addPriceSuccess(p));
+        snack('Preço adicionado com sucesso!', {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+      })
+      .catch(e => console.log(e));
+  }
+
+  next(action);
+};
+
+export const addLastPriceMiddleware = ({ dispatch }) => next => action => {
+  if (action.type === types.ADD_LAST_PRICE) {
+    const { price, priceTableId, snack } = action.playload;
+    const body = { price };
+    const request = createPostRequest(body);
+    const endpoint = getEndpoint(`/prices/${priceTableId}/last`);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ prices }) => {
+        console.log('prices', prices);
+        dispatch(addPriceSuccess(prices));
         snack('Preço adicionado com sucesso!', {
           variant: 'success',
           autoHideDuration: 2000
@@ -260,6 +301,20 @@ export default function reducer(state = initialState, action) {
           [price._id]: price
         },
         allIds: [...state.allIds, price._id]
+      };
+    }
+
+    case types.ADD_LAST_PRICE_SUCCESS: {
+      const { prices } = action.playload;
+      const [lastPrice, newPrice] = prices;
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [lastPrice._id]: lastPrice,
+          [newPrice._id]: newPrice
+        },
+        allIds: [...state.allIds, newPrice._id]
       };
     }
 
