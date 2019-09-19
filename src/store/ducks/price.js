@@ -162,7 +162,7 @@ export const addLastPriceMiddleware = ({ dispatch }) => next => action => {
       .then(res => res.json())
       .then(({ prices }) => {
         console.log('prices', prices);
-        dispatch(addPriceSuccess(prices));
+        dispatch(addLastPriceSuccess(prices));
         snack('Preço adicionado com sucesso!', {
           variant: 'success',
           autoHideDuration: 2000

@@ -63,6 +63,8 @@ const AddPriceDialog = ({
     if (isEndPrice) {
       // dispatch para o endpoint que adicionar no final
       dispatch(addLastPrice(price, priceTableId, snack));
+      handleClose();
+      return;
     }
 
     dispatch(addPrice(price, priceTableId, snack));

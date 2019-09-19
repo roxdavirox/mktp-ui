@@ -26,6 +26,7 @@ import {
 import {
   fetchPricesMiddleware,
   addPriceMiddleware,
+  addLastPriceMiddleware,
   addPriceRangeMiddleware,
   deletePricesMiddleware,
   editPriceMiddleware
@@ -60,6 +61,7 @@ export const store = createStore(
       deletePriceTablesMiddleware,
       fetchPricesMiddleware,
       addPriceMiddleware,
+      addLastPriceMiddleware,
       addPriceRangeMiddleware,
       deletePricesMiddleware,
       editPriceMiddleware,
