@@ -8,7 +8,7 @@ import GridContainer from 'components/theme/Grid/GridContainer.jsx';
 import GridItem from 'components/theme/Grid/GridItem.jsx';
 
 import TemplateCategories from './TemplateCategories.jsx';
-import ProductTemplates from './ProductTemplates.jsx';
+import DesignTemplates from './DesignTemplates.jsx';
 import Dialog from './Dialog';
 
 import { createPostRequest, getEndpoint } from 'helpers/api';
@@ -28,7 +28,7 @@ const TemplatePage = withStyles(style)(
   ({ classes, location, enqueueSnackbar: snack }) => {
     const [openDialog, setDialogState] = useState(false);
     const [dialogType, setDialogType] = useState('');
-    const [productTemplates, setProductTemplates] = useState([]);
+    const [designTemplates, setDesignTemplates] = useState([]);
     const [templatesCategory, setTemplatesCategory] = useState([]);
     const [templateCategorySelectedId, setTemplateId] = useState('a');
 
@@ -41,13 +41,13 @@ const TemplatePage = withStyles(style)(
 
       const endpoint = getEndpoint(
         templateCategorySelectedId !== 'a'
-          ? `/product-templates/${templateCategoryId}`
-          : `/product-templates/all/${product._id}`
+          ? `/design-templates/${templateCategoryId}`
+          : `/design-templates/all/${product._id}`
       );
 
       fetch(endpoint)
         .then(res => res.json())
-        .then(({ productTemplates }) => setProductTemplates(productTemplates))
+        .then(({ designTemplates }) => setDesignTemplates(designTemplates))
         .catch(e => console.log(e));
     }, [templateCategorySelectedId, templatesCategory]);
 
@@ -93,12 +93,12 @@ const TemplatePage = withStyles(style)(
         'enviando arquivos para categoria de template com id:',
         templateCategoryId
       );
-      const endpoint = getEndpoint(`/product-templates/${templateCategoryId}`);
+      const endpoint = getEndpoint(`/design-templates/${templateCategoryId}`);
 
       fetch(endpoint, request)
         .then(res => res.json())
-        .then(({ productTemplate }) => {
-          setProductTemplates([...productTemplates, productTemplate]);
+        .then(({ designTemplate }) => {
+          setDesignTemplates([...designTemplates, designTemplate]);
           snack(`Template adicionado com sucesso!`, {
             variant: 'success',
             autoHideDuration: 2000
@@ -134,8 +134,8 @@ const TemplatePage = withStyles(style)(
           </GridItem>
           <GridItem xs={8} sm={4} md={4} lg={8}>
             <GridContainer className={classes.container}>
-              <ProductTemplates
-                productTemplates={productTemplates}
+              <DesignTemplates
+                designTemplates={designTemplates}
                 location={location}
                 onOpenDialog={() => handleOpenDialog('design')}
                 templateCategorySelectedId={templateCategorySelectedId}

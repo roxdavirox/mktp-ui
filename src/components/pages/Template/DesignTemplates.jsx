@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 //core
@@ -59,7 +60,7 @@ const CreateTemplate = ({ onOpenDialog, classes }) => (
 
 const Templates = withStyles(style)(
   ({
-    productTemplates,
+    designTemplates,
     classes,
     location,
     templateCategorySelectedId,
@@ -72,34 +73,35 @@ const Templates = withStyles(style)(
         {templateCategorySelectedId !== 'a' && (
           <CreateTemplate onOpenDialog={onOpenDialog} classes={classes} />
         )}
-        {productTemplates.map(pt => (
-          <GridItem sm={6} md={3} lg={4} key={pt._id}>
-            <Card product plain>
-              <CardHeader
-                className={classes.cardHeader}
-                image
-                onClick={() =>
-                  //abre o editor com o template selecionado(clicado)
-                  history.push({
-                    pathname: '/admin/config/templates',
-                    state: {
-                      templateCategory: pt.templateCategory,
-                      ...location.state
-                    }
-                  })
-                }
-              >
-                <img
-                  src={pt.imageUrl}
-                  alt="cardProduct"
-                  className={classes.img}
-                />
-              </CardHeader>
-              <CardBody className={classes.cardBody}>{pt.name}</CardBody>
-              <CardFooter />
-            </Card>
-          </GridItem>
-        ))}
+        {designTemplates &&
+          designTemplates.map(dt => (
+            <GridItem sm={6} md={3} lg={4} key={dt._id}>
+              <Card product plain>
+                <CardHeader
+                  className={classes.cardHeader}
+                  image
+                  onClick={() =>
+                    //abre o editor com o template selecionado(clicado)
+                    history.push({
+                      pathname: '/admin/config/templates',
+                      state: {
+                        templateCategory: dt.templateCategory,
+                        ...location.state
+                      }
+                    })
+                  }
+                >
+                  <img
+                    src={dt.imageUrl}
+                    alt="cardProduct"
+                    className={classes.img}
+                  />
+                </CardHeader>
+                <CardBody className={classes.cardBody}>{dt.name}</CardBody>
+                <CardFooter />
+              </Card>
+            </GridItem>
+          ))}
       </>
     );
   }
