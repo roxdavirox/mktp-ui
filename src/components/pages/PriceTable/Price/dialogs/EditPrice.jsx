@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { editPrice } from 'store/ducks/price';
+import ReactNumberFormat from 'react-number-format';
 
 const styles = theme => ({
   container: {
@@ -30,9 +31,9 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
 
   useEffect(() => {
     if (price) {
-      setStart(price.start);
-      setEnd(price.end);
-      setValue(price.value);
+      setStart(Number(price.start));
+      setEnd(Number(price.end));
+      setValue(Number(price.value));
       setPriceId(price._id);
     }
   }, []);
@@ -41,9 +42,9 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
 
   const handleSubmit = () => {
     const price = {
-      start: Number(start),
-      end: Number(end),
-      value: Number(value),
+      start: Number(start.floatValue),
+      end: Number(end.floatValue),
+      value: Number(value.floatValue),
       _id: priceId
     };
 
@@ -62,37 +63,56 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
       <DialogContent>
         <form className={classes.container}>
           <FormControl className={classes.formControl}>
-            <TextField
+            <ReactNumberFormat
               autoFocus
-              value={start}
               margin="dense"
               name="start"
               id="start"
               label="Inicio"
               fullWidth
-              onChange={e => setStart(e.target.value)}
+              //format
+              customInput={TextField}
+              value={start.formattedValue || start}
+              fixedDecimalScale
+              decimalSeparator={','}
+              thousandSeparator={'.'}
+              decimalScale={4}
+              onValueChange={_value => setStart(_value)}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <TextField
-              value={end}
+            <ReactNumberFormat
               margin="dense"
               id="end"
               name="end"
               label="Fim"
               fullWidth
-              onChange={e => setEnd(e.target.value)}
+              //format
+              customInput={TextField}
+              value={end.formattedValue || end}
+              fixedDecimalScale
+              decimalSeparator={','}
+              thousandSeparator={'.'}
+              decimalScale={4}
+              onValueChange={_value => setStart(_value)}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <TextField
-              value={value}
+            <ReactNumberFormat
               margin="dense"
               name="value"
               id="value"
               label="Preço"
               fullWidth
-              onChange={e => setValue(e.target.value)}
+              // format
+              customInput={TextField}
+              value={value.formattedValue || value}
+              prefix={'R$ '}
+              fixedDecimalScale
+              decimalSeparator={','}
+              thousandSeparator={'.'}
+              decimalScale={4}
+              onValueChange={_value => setValue(_value)}
             />
           </FormControl>
         </form>
