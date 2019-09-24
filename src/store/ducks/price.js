@@ -23,6 +23,7 @@ export const types = {
   EDIT_PRICE: 'EDIT_PRICE',
   EDIT_PRICE_SUCCESS: 'EDIT_PRICE_SUCCESS',
   DELETE_PRICES: 'DELETE_PRICES',
+  UPDATE_DELETED_PRICES_SUCCESS: 'UPDATE_DELETED_PRICES_SUCCESS',
   DELETE_PRICES_SUCCESS: 'DELETE_PRICES_SUCCESS'
 };
 
@@ -100,6 +101,11 @@ export const deletePrices = (priceIds, snack) => ({
 export const deletePricesSuccess = priceIds => ({
   type: types.DELETE_PRICES_SUCCESS,
   playload: { priceIds }
+});
+
+export const updateDeletedPricesSuccess = newPrices => ({
+  type: types.UPDATE_DELETED_PRICES_SUCCESS,
+  playload: { newPrices }
 });
 
 //middlewares
@@ -215,7 +221,11 @@ export const deletePricesMiddleware = ({ dispatch }) => next => action => {
       .then(res => {
         if (res.deletedCount) {
           const count = res.deletedCount;
+          const { newPrices } = res;
           dispatch(deletePricesSuccess(priceIds));
+          if (newPrices) {
+            dispatch(updateDeletedPricesSuccess(newPrices));
+          }
           snack(
             `${count} Preç${count == 1 ? 'o deletado...' : 'os deletados'}`,
             {
@@ -360,6 +370,26 @@ export default function reducer(state = initialState, action) {
         ...state,
         allIds,
         byId
+      };
+    }
+
+    case types.UPDATE_DELETED_PRICES_SUCCESS: {
+      const { newPrices } = action.playload;
+
+      const byIds = newPrices.reduce((all, p) => {
+        return {
+          ...all,
+          [p._id]: {
+            ...p
+          }
+        };
+      }, state.byId);
+
+      return {
+        ...state,
+        byId: {
+          ...byIds
+        }
       };
     }
 
