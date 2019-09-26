@@ -64,7 +64,6 @@ const PricePage = props => {
 PricePage.propTypes = {
   data: PropTypes.array.isRequired,
   priceTableId: PropTypes.string.isRequired,
-  fetchPrices: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired
 };

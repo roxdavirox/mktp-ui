@@ -72,6 +72,7 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
               fullWidth
               //format
               customInput={TextField}
+              defaultValue={start}
               value={start.formattedValue || start}
               fixedDecimalScale
               decimalSeparator={','}
@@ -89,12 +90,13 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
               fullWidth
               //format
               customInput={TextField}
+              defaultValue={end}
               value={end.formattedValue || end}
               fixedDecimalScale
               decimalSeparator={','}
               thousandSeparator={'.'}
               decimalScale={4}
-              onValueChange={_value => setStart(_value)}
+              onValueChange={_value => setEnd(_value)}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
@@ -106,6 +108,7 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
               fullWidth
               // format
               customInput={TextField}
+              defaultValue={value}
               value={value.formattedValue || value}
               prefix={'R$ '}
               fixedDecimalScale

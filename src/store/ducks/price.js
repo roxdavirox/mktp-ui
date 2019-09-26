@@ -413,9 +413,9 @@ export const getPrices = store =>
         const price = getPriceById(id, store);
         return {
           ...price,
-          start: price.start.toFixed(4),
-          end: price.end.toFixed(4),
-          value: price.value.toFixed(4)
+          start: price.start.toFixed(4) || 0,
+          end: price.end.toFixed(4) || 0,
+          value: price.value.toFixed(4) || 0
         };
       })
     : [];
