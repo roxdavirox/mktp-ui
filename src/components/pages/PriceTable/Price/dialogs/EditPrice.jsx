@@ -42,8 +42,8 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
 
   const handleSubmit = () => {
     const price = {
-      start: Number(start.floatValue),
-      end: Number(end.floatValue),
+      start: Number(start.floatValue) || 0.0,
+      end: Number(end.floatValue) || 0.0,
       value: Number(value.floatValue),
       _id: priceId
     };
@@ -52,7 +52,6 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
       variant: 'info',
       autoHideDuration: 2000
     });
-
     dispatch(editPrice(price, snack));
     handleClose();
   };
@@ -72,7 +71,7 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
               fullWidth
               //format
               customInput={TextField}
-              defaultValue={start}
+              defaultValue={Number(start) || 0.0}
               value={start.formattedValue || start}
               fixedDecimalScale
               decimalSeparator={','}
@@ -90,7 +89,7 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
               fullWidth
               //format
               customInput={TextField}
-              defaultValue={end}
+              defaultValue={Number(end) || 0.0}
               value={end.formattedValue || end}
               fixedDecimalScale
               decimalSeparator={','}
