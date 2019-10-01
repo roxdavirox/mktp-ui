@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
@@ -42,14 +43,22 @@ class ProductStep extends React.Component {
     nameState: '',
     productName: '',
     categories: [],
-    categoryId: ''
+    categoryId: '',
+    productsBase: []
   };
+
   componentDidMount() {
-    const endpoint = getEndpoint('/categories');
-    fetch(endpoint)
+    const categoriesEndpoint = getEndpoint('/categories');
+    fetch(categoriesEndpoint)
       .then(res => res.json())
       .then(({ categories }) => this.setState({ categories }));
+
+    const productsEndpoint = getEndpoint('/products/base');
+    fetch(productsEndpoint)
+      .then(res => res.json())
+      .then(({ productsBase }) => this.setState({ productsBase }));
   }
+
   handleNameChange = e => {
     const { value: name } = e.target;
     const newName = name.length >= 3 ? 'success' : 'error';
@@ -78,7 +87,7 @@ class ProductStep extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { nameState, categories } = this.state;
+    const { nameState, categories, productsBase } = this.state;
 
     return (
       <>
@@ -114,24 +123,50 @@ class ProductStep extends React.Component {
                 )
               }}
             />
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="category-input">Categoria</InputLabel>
-              <Select
-                className={classes.select}
-                value={this.state.categoryId}
-                onChange={this.handleChangeSelect}
-                input={<Input id="category-input" />}
-              >
-                <MenuItem value="">
-                  <em>Nenhum</em>
-                </MenuItem>
-                {categories.map(c => (
-                  <MenuItem key={c._id} value={c._id}>
-                    {c.name}
+            <GridContainer
+              style={{
+                display: 'flex',
+                padding: 'inherit',
+                justifyContent: 'space-between'
+              }}
+            >
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="category-input">Categoria</InputLabel>
+                <Select
+                  className={classes.select}
+                  value={this.state.categoryId}
+                  onChange={this.handleChangeSelect}
+                  input={<Input id="category-input" />}
+                >
+                  <MenuItem value="">
+                    <em>Nenhum</em>
                   </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                  {categories.map(c => (
+                    <MenuItem key={c._id} value={c._id}>
+                      {c.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="category-input">Base</InputLabel>
+                <Select
+                  className={classes.select}
+                  value={this.state.categoryId}
+                  onChange={this.handleChangeSelect}
+                  input={<Input id="base-input" />}
+                >
+                  <MenuItem value="">
+                    <em>Nenhum</em>
+                  </MenuItem>
+                  {productsBase.map(base => (
+                    <MenuItem key={base._id} value={base._id}>
+                      {base.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </GridContainer>
           </GridItem>
         </GridContainer>
       </>
