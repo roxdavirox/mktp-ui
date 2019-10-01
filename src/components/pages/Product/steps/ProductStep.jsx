@@ -66,11 +66,14 @@ class ProductStep extends React.Component {
     this.setState({ nameState: newName, productName: name });
   };
 
-  handleChangeSelect = e =>
+  handleCategorySelect = e =>
     this.setState({
       categoryId: e.target.value
     });
 
+  // handleBaseSelect = e => this.setState({
+
+  // })
   // wizard functions
   isValidated() {
     return this.state.nameState === 'success';
@@ -135,7 +138,7 @@ class ProductStep extends React.Component {
                 <Select
                   className={classes.select}
                   value={this.state.categoryId}
-                  onChange={this.handleChangeSelect}
+                  onChange={this.handleCategorySelect}
                   input={<Input id="category-input" />}
                 >
                   <MenuItem value="">
