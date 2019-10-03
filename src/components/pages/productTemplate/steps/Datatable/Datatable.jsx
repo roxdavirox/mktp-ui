@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { withSnackbar } from 'notistack';
 import { withStyles } from '@material-ui/core/styles';
 //Common components
-import MuiDatatable from 'components/common/tables/MuiDatatable';
+import MuiDatatable from './node_modules/components/common/tables/MuiDatatable';
 //core
 import TemplateItemSelect from './TemplateItemSelect';
 

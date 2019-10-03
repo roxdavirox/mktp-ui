@@ -34,7 +34,7 @@ var dashRoutes = [
           },
           {
             path: '/config/product-templates',
-            name: 'Criar template base',
+            name: 'Criar template',
             component: ProductTemplatePage,
             layout: '/admin'
           },

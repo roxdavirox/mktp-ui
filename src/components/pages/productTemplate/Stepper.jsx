@@ -5,7 +5,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import SelectItemStep from './SelectItemStep';
+import SelectItemStep from './steps/SelectItemStep';
 import NameStep from './steps/NameStep';
 
 const useStyles = makeStyles(theme => ({
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 
 function getSteps() {
   return [
-    'Preencha o nome do Template base',
+    'Preencha o nome do Template',
     'Selecione quais caracteristicas o Template terá',
     'Confirmar informações do Template'
   ];
