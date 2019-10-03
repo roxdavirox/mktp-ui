@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 // core components
@@ -10,6 +11,11 @@ import Build from '@material-ui/icons/Build';
 import GridContainer from 'components/theme/Grid/GridContainer.jsx';
 import GridItem from 'components/theme/Grid/GridItem.jsx';
 import CustomInput from 'components/theme/CustomInput/CustomInput.jsx';
+
+import {
+  setTemplateName,
+  selectTemplateName
+} from 'store/ducks/productTemplate';
 
 const useStyles = makeStyles(theme => ({
   infoText: {
@@ -33,14 +39,15 @@ const useStyles = makeStyles(theme => ({
 const NameStep = () => {
   const classes = useStyles();
   const [nameState, setNameState] = useState('');
-  const [name, setTemplateName] = useState('');
+  const dispatch = useDispatch();
+  const name = useSelector(selectTemplateName);
 
   const handleNameChange = event => {
     const { value: name } = event.target;
     const newName = name.length >= 3 ? 'success' : 'error';
 
     setNameState(newName);
-    setTemplateName(name);
+    dispatch(setTemplateName(name));
   };
 
   return (

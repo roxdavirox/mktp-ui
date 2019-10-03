@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 };
 
 export const setTemplateName = name => ({
-  type: types.SET_USER,
+  type: types.SET_TEMPLATE_NAME,
   playload: { name }
 });
 
@@ -40,3 +40,8 @@ export default function reducer(state = INITIAL_STATE, action) {
       return state;
   }
 }
+
+//selectors
+export const getProductTemplateState = store => store.productTemplates;
+export const selectTemplateName = store =>
+  getProductTemplateState(store) ? getProductTemplateState(store).name : '';
