@@ -12,6 +12,7 @@ import Price from 'components/pages/PriceTable/Price';
 import TemplateEditor from 'components/pages/Template/TemplateEditorPage';
 import LoginPage from 'components/pages/Login';
 import ProductTemplates from 'components/pages/Template';
+import ProductTemplatePage from './components/pages/productTemplate';
 
 var dashRoutes = [
   {
@@ -29,6 +30,12 @@ var dashRoutes = [
             path: '/config/products/create',
             name: 'Criar Produto',
             component: ProductCreate,
+            layout: '/admin'
+          },
+          {
+            path: '/config/product-templates',
+            name: 'Criar template base',
+            component: ProductTemplatePage,
             layout: '/admin'
           },
           {
