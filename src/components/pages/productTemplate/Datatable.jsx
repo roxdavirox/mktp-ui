@@ -98,8 +98,7 @@ const DataTable = ({ enqueueSnackbar: snack, classes, onOpen }) => {
     },
     customToolbar: function add() {
       return <AddToolbar title="Adicionar Opção" onClick={onOpen} />;
-    },
-    onRowsDelete: rowsDeleted => handleRowsDelete(rowsDeleted)
+    }
   };
 
   return (

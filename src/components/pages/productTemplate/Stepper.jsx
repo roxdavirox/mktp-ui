@@ -5,10 +5,14 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Datatable from './Datatable';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '90%'
+    width: '90%',
+    display: 'initial',
+    paddingLeft: '20px',
+    paddingRight: '20px'
   },
   backButton: {
     marginRight: theme.spacing(1)
@@ -16,13 +20,17 @@ const useStyles = makeStyles(theme => ({
   instructions: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1)
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 }));
 
 function getSteps() {
   return [
-    'Select master blaster campaign settings',
-    'Create an ad group',
+    'Preencha o nome do template base',
+    'Selecione quais caracteristicas o template terá',
     'Create an ad'
   ];
 }
@@ -32,7 +40,7 @@ function getStepContent(stepIndex) {
     case 0:
       return 'Select campaign settings...';
     case 1:
-      return 'What is an ad group anyways?';
+      return <Datatable />;
     case 2:
       return 'This is the bit I really care about!';
     default:
@@ -76,21 +84,21 @@ export default function HorizontalLabelPositionBelowStepper() {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>
-              {getStepContent(activeStep)}
-            </Typography>
-            <div>
+            <div className={classes.buttons}>
               <Button
                 disabled={activeStep === 0}
                 onClick={handleBack}
                 className={classes.backButton}
               >
-                Back
+                Voltar
               </Button>
               <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                {activeStep === steps.length - 1 ? 'Finalizar' : 'Continuar'}
               </Button>
             </div>
+            <Typography className={classes.instructions}>
+              {getStepContent(activeStep)}
+            </Typography>
           </div>
         )}
       </div>
