@@ -5,8 +5,8 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Datatable from './Datatable';
-import NameStep from './NameStep';
+import SelectItemStep from './SelectItemStep';
+import NameStep from './steps/NameStep';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,7 +41,7 @@ function getStepContent(stepIndex) {
     case 0:
       return <NameStep />;
     case 1:
-      return <Datatable />;
+      return <SelectItemStep />;
     case 2:
       return 'This is the bit I really care about!';
     default:
