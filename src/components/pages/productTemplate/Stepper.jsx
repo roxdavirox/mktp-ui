@@ -6,6 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Datatable from './Datatable';
+import NameStep from './NameStep';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,16 +30,16 @@ const useStyles = makeStyles(theme => ({
 
 function getSteps() {
   return [
-    'Preencha o nome do template base',
-    'Selecione quais caracteristicas o template terá',
-    'Create an ad'
+    'Preencha o nome do Template base',
+    'Selecione quais caracteristicas o Template terá',
+    'Confirmar informações do Template'
   ];
 }
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return 'Select campaign settings...';
+      return <NameStep />;
     case 1:
       return <Datatable />;
     case 2:

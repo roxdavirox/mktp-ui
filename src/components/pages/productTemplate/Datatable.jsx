@@ -95,15 +95,12 @@ const DataTable = ({ enqueueSnackbar: snack, classes, onOpen }) => {
       body: {
         noMatch: 'empty'
       }
-    },
-    customToolbar: function add() {
-      return <AddToolbar title="Adicionar Opção" onClick={onOpen} />;
     }
   };
 
   return (
     <MuiDatatable
-      title={<h2>Selecione as opções para o template</h2>}
+      title={<h3>Selecione alguns itens</h3>}
       data={data}
       columns={columns}
       options={options}
