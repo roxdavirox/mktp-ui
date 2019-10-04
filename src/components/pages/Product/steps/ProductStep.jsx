@@ -43,8 +43,7 @@ class ProductStep extends React.Component {
     nameState: '',
     productName: '',
     categories: [],
-    categoryId: '',
-    productsBase: []
+    categoryId: ''
   };
 
   componentDidMount() {
@@ -52,11 +51,6 @@ class ProductStep extends React.Component {
     fetch(categoriesEndpoint)
       .then(res => res.json())
       .then(({ categories }) => this.setState({ categories }));
-
-    const productsEndpoint = getEndpoint('/products/base');
-    fetch(productsEndpoint)
-      .then(res => res.json())
-      .then(({ productsBase }) => this.setState({ productsBase }));
   }
 
   handleNameChange = e => {
@@ -147,24 +141,6 @@ class ProductStep extends React.Component {
                   {categories.map(c => (
                     <MenuItem key={c._id} value={c._id}>
                       {c.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="category-input">Base</InputLabel>
-                <Select
-                  className={classes.select}
-                  value={this.state.categoryId}
-                  onChange={this.handleChangeSelect}
-                  input={<Input id="base-input" />}
-                >
-                  <MenuItem value="">
-                    <em>Nenhum</em>
-                  </MenuItem>
-                  {productsBase.map(base => (
-                    <MenuItem key={base._id} value={base._id}>
-                      {base.name}
                     </MenuItem>
                   ))}
                 </Select>

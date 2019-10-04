@@ -5,8 +5,8 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import SelectItemStep from './steps/SelectItemStep';
-import NameStep from './steps/NameStep';
+import ComposeTemplateStep from './steps/ComposeTemplateStep';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,8 +30,7 @@ const useStyles = makeStyles(theme => ({
 
 function getSteps() {
   return [
-    'Preencha o nome do Template',
-    'Selecione quais caracteristicas o Template terá',
+    'Preencha as informações do Template',
     'Confirmar informações do Template'
   ];
 }
@@ -39,10 +38,8 @@ function getSteps() {
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return <NameStep />;
+      return <ComposeTemplateStep />;
     case 1:
-      return <SelectItemStep />;
-    case 2:
       return 'This is the bit I really care about!';
     default:
       return 'Uknown stepIndex';
@@ -68,41 +65,47 @@ export default function HorizontalLabelPositionBelowStepper() {
 
   return (
     <div className={classes.root}>
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map(label => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <div>
-        {activeStep === steps.length ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed
-            </Typography>
-            <Button onClick={handleReset}>Reset</Button>
-          </div>
-        ) : (
-          <div>
-            <div className={classes.buttons}>
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                className={classes.backButton}
-              >
-                Voltar
-              </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? 'Finalizar' : 'Continuar'}
-              </Button>
+      <Container maxWidth="xl">
+        <Stepper activeStep={activeStep} alternativeLabel>
+          {steps.map(label => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <div>
+          {activeStep === steps.length ? (
+            <div>
+              <Typography className={classes.instructions}>
+                All steps completed
+              </Typography>
+              <Button onClick={handleReset}>Reset</Button>
             </div>
-            <Typography className={classes.instructions}>
-              {getStepContent(activeStep)}
-            </Typography>
-          </div>
-        )}
-      </div>
+          ) : (
+            <div>
+              <Typography className={classes.instructions}>
+                {getStepContent(activeStep)}
+              </Typography>
+              <div className={classes.buttons}>
+                <Button
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  className={classes.backButton}
+                >
+                  Voltar
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNext}
+                >
+                  {activeStep === steps.length - 1 ? 'Finalizar' : 'Continuar'}
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </Container>
     </div>
   );
 }
