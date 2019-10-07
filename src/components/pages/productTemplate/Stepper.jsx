@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ComposeTemplateStep from './steps/ComposeTemplateStep';
 import Container from '@material-ui/core/Container';
+import ConfirmStep from './steps/ConfirmStep';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,7 +41,7 @@ function getStepContent(stepIndex) {
     case 0:
       return <ComposeTemplateStep />;
     case 1:
-      return 'This is the bit I really care about!';
+      return <ConfirmStep />;
     default:
       return 'Uknown stepIndex';
   }

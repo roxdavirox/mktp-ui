@@ -6,7 +6,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { setItem } from 'store/ducks/productTemplate';
 // eslint-disable-next-line react/prop-types
-const TemplateItemSelect = ({ items, optionId }) => {
+const TemplateItemSelect = ({ items, option }) => {
   const [value, setValue] = useState('0');
   const dispatch = useDispatch();
 
@@ -15,7 +15,7 @@ const TemplateItemSelect = ({ items, optionId }) => {
     setValue(item);
     dispatch(
       setItem({
-        optionId,
+        option,
         ...item
       })
     );

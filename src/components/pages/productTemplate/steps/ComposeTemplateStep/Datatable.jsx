@@ -88,8 +88,9 @@ const DataTable = ({ enqueueSnackbar: snack, classes, onOpen }) => {
         customBodyRender: (items, tableMeta) => {
           // eslint-disable-next-line no-console
           console.log('items', items, 'Table meta', tableMeta);
-          const [optionId] = tableMeta.rowData;
-          return <TemplateItemSelect items={items} optionId={optionId} />;
+          const [_id, name] = tableMeta.rowData;
+          const option = { name, _id };
+          return <TemplateItemSelect items={items} option={option} />;
         }
       }
     }

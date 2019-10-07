@@ -51,9 +51,10 @@ export default function reducer(state = INITIAL_STATE, action) {
 
     case types.SET_ITEM: {
       const { item } = action.playload;
+      const { option } = item;
       const selectedItems = {
         ...state.selectedItems,
-        [item.optionId]: item
+        [option._id]: item
       };
       return {
         ...state,
