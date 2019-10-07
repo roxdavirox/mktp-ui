@@ -15,7 +15,7 @@ const TemplateItemSelect = ({ items }) => {
         </MenuItem>
         {items &&
           items.map(item => (
-            <MenuItem key={item._id} value={item._id}>
+            <MenuItem key={item._id} value={item}>
               {item.name}
             </MenuItem>
           ))}

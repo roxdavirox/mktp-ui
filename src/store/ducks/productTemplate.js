@@ -1,11 +1,14 @@
 const types = {
   SET_TEMPLATE_NAME: 'SET_TEMPLATE_NAME',
-  SET_ITEMS: 'SET_ITEMS'
+  SET_ITEMS: 'SET_ITEMS',
+  SET_ITEM: 'SET_ITEM',
+  SET_OPTION_ID: 'SET_OPTION_ID'
 };
 
 const INITIAL_STATE = {
   name: '',
-  items: []
+  optionId: '0',
+  selectedItems: {}
 };
 
 export const setTemplateName = name => ({
@@ -16,6 +19,16 @@ export const setTemplateName = name => ({
 export const setItems = items => ({
   type: types.SET_ITEMS,
   playload: { items }
+});
+
+export const setItem = item => ({
+  type: types.SET_ITEMS,
+  playload: { item }
+});
+
+export const setOptionId = id => ({
+  type: types.SET_OPTION_ID,
+  playload: { id }
 });
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -36,6 +49,22 @@ export default function reducer(state = INITIAL_STATE, action) {
       };
     }
 
+    case types.SET_ITEM: {
+      const { item } = action.playload;
+      const selectedItems = {
+        ...state.selectedItems,
+        [item._id]: item
+      };
+      return {
+        ...state,
+        selectedItems
+      };
+    }
+
+    case types.SET_OPTION_ID: {
+      return { ...state, optionId: action.playload.id };
+    }
+
     default:
       return state;
   }
@@ -45,3 +74,8 @@ export default function reducer(state = INITIAL_STATE, action) {
 export const getProductTemplateState = store => store.productTemplates;
 export const selectTemplateName = store =>
   getProductTemplateState(store) ? getProductTemplateState(store).name : '';
+
+export const selectOptionId = store =>
+  getProductTemplateState(store)
+    ? getProductTemplateState(store).optionId
+    : '0';

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -18,11 +18,12 @@ import Card from '@material-ui/core/Card';
 import GridContainer from 'components/theme/Grid/GridContainer.jsx';
 import GridItem from 'components/theme/Grid/GridItem.jsx';
 import CustomInput from 'components/theme/CustomInput/CustomInput.jsx';
-import { getEndpoint } from 'helpers/api';
 
 import {
   setTemplateName,
-  selectTemplateName
+  selectTemplateName,
+  setOptionId,
+  selectOptionId
 } from 'store/ducks/productTemplate';
 
 const useStyles = makeStyles(theme => ({
@@ -47,21 +48,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const InfoItem = () => {
+const InfoItem = ({ options }) => {
   const classes = useStyles();
   const [nameState, setNameState] = useState('');
-  const [options, setOptions] = useState([]);
-  const [optionId, setSelectedOptionId] = useState('0');
   const dispatch = useDispatch();
   const name = useSelector(selectTemplateName);
-
-  useEffect(() => {
-    const optionsEndpoint = getEndpoint('/options');
-    fetch(optionsEndpoint)
-      .then(res => res.json())
-      .then(({ options }) => setOptions(options))
-      .catch(e => console.log(e));
-  }, []);
+  const optionId = useSelector(selectOptionId);
 
   const handleNameChange = event => {
     const { value: name } = event.target;
@@ -71,7 +63,7 @@ const InfoItem = () => {
     dispatch(setTemplateName(name));
   };
 
-  const handleChangeSelect = event => setSelectedOptionId(event.target.value);
+  const handleChangeSelect = e => dispatch(setOptionId(e.target.value));
 
   return (
     <>
