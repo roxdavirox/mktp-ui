@@ -22,8 +22,8 @@ import CustomInput from 'components/theme/CustomInput/CustomInput.jsx';
 import {
   setTemplateName,
   selectTemplateName,
-  setOptionId,
-  selectOptionId
+  setOption,
+  selectOption
 } from 'store/ducks/productTemplate';
 
 const useStyles = makeStyles(theme => ({
@@ -53,7 +53,7 @@ const InfoItem = ({ options }) => {
   const [nameState, setNameState] = useState('');
   const dispatch = useDispatch();
   const name = useSelector(selectTemplateName);
-  const optionId = useSelector(selectOptionId);
+  const option = useSelector(selectOption);
 
   const handleNameChange = event => {
     const { value: name } = event.target;
@@ -63,7 +63,7 @@ const InfoItem = ({ options }) => {
     dispatch(setTemplateName(name));
   };
 
-  const handleChangeSelect = e => dispatch(setOptionId(e.target.value));
+  const handleChangeSelect = e => dispatch(setOption(e.target.value));
 
   return (
     <>
@@ -106,7 +106,7 @@ const InfoItem = ({ options }) => {
               <InputLabel htmlFor="option-input">Opção</InputLabel>
               <Select
                 className={classes.select}
-                value={optionId}
+                value={option}
                 onChange={handleChangeSelect}
                 input={<Input id="option-input" />}
               >
@@ -114,9 +114,9 @@ const InfoItem = ({ options }) => {
                   <em>Selecione</em>
                 </MenuItem>
                 {options &&
-                  options.map(option => (
-                    <MenuItem key={option._id} value={option._id}>
-                      {option.name}
+                  options.map(op => (
+                    <MenuItem key={op._id} value={op}>
+                      {op.name}
                     </MenuItem>
                   ))}
               </Select>
