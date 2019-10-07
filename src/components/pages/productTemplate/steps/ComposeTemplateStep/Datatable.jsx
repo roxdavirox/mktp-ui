@@ -57,6 +57,15 @@ const DataTable = ({ enqueueSnackbar: snack, classes, onOpen }) => {
   ];
   const columns = [
     {
+      name: '_id',
+      label: ' ',
+      options: {
+        sort: false,
+        filter: false,
+        display: false
+      }
+    },
+    {
       name: 'name',
       label: 'Nome da opção',
       options: {
@@ -79,7 +88,8 @@ const DataTable = ({ enqueueSnackbar: snack, classes, onOpen }) => {
         customBodyRender: (items, tableMeta) => {
           // eslint-disable-next-line no-console
           console.log('items', items, 'Table meta', tableMeta);
-          return <TemplateItemSelect items={items} />;
+          const [optionId] = tableMeta.rowData;
+          return <TemplateItemSelect items={items} optionId={optionId} />;
         }
       }
     }

@@ -22,7 +22,7 @@ export const setItems = items => ({
 });
 
 export const setItem = item => ({
-  type: types.SET_ITEMS,
+  type: types.SET_ITEM,
   playload: { item }
 });
 
@@ -53,7 +53,7 @@ export default function reducer(state = INITIAL_STATE, action) {
       const { item } = action.playload;
       const selectedItems = {
         ...state.selectedItems,
-        [item._id]: item
+        [item.optionId]: item
       };
       return {
         ...state,
