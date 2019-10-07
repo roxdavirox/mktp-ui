@@ -11,7 +11,7 @@ const ConfirmStep = () => {
     <>
       <h4>Informações do template</h4>
       <p>
-        Nome do template: <em>{name}</em>
+        Nome do template: <b>{name}</b>
       </p>
       {Object.keys(selectedItems) && (
         <ul>
