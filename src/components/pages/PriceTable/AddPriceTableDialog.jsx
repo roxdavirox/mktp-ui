@@ -9,7 +9,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import { addPriceTable } from 'store/ducks/priceTable';
+
+const units = ['m²', 'cm²', 'quantidade'];
 
 const styles = theme => ({
   container: {
@@ -24,6 +30,7 @@ const styles = theme => ({
 
 const Dialog = ({ enqueueSnackbar: snack, classes, open, onClose }) => {
   const [priceTableName, setPriceTableName] = useState('');
+  const [unit, setUnit] = useState('m²'); // inicia em m²
   const dispatch = useDispatch();
 
   const handleNameChange = e => setPriceTableName(e.target.value);
@@ -33,7 +40,7 @@ const Dialog = ({ enqueueSnackbar: snack, classes, open, onClose }) => {
       variant: 'info',
       autoHideDuration: 2000
     });
-    dispatch(addPriceTable(priceTableName, snack));
+    dispatch(addPriceTable(priceTableName, unit, snack));
     handleClose();
   };
 
@@ -61,6 +68,23 @@ const Dialog = ({ enqueueSnackbar: snack, classes, open, onClose }) => {
                 onChange={handleNameChange}
               />
             </FormControl>
+            <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="unit">
+              Unidade da tabela de preço
+            </InputLabel>
+            <Select
+              className={classes.select}
+              value={unit}
+              onChange={e => setUnit(e.target.value)}
+              input={<Input id="unit" />}
+            >
+              {units.map(u => (
+                <MenuItem key={u} value={u}>
+                  {u}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           </form>
         </DialogContent>
         <DialogActions>

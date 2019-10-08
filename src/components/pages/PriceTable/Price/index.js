@@ -55,6 +55,7 @@ const PricePage = props => {
         data={data}
         onOpen={handleOpen}
         onUpdate={handleRowUpdate}
+        priceTableId={priceTableId}
         {...props}
       />
     </>

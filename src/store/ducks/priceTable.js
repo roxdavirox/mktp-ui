@@ -20,9 +20,9 @@ export const fetchPriceTables = () => ({
   type: types.FETCH_PRICE_TABLES
 });
 
-export const addPriceTable = (name, snack) => ({
+export const addPriceTable = (name, unit, snack) => ({
   type: types.ADD_PRICE_TABLE,
-  playload: { name, snack }
+  playload: { name, unit, snack }
 });
 
 export const addPriceTableSuccess = priceTable => ({
@@ -61,9 +61,9 @@ export const fetchPriceTablesMiddleware = ({ dispatch }) => next => action => {
 
 export const addPriceTableMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_PRICE_TABLE) {
-    const { name, snack } = action.playload;
+    const { name, unit, snack } = action.playload;
     const endpoint = getEndpoint('/price-tables');
-    const request = createPostRequest({ name });
+    const request = createPostRequest({ name, unit });
 
     fetch(endpoint, request)
       .then(res => res.json())

@@ -15,6 +15,7 @@ import {
 
 import Loading from './Loading';
 import { deletePrices } from 'store/ducks/price';
+import { getPriceTableById } from 'store/ducks/priceTable';
 
 const styles = {
   EditCell: { textAlign: 'right' },
@@ -28,12 +29,14 @@ const Datatable = ({
   enqueueSnackbar: snack,
   classes,
   data,
+  priceTableId,
   onUpdate,
   onOpen
 }) => {
   const dispatch = useDispatch();
   const unit = useSelector(store => selectUnit(store));
-
+  const priceTable = useSelector(store => getPriceTableById(priceTableId, store));
+  console.log('id da tabela de preço', priceTable);
   const handleRowsDelete = rows => {
     const { data: dataRows } = rows;
 
