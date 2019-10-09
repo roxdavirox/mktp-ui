@@ -52,7 +52,7 @@ const AddPriceDialog = ({
 
   const handleSubmit = () => {
     const price = {
-      start: Number(start.floatValue),
+      start: Number(start.floatValue || 0),
       end: Number(end.floatValue),
       value: Number(value.floatValue)
     };

@@ -77,6 +77,9 @@ const Datatable = ({
           };
         },
         customBodyRender: function renderFormatedValue(value, tableMeta) {
+          if (data.length <= 1) {
+            return <PriceFormat value={value} />;
+          }
           const { rowIndex } = tableMeta;
           const isLastPriceInterval = rowIndex === dataLength - 1;
           return isLastPriceInterval ? (
@@ -99,6 +102,9 @@ const Datatable = ({
           };
         },
         customBodyRender: function renderFormatedValue(value, tableMeta) {
+          if (data.length <= 1) {
+            return <PriceFormat value={value} />;
+          }
           const { rowIndex } = tableMeta;
           const isLastPriceInterval = rowIndex === dataLength - 1;
           const lastValue = isLastPriceInterval
