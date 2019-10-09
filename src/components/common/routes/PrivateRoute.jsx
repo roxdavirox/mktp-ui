@@ -20,15 +20,16 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={props => {
         if (!isAuthenticated(cookies)) {
-          // not logged in so redirect to login page with the return url
           return (
             <Redirect
-              to={{ pathname: '/auth/user', state: { from: props.location } }}
+              to={{
+                pathname: '/auth/user',
+                state: { from: props.location }
+              }}
             />
           );
         }
 
-        // authorised so return component
         return <Component {...props} />;
       }}
     />
