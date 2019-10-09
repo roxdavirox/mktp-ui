@@ -4,12 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import Datatable from './Datatable';
-import Dialog from './Dialog';
+import DialogContainer from './Dialogs';
 import { fetchPrices, getPrices } from 'store/ducks/price';
 
 const PricePage = props => {
   const [open, setOpen] = useState(false);
-  const [mode, setDialogMode] = useState('add');
+  const [dialogType, setDialogType] = useState('ADD_PRICE');
   const [price, setPrice] = useState(null);
   const { location } = props;
   const {
@@ -23,13 +23,13 @@ const PricePage = props => {
 
   const handleRowUpdate = price => {
     setOpen(true);
-    setDialogMode('edit');
+    setDialogType('EDIT_PRICE');
     setPrice(price);
   };
 
-  const handleOpen = mode => {
+  const handleOpen = type => {
     setOpen(true);
-    setDialogMode(mode);
+    setDialogType(type);
   };
 
   const handleClose = () => {
@@ -42,9 +42,9 @@ const PricePage = props => {
   return (
     <>
       {open && (
-        <Dialog
+        <DialogContainer
           price={price}
-          mode={mode}
+          type={dialogType}
           open={open}
           onClose={handleClose}
           priceTableId={priceTableId}

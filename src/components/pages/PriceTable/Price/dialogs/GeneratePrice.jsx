@@ -32,7 +32,7 @@ const unitsObj = {
   'cm²': { value: 1, precoDivisor: 10000 }
 };
 
-const RangePrice = ({
+const GeneratePrice = ({
   enqueueSnackbar: snack,
   classes,
   onClose,
@@ -178,11 +178,11 @@ const RangePrice = ({
   );
 };
 
-RangePrice.propTypes = {
+GeneratePrice.propTypes = {
   onClose: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   priceTableId: PropTypes.string.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(RangePrice);
+export default withStyles(styles)(GeneratePrice);

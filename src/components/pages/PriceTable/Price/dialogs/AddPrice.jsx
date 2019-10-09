@@ -9,8 +9,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import { addPrice, getPrices, addLastPrice } from 'store/ducks/price';
 import ReactNumberFormat from 'react-number-format';
+//redux
+import { addPrice, getPrices, addLastPrice } from 'store/ducks/price';
 
 const styles = theme => ({
   container: {
@@ -25,7 +26,7 @@ const styles = theme => ({
 
 const getEnd = data => (data.length ? Number(data[data.length - 1].end) : 0);
 
-const AddPriceDialog = ({
+const AddPrice = ({
   enqueueSnackbar: snack,
   classes,
   price,
@@ -213,7 +214,7 @@ const AddPriceDialog = ({
   );
 };
 
-AddPriceDialog.propTypes = {
+AddPrice.propTypes = {
   onClose: PropTypes.func.isRequired,
   classes: PropTypes.object,
   priceTableId: PropTypes.string.isRequired,
@@ -221,4 +222,4 @@ AddPriceDialog.propTypes = {
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(AddPriceDialog);
+export default withStyles(styles)(AddPrice);

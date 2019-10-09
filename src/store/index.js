@@ -47,7 +47,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const persistConfig = {
   key: 'root',
   storage,
-  whiteList: ['prices', 'priceTables']
+  whitelist: ['prices', 'priceTables']
 };
 
 const pReducer = persistReducer(persistConfig, reducers);

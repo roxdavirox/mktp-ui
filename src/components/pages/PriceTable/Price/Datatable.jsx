@@ -27,7 +27,7 @@ const Datatable = ({
   classes,
   data,
   onUpdate,
-  onOpen,
+  onOpen: openDialogType,
   location
 }) => {
   const dispatch = useDispatch();
@@ -171,12 +171,12 @@ const Datatable = ({
         <>
           <AddToolbar
             title="Adicionar novo preço"
-            onClick={() => onOpen('add')}
+            onClick={() => openDialogType('ADD_PRICE')}
           />
           {priceTable.unit !== 'quantidade' && (
             <ViewListToolbar
               title="Gerar intervalos"
-              onClick={() => onOpen('range')}
+              onClick={() => openDialogType('GENERATE_PRICE')}
             />
           )}
         </>
