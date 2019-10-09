@@ -23,6 +23,8 @@ const styles = theme => ({
   }
 });
 
+const getEnd = data => (data.length ? Number(data[data.length - 1].end) : 0);
+
 const AddPriceDialog = ({
   enqueueSnackbar: snack,
   classes,
@@ -43,8 +45,8 @@ const AddPriceDialog = ({
       setStart(price.start);
       setEnd(price.end);
       setValue(price.value);
-    } else {
-      setStart(Number(data[data.length - 1].end) + 0.0001);
+    } else if (data.length) {
+      setStart(getEnd(data) + 0.0001);
     }
   }, []);
 
@@ -73,6 +75,22 @@ const AddPriceDialog = ({
 
   const handleInputValidations = () => {
     console.log('validando inputs');
+    console.log('data', data);
+    console.log('start', start);
+    console.log('end', end);
+    console.log('value', value);
+
+    if (
+      data.length === 0 &&
+      start >= 0 &&
+      start < end.floatValue &&
+      value.floatValue > 0
+    ) {
+      console.log('primeiro intervalo valido');
+      setButtonState(false);
+      return;
+    }
+
     for (var i = 0; i < data.length; i++) {
       // verifica se o intervalo pode ser adicionado ao meio
       if (
@@ -118,9 +136,6 @@ const AddPriceDialog = ({
   };
 
   const handleClose = () => onClose();
-  console.log('data end', data[data.length - 1].end);
-  console.log('start', start);
-  console.log('end', end);
   return (
     <>
       <DialogTitle id="form-dialog-title">Adicionar preço</DialogTitle>
@@ -135,7 +150,7 @@ const AddPriceDialog = ({
               label="Inicio"
               fullWidth
               onKeyUp={handleInputValidations}
-              defaultValue={Number(data[data.length - 1].end) + 0.0001}
+              defaultValue={getEnd(data) + 0.0001}
               // format
               customInput={TextField}
               value={start.formattedValue || start}
