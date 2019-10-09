@@ -10,6 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { addPriceRange } from 'store/ducks/price';
+import { getPriceTableUnitById } from 'store/ducks/priceTable';
 import { getPriceRange } from 'helpers/PriceRange';
 import ReactNumberFormat from 'react-number-format';
 
@@ -44,7 +45,7 @@ const RangePrice = ({
   const [lowerSalesMargin, setLowerSalesMargin] = useState('');
   const dispatch = useDispatch();
 
-  const unit = useSelector(store => store.priceTables.unit);  
+  const unit = useSelector(store => getPriceTableUnitById(priceTableId)(store));
 
   const handleClose = () => onClose();
 

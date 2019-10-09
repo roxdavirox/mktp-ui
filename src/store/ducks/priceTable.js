@@ -184,3 +184,6 @@ export const getPriceTables = store =>
   getPriceTablesState(store)
     ? getPriceTablesList(store).map(id => getPriceTableById(id, store))
     : [];
+
+export const getPriceTableUnitById = priceTableId => store =>
+  getPriceTablesState(store) ? getPriceTableById(priceTableId, store).unit : '';

@@ -173,10 +173,12 @@ const Datatable = ({
             title="Adicionar novo preço"
             onClick={() => onOpen('add')}
           />
-          <ViewListToolbar
-            title="Gerar intervalos"
-            onClick={() => onOpen('range')}
-          />
+          {priceTable.unit !== 'quantidade' && (
+            <ViewListToolbar
+              title="Gerar intervalos"
+              onClick={() => onOpen('range')}
+            />
+          )}
         </>
       );
     },
