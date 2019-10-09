@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { reducers } from './reducers';
 
 import {
@@ -42,8 +44,16 @@ import {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  whiteList: ['prices', 'priceTables']
+};
+
+const pReducer = persistReducer(persistConfig, reducers);
+
 export const store = createStore(
-  reducers,
+  pReducer,
   composeEnhancers(
     applyMiddleware(
       addOptionMiddleware,
@@ -73,3 +83,5 @@ export const store = createStore(
     )
   )
 );
+
+export const persistor = persistStore(store);

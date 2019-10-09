@@ -54,19 +54,21 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
         sort: false,
         filter: false,
         // eslint-disable-next-line react/display-name
-        customBodyRender: (value, tableMeta) => (
-          <Link
-            to={{
-              pathname: '/admin/config/price',
-              state: {
-                fromRedirect: true,
-                priceTableId: value
-              }
-            }}
-          >
-            <MoreHorizIcon key={tableMeta.columnIndex} />
-          </Link>
-        ),
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <Link
+              to={{
+                pathname: '/admin/config/price',
+                state: {
+                  fromRedirect: true,
+                  priceTableId: value,
+                }
+              }}
+            >
+              <MoreHorizIcon key={tableMeta.columnIndex} />
+            </Link>
+          );
+        },
         setCellProps: () => {
           return {
             className: classNames({ [classes.EditCell]: true })

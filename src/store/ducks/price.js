@@ -12,8 +12,6 @@ import {
 export const types = {
   FETCH_PRICES: 'FETCH_PRICES',
   FETCH_PRICES_SUCCESS: 'FETCH_PRICES_SUCCESS',
-  SET_UNIT_INTERVAL: 'SET_UNIT_INTERVAL',
-  SET_PRICE_TABLE_NAME: 'SET_PRICE_TABLE_NAME',
   ADD_PRICE: 'ADD_PRICE',
   ADD_PRICE_SUCCESS: 'ADD_PRICE_SUCCESS',
   ADD_LAST_PRICE: 'ADD_LAST_PRICE',
@@ -35,16 +33,6 @@ export const fetchPrices = priceTableId => ({
 export const fetchPricesSuccess = prices => ({
   type: types.FETCH_PRICES_SUCCESS,
   playload: { prices }
-});
-
-export const setUnitInterval = unit => ({
-  type: types.SET_UNIT_INTERVAL,
-  playload: { unit }
-});
-
-export const setPriceTableName = name => ({
-  type: types.SET_PRICE_TABLE_NAME,
-  playload: { name }
 });
 
 export const addPrice = (price, priceTableId, snack) => ({
@@ -116,13 +104,6 @@ export const fetchPricesMiddleware = ({ dispatch }) => next => action => {
 
     fetch(endpoint)
       .then(res => res.json())
-      .then(res => {
-        const { priceTable } = res;
-        const { unit, name } = priceTable;
-        dispatch(setPriceTableName(name));
-        dispatch(setUnitInterval(unit));
-        return res;
-      })
       .then(({ priceTable }) => normalize(priceTable.prices, [priceSchema]))
       .then(res => {
         console.log('normalized response preços:', res);
@@ -189,13 +170,6 @@ export const addPriceRangeMiddleware = ({ dispatch }) => next => action => {
 
     fetch(endpoint, request)
       .then(res => res.json())
-      .then(res => {
-        const { priceTable } = res;
-        const { unit, name } = priceTable;
-        dispatch(setPriceTableName(name));
-        dispatch(setUnitInterval(unit));
-        return res;
-      })
       .then(({ priceTable }) => normalize(priceTable.prices, [priceSchema]))
       .then(({ entities }) => {
         dispatch(addEntities(entities));
@@ -267,9 +241,7 @@ export const editPriceMiddleware = ({ dispatch }) => next => action => {
 // reducers
 const initialState = {
   byId: {},
-  allIds: [],
-  unit: '',
-  name: ''
+  allIds: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -288,17 +260,6 @@ export default function reducer(state = initialState, action) {
         byId,
         allIds
       };
-    }
-
-    case types.SET_UNIT_INTERVAL: {
-      const { unit } = action.playload;
-
-      return { ...state, unit };
-    }
-
-    case types.SET_PRICE_TABLE_NAME: {
-      const { name } = action.playload;
-      return { ...state, name };
     }
 
     case types.ADD_PRICE_SUCCESS: {

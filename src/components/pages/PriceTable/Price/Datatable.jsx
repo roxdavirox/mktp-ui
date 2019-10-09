@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -22,21 +22,25 @@ const styles = {
   NameCell: { fontWeight: 500 }
 };
 
-const selectUnit = store => store.prices.unit;
-const selectPriceTableName = store => store.prices.name;
-
 const Datatable = ({
   enqueueSnackbar: snack,
   classes,
   data,
-  priceTableId,
   onUpdate,
-  onOpen
+  onOpen,
+  location
 }) => {
   const dispatch = useDispatch();
-  const unit = useSelector(store => selectUnit(store));
-  const priceTable = useSelector(store => getPriceTableById(priceTableId, store));
-  console.log('id da tabela de preço', priceTable);
+  const {
+    state: { priceTableId }
+  } = location;
+
+  console.log('location', location);
+  const priceTable = useSelector(store =>
+    getPriceTableById(priceTableId, store)
+  );
+  console.log('priceTable', priceTable);
+
   const handleRowsDelete = rows => {
     const { data: dataRows } = rows;
 
@@ -63,7 +67,7 @@ const Datatable = ({
   const columns = [
     {
       name: 'start',
-      label: `Inicio (${unit || 'unidade'})`,
+      label: `Inicio (${priceTable.unit || 'unidade'})`,
       options: {
         filter: true,
         sort: true,
@@ -85,7 +89,7 @@ const Datatable = ({
     },
     {
       name: 'end',
-      label: `Fim (${unit || 'unidade'})`,
+      label: `Fim (${priceTable.unit || 'unidade'})`,
       options: {
         filter: false,
         sort: false,
@@ -173,11 +177,9 @@ const Datatable = ({
     onRowsDelete: rowsDeleted => handleRowsDelete(rowsDeleted)
   };
 
-  const priceTableName = useSelector(store => selectPriceTableName(store));
-
   return (
     <MuiDatatable
-      title={<h2>Tabela de preço: {priceTableName}</h2>}
+      title={<h2>Tabela de preço: {priceTable.name}</h2>}
       data={data}
       columns={columns}
       options={options}
@@ -190,7 +192,9 @@ Datatable.propTypes = {
   classes: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.any.isRequired,
   onOpen: PropTypes.func.isRequired,
-  onUpdate: PropTypes.func.isRequired
+  onUpdate: PropTypes.func.isRequired,
+  priceTableId: PropTypes.string,
+  location: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Datatable);
