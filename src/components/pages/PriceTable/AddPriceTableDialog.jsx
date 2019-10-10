@@ -69,22 +69,20 @@ const Dialog = ({ enqueueSnackbar: snack, classes, open, onClose }) => {
               />
             </FormControl>
             <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="unit">
-              Unidade da tabela de preço
-            </InputLabel>
-            <Select
-              className={classes.select}
-              value={unit}
-              onChange={e => setUnit(e.target.value)}
-              input={<Input id="unit" />}
-            >
-              {units.map(u => (
-                <MenuItem key={u} value={u}>
-                  {u}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+              <InputLabel htmlFor="unit">Unidade da tabela de preço</InputLabel>
+              <Select
+                className={classes.select}
+                value={unit}
+                onChange={e => setUnit(e.target.value)}
+                input={<Input id="unit" />}
+              >
+                {units.map(u => (
+                  <MenuItem key={u} value={u}>
+                    {u}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </form>
         </DialogContent>
         <DialogActions>

@@ -35,7 +35,7 @@ const EditPrice = ({ enqueueSnackbar: snack, onClose, price }) => {
     if (price) {
       setStart(price.start);
       setEnd(price.end);
-      setValue(Number(price.value.floatValue));
+      setValue(Number(price.value));
       setPriceId(price._id);
     }
   }, []);
@@ -76,7 +76,7 @@ const EditPrice = ({ enqueueSnackbar: snack, onClose, price }) => {
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <ReactNumberFormat
+            <TextField
               margin="dense"
               id="end"
               name="end"
@@ -121,9 +121,7 @@ const EditPrice = ({ enqueueSnackbar: snack, onClose, price }) => {
 
 EditPrice.propTypes = {
   onClose: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   price: PropTypes.object.isRequired,
-  priceTableId: PropTypes.string.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
