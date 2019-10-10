@@ -59,7 +59,9 @@ const Datatable = ({
   const handleRowUpdate = (priceId, tableMeta) => {
     const [start, end, value, _id] = tableMeta.rowData;
     const price = { start, end, value, _id };
-    onUpdate(price);
+    const dialogType =
+      priceTable.unit === 'quantidade' ? 'EDIT_PRICE_QUANTITY' : 'EDIT_PRICE';
+    onUpdate(price, dialogType);
   };
 
   const dataLength = data.length;
@@ -77,13 +79,20 @@ const Datatable = ({
           };
         },
         customBodyRender: function renderFormatedValue(value, tableMeta) {
+          console.log('tableMeta:', tableMeta);
           if (data.length <= 1) {
-            return <PriceFormat value={value} />;
+            return priceTable.unit === 'quantidade' ? (
+              value
+            ) : (
+              <PriceFormat value={value} />
+            );
           }
           const { rowIndex } = tableMeta;
           const isLastPriceInterval = rowIndex === dataLength - 1;
           return isLastPriceInterval ? (
             'Acima de: '
+          ) : priceTable.unit === 'quantidade' ? (
+            value
           ) : (
             <PriceFormat value={value} />
           );
@@ -103,14 +112,22 @@ const Datatable = ({
         },
         customBodyRender: function renderFormatedValue(value, tableMeta) {
           if (data.length <= 1) {
-            return <PriceFormat value={value} />;
+            return priceTable.unit === 'quantidade' ? (
+              value
+            ) : (
+              <PriceFormat value={value} />
+            );
           }
           const { rowIndex } = tableMeta;
           const isLastPriceInterval = rowIndex === dataLength - 1;
           const lastValue = isLastPriceInterval
             ? data[rowIndex - 1].end
             : value;
-          return <PriceFormat value={lastValue} />;
+          return priceTable.unit === 'quantidade' ? (
+            value
+          ) : (
+            <PriceFormat value={lastValue} />
+          );
         }
       }
     },
@@ -171,7 +188,13 @@ const Datatable = ({
         <>
           <AddToolbar
             title="Adicionar novo preço"
-            onClick={() => openDialogType('ADD_PRICE')}
+            onClick={() =>
+              openDialogType(
+                priceTable.unit === 'quantidade'
+                  ? 'ADD_PRICE_QUANTITY'
+                  : 'ADD_PRICE'
+              )
+            }
           />
           {priceTable.unit !== 'quantidade' && (
             <ViewListToolbar

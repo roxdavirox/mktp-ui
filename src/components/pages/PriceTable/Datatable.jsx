@@ -61,7 +61,7 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
                 pathname: '/admin/config/price',
                 state: {
                   fromRedirect: true,
-                  priceTableId: value,
+                  priceTableId: value
                 }
               }}
             >

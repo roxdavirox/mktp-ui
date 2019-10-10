@@ -380,3 +380,8 @@ export const getPrices = store =>
         };
       })
     : [];
+
+export const getPricesQuantity = store =>
+  getPricesState(store)
+    ? getPriceList(store).map(id => getPriceById(id, store))
+    : [];

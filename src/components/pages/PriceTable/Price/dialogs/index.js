@@ -3,11 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MuiDialog from '@material-ui/core/Dialog';
 
-import DialogComponentTypes from './types';
+import GetComponentType from './types';
 
 const DialogContainer = props => {
   console.log('type dialog', props.type);
-  const Component = DialogComponentTypes[props.type];
+  const Component = GetComponentType(props.type);
   return (
     <div>
       <MuiDialog {...props} aria-labelledby="form-dialog-title">

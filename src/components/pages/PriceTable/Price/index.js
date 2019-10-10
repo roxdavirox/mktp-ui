@@ -5,7 +5,8 @@ import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import Datatable from './Datatable';
 import DialogContainer from './Dialogs';
-import { fetchPrices, getPrices } from 'store/ducks/price';
+import { fetchPrices, getPrices, getPricesQuantity } from 'store/ducks/price';
+import { getPriceTableById } from 'store/ducks/priceTable';
 
 const PricePage = props => {
   const [open, setOpen] = useState(false);
@@ -21,9 +22,8 @@ const PricePage = props => {
     dispatch(fetchPrices(priceTableId));
   }, []);
 
-  const handleRowUpdate = price => {
-    setOpen(true);
-    setDialogType('EDIT_PRICE');
+  const handleRowUpdate = (price, type) => {
+    handleOpen(type);
     setPrice(price);
   };
 
@@ -37,7 +37,12 @@ const PricePage = props => {
     setPrice(null);
   };
 
-  const data = useSelector(store => getPrices(store));
+  const unitPrice = useSelector(
+    store => getPriceTableById(priceTableId, store).unit
+  );
+  const selectPricesByUnit = store =>
+    unitPrice === 'quantidade' ? getPricesQuantity(store) : getPrices(store);
+  const data = useSelector(selectPricesByUnit);
 
   return (
     <>
