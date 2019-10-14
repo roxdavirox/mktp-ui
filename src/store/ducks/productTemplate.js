@@ -2,7 +2,8 @@ const types = {
   SET_TEMPLATE_NAME: 'SET_TEMPLATE_NAME',
   SET_ITEMS: 'SET_ITEMS',
   SET_ITEM: 'SET_ITEM',
-  SET_OPTION: 'SET_OPTION'
+  SET_OPTION: 'SET_OPTION',
+  RESET: 'RESET'
 };
 
 const INITIAL_STATE = {
@@ -30,6 +31,8 @@ export const setOption = option => ({
   type: types.SET_OPTION,
   playload: { option }
 });
+
+export const resetTemplateState = () => ({ type: types.RESET });
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -65,6 +68,10 @@ export default function reducer(state = INITIAL_STATE, action) {
     case types.SET_OPTION: {
       const { option } = action.playload;
       return { ...state, option };
+    }
+
+    case types.RESET: {
+      return INITIAL_STATE;
     }
 
     default:

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -8,7 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import ComposeTemplateStep from './steps/ComposeTemplateStep';
 import Container from '@material-ui/core/Container';
 import ConfirmStep from './steps/ConfirmStep';
-
+import { getEndpoint, createPostRequest } from 'helpers/api';
+import { resetTemplateState } from 'store/ducks/productTemplate';
 const useStyles = makeStyles(theme => ({
   root: {
     width: '90%',
@@ -46,14 +48,38 @@ function getStepContent(stepIndex) {
       return 'Uknown stepIndex';
   }
 }
+// TODO: Criar confirmação do step e persistir o novo item em forma de template
+// utilizando a propriedade templateOptions
 
 export default function HorizontalLabelPositionBelowStepper() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  const productTemplateState = useSelector(store => store.productTemplates);
 
+  const handleCreateTemplate = () => {
+    const { name, selectedItems, option } = productTemplateState;
+    const optionId = option._id;
+    const options = Object.values(selectedItems).map(item => ({
+      option: item.option._id,
+      item: item._id
+    }));
+    const body = {
+      name,
+      options
+    };
+    const endpoint = getEndpoint(`/items/templates/${optionId}`);
+    const postRequest = createPostRequest(body);
+    fetch(endpoint, postRequest)
+      .then(res => res.json())
+      .then(res => console.log('create template response:', res));
+  };
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
+    if (activeStep === 1) {
+      handleCreateTemplate();
+    }
   };
 
   const handleBack = () => {
@@ -62,6 +88,7 @@ export default function HorizontalLabelPositionBelowStepper() {
 
   const handleReset = () => {
     setActiveStep(0);
+    dispatch(resetTemplateState());
   };
 
   return (
@@ -78,9 +105,9 @@ export default function HorizontalLabelPositionBelowStepper() {
           {activeStep === steps.length ? (
             <div>
               <Typography className={classes.instructions}>
-                All steps completed
+                Template cadastrado com sucesso
               </Typography>
-              <Button onClick={handleReset}>Reset</Button>
+              <Button onClick={handleReset}>Novo</Button>
             </div>
           ) : (
             <div>
