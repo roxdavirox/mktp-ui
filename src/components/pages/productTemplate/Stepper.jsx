@@ -48,8 +48,6 @@ function getStepContent(stepIndex) {
       return 'Uknown stepIndex';
   }
 }
-// TODO: Criar confirmação do step e persistir o novo item em forma de template
-// utilizando a propriedade templateOptions
 
 export default function HorizontalLabelPositionBelowStepper() {
   const classes = useStyles();
