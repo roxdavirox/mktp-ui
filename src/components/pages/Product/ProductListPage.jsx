@@ -1,29 +1,32 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import Datatable from './Datatable';
+import uuid from 'uuid/v1';
+
 import { getEndpoint } from 'helpers/api';
 
-const parseProducts = data => {
+const parseProducts = products => {
   // loop do produto
-  var products = [];
+  var newProducts = [];
   var newOptions = [];
   var newOption = {};
   var newItems = [];
-  if (!data) return [];
+  if (!products) return [];
 
-  for (let i = 0; i < data.length; i++) {
-    const { options } = data[i];
+  for (let i = 0; i < products.length; i++) {
+    const { options } = products[i];
     if (options.length <= 0) continue;
-    console.log('data[i]', data[i]);
+    const productId = uuid();
 
     // loop das opções do produto
     for (let j = 0; j < options.length; j++) {
       if (!options[j].option) continue;
+      const optionId = uuid();
       newOption = {
         _id: options[j].option._id,
-        id: options[j].option._id + data[i]._id,
+        id: optionId,
         name: options[j].option.name,
-        parentId: data[i]._id
+        parentId: productId
       };
 
       const { items } = options[j];
@@ -34,7 +37,7 @@ const parseProducts = data => {
             _id: items[k]._id,
             id: items[k]._id + options[j].option._id,
             name: items[k].name,
-            parentId: options[j].option._id + data[i]._id
+            parentId: options[j].option._id + products[i]._id
           };
           console.log('adicionando item', item);
           newItems.push(item);
@@ -48,9 +51,9 @@ const parseProducts = data => {
       });
     }
 
-    products.push({
-      id: data[i]._id,
-      name: data[i].name,
+    newProducts.push({
+      id: productId,
+      name: products[i].name,
       parentId: null,
       options: newOptions
     });
@@ -60,7 +63,7 @@ const parseProducts = data => {
     newItems = [];
   }
 
-  return products;
+  return newProducts;
 };
 
 const generateTree = data => {
