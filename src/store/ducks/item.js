@@ -26,7 +26,7 @@ export const types = {
   DELETE_OPTION_ITEMS_SUCCESS: 'DELETE_OPTION_ITEMS_SUCCESS',
   PUT_ITEM_PRICE_TABLE_BEGIN: 'PUT_ITEM_PRICE_TABLE_BEGIN'
 };
-
+// TODO: remover funções relacionadas com itens existentes
 // items actions
 export const fetchItems = () => ({
   type: types.FETCH_ITEMS

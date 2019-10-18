@@ -44,6 +44,7 @@ const DataTable = ({ data, classes }) => {
       options: {
         sort: false,
         filter: false,
+        // TODO: exibir medida de acordo com a tabela de preço - cada item pode ter uma unidade diferente
         // eslint-disable-next-line react/display-name
         customBodyRender: (items, tableMeta) => {
           // eslint-disable-next-line no-console
@@ -51,6 +52,43 @@ const DataTable = ({ data, classes }) => {
           const [_id, name] = tableMeta.rowData;
           const option = { name, _id };
           return <TemplateItemSelect items={items} option={option} />;
+        }
+      }
+    },
+    {
+      name: 'quantity',
+      label: 'Quantidade',
+      options: {
+        sort: false,
+        filter: false,
+        // TODO: renderizar componentes para medidas aqui
+        customBodyRender: function renderUnitComponent(unit, tableMeta) {
+          return <h5>Quantidade: {unit}</h5>;
+        }
+      }
+    },
+    {
+      name: 'unit',
+      label: 'medida',
+      options: {
+        sort: false,
+        filter: false,
+        // TODO: renderizar componentes para medidas aqui
+        customBodyRender: function renderUnitComponent(unit, tableMeta) {
+          console.log('tableMeta>', tableMeta);
+          return <h4>Unidade: {unit}</h4>;
+        }
+      }
+    },
+    {
+      name: 'add',
+      label: 'duplicar',
+      options: {
+        sort: false,
+        filter: false,
+        // TODO: botao para duplicar linha
+        customBodyRender: function renderUnitComponent(_, tableMeta) {
+          return <a href="#">+</a>;
         }
       }
     }

@@ -67,14 +67,6 @@ var dashRoutes = [
         layout: '/admin'
       },
       {
-        path: '/config/items',
-        name: 'Itens',
-        mini: 'I',
-        component: Item,
-        layout: '/admin',
-        invisible: false
-      },
-      {
         path: '/config/price-table',
         name: 'Tabelas de preços',
         mini: 'TP',

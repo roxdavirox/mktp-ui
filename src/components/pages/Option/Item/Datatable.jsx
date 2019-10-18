@@ -6,7 +6,7 @@ import { withSnackbar } from 'notistack';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import MuiDatatable from 'components/common/tables/MuiDatatable';
-import { AddToolbar, BallotToolbar } from 'components/common/tables/Toolbar';
+import { AddToolbar } from 'components/common/tables/Toolbar';
 import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 
 const styles = {
@@ -43,12 +43,6 @@ const Datatable = ({ classes, onUpdate, onOpen, onRowsDelete, data }) => {
           <AddToolbar
             title="Adicionar Item"
             onClick={() => onOpen('add')}
-            aria-owns="add-menu"
-            aria-haspopup="true"
-          />
-          <BallotToolbar
-            title="Adicionar Itens existentes"
-            onClick={() => onOpen('existing')}
             aria-owns="add-menu"
             aria-haspopup="true"
           />
