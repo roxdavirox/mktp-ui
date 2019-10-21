@@ -105,7 +105,8 @@ const DataTable = ({ data, classes }) => {
       body: {
         noMatch: 'empty'
       }
-    }
+    },
+    customToolbarSelect: () => {}
   };
 
   return (

@@ -41,7 +41,8 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    margin: 'auto'
+    margin: 'auto',
+    alignItems: 'center'
   },
   select: { height: '37px' },
   formControl: {
