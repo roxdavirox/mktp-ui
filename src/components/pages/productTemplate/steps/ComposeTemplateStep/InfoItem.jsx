@@ -39,12 +39,14 @@ const useStyles = makeStyles(theme => ({
     position: 'relative'
   },
   container: {
-    display: 'initial'
+    display: 'flex',
+    flexDirection: 'row',
+    margin: 'auto'
   },
   select: { height: '37px' },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 320
+    minWidth: 420
   }
 }));
 
@@ -68,61 +70,59 @@ const InfoItem = ({ options }) => {
   return (
     <>
       <GridContainer className={classes.container}>
-        <Card>
-          <GridItem xs={12} sm={12}>
-            <h3 className={classes.infoText}>Configure o template</h3>
-          </GridItem>
-          <GridItem xs={12} sm={6}>
-            <FormControl className={classes.formControl}>
-              <CustomInput
-                success={nameState === 'success'}
-                error={nameState === 'error'}
-                labelText={
-                  <span>
-                    Nome do template <small>(obrigatório)</small>
-                  </span>
-                }
-                id="firstname"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  onChange: event => handleNameChange(event),
-                  endAdornment: (
-                    <InputAdornment
-                      position="end"
-                      className={classes.inputAdornment}
-                    >
-                      <Build className={classes.inputAdornmentIcon} />
-                    </InputAdornment>
-                  ),
-                  value: name
-                }}
-              />
-            </FormControl>
-          </GridItem>
-          <GridItem xs={12} sm={8}>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="option-input">Opção</InputLabel>
-              <Select
-                className={classes.select}
-                value={option}
-                onChange={handleChangeSelect}
-                input={<Input id="option-input" />}
-              >
-                <MenuItem value="0">
-                  <em>Selecione</em>
-                </MenuItem>
-                {options &&
-                  options.map(op => (
-                    <MenuItem key={op._id} value={op}>
-                      {op.name}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-          </GridItem>
-        </Card>
+        {/* <GridItem xs={12} sm={4}>
+          <h3 className={classes.infoText}>Configure o template</h3>
+        </GridItem> */}
+        <GridItem xs={12} sm={6}>
+          <FormControl className={classes.formControl}>
+            <CustomInput
+              success={nameState === 'success'}
+              error={nameState === 'error'}
+              labelText={
+                <span>
+                  Nome do template <small>(obrigatório)</small>
+                </span>
+              }
+              id="firstname"
+              formControlProps={{
+                fullWidth: true
+              }}
+              inputProps={{
+                onChange: event => handleNameChange(event),
+                endAdornment: (
+                  <InputAdornment
+                    position="end"
+                    className={classes.inputAdornment}
+                  >
+                    <Build className={classes.inputAdornmentIcon} />
+                  </InputAdornment>
+                ),
+                value: name
+              }}
+            />
+          </FormControl>
+        </GridItem>
+        <GridItem xs={12} sm={6}>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="option-input">Opção</InputLabel>
+            <Select
+              className={classes.select}
+              value={option}
+              onChange={handleChangeSelect}
+              input={<Input id="option-input" />}
+            >
+              <MenuItem value="0">
+                <em>Selecione uma opção</em>
+              </MenuItem>
+              {options &&
+                options.map(op => (
+                  <MenuItem key={op._id} value={op}>
+                    {op.name}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+        </GridItem>
       </GridContainer>
     </>
   );

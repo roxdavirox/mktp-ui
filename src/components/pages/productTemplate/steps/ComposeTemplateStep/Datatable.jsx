@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MuiDatatable from 'components/common/tables/MuiDatatable';
 //core
 import TemplateItemSelect from './TemplateItemSelect';
+import InfoItem from './InfoItem';
 
 const optionStyle = {
   EditCell: { textAlign: 'right' },
@@ -109,7 +110,7 @@ const DataTable = ({ data, classes }) => {
 
   return (
     <MuiDatatable
-      title={<h3>Selecione alguns itens</h3>}
+      title={<InfoItem options={data} />}
       data={data}
       columns={columns}
       options={options}

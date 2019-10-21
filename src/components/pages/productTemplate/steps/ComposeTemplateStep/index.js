@@ -19,7 +19,7 @@ const TemplateContainer = () => {
   return (
     <>
       <Container maxWidth="xl">
-        <InfoItem options={options} />
+        {/* <InfoItem options={options} /> */}
         <Datatable data={options} />
       </Container>
     </>
