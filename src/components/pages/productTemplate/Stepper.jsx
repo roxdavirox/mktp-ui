@@ -10,7 +10,10 @@ import ComposeTemplateStep from './steps/ComposeTemplateStep';
 import Container from '@material-ui/core/Container';
 import ConfirmStep from './steps/ConfirmStep';
 import { getEndpoint, createPostRequest } from 'helpers/api';
-import { resetTemplateState } from 'store/ducks/productTemplate';
+import {
+  resetTemplateState,
+  selectCheckedTemplateItems
+} from 'store/ducks/productTemplate';
 const useStyles = makeStyles(theme => ({
   root: {
     width: '90%',
@@ -55,13 +58,16 @@ export default function HorizontalLabelPositionBelowStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
   const productTemplateState = useSelector(store => store.productTemplates);
+  const templateItems = useSelector(selectCheckedTemplateItems);
 
   const handleCreateTemplate = () => {
-    const { name, selectedItems, option } = productTemplateState;
+    const { name, option } = productTemplateState;
     const optionId = option._id;
-    const options = Object.values(selectedItems).map(item => ({
+    const options = templateItems.map(item => ({
       option: item.option._id,
-      item: item._id
+      item: item._id,
+      quantity: item.quantity,
+      measurement: item.measurement
     }));
     const body = {
       name,
@@ -73,6 +79,7 @@ export default function HorizontalLabelPositionBelowStepper() {
       .then(res => res.json())
       .then(res => console.log('create template response:', res));
   };
+
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
     if (activeStep === 1) {

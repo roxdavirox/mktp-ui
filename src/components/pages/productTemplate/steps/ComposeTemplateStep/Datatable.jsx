@@ -87,12 +87,9 @@ const DataTable = ({ dataItems, dataOptions }) => {
         filter: false,
         // TODO: renderizar componentes para medidas aqui
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
-          console.log('meta', tableMeta);
-          // const { rowData } = tableMeta;
-          // const [optionId] = rowData;
           const hasUnit = unit !== 'quantidade' && unit;
 
-          return hasUnit && <Medida optionId={''} />;
+          return hasUnit && <Medida rowIndex={tableMeta.rowIndex} />;
         }
       }
     },
