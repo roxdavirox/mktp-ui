@@ -6,7 +6,8 @@ const types = {
   SET_OPTION: 'SET_OPTION',
   RESET: 'RESET',
   FETCH_TEMPLATE_ITEMS: 'FETCH_TEMPLATE_ITEMS',
-  SET_TEMPLATE_ITEMS: 'SET_TEMPLATE_ITEMS'
+  SET_TEMPLATE_ITEMS: 'SET_TEMPLATE_ITEMS',
+  SET_CHECKED_ITEM: 'SET_CHECKED_ITEM'
 };
 
 const INITIAL_STATE = {
@@ -34,6 +35,11 @@ export const fetchTemplateItems = () => ({
 export const setTemplateItems = templateItems => ({
   type: types.SET_TEMPLATE_ITEMS,
   playload: { templateItems }
+});
+
+export const setCheckedItem = (rowIndex, isChecked) => ({
+  type: types.SET_CHECKED_ITEM,
+  playload: { rowIndex, isChecked }
 });
 
 // middlewares
@@ -80,6 +86,15 @@ export default function reducer(state = INITIAL_STATE, action) {
       };
     }
 
+    case types.SET_CHECKED_ITEM: {
+      state.templateItems[action.playload.rowIndex].isChecked =
+        action.playload.isChecked;
+      return {
+        ...state,
+        templateItems: [...state.templateItems]
+      };
+    }
+
     default:
       return state;
   }
@@ -98,3 +113,8 @@ export const selectTemplateName = store =>
 
 export const selectOption = store =>
   getProductTemplateState(store) ? getProductTemplateState(store).option : '0';
+
+export const selectCheckedTemplateItems = store =>
+  getProductTemplateState(store)
+    ? selectTemplateItems(store).filter(item => item.isChecked)
+    : [];

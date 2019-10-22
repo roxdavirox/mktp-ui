@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { selectCheckedTemplateItems } from 'store/ducks/productTemplate';
 
 const ConfirmStep = () => {
   const productTemplateState = useSelector(store => store.productTemplates);
-  const { name, selectedItems, option } = productTemplateState;
+  const { name, option } = productTemplateState;
+  const selectedItems = useSelector(selectCheckedTemplateItems);
 
-  console.log('state:', productTemplateState);
   return (
     <>
       <h4>Informações do template</h4>
@@ -16,12 +17,12 @@ const ConfirmStep = () => {
       <p>
         Opção: <b>{option.name}</b>
       </p>
-      {Object.keys(selectedItems) && (
+      {selectedItems && (
         <ul>
-          {Object.keys(selectedItems).map(keyItem => (
-            <li key={keyItem}>
-              {selectedItems[keyItem].option.name} {': '}
-              <b>{selectedItems[keyItem].name} </b>
+          {selectedItems.map((templateItem, index) => (
+            <li key={index}>
+              {templateItem.option.name} {': '}
+              <b>{templateItem.name} </b>
             </li>
           ))}
         </ul>

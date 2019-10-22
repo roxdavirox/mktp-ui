@@ -13,6 +13,7 @@ import MuiDatatable from 'components/common/tables/MuiDatatable';
 //core
 import InfoItem from './InfoItem';
 import Medida from './Medida';
+import { setCheckedItem } from 'store/ducks/productTemplate';
 
 const useStyle = makeStyles({
   EditCell: { textAlign: 'right' },
@@ -96,7 +97,7 @@ const DataTable = ({ dataItems, dataOptions }) => {
       }
     },
     {
-      name: 'selected',
+      name: 'isChecked',
       label: 'Selecionar',
       options: {
         sort: true,
@@ -106,6 +107,7 @@ const DataTable = ({ dataItems, dataOptions }) => {
           tableMeta,
           updateValue
         ) {
+          console.log('value', value);
           return (
             <FormControlLabel
               label={value ? 'Yes' : 'No'}
@@ -118,7 +120,9 @@ const DataTable = ({ dataItems, dataOptions }) => {
                 />
               }
               onChange={event => {
-                updateValue(event.target.value === 'Yes' ? false : true);
+                const isChecked = event.target.value === 'Yes' ? false : true;
+                dispatch(setCheckedItem(tableMeta.rowIndex, isChecked));
+                updateValue(isChecked);
               }}
             />
           );
