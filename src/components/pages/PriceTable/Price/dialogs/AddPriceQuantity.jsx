@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AddPrice = ({ enqueueSnackbar: snack, onClose, priceTableId }) => {
+const AddPriceQuantity = ({ enqueueSnackbar: snack, onClose, priceTableId }) => {
   const classes = useStyles();
   const data = useSelector(store => getPrices(store));
   const [start, setStart] = useState(0);
@@ -184,11 +184,11 @@ const AddPrice = ({ enqueueSnackbar: snack, onClose, priceTableId }) => {
   );
 };
 
-AddPrice.propTypes = {
+AddPriceQuantity.propTypes = {
   onClose: PropTypes.func.isRequired,
   priceTableId: PropTypes.string.isRequired,
   price: PropTypes.object,
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
-export default AddPrice;
+export default AddPriceQuantity;
