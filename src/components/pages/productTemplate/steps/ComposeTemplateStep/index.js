@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Datatable from './Datatable';
@@ -9,13 +9,19 @@ import {
 } from 'store/ducks/productTemplate';
 
 const TemplateContainer = () => {
+  const [total, setTotal] = useState(0);
   const options = useSelector(selectOptions);
   const items = useSelector(selectTemplateItems);
 
   return (
     <>
       <Container maxWidth="xl">
-        <Datatable dataOptions={options} dataItems={items} />
+        <p>Total: {total}</p>
+        <Datatable
+          dataOptions={options}
+          dataItems={items}
+          calcular={setTotal}
+        />
       </Container>
     </>
   );
