@@ -24,7 +24,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AddPriceQuantity = ({ enqueueSnackbar: snack, onClose, priceTableId }) => {
+const AddPriceQuantity = ({
+  enqueueSnackbar: snack,
+  onClose,
+  priceTableId
+}) => {
   const classes = useStyles();
   const data = useSelector(store => getPrices(store));
   const [start, setStart] = useState(0);
