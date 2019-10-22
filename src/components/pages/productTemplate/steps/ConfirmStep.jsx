@@ -2,6 +2,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectCheckedTemplateItems } from 'store/ducks/productTemplate';
+import { template } from 'handlebars';
 
 const ConfirmStep = () => {
   const productTemplateState = useSelector(store => store.productTemplates);
@@ -22,12 +23,10 @@ const ConfirmStep = () => {
           {selectedItems.map((templateItem, index) => (
             <li key={index}>
               {templateItem.option.name} {': '}
-              <b>{templateItem.name}</b>
-              quantidade: <b>{templateItem.quantity}</b>
-              tamanho:{' '}
-              <b>
-                x: {templateItem.size.x} y: {templateItem.size.y}
-              </b>
+              <b>{templateItem.name}</b> quantidade:{' '}
+              <b>{templateItem.quantity}</b>
+              {templateItem.size &&
+                ` tamanho: ${templateItem.size.x} x ${templateItem.size.y}`}
             </li>
           ))}
         </ul>
