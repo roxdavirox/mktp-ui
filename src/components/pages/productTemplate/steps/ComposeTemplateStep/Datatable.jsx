@@ -128,10 +128,7 @@ const DataTable = ({ dataItems, dataOptions }) => {
         noMatch: 'empty'
       }
     },
-    customToolbarSelect: () => {},
-    onRowsSelect: function selecionaLinhas(selectedRow, allSelectedRows) {
-      console.log('linhas selecionadas:', selectedRow);
-    }
+    customToolbarSelect: () => {}
   };
 
   return (
