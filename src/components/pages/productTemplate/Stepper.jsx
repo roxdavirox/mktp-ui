@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,6 +15,7 @@ import {
   resetTemplateState,
   selectCheckedTemplateItems
 } from 'store/ducks/productTemplate';
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: '90%',
