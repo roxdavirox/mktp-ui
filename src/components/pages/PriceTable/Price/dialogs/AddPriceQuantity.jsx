@@ -84,23 +84,23 @@ const AddPriceQuantity = ({
       if (
         i !== data.length - 1 && //não é a ultima linha ?
         // i != 0 && // não é a primeira linha?
-        start.floatValue > data[i].end &&
-        end.floatValue < data[i + 1].start &&
-        end.floatValue > start.floatValue &&
+        start > data[i].end &&
+        end < data[i + 1].start &&
+        end > start &&
         value.floatValue > 0
       ) {
         console.log('é possivel adicionar aqui');
         console.log('data[i]', data[i]);
         console.log('data[i+1]', data[i + 1]);
-        console.log('inicio:', start.floatValue, 'final:', end.floatValue);
+        console.log('inicio:', start, 'final:', end);
         setButtonState(false);
         return;
       }
 
       if (
         // eslint-disable-next-line prettier/prettier
-        start.floatValue > data[data.length - 1].end &&
-        end.floatValue > start.floatValue &&
+        start > data[data.length - 1].end &&
+        end > start &&
         i == data.length - 1 && // ultima linha?
         value.floatValue > 0
       ) {
@@ -113,7 +113,7 @@ const AddPriceQuantity = ({
           'Ultimo valor:',
           data[data.length - 1].end,
           'Próximo valor: ',
-          start.floatValue
+          start
         );
         setButtonState(false);
         setEndPriceState(true);
