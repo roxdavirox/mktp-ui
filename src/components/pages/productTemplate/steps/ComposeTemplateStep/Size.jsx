@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
-import { setValueX, setValueY } from 'store/ducks/productTemplate';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setValueX,
+  selectValueX,
+  selectValueY,
+  setValueY
+} from 'store/ducks/productTemplate';
 
 const useStyles = makeStyles({
   TextField: {
@@ -12,38 +17,37 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Medida = ({ optionId }) => {
+const Size = ({ rowIndex }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [xValue, setStateX] = useState(1);
-  const [yValue, setStateY] = useState(1);
 
   const handleValueXChange = e => {
-    setStateX(e.target.value);
-    // dispatch(setValueX(optionId, e.target.value));
+    dispatch(setValueX(rowIndex, e.target.value));
   };
 
   const handleValueYChange = e => {
-    setStateY(e.target.value);
-    // dispatch(setValueY(optionId, e.target.value));
+    dispatch(setValueY(rowIndex, e.target.value));
   };
+
+  const valueX = useSelector(store => selectValueX(store, rowIndex));
+  const valueY = useSelector(store => selectValueY(store, rowIndex));
 
   return (
     <>
       <TextField
         onChange={handleValueXChange}
         placeholder={'x'}
-        value={xValue}
+        value={valueX}
         className={classes.TextField}
       />{' '}
       <TextField
         onChange={handleValueYChange}
         placeholder={'y'}
-        value={yValue}
+        value={valueY}
         className={classes.TextField}
       />{' '}
     </>
   );
 };
 
-export default Medida;
+export default Size;

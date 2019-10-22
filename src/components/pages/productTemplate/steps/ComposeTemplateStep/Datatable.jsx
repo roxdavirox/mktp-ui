@@ -5,23 +5,19 @@ import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { withSnackbar } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 //Common components
 import MuiDatatable from 'components/common/tables/MuiDatatable';
 //core
 import InfoItem from './InfoItem';
-import Medida from './Medida';
+import Size from './Size';
+import Quantity from './Quantity';
 import { setCheckedItem } from 'store/ducks/productTemplate';
 
 const useStyle = makeStyles({
   EditCell: { textAlign: 'right' },
-  NameCell: { fontWeight: 500 },
-  QuantityTextField: {
-    maxWidth: 40,
-    textAlign: 'center'
-  }
+  NameCell: { fontWeight: 500 }
 });
 
 const DataTable = ({ dataItems, dataOptions }) => {
@@ -56,15 +52,6 @@ const DataTable = ({ dataItems, dataOptions }) => {
       options: {
         sort: false,
         filter: false
-        // TODO: exibir medida de acordo com a tabela de preço - cada item pode ter uma unidade diferente
-        // eslint-disable-next-line react/display-name
-        // customBodyRender: (items, tableMeta) => {
-        //   // eslint-disable-next-line no-console
-        //   console.log('items', items, 'Table meta', tableMeta);
-        //   const [_id, name] = tableMeta.rowData;
-        //   const option = { name, _id };
-        //   return <TemplateItemSelect items={items} option={option} />;
-        // }
       }
     },
     {
@@ -74,8 +61,8 @@ const DataTable = ({ dataItems, dataOptions }) => {
         sort: false,
         filter: false,
         // TODO: renderizar componentes para medidas aqui
-        customBodyRender: function renderUnitComponent(unit, tableMeta) {
-          return <TextField className={classes.QuantityTextField} value={1} />;
+        customBodyRender: function renderUnitComponent(value, tableMeta) {
+          return <Quantity rowIndex={tableMeta.rowIndex} />;
         }
       }
     },
@@ -89,7 +76,7 @@ const DataTable = ({ dataItems, dataOptions }) => {
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
           const hasUnit = unit !== 'quantidade' && unit;
 
-          return hasUnit && <Medida rowIndex={tableMeta.rowIndex} />;
+          return hasUnit && <Size rowIndex={tableMeta.rowIndex} />;
         }
       }
     },
