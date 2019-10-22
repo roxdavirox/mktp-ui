@@ -22,8 +22,11 @@ const ConfirmStep = () => {
           {selectedItems.map((templateItem, index) => (
             <li key={index}>
               {templateItem.option.name} {': '}
+              <b>{templateItem.name}</b>
+              quantidade: <b>{templateItem.quantity}</b>
+              tamanho:{' '}
               <b>
-                {templateItem.name} quantidade: {templateItem.quantity}
+                x: {templateItem.size.x} y: {templateItem.size.y}
               </b>
             </li>
           ))}

@@ -98,12 +98,15 @@ export default function reducer(state = INITIAL_STATE, action) {
     }
 
     case types.SET_TEMPLATE_ITEMS: {
+      const { templateItems } = action.playload;
       return {
         ...state,
-        templateItems: action.playload.templateItems.map(templateItem => ({
-          size: { x: 0, y: 0 },
-          ...templateItem
-        }))
+        templateItems: templateItems
+          .map(templateItem => ({
+            size: { x: 0, y: 0 },
+            ...templateItem
+          }))
+          .filter(item => item.priceTableId)
       };
     }
 
