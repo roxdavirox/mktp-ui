@@ -13,7 +13,7 @@ import MuiDatatable from 'components/common/tables/MuiDatatable';
 import InfoItem from './InfoItem';
 import Size from './Size';
 import Quantity from './Quantity';
-import { setCheckedItem } from 'store/ducks/productTemplate';
+import { setCheckedItem, fetchTotal } from 'store/ducks/productTemplate';
 
 const useStyle = makeStyles({
   EditCell: { textAlign: 'right' },
@@ -106,6 +106,10 @@ const DataTable = ({ dataItems, dataOptions }) => {
               onChange={event => {
                 const isChecked = event.target.value === 'Yes' ? false : true;
                 dispatch(setCheckedItem(tableMeta.rowIndex, isChecked));
+                const templateRow = dataItems[tableMeta.rowIndex];
+                if (isChecked) {
+                  dispatch(fetchTotal(templateRow));
+                }
                 updateValue(isChecked);
               }}
             />

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { getEndpoint } from 'helpers/api';
+import { getEndpoint, createPostRequest } from 'helpers/api';
 
 const types = {
   SET_TEMPLATE_NAME: 'SET_TEMPLATE_NAME',
@@ -11,14 +11,17 @@ const types = {
   SET_QUANTITY: 'SET_QUANTITY',
   SET_VALUE_X: 'SET_VALUE_X',
   SET_VALUE_Y: 'SET_VALUE_Y',
-  SET_OPTIONS: 'SET_OPTIONS'
+  SET_OPTIONS: 'SET_OPTIONS',
+  FETCH_TOTAL: 'FETCH_TOTAL',
+  SET_TOTAL: 'SET_TOTAL'
 };
 
 const INITIAL_STATE = {
   name: '',
   option: '0',
   templateItems: [],
-  options: []
+  options: [],
+  total: 0
 };
 
 export const setTemplateName = name => ({
@@ -67,6 +70,16 @@ export const setOptions = options => ({
   playload: { options }
 });
 
+export const fetchTotal = templateRow => ({
+  type: types.FETCH_TOTAL,
+  playload: { templateRow }
+});
+
+export const setTotal = total => ({
+  type: types.SET_TOTAL,
+  playload: { total }
+});
+
 // middlewares
 export const fetchTemplateItemsMiddleware = ({
   dispatch
@@ -79,6 +92,32 @@ export const fetchTemplateItemsMiddleware = ({
       .then(({ items }) => dispatch(setTemplateItems(items)))
       .catch(error => {
         console.log(`Error on get template items ${error}`);
+      });
+  }
+
+  next(action);
+};
+
+export const fetchTotalMiddleware = ({ dispatch }) => next => action => {
+  if (action.type === types.FETCH_TOTAL) {
+    const { templateRow } = action.playload;
+    console.log('playload:', action.playload);
+    const { priceTableId: priceTable, quantity, size } = templateRow;
+    const { _id: priceTableId } = priceTable;
+    const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
+
+    const body = {
+      quantity,
+      size
+    };
+
+    const request = createPostRequest(body);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ total }) => dispatch(setTotal(total)))
+      .catch(error => {
+        console.log(`Error on get total value ${error}`);
       });
   }
 
@@ -168,6 +207,13 @@ export default function reducer(state = INITIAL_STATE, action) {
       };
     }
 
+    case types.SET_TOTAL: {
+      return {
+        ...state,
+        total: state.total + action.playload.total
+      };
+    }
+
     default:
       return state;
   }
@@ -196,6 +242,9 @@ export const selectQuantity = (store, rowIndex) =>
   getProductTemplateState(store)
     ? getProductTemplateState(store).templateItems[rowIndex].quantity
     : 0;
+
+export const selectTotal = store =>
+  getProductTemplateState(store) ? getProductTemplateState(store).total : 0;
 
 export const selectValueX = (store, rowIndex) =>
   getProductTemplateState(store)
