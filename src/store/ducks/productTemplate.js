@@ -10,13 +10,15 @@ const types = {
   SET_CHECKED_ITEM: 'SET_CHECKED_ITEM',
   SET_QUANTITY: 'SET_QUANTITY',
   SET_VALUE_X: 'SET_VALUE_X',
-  SET_VALUE_Y: 'SET_VALUE_Y'
+  SET_VALUE_Y: 'SET_VALUE_Y',
+  SET_OPTIONS: 'SET_OPTIONS'
 };
 
 const INITIAL_STATE = {
   name: '',
   option: '0',
-  templateItems: []
+  templateItems: [],
+  options: []
 };
 
 export const setTemplateName = name => ({
@@ -58,6 +60,11 @@ export const setValueX = (rowIndex, valueX) => ({
 export const setValueY = (rowIndex, valueY) => ({
   type: types.SET_VALUE_Y,
   playload: { rowIndex, valueY }
+});
+
+export const setOptions = options => ({
+  type: types.SET_OPTIONS,
+  playload: { options }
 });
 
 // middlewares
@@ -154,6 +161,13 @@ export default function reducer(state = INITIAL_STATE, action) {
       };
     }
 
+    case types.SET_OPTIONS: {
+      return {
+        ...state,
+        options: action.playload.options
+      };
+    }
+
     default:
       return state;
   }
@@ -192,3 +206,6 @@ export const selectValueY = (store, rowIndex) =>
   getProductTemplateState(store)
     ? getProductTemplateState(store).templateItems[rowIndex].size.y
     : 0;
+
+export const selectOptions = store =>
+  getProductTemplateState(store) ? getProductTemplateState(store).options : [];
