@@ -2,7 +2,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectCheckedTemplateItems } from 'store/ducks/productTemplate';
-import { template } from 'handlebars';
 
 const ConfirmStep = () => {
   const productTemplateState = useSelector(store => store.productTemplates);
