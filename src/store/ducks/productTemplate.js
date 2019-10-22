@@ -1,6 +1,7 @@
 const types = {
   SET_TEMPLATE_NAME: 'SET_TEMPLATE_NAME',
-  SET_ITEMS: 'SET_ITEMS',
+  SET_VALUE_X: 'SET_VALUE_X',
+  SET_VALUE_Y: 'SET_VALUE_Y',
   SET_ITEM: 'SET_ITEM',
   SET_OPTION: 'SET_OPTION',
   RESET: 'RESET'
@@ -9,7 +10,7 @@ const types = {
 const INITIAL_STATE = {
   name: '',
   option: '0',
-  selectedItems: {}
+  templateItems: {}
 };
 
 export const setTemplateName = name => ({
@@ -17,9 +18,14 @@ export const setTemplateName = name => ({
   playload: { name }
 });
 
-export const setItems = items => ({
-  type: types.SET_ITEMS,
-  playload: { items }
+export const setValueX = (optionId, x) => ({
+  type: types.SET_VALUE_X,
+  playload: { optionId, x }
+});
+
+export const setValueY = (optionId, y) => ({
+  type: types.SET_VALUE_Y,
+  playload: { optionId, y }
 });
 
 export const setItem = item => ({
@@ -33,6 +39,11 @@ export const setOption = option => ({
 });
 
 export const resetTemplateState = () => ({ type: types.RESET });
+
+export const setDatatableState = state => ({
+  type: types.SET_DATATABLE_STATE,
+  playload: { state }
+});
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {

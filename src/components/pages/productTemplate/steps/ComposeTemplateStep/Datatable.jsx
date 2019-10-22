@@ -1,21 +1,31 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { withSnackbar } from 'notistack';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 //Common components
 import MuiDatatable from 'components/common/tables/MuiDatatable';
 //core
-import TemplateItemSelect from './TemplateItemSelect';
 import InfoItem from './InfoItem';
+import Medida from './Medida';
 
-const optionStyle = {
+const useStyle = makeStyles({
   EditCell: { textAlign: 'right' },
-  NameCell: { fontWeight: 500 }
-};
+  NameCell: { fontWeight: 500 },
+  QuantityTextField: {
+    maxWidth: 40,
+    textAlign: 'center'
+  }
+});
 
-const DataTable = ({ data, classes }) => {
+const DataTable = ({ dataItems, dataOptions }) => {
+  const classes = useStyle();
+  const dispatch = useDispatch();
   const columns = [
     {
       name: '_id',
@@ -27,7 +37,7 @@ const DataTable = ({ data, classes }) => {
       }
     },
     {
-      name: 'name',
+      name: 'option.name',
       label: 'Nome da opção',
       options: {
         filter: true,
@@ -40,20 +50,20 @@ const DataTable = ({ data, classes }) => {
       }
     },
     {
-      name: 'items',
-      label: 'Itens ',
+      name: 'name',
+      label: 'Nome do item ',
       options: {
         sort: false,
-        filter: false,
+        filter: false
         // TODO: exibir medida de acordo com a tabela de preço - cada item pode ter uma unidade diferente
         // eslint-disable-next-line react/display-name
-        customBodyRender: (items, tableMeta) => {
-          // eslint-disable-next-line no-console
-          console.log('items', items, 'Table meta', tableMeta);
-          const [_id, name] = tableMeta.rowData;
-          const option = { name, _id };
-          return <TemplateItemSelect items={items} option={option} />;
-        }
+        // customBodyRender: (items, tableMeta) => {
+        //   // eslint-disable-next-line no-console
+        //   console.log('items', items, 'Table meta', tableMeta);
+        //   const [_id, name] = tableMeta.rowData;
+        //   const option = { name, _id };
+        //   return <TemplateItemSelect items={items} option={option} />;
+        // }
       }
     },
     {
@@ -64,55 +74,82 @@ const DataTable = ({ data, classes }) => {
         filter: false,
         // TODO: renderizar componentes para medidas aqui
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
-          return <h5>Quantidade: {unit}</h5>;
+          return <TextField className={classes.QuantityTextField} value={1} />;
         }
       }
     },
     {
-      name: 'unit',
+      name: 'priceTableId.unit',
       label: 'medida',
       options: {
         sort: false,
         filter: false,
         // TODO: renderizar componentes para medidas aqui
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
-          console.log('tableMeta>', tableMeta);
-          return <h4>Unidade: {unit}</h4>;
+          console.log('meta', tableMeta);
+          // const { rowData } = tableMeta;
+          // const [optionId] = rowData;
+          const hasUnit = unit !== 'quantidade' && unit;
+
+          return hasUnit && <Medida optionId={''} />;
         }
       }
     },
     {
-      name: 'add',
-      label: 'duplicar',
+      name: 'selected',
+      label: 'Selecionar',
       options: {
-        sort: false,
-        filter: false,
-        // TODO: botao para duplicar linha
-        customBodyRender: function renderUnitComponent(_, tableMeta) {
-          return <a href="#">+</a>;
+        sort: true,
+        filter: true,
+        customBodyRender: function renderSwitchSelect(
+          value,
+          tableMeta,
+          updateValue
+        ) {
+          return (
+            <FormControlLabel
+              label={value ? 'Yes' : 'No'}
+              value={value ? 'Yes' : 'No'}
+              control={
+                <Switch
+                  color="primary"
+                  checked={value}
+                  value={value ? 'Yes' : 'No'}
+                />
+              }
+              onChange={event => {
+                updateValue(event.target.value === 'Yes' ? false : true);
+              }}
+            />
+          );
         }
       }
     }
   ];
+
   const options = {
     filterType: 'checkbox',
     download: false,
     print: false,
-    filter: false,
-    viewColumns: false,
+    filter: true,
+    viewColumns: true,
     rowHover: false,
+    selectableRows: 'none',
     textLabels: {
       body: {
         noMatch: 'empty'
       }
     },
-    customToolbarSelect: () => {}
+    customToolbarSelect: () => {},
+    onRowsSelect: function selecionaLinhas(selectedRow, allSelectedRows) {
+      console.log('linhas selecionadas:', selectedRow);
+    }
   };
 
   return (
     <MuiDatatable
-      title={<InfoItem options={data} />}
-      data={data}
+      title={<InfoItem options={dataOptions} />}
+      data={dataItems}
       columns={columns}
       options={options}
     />
@@ -121,7 +158,8 @@ const DataTable = ({ data, classes }) => {
 
 DataTable.propTypes = {
   classes: PropTypes.object.isRequired,
-  data: PropTypes.array
+  dataItems: PropTypes.array,
+  dataOptions: PropTypes.array
 };
 
-export default withSnackbar(withStyles(optionStyle)(DataTable));
+export default withSnackbar(DataTable);
