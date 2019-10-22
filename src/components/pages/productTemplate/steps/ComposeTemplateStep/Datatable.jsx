@@ -91,6 +91,7 @@ const DataTable = ({ dataItems, dataOptions }) => {
           tableMeta,
           updateValue
         ) {
+          // eslint-disable-next-line no-console
           console.log('value', value);
           return (
             <FormControlLabel
