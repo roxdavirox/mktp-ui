@@ -1,12 +1,17 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Datatable from './Datatable';
 import { getEndpoint } from 'helpers/api';
+import {
+  fetchTemplateItems,
+  selectTemplateItems
+} from 'store/ducks/productTemplate';
 
 const TemplateContainer = () => {
   const [options, setOptions] = useState([]);
-  const [items, setTemplateItems] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
     const optionsEndpoint = getEndpoint('/options');
     fetch(optionsEndpoint)
@@ -16,12 +21,10 @@ const TemplateContainer = () => {
   }, []);
 
   useEffect(() => {
-    const templateItemsEndpoint = getEndpoint('/items/templates');
-    fetch(templateItemsEndpoint)
-      .then(res => res.json())
-      .then(({ items }) => setTemplateItems(items))
-      .catch(e => console.log('erro:', e));
+    dispatch(fetchTemplateItems());
   }, []);
+
+  const items = useSelector(selectTemplateItems);
 
   return (
     <>
