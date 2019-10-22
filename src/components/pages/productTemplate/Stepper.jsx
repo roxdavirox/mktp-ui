@@ -67,7 +67,7 @@ export default function HorizontalLabelPositionBelowStepper() {
       option: item.option._id,
       item: item._id,
       quantity: item.quantity,
-      measurement: item.measurement
+      size: item.size || undefined
     }));
     const body = {
       name,
