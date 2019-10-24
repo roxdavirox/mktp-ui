@@ -35,12 +35,14 @@ const Size = ({ rowIndex }) => {
   return (
     <>
       <TextField
+        type="number"
         onChange={handleValueXChange}
         placeholder={'x'}
         value={valueX}
         className={classes.TextField}
       />{' '}
       <TextField
+        type="number"
         onChange={handleValueYChange}
         placeholder={'y'}
         value={valueY}

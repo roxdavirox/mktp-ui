@@ -25,6 +25,7 @@ const Quantity = ({ rowIndex }) => {
   return (
     <>
       <TextField
+        type="number"
         onChange={handleChangeQuantity}
         value={quantity}
         placeholder={'1'}

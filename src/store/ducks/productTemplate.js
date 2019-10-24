@@ -213,7 +213,10 @@ export default function reducer(state = INITIAL_STATE, action) {
       state.templateItems[rowIndex].price = priceValue;
       return {
         ...state,
-        templateItems: state.templateItems
+        templateItems: state.templateItems,
+        total: state.templateItems
+          .filter(item => item.isChecked)
+          .reduce((total, item) => total + item.price, 0)
       };
     }
 
