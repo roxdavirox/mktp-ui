@@ -13,7 +13,7 @@ const types = {
   SET_VALUE_Y: 'SET_VALUE_Y',
   SET_OPTIONS: 'SET_OPTIONS',
   FETCH_TOTAL: 'FETCH_TOTAL',
-  SET_TOTAL: 'SET_TOTAL'
+  SET_PRICE_VALUE: 'SET_PRICE_VALUE'
 };
 
 const INITIAL_STATE = {
@@ -70,14 +70,14 @@ export const setOptions = options => ({
   playload: { options }
 });
 
-export const fetchTotal = templateRow => ({
+export const fetchTotal = (rowIndex, templateItem) => ({
   type: types.FETCH_TOTAL,
-  playload: { templateRow }
+  playload: { rowIndex, templateItem }
 });
 
-export const setTotal = total => ({
-  type: types.SET_TOTAL,
-  playload: { total }
+export const setPriceValue = (rowIndex, priceValue) => ({
+  type: types.SET_PRICE_VALUE,
+  playload: { rowIndex, priceValue }
 });
 
 // middlewares
@@ -100,9 +100,9 @@ export const fetchTemplateItemsMiddleware = ({
 
 export const fetchTotalMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.FETCH_TOTAL) {
-    const { templateRow } = action.playload;
+    const { rowIndex, templateItem } = action.playload;
     console.log('playload:', action.playload);
-    const { priceTableId: priceTable, quantity, size } = templateRow;
+    const { priceTableId: priceTable, quantity, size } = templateItem;
     const { _id: priceTableId } = priceTable;
     const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
 
@@ -115,7 +115,7 @@ export const fetchTotalMiddleware = ({ dispatch }) => next => action => {
 
     fetch(endpoint, request)
       .then(res => res.json())
-      .then(({ total }) => dispatch(setTotal(total)))
+      .then(({ total }) => dispatch(setPriceValue(rowIndex, total)))
       .catch(error => {
         console.log(`Error on get total value ${error}`);
       });
@@ -154,6 +154,7 @@ export default function reducer(state = INITIAL_STATE, action) {
             return { ...item, size: { x: 0, y: 0 } };
           }
         })
+        .map(item => ({ ...item, price: 0 }))
         .filter(item => item.priceTableId);
 
       return {
@@ -207,10 +208,12 @@ export default function reducer(state = INITIAL_STATE, action) {
       };
     }
 
-    case types.SET_TOTAL: {
+    case types.SET_PRICE_VALUE: {
+      const { rowIndex, priceValue } = action.playload;
+      state.templateItems[rowIndex].price = priceValue;
       return {
         ...state,
-        total: state.total + action.playload.total
+        templateItems: state.templateItems
       };
     }
 

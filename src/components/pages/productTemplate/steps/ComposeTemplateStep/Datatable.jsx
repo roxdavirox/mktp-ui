@@ -107,14 +107,25 @@ const DataTable = ({ dataItems, dataOptions }) => {
               onChange={event => {
                 const isChecked = event.target.value === 'Yes' ? false : true;
                 dispatch(setCheckedItem(tableMeta.rowIndex, isChecked));
-                const templateRow = dataItems[tableMeta.rowIndex];
+                const templateItem = dataItems[tableMeta.rowIndex];
                 if (isChecked) {
-                  dispatch(fetchTotal(templateRow));
+                  dispatch(fetchTotal(tableMeta.rowIndex, templateItem));
                 }
                 updateValue(isChecked);
               }}
             />
           );
+        }
+      }
+    },
+    {
+      name: 'price',
+      label: 'Preço',
+      options: {
+        sort: false,
+        filter: false,
+        customBodyRender: function renderPriceValue(price, tableMeta) {
+          return price ? price : 0;
         }
       }
     }
