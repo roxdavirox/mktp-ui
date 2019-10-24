@@ -27,7 +27,7 @@ const Quantity = ({ rowIndex }) => {
       <TextField
         type="number"
         onChange={handleChangeQuantity}
-        value={quantity}
+        value={quantity < 0 ? 0 : quantity}
         placeholder={'1'}
         className={classes.TextField}
       />
