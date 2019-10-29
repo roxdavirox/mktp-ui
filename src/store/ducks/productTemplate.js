@@ -223,7 +223,8 @@ export default function reducer(state = INITIAL_STATE, action) {
     case types.SET_OPTIONS: {
       return {
         ...state,
-        options: action.playload.options
+        options: action.playload.options,
+        total: 0
       };
     }
 

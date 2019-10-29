@@ -2,7 +2,11 @@
 import React, { useEffect } from 'react';
 import Stepper from './Stepper';
 import { useDispatch } from 'react-redux';
-import { fetchTemplateItems, setOptions } from 'store/ducks/productTemplate';
+import {
+  fetchTemplateItems,
+  setOptions,
+  resetTemplateState
+} from 'store/ducks/productTemplate';
 import { getEndpoint } from 'helpers/api';
 
 const ProductTemplatePage = () => {
@@ -18,6 +22,9 @@ const ProductTemplatePage = () => {
 
   useEffect(() => {
     dispatch(fetchTemplateItems());
+    return () => {
+      dispatch(resetTemplateState()); // clear component
+    };
   }, []);
 
   return <Stepper />;
