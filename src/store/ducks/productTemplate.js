@@ -170,7 +170,8 @@ export default function reducer(state = INITIAL_STATE, action) {
 
       return {
         ...state,
-        templateItems
+        templateItems,
+        total: 0
       };
     }
 
@@ -244,7 +245,10 @@ export default function reducer(state = INITIAL_STATE, action) {
       templateItems.splice(rowIndex + 1, 0, { ...templateItems[rowIndex] });
       return {
         ...state,
-        templateItems
+        templateItems,
+        total: state.templateItems
+          .filter(item => item.isChecked)
+          .reduce((total, item) => total + item.price, 0)
       };
     }
 
