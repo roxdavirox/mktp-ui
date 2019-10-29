@@ -60,7 +60,6 @@ const DataTable = ({ dataItems, dataOptions }) => {
       options: {
         sort: false,
         filter: false,
-        // TODO: renderizar componentes para medidas aqui
         customBodyRender: function renderUnitComponent(value, tableMeta) {
           return <Quantity rowIndex={tableMeta.rowIndex} />;
         }
@@ -72,7 +71,6 @@ const DataTable = ({ dataItems, dataOptions }) => {
       options: {
         sort: false,
         filter: false,
-        // TODO: renderizar componentes para medidas aqui
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
           const hasUnit = unit !== 'quantidade' && unit;
 
@@ -108,9 +106,9 @@ const DataTable = ({ dataItems, dataOptions }) => {
                 const isChecked = event.target.value === 'Yes' ? false : true;
                 dispatch(setCheckedItem(tableMeta.rowIndex, isChecked));
                 const templateItem = dataItems[tableMeta.rowIndex];
-                if (isChecked) {
-                  dispatch(fetchTotal(tableMeta.rowIndex, templateItem));
-                }
+                dispatch(
+                  fetchTotal(tableMeta.rowIndex, templateItem, isChecked)
+                );
                 updateValue(isChecked);
               }}
             />

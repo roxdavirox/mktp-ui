@@ -70,9 +70,9 @@ export const setOptions = options => ({
   playload: { options }
 });
 
-export const fetchTotal = (rowIndex, templateItem) => ({
+export const fetchTotal = (rowIndex, templateItem, isChecked) => ({
   type: types.FETCH_TOTAL,
-  playload: { rowIndex, templateItem }
+  playload: { rowIndex, templateItem, isChecked }
 });
 
 export const setPriceValue = (rowIndex, priceValue) => ({
@@ -100,8 +100,13 @@ export const fetchTemplateItemsMiddleware = ({
 
 export const fetchTotalMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.FETCH_TOTAL) {
-    const { rowIndex, templateItem } = action.playload;
+    const { rowIndex, templateItem, isChecked } = action.playload;
     console.log('playload:', action.playload);
+    if (!isChecked) {
+      dispatch(setPriceValue(rowIndex, 0));
+      next(action);
+      return;
+    }
     const { priceTableId: priceTable, quantity, size } = templateItem;
     const { _id: priceTableId } = priceTable;
     const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
@@ -151,10 +156,10 @@ export default function reducer(state = INITIAL_STATE, action) {
           if (item.priceTableId && item.priceTableId.unit === 'quantidade') {
             return item;
           } else {
-            return { ...item, size: { x: 0, y: 0 } };
+            return { ...item, size: { x: 1, y: 1 } };
           }
         })
-        .map(item => ({ ...item, price: 0 }))
+        .map(item => ({ ...item, price: 0, quantity: 1 }))
         .filter(item => item.priceTableId);
 
       return {
@@ -247,7 +252,7 @@ export const selectCheckedTemplateItems = store =>
 export const selectQuantity = (store, rowIndex) =>
   getProductTemplateState(store)
     ? getProductTemplateState(store).templateItems[rowIndex].quantity
-    : 0;
+    : 1;
 
 export const selectTotal = store =>
   getProductTemplateState(store) ? getProductTemplateState(store).total : 0;

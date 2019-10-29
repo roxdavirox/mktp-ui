@@ -6,7 +6,7 @@ import { setQuantity, selectQuantity } from 'store/ducks/productTemplate';
 
 const useStyles = makeStyles({
   TextField: {
-    maxWidth: 35,
+    maxWidth: 45,
     textAlign: 'center'
   }
 });
@@ -27,7 +27,7 @@ const Quantity = ({ rowIndex }) => {
       <TextField
         type="number"
         onChange={handleChangeQuantity}
-        value={quantity < 0 ? 0 : quantity}
+        value={quantity <= 0 ? 1 : quantity || 1}
         placeholder={'1'}
         className={classes.TextField}
       />

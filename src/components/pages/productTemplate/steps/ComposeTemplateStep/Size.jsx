@@ -11,7 +11,7 @@ import {
 
 const useStyles = makeStyles({
   TextField: {
-    maxWidth: 35,
+    maxWidth: 65,
     textAlign: 'center'
   }
 });
@@ -38,14 +38,14 @@ const Size = ({ rowIndex }) => {
         type="number"
         onChange={handleValueXChange}
         placeholder={'x'}
-        value={valueX < 0 ? 0 : valueX}
+        value={valueX <= 0 ? 1 : valueX || 1}
         className={classes.TextField}
       />{' '}
       <TextField
         type="number"
         onChange={handleValueYChange}
         placeholder={'y'}
-        value={valueY < 0 ? 0 : valueY}
+        value={valueY <= 0 ? 1 : valueY || 1}
         className={classes.TextField}
       />{' '}
     </>
