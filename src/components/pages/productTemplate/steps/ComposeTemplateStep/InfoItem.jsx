@@ -6,8 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 // core components
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Build from '@material-ui/icons/Build';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
@@ -16,7 +14,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 // theme components
 import GridContainer from 'components/theme/Grid/GridContainer.jsx';
 import GridItem from 'components/theme/Grid/GridItem.jsx';
-import CustomInput from 'components/theme/CustomInput/CustomInput.jsx';
 
 import {
   setTemplateName,
@@ -56,7 +53,7 @@ const InfoItem = ({ options }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const option = useSelector(selectOption);
-
+  const templateName = useSelector(selectTemplateName);
   const handleChangeSelect = e => dispatch(setOption(e.target.value));
 
   return (
@@ -65,7 +62,7 @@ const InfoItem = ({ options }) => {
         <GridItem xs={12} sm={6}>
           <FormControl className={classes.formControl}>
             <TextField
-              value={name}
+              value={name || templateName}
               placeholder="Nome do template"
               onChange={e => setName(e.target.value)}
               onBlur={e => dispatch(setTemplateName(e.target.value))}
