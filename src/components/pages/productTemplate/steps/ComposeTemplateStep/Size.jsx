@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,7 +7,8 @@ import {
   setValueX,
   selectValueX,
   selectValueY,
-  setValueY
+  setValueY,
+  fetchTotal
 } from 'store/ducks/productTemplate';
 
 const useStyles = makeStyles({
@@ -17,16 +19,23 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Size = ({ rowIndex }) => {
+const Size = ({ rowIndex, templateItem }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const handleChange = () => {
+    const { isChecked } = templateItem;
+    dispatch(fetchTotal(rowIndex, templateItem, isChecked));
+  }
+
   const handleValueXChange = e => {
     dispatch(setValueX(rowIndex, e.target.value));
+    handleChange();
   };
 
   const handleValueYChange = e => {
     dispatch(setValueY(rowIndex, e.target.value));
+    handleChange();
   };
 
   const valueX = useSelector(store => selectValueX(store, rowIndex));

@@ -79,8 +79,13 @@ const DataTable = ({ dataItems, dataOptions }) => {
         filter: false,
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
           const hasUnit = unit !== 'quantidade' && unit;
+          const templateItem = dataItems[tableMeta.rowIndex];
 
-          return hasUnit && <Size rowIndex={tableMeta.rowIndex} />;
+          return (
+            hasUnit && (
+              <Size rowIndex={tableMeta.rowIndex} templateItem={templateItem} />
+            )
+          );
         }
       }
     },
