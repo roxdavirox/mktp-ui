@@ -61,7 +61,13 @@ const DataTable = ({ dataItems, dataOptions }) => {
         sort: false,
         filter: false,
         customBodyRender: function renderUnitComponent(value, tableMeta) {
-          return <Quantity rowIndex={tableMeta.rowIndex} />;
+          const templateItem = dataItems[tableMeta.rowIndex];
+          return (
+            <Quantity
+              rowIndex={tableMeta.rowIndex}
+              templateItem={templateItem}
+            />
+          );
         }
       }
     },
