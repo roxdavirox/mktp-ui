@@ -26,7 +26,7 @@ const Size = ({ rowIndex, templateItem }) => {
   const handleChange = () => {
     const { isChecked } = templateItem;
     dispatch(fetchTotal(rowIndex, templateItem, isChecked));
-  }
+  };
 
   const handleValueXChange = e => {
     dispatch(setValueX(rowIndex, e.target.value));

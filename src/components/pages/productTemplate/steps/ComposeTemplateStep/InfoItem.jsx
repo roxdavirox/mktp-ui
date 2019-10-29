@@ -66,6 +66,7 @@ const InfoItem = ({ options }) => {
           <FormControl className={classes.formControl}>
             <TextField
               value={name}
+              placeholder="Nome do template"
               onChange={e => setName(e.target.value)}
               onBlur={e => dispatch(setTemplateName(e.target.value))}
             />

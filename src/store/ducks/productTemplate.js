@@ -13,7 +13,8 @@ const types = {
   SET_VALUE_Y: 'SET_VALUE_Y',
   SET_OPTIONS: 'SET_OPTIONS',
   FETCH_TOTAL: 'FETCH_TOTAL',
-  SET_PRICE_VALUE: 'SET_PRICE_VALUE'
+  SET_PRICE_VALUE: 'SET_PRICE_VALUE',
+  DUPLICATE_ITEM: 'DUPLICATE_ITEM'
 };
 
 const INITIAL_STATE = {
@@ -78,6 +79,11 @@ export const fetchTotal = (rowIndex, templateItem, isChecked) => ({
 export const setPriceValue = (rowIndex, priceValue) => ({
   type: types.SET_PRICE_VALUE,
   playload: { rowIndex, priceValue }
+});
+
+export const duplicateItem = rowIndex => ({
+  type: types.DUPLICATE_ITEM,
+  playload: { rowIndex }
 });
 
 // middlewares
@@ -159,7 +165,7 @@ export default function reducer(state = INITIAL_STATE, action) {
             return { ...item, size: { x: 1, y: 1 } };
           }
         })
-        .map(item => ({ ...item, price: 0, quantity: 1 }))
+        .map(item => ({ ...item, price: 0, quantity: 1, isChecked: false }))
         .filter(item => item.priceTableId);
 
       return {
@@ -178,8 +184,9 @@ export default function reducer(state = INITIAL_STATE, action) {
     }
 
     case types.SET_QUANTITY: {
+      const { quantity } = action.playload;
       state.templateItems[action.playload.rowIndex].quantity =
-        action.playload.quantity;
+        quantity <= 0 ? 1 : quantity;
       return {
         ...state,
         templateItems: [...state.templateItems]
@@ -189,7 +196,10 @@ export default function reducer(state = INITIAL_STATE, action) {
     case types.SET_VALUE_X: {
       const { rowIndex, valueX } = action.playload;
 
-      state.templateItems[rowIndex].size.x = valueX;
+      state.templateItems[rowIndex].size = {
+        ...state.templateItems[rowIndex].size,
+        x: valueX <= 0 ? 1 : valueX
+      };
       return {
         ...state,
         templateItems: [...state.templateItems]
@@ -199,7 +209,10 @@ export default function reducer(state = INITIAL_STATE, action) {
     case types.SET_VALUE_Y: {
       const { rowIndex, valueY } = action.playload;
 
-      state.templateItems[rowIndex].size.y = valueY;
+      state.templateItems[rowIndex].size = {
+        ...state.templateItems[rowIndex].size,
+        y: valueY <= 0 ? 1 : valueY
+      };
       return {
         ...state,
         templateItems: [...state.templateItems]
@@ -222,6 +235,16 @@ export default function reducer(state = INITIAL_STATE, action) {
         total: state.templateItems
           .filter(item => item.isChecked)
           .reduce((total, item) => total + item.price, 0)
+      };
+    }
+
+    case types.DUPLICATE_ITEM: {
+      const { rowIndex } = action.playload;
+      const templateItems = state.templateItems;
+      templateItems.splice(rowIndex + 1, 0, { ...templateItems[rowIndex] });
+      return {
+        ...state,
+        templateItems
       };
     }
 

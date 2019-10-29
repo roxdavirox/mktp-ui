@@ -13,7 +13,12 @@ import MuiDatatable from 'components/common/tables/MuiDatatable';
 import InfoItem from './InfoItem';
 import Size from './Size';
 import Quantity from './Quantity';
-import { setCheckedItem, fetchTotal } from 'store/ducks/productTemplate';
+import {
+  setCheckedItem,
+  fetchTotal,
+  duplicateItem
+} from 'store/ducks/productTemplate';
+import DuplicateIcon from 'components/common/icons/DuplicateIcon';
 
 const useStyle = makeStyles({
   EditCell: { textAlign: 'right' },
@@ -137,6 +142,26 @@ const DataTable = ({ dataItems, dataOptions }) => {
           return price ? price : 0;
         }
       }
+    },
+    {
+      name: 'duplicate',
+      label: 'Duplicar',
+      options: {
+        sort: false,
+        filter: false,
+        customBodyRender: function renderDuplicateItem(value, tableMeta) {
+          return (
+            <DuplicateIcon
+              onClick={() => {
+                if (window.confirm('Deseja duplicar este item?')) {
+                  // eslint-disable-next-line no-console
+                  dispatch(duplicateItem(tableMeta.rowIndex));
+                }
+              }}
+            />
+          );
+        }
+      }
     }
   ];
 
@@ -147,13 +172,13 @@ const DataTable = ({ dataItems, dataOptions }) => {
     filter: true,
     viewColumns: true,
     rowHover: false,
-    selectableRows: 'none',
+    // selectableRows: 'none',
     textLabels: {
       body: {
         noMatch: 'empty'
       }
-    },
-    customToolbarSelect: () => {}
+    }
+    // customToolbarSelect: () => {}
   };
 
   return (
