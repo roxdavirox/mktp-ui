@@ -16,7 +16,8 @@ import Quantity from './Quantity';
 import {
   setCheckedItem,
   fetchTotal,
-  duplicateItem
+  duplicateItem,
+  deleteTemplateItems
 } from 'store/ducks/productTemplate';
 import DuplicateIcon from 'components/common/icons/DuplicateIcon';
 
@@ -176,6 +177,12 @@ const DataTable = ({ dataItems, dataOptions }) => {
     textLabels: {
       body: {
         noMatch: 'empty'
+      }
+    },
+    onRowsDelete: function rowsDelete(rows) {
+      const indexRows = rows.data.map(r => r.index);
+      if (indexRows) {
+        dispatch(deleteTemplateItems(indexRows));
       }
     }
     // customToolbarSelect: () => {}

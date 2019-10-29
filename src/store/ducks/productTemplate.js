@@ -14,7 +14,8 @@ const types = {
   SET_OPTIONS: 'SET_OPTIONS',
   FETCH_TOTAL: 'FETCH_TOTAL',
   SET_PRICE_VALUE: 'SET_PRICE_VALUE',
-  DUPLICATE_ITEM: 'DUPLICATE_ITEM'
+  DUPLICATE_ITEM: 'DUPLICATE_ITEM',
+  DELETE_TEMPLATE_ITEMS: 'DELETE_TEMPLATE_ITEMS'
 };
 
 const INITIAL_STATE = {
@@ -84,6 +85,11 @@ export const setPriceValue = (rowIndex, priceValue) => ({
 export const duplicateItem = rowIndex => ({
   type: types.DUPLICATE_ITEM,
   playload: { rowIndex }
+});
+
+export const deleteTemplateItems = indexRows => ({
+  type: types.DELETE_TEMPLATE_ITEMS,
+  playload: { indexRows }
 });
 
 // middlewares
@@ -250,6 +256,17 @@ export default function reducer(state = INITIAL_STATE, action) {
         total: state.templateItems
           .filter(item => item.isChecked)
           .reduce((total, item) => total + item.price, 0)
+      };
+    }
+
+    case types.DELETE_TEMPLATE_ITEMS: {
+      const { indexRows } = action.playload;
+      const templateItems = state.templateItems.filter(
+        (_, index) => indexRows.indexOf(index) === -1
+      );
+      return {
+        ...state,
+        templateItems
       };
     }
 
