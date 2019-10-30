@@ -225,8 +225,11 @@ export const editPriceMiddleware = ({ dispatch }) => next => action => {
 
     fetch(endpoint, request)
       .then(res => res.json())
-      .then(({ price }) => {
+      .then(({ price, newPrices }) => {
         dispatch(editPriceSuccess(price));
+        if (newPrices) {
+          dispatch(updateDeletedPricesSuccess(newPrices));
+        }
         snack('Preço atualizado com sucesso!', {
           variant: 'success',
           autoHideDuration: 2000
