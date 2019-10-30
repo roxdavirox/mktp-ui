@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import Datatable from './Datatable';
-import DialogContainer from './Dialogs';
+import DialogContainer from './_Dialogs';
 import { fetchPrices, getPrices, getPricesQuantity } from 'store/ducks/price';
 import { getPriceTableById } from 'store/ducks/priceTable';
 
