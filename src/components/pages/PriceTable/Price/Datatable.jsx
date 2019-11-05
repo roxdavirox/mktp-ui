@@ -124,7 +124,7 @@ const Datatable = ({
             ? data[rowIndex - 1].end
             : value;
           return priceTable.unit === 'quantidade' ? (
-            value
+            lastValue
           ) : (
             <PriceFormat value={lastValue} />
           );
