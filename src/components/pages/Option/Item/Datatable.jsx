@@ -8,7 +8,8 @@ import classNames from 'classnames';
 import MuiDatatable from 'components/common/tables/MuiDatatable';
 import { AddToolbar } from 'components/common/tables/Toolbar';
 import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
-
+import ItemIcon from 'components/common/icons/ItemIcon.jsx';
+import TemplateIcon from 'components/common/icons/TemplateIcon.jsx';
 const styles = {
   EditCell: { textAlign: 'right' },
   NameCell: { fontWeight: 500 }
@@ -58,6 +59,15 @@ const Datatable = ({ classes, onUpdate, onOpen, onRowsDelete, data }) => {
       options: {
         filter: true,
         sort: true
+      }
+    },
+    {
+      name: 'itemType',
+      label: 'tipo de item',
+      options: {
+        filter: false,
+        sort: false,
+        customBodyRender: (value, tableMeta) => value === 'item' ? <ItemIcon /> : <TemplateIcon />
       }
     },
     {
