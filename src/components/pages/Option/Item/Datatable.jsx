@@ -67,7 +67,8 @@ const Datatable = ({ classes, onUpdate, onOpen, onRowsDelete, data }) => {
       options: {
         filter: false,
         sort: false,
-        customBodyRender: (value, tableMeta) => value === 'item' ? <ItemIcon /> : <TemplateIcon />
+        customBodyRender: itemType =>
+          itemType === 'item' ? <ItemIcon /> : <TemplateIcon />
       }
     },
     {
