@@ -23,7 +23,7 @@ const styles = theme => ({
 });
 
 const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
-  const data = useSelector(store => getPrices(store));
+  const prices = useSelector(store => getPrices(store));
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(0);
   const [value, setValue] = useState(0);
@@ -83,8 +83,8 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
     console.log('start', start);
     console.log('end', end);
     console.log('value', value);
-    console.log('data', data);
-    if (data.length <= 0) {
+    console.log('prices', prices);
+    if (prices.length <= 0) {
       disableEditButton();
       return;
     }
@@ -94,27 +94,27 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
       return;
     }
 
-    const price = data.find(price => price._id === priceId);
-    const index = data.indexOf(price);
+    const price = prices.find(price => price._id === priceId);
+    const index = prices.indexOf(price);
     // editando primeira linha?
     if (
       index == 0 &&
-      data.length > 1 &&
+      prices.length > 1 &&
       start.floatValue !== end.floatValue &&
       start.floatValue < end.floatValue &&
-      end.floatValue < data[index + 1].start
+      end.floatValue < prices[index + 1].start
     ) {
       enableEditButton();
       return;
     } else if (
       index > 0 &&
       start.floatValue !== end.floatValue &&
-      data[index].start !== start.floatValue &&
-      data[index].end !== end.floatValue &&
+      prices[index].start !== start.floatValue &&
+      prices[index].end !== end.floatValue &&
       start.floatValue < end.floatValue &&
-      data[index - 1].end < start.floatValue &&
+      prices[index - 1].end < start.floatValue &&
       value.floatValue > 0 &&
-      (data.length - 1 === index || end.floatValue < data[index + 1].start)
+      (prices.length - 1 === index || end.floatValue < prices[index + 1].start)
     ) {
       enableEditButton();
       return;
