@@ -83,6 +83,7 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
     console.log('start', start);
     console.log('end', end);
     console.log('value', value);
+    console.log('data', data);
     if (data.length <= 0) {
       disableEditButton();
       return;
@@ -112,8 +113,8 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
       data[index].end !== end.floatValue &&
       start.floatValue < end.floatValue &&
       data[index - 1].end < start.floatValue &&
-      end.floatValue < data[index + 1].start &&
-      value.floatValue > 0
+      value.floatValue > 0 &&
+      (data.length - 1 === index || end.floatValue < data[index + 1].start)
     ) {
       enableEditButton();
       return;
