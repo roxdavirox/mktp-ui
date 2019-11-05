@@ -61,6 +61,9 @@ const AddPriceQuantity = ({
     handleClose();
   };
 
+  const enableEditButton = () => setButtonState(false);
+  const disableEditButton = () => setButtonState(true);
+
   const handleInputValidations = () => {
     console.log('validando inputs');
     console.log('data', data);
@@ -70,12 +73,12 @@ const AddPriceQuantity = ({
 
     if (
       data.length === 0 &&
-      start >= 0 &&
-      start < end &&
+      Number(start) >= 0 &&
+      Number(start) < Number(end) &&
       value.floatValue > 0
     ) {
       console.log('primeiro intervalo valido');
-      setButtonState(false);
+      enableEditButton();
       return;
     }
 
@@ -83,25 +86,24 @@ const AddPriceQuantity = ({
       // verifica se o intervalo pode ser adicionado ao meio
       if (
         i !== data.length - 1 && //não é a ultima linha ?
-        // i != 0 && // não é a primeira linha?
-        start > data[i].end &&
-        end < data[i + 1].start &&
-        end > start &&
+        Number(start) > Number(data[i].end) &&
+        Number(end) < Number(data[i + 1].start) &&
+        Number(end) > Number(start) &&
         value.floatValue > 0
       ) {
         console.log('é possivel adicionar aqui');
         console.log('data[i]', data[i]);
         console.log('data[i+1]', data[i + 1]);
         console.log('inicio:', start, 'final:', end);
-        setButtonState(false);
+        enableEditButton();
         return;
       }
 
       if (
         // eslint-disable-next-line prettier/prettier
-        start > data[data.length - 1].end &&
-        end > start &&
-        i == data.length - 1 && // ultima linha?
+        Number(start) > Number(data[data.length - 1].end) &&
+        Number(end) > Number(start) &&
+        // i == data.length - 1 && // ultima linha?
         value.floatValue > 0
       ) {
         console.log(
@@ -115,12 +117,12 @@ const AddPriceQuantity = ({
           'Próximo valor: ',
           start
         );
-        setButtonState(false);
+        enableEditButton();
         setEndPriceState(true);
         return;
       }
     }
-    setButtonState(true);
+    disableEditButton();
   };
 
   const handleClose = () => onClose();
