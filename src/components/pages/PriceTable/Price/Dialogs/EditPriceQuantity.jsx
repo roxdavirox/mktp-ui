@@ -95,14 +95,24 @@ const EditPrice = ({ enqueueSnackbar: snack, onClose, price }) => {
               fullWidth
               // format
               customInput={TextField}
-              defaultValue={value}
+              // defaultValue={value}
               value={value.formattedValue || value}
               prefix={'R$ '}
               fixedDecimalScale
               decimalSeparator={','}
               thousandSeparator={'.'}
               decimalScale={4}
-              onValueChange={_value => setValue(_value)}
+              onValueChange={_value => {
+                if (!_value.floatValue && !_value.value) {
+                  setValue({
+                    floatValue: 0,
+                    formattedValue: '0,0000',
+                    value: '0'
+                  });
+                  return;
+                }
+                setValue(_value);
+              }}
             />
           </FormControl>
         </form>
