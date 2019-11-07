@@ -196,12 +196,16 @@ const Datatable = ({
               )
             }
           />
-          {priceTable.unit !== 'quantidade' && (
-            <ViewListToolbar
-              title="Gerar intervalos"
-              onClick={() => openDialogType('GENERATE_PRICE')}
-            />
-          )}
+          <ViewListToolbar
+            title="Gerar intervalos"
+            onClick={() =>
+              openDialogType(
+                priceTable.unit === 'quantidade'
+                  ? 'GENERATE_PRICE_QTY'
+                  : 'GENERATE_PRICE'
+              )
+            }
+          />
         </>
       );
     },

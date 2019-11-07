@@ -11,8 +11,8 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { addPriceRange } from 'store/ducks/price';
 import { getPriceTableUnitById } from 'store/ducks/priceTable';
-import { getPriceRange } from 'helpers/PriceRange';
 import ReactNumberFormat from 'react-number-format';
+import { getPriceRange } from './GeneratePrice';
 
 const styles = theme => ({
   container: {
