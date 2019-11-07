@@ -10,6 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import ReactNumberFormat from 'react-number-format';
 import { generatePriceRange } from './GeneratePriceQty.js';
+import { addPriceRange } from 'store/ducks/price';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -24,12 +25,12 @@ const useStyles = makeStyles(theme => ({
   select: { height: '37px', width: '80px' }
 }));
 
-const GeneratePriceQty = ({ onClose }) => {
+const GeneratePriceQty = ({ onClose, enqueueSnackbar, priceTableId }) => {
   const classes = useStyles();
   const [cost, setPriceCost] = useState('');
   const [maiorMargemVenda, setMaiorMargemVenda] = useState('');
   const [menorMargemVenda, setMenorMargemVenda] = useState('');
-
+  const dispatch = useDispatch();
   const handleClose = () => onClose();
   const handleSubmit = () => {
     const prices = generatePriceRange(
@@ -37,7 +38,9 @@ const GeneratePriceQty = ({ onClose }) => {
       menorMargemVenda.floatValue,
       maiorMargemVenda.floatValue
     );
-    console.log('prices', prices);
+    const unit = 'quantidade';
+    dispatch(addPriceRange(prices, unit, priceTableId, enqueueSnackbar));
+    handleClose();
   };
 
   return (
@@ -108,7 +111,9 @@ const GeneratePriceQty = ({ onClose }) => {
 };
 
 GeneratePriceQty.propTypes = {
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  enqueueSnackbar: PropTypes.func,
+  priceTableId: PropTypes.string
 };
 
 export default GeneratePriceQty;
