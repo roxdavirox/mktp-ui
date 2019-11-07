@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import ReactNumberFormat from 'react-number-format';
+import { generatePriceRange } from './GeneratePriceQty.js';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -30,7 +31,14 @@ const GeneratePriceQty = ({ onClose }) => {
   const [menorMargemVenda, setMenorMargemVenda] = useState('');
 
   const handleClose = () => onClose();
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    const prices = generatePriceRange(
+      cost.floatValue,
+      menorMargemVenda.floatValue,
+      maiorMargemVenda.floatValue
+    );
+    console.log('prices', prices);
+  };
 
   return (
     <>
