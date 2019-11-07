@@ -113,7 +113,6 @@ export const fetchTemplateItemsMiddleware = ({
 export const fetchTotalMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.FETCH_TOTAL) {
     const { rowIndex, templateItem, isChecked } = action.playload;
-    console.log('playload:', action.playload);
     if (!isChecked) {
       dispatch(setPriceValue(rowIndex, 0));
       next(action);

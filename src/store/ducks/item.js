@@ -108,15 +108,7 @@ export const fetchItemsMiddleware = ({ dispatch }) => next => action => {
 
     fetch(url)
       .then(res => res.json())
-      .then(res => {
-        console.log('items response:', res);
-        return res;
-      })
       .then(({ items }) => normalize(items, [itemSchema]))
-      .then(res => {
-        console.log('normalized response:', res);
-        return res;
-      })
       .then(({ entities }) => dispatch(addEntities(entities)))
       .catch(e => console.log(e));
   }
@@ -190,7 +182,6 @@ export const addOptionItemMiddleware = ({ dispatch }) => next => action => {
 export const addExistingItemsMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_EXISTING_ITEMS) {
     const { itemsId, optionId, snack } = action.playload;
-    console.log('add optionId:', optionId);
     const body = { itemsId };
     const request = createPutRequest(body);
     const endpoint = getEndpoint(`/options/${optionId}`);
@@ -228,7 +219,6 @@ export const deleteItemsMiddleware = ({ dispatch }) => next => action => {
       .then(res => res.json())
       .then(res => {
         const { deletedItemsCount: count } = res;
-        console.log('delete res: ', res);
         if (count) {
           snack(`${count} ite${count == 1 ? 'm deletado' : 'ns deletados'}`, {
             variant: 'success',
@@ -255,7 +245,6 @@ export const deleteOptionItemsMiddleware = ({ dispatch }) => next => action => {
       .then(res => res.json())
       .then(res => {
         const { deletedItemsCount: count } = res;
-        console.log('delete res: ', res);
         if (count) {
           snack(`${count} ite${count == 1 ? 'm deletado' : 'ns deletados'}`, {
             variant: 'success',

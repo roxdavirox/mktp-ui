@@ -55,6 +55,7 @@ const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
   const handleClose = () => onClose();
 
   const priceTables = useSelector(store => getPriceTables(store));
+
   return (
     <>
       <DialogTitle id="form-dialog-title">Editar item</DialogTitle>
@@ -82,11 +83,12 @@ const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
               <MenuItem key="0" value="0">
                 Nenhum
               </MenuItem>
-              {priceTables.map(p => (
-                <MenuItem key={p._id} value={p._id}>
-                  {p.name}
-                </MenuItem>
-              ))}
+              {priceTables &&
+                priceTables.map(p => (
+                  <MenuItem key={p._id} value={p._id}>
+                    {p.name}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
         </form>

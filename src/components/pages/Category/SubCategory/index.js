@@ -9,7 +9,6 @@ import Dialog from './Dialog';
 
 const getCategoryId = () => {
   const { state } = history.location;
-  console.log('history', history);
   const { categoryId } = state;
   return categoryId;
 };

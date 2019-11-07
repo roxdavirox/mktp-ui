@@ -25,7 +25,6 @@ class ProductPage extends React.Component {
       id: op.id,
       items: op.items.map(i => i.id)
     }));
-    console.log('options', options);
     snack('Criando produto...', {
       variant: 'info',
       autoHideDuration: 2000
@@ -50,7 +49,6 @@ class ProductPage extends React.Component {
           variant: 'success',
           autoHideDuration: 2000
         });
-        console.log('produto', product);
         history.push('/admin/config/products/list');
       });
   };

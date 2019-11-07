@@ -17,7 +17,6 @@ const styles = {
 
 const TemplateEditor = ({ classes, location }) => {
   const [editor, setEditor] = useState(null);
-  console.log('location: ', location);
   useEffect(() => {
     const {
       CustomersCanvas: { IframeApi }
@@ -45,7 +44,6 @@ const TemplateEditor = ({ classes, location }) => {
       const { proofImageUrls, stateId } = result;
       const [arrImage] = proofImageUrls;
       const [imageUrl] = arrImage;
-      console.log('resultado: ', result);
       const request = createPostRequest({
         name: 'DefaultName',
         stateId,

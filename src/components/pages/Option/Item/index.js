@@ -88,8 +88,6 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
     });
 
     const itemsId = selectedItems.map(i => i._id);
-    console.log('selectedItems:', itemsId);
-    console.log('adicionando item na opção:', optionId);
     dispatch(addExistingItems(itemsId, optionId, snack));
     handleClose();
   };

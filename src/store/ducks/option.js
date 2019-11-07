@@ -47,15 +47,7 @@ export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
 
     fetch(endpoint)
       .then(res => res.json())
-      .then(res => {
-        console.log('response:', res);
-        return res;
-      })
       .then(({ options }) => normalize(options, [optionSchema]))
-      .then(res => {
-        console.log('normalized response:', res);
-        return res;
-      })
       .then(({ entities }) => dispatch(addEntities(entities)))
       .catch(error => {
         console.log(`Error on delete Options ${error}`);

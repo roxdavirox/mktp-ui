@@ -80,17 +80,12 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
   };
 
   const handleInputValidations = () => {
-    console.log('start', start);
-    console.log('end', end);
-    console.log('value', value);
-    console.log('prices', prices);
     if (prices.length <= 0) {
       disableEditButton();
       return;
     }
     if (!validateState()) {
       disableEditButton();
-      console.log('invalid');
       return;
     }
 

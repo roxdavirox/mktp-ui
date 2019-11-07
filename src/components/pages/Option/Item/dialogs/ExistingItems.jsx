@@ -54,7 +54,6 @@ const ExistingItems = props => {
   const items = useSelector(store => getItems(store));
   const { itemsId } = props;
   const allItems = items.filter(item => itemsId.indexOf(item._id) === -1);
-  console.log('items selecionados:', selectedItems);
   return (
     <>
       <DialogTitle id="form-dialog-title">

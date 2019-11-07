@@ -6,7 +6,6 @@ import MuiDialog from '@material-ui/core/Dialog';
 import GetComponentType from './types';
 
 const DialogContainer = props => {
-  console.log('type dialog', props.type);
   const Component = GetComponentType(props.type);
   return (
     <div>

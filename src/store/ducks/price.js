@@ -105,10 +105,6 @@ export const fetchPricesMiddleware = ({ dispatch }) => next => action => {
     fetch(endpoint)
       .then(res => res.json())
       .then(({ priceTable }) => normalize(priceTable.prices, [priceSchema]))
-      .then(res => {
-        console.log('normalized response preços:', res);
-        return res;
-      })
       .then(({ entities }) => dispatch(addEntities(entities)))
       .catch(e => console.log(e));
   }
@@ -148,7 +144,6 @@ export const addLastPriceMiddleware = ({ dispatch }) => next => action => {
     fetch(endpoint, request)
       .then(res => res.json())
       .then(({ prices }) => {
-        console.log('prices', prices);
         dispatch(addLastPriceSuccess(prices));
         snack('Preço adicionado com sucesso!', {
           variant: 'success',

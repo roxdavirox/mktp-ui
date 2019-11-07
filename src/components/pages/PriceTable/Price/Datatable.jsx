@@ -35,11 +35,9 @@ const Datatable = ({
     state: { priceTableId }
   } = location;
 
-  console.log('location', location);
   const priceTable = useSelector(store =>
     getPriceTableById(priceTableId, store)
   );
-  console.log('priceTable', priceTable);
 
   const handleRowsDelete = rows => {
     const { data: dataRows } = rows;
@@ -79,7 +77,6 @@ const Datatable = ({
           };
         },
         customBodyRender: function renderFormatedValue(value, tableMeta) {
-          console.log('tableMeta:', tableMeta);
           if (data.length <= 1) {
             return priceTable.unit === 'quantidade' ? (
               value

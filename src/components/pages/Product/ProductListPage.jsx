@@ -64,23 +64,19 @@ const parseProducts = products => {
 };
 
 const generateTree = data => {
-  console.log('data', data);
   const products = parseProducts(data);
-
-  console.log('produtos', products);
   const productRows = products.map(p => ({ id: p.id, name: p.name }));
-  console.log('product rows', productRows);
 
   const options = products
     .map(p => p.options)
     .reduce((options, option) => [...options, ...option], productRows);
-  console.log('options', options);
+
   const optionRows = options.map(o => ({
     id: o.id,
     name: o.name,
     parentId: o.parentId
   }));
-  console.log('optionrows', optionRows);
+
   const itemRows = options
     .filter(o => o.items)
     .map(o => o.items)
@@ -91,9 +87,8 @@ const generateTree = data => {
       parentId: i.parentId
     }));
 
-  console.log('itemsRows', itemRows);
   const rows = [...optionRows, ...itemRows];
-  console.log('rows', rows);
+
   return rows;
 };
 

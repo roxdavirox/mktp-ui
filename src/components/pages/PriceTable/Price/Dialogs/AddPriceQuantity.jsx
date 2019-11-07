@@ -65,19 +65,12 @@ const AddPriceQuantity = ({
   const disableEditButton = () => setButtonState(true);
 
   const handleInputValidations = () => {
-    console.log('validando inputs');
-    console.log('data', data);
-    console.log('start', start);
-    console.log('end', end);
-    console.log('value', value);
-
     if (
       data.length === 0 &&
       Number(start) >= 0 &&
       Number(start) < Number(end) &&
       value.floatValue > 0
     ) {
-      console.log('primeiro intervalo valido');
       enableEditButton();
       return;
     }
@@ -91,10 +84,6 @@ const AddPriceQuantity = ({
         Number(end) > Number(start) &&
         value.floatValue > 0
       ) {
-        console.log('é possivel adicionar aqui');
-        console.log('data[i]', data[i]);
-        console.log('data[i+1]', data[i + 1]);
-        console.log('inicio:', start, 'final:', end);
         enableEditButton();
         return;
       }
@@ -106,17 +95,6 @@ const AddPriceQuantity = ({
         // i == data.length - 1 && // ultima linha?
         value.floatValue > 0
       ) {
-        console.log(
-          'a ultima linha possui o valor inicial maior que o ultimo valor final'
-        );
-        console.log(
-          'index =',
-          i,
-          'Ultimo valor:',
-          data[data.length - 1].end,
-          'Próximo valor: ',
-          start
-        );
         enableEditButton();
         setEndPriceState(true);
         return;

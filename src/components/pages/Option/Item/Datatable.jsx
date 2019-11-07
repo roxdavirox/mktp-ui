@@ -19,7 +19,6 @@ const Datatable = ({ classes, onUpdate, onOpen, onRowsDelete, data }) => {
   const handleRowUpdate = (itemId, tableMeta) => {
     const [name, priceTableId, _id] = tableMeta.rowData;
     const item = { name, priceTableId, _id };
-    console.log('item update:', item);
     onUpdate(item);
   };
 

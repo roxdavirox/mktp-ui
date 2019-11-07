@@ -55,11 +55,8 @@ const GeneratePrice = ({
     const precoKg = kgPrice.floatValue;
 
     const pesoMaterial = (10000 * (espessura / 10) * pesoEspecifico) / 1000;
-    console.log(`Peso do material: ${pesoMaterial} kg`);
     const precoM2 = pesoMaterial * precoKg;
-    console.log(`Preço do m²: R$ ${precoM2}`);
-    const precoCm2 = (precoM2 / 10000).toFixed(4);
-    console.log(`Preço do cm²: R$ ${precoCm2}`);
+    // const precoCm2 = (precoM2 / 10000).toFixed(4);
 
     const maxLines = 30;
     const prices = getPriceRange({
@@ -70,7 +67,6 @@ const GeneratePrice = ({
       unit: unitsObj[unit].value, // metro ou centimentros quadrados  - cm² m²,
       precoDivisor: unitsObj[unit].precoDivisor
     });
-    console.log('prices: ', prices);
     snack('Adicionando intervalo de preços...', {
       variant: 'info',
       autoHideDuration: 4000
@@ -79,7 +75,6 @@ const GeneratePrice = ({
     dispatch(addPriceRange(prices, unit, priceTableId, snack));
     handleClose();
   };
-  console.log('peso especifico:', specificWeigth);
   return (
     <>
       <DialogTitle id="form-dialog-title">

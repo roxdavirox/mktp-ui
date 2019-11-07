@@ -48,10 +48,6 @@ export const fetchPriceTablesMiddleware = ({ dispatch }) => next => action => {
     fetch(endpoint)
       .then(res => res.json())
       .then(({ priceTables }) => normalize(priceTables, [priceTableSchema]))
-      .then(res => {
-        console.log('normalized response:', res);
-        return res;
-      })
       .then(({ entities }) => dispatch(addEntities(entities)))
       .catch(e => console.log(e));
   }

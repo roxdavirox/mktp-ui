@@ -7,9 +7,7 @@ import jwt from 'jsonwebtoken';
 
 const isAuthenticated = cookies => {
   const { jwt: authToken } = cookies;
-  console.log('cookies', cookies);
   const decodedJwt = jwt.decode(authToken);
-  console.log('decodedJWt', decodedJwt);
   return decodedJwt !== null && authToken !== null;
 };
 
