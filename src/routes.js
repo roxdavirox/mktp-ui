@@ -5,7 +5,6 @@ import Templates from 'components/pages/Product/Template';
 import Category from 'components/pages/Category';
 import SubCategory from 'components/pages/Category/SubCategory';
 import Option from 'components/pages/Option';
-import Item from 'components/pages/Item';
 import OptionItem from 'components/pages/Option/Item';
 import PriceTable from 'components/pages/PriceTable';
 import Price from 'components/pages/PriceTable/Price';
