@@ -3,12 +3,11 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import Dialog from './Dialog';
+import DialogContainer from './Dialogs';
 import Datatable from './Datatable';
 import { fetchOptions } from 'store/ducks/option';
 import {
   addOptionItem,
-  addExistingItems,
   deleteOptionItems,
   fetchItems,
   editItem,
@@ -24,9 +23,8 @@ const getOptionId = location => {
 
 const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
   const [open, setOpen] = useState(false);
-  const [mode, setDialogMode] = useState('add');
+  const [dialogType, setDialogType] = useState('ADD_ITEM');
   const [item, setItem] = useState({});
-  const [selectedItems, setSelectedItems] = useState([]);
   const dispatch = useDispatch();
   const optionId = getOptionId(location);
 
@@ -39,15 +37,14 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
     }
   }, []);
 
-  const handleOpen = mode => {
+  const handleOpen = dialogType => {
     setOpen(true);
-    setDialogMode(mode);
+    setDialogType(dialogType);
   };
 
   const handleClose = () => {
     setOpen(false);
     setItem(null);
-    setSelectedItems([]);
   };
 
   const handleAddOptionItem = item => {
@@ -72,39 +69,17 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
     handleClose();
   };
 
-  const handleExistingItem = () => {
-    if (selectedItems.length <= 0) {
-      snack('Nenhum item selecionado!', {
-        variant: 'error',
-        autoHideDuration: 2000
-      });
-      handleClose();
-      return;
-    }
-
-    snack('Adicionando item(s)...', {
-      variant: 'info',
-      autoHideDuration: 2000
-    });
-
-    const itemsId = selectedItems.map(i => i._id);
-    dispatch(addExistingItems(itemsId, optionId, snack));
-    handleClose();
-  };
-
   const handleUpdate = item => {
     setOpen(true);
-    setDialogMode('edit');
+    setDialogType('EDIT_ITEM');
     setItem(item);
   };
-
-  const handleSelect = items => setSelectedItems(items);
 
   const handleRowsDelete = rows => {
     const { data: dataRows } = rows;
     const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
 
-    const deletedItemsIds = indexRows.map(index => data[index]._id);
+    const deletedItemsIds = indexRows.map(index => items[index]._id);
 
     snack('Deletando...', {
       variant: 'info',
@@ -114,26 +89,22 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
     dispatch(deleteOptionItems(deletedItemsIds, optionId, snack));
   };
 
-  const data = useSelector(store => getOptionsItems(optionId, store));
-  const itemsId = data.map(item => item._id);
+  const items = useSelector(store => getOptionsItems(optionId, store));
+
   return (
     <>
       {open && (
-        <Dialog
-          selectedItems={selectedItems}
+        <DialogContainer
           open={open}
-          onExistingItems={handleExistingItem}
-          onSelect={handleSelect}
           onClose={handleClose}
-          mode={mode}
+          type={dialogType}
           item={item}
           onEdit={handleEditItem}
           onAddOptionItem={handleAddOptionItem}
-          itemsId={itemsId}
         />
       )}
       <Datatable
-        data={data}
+        data={items}
         onUpdate={handleUpdate}
         onOpen={handleOpen}
         onRowsDelete={handleRowsDelete}
@@ -143,11 +114,10 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
 };
 
 OptionItemPage.propTypes = {
-  data: PropTypes.any.isRequired,
+  items: PropTypes.any.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   addOptionItem: PropTypes.func.isRequired,
   editItem: PropTypes.func.isRequired,
-  addExistingItems: PropTypes.func.isRequired,
   optionId: PropTypes.string.isRequired,
   deleteOptionItems: PropTypes.func.isRequired,
   priceTables: PropTypes.array.isRequired,

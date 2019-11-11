@@ -17,8 +17,9 @@ const styles = {
 
 const Datatable = ({ classes, onUpdate, onOpen, onRowsDelete, data }) => {
   const handleRowUpdate = (itemId, tableMeta) => {
-    const [name, priceTableId, _id] = tableMeta.rowData;
-    const item = { name, priceTableId, _id };
+    console.log('meta', tableMeta);
+    const [name, priceTableId] = tableMeta.rowData;
+    const item = { name, priceTableId, _id: itemId };
     onUpdate(item);
   };
 
@@ -42,7 +43,7 @@ const Datatable = ({ classes, onUpdate, onOpen, onRowsDelete, data }) => {
         <>
           <AddToolbar
             title="Adicionar Item"
-            onClick={() => onOpen('add')}
+            onClick={() => onOpen('ADD_ITEM')}
             aria-owns="add-menu"
             aria-haspopup="true"
           />
@@ -84,10 +85,10 @@ const Datatable = ({ classes, onUpdate, onOpen, onRowsDelete, data }) => {
       options: {
         sort: false,
         filter: false,
-        customBodyRender: (value, tableMeta) => (
+        customBodyRender: (itemId, tableMeta) => (
           <MoreHorizIcon
             key={tableMeta.columnIndex}
-            onClick={() => handleRowUpdate(value, tableMeta)}
+            onClick={() => handleRowUpdate(itemId, tableMeta)}
           />
         ),
         setCellProps: () => {
