@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import MuiDatatable from 'components/common/tables/MuiDatatable';
 import { AddToolbar } from 'components/common/tables/Toolbar';
@@ -95,12 +96,31 @@ const Datatable = ({
       options: {
         sort: false,
         filter: false,
-        customBodyRender: (itemId, tableMeta) => (
-          <MoreHorizIcon
-            key={tableMeta.columnIndex}
-            onClick={() => handleOpenEditItem(itemId, tableMeta)}
-          />
-        ),
+        customBodyRender: (itemId, tableMeta) => {
+          const [_, itemType] = tableMeta.rowData;
+          console.log('type', itemType);
+          return itemType === 'item' ? (
+            <MoreHorizIcon
+              key={tableMeta.columnIndex}
+              onClick={() => handleOpenEditItem(itemId, tableMeta)}
+            />
+          ) : (
+            <Link
+              to={{
+                pathname: '/admin/config/option/template',
+                state: {
+                  fromRedirect: true,
+                  itemId
+                }
+              }}
+            >
+              <MoreHorizIcon
+                key={tableMeta.columnIndex}
+                onClick={() => handleOpenEditItem(itemId, tableMeta)}
+              />
+            </Link>
+          );
+        },
         setCellProps: () => {
           return {
             className: classNames({ [classes.EditCell]: true })
