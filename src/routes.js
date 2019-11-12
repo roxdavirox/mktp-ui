@@ -67,7 +67,7 @@ var dashRoutes = [
       },
       {
         path: '/config/price-table',
-        name: 'Tabelas de preços',
+        name: 'Tabelas de preço',
         mini: 'TP',
         layout: '/admin',
         component: PriceTable
