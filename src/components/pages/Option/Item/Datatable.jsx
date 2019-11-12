@@ -15,12 +15,22 @@ const styles = {
   NameCell: { fontWeight: 500 }
 };
 
-const Datatable = ({ classes, onUpdate, onOpen, onRowsDelete, data }) => {
-  const handleRowUpdate = (itemId, tableMeta) => {
-    console.log('meta', tableMeta);
-    const [name, priceTableId] = tableMeta.rowData;
-    const item = { name, priceTableId, _id: itemId };
-    onUpdate(item);
+const Datatable = ({
+  classes,
+  onUpdate: setEditedItem,
+  onOpen,
+  onRowsDelete,
+  data
+}) => {
+  const handleOpenEditItem = (itemId, tableMeta) => {
+    const [name, itemType, priceTableId] = tableMeta.rowData;
+    const item = {
+      name,
+      itemType,
+      priceTableId: itemType === 'item' ? priceTableId : undefined,
+      _id: itemId
+    };
+    setEditedItem(item);
   };
 
   const options = {
@@ -88,7 +98,7 @@ const Datatable = ({ classes, onUpdate, onOpen, onRowsDelete, data }) => {
         customBodyRender: (itemId, tableMeta) => (
           <MoreHorizIcon
             key={tableMeta.columnIndex}
-            onClick={() => handleRowUpdate(itemId, tableMeta)}
+            onClick={() => handleOpenEditItem(itemId, tableMeta)}
           />
         ),
         setCellProps: () => {

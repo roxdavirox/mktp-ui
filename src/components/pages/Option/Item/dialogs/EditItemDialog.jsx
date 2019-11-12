@@ -37,7 +37,7 @@ const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
   useEffect(() => {
     if (item) {
       setItemName(item.name || '');
-      setPriceTableId(item.priceTableId || '0');
+      setPriceTableId(item.priceTableId ? item.priceTableId._id : '0');
       setItemId(item._id || '');
     }
     dispatch(fetchPriceTables());
@@ -55,7 +55,6 @@ const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
   const handleClose = () => onClose();
 
   const priceTables = useSelector(store => getPriceTables(store));
-
   return (
     <>
       <DialogTitle id="form-dialog-title">Editar item</DialogTitle>
@@ -72,25 +71,29 @@ const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
               onChange={handleNameChange}
             />
           </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="price-table-input">Tabela de preço</InputLabel>
-            <Select
-              className={classes.select}
-              value={priceTableId}
-              onChange={handlePriceTableChange}
-              input={<Input id="price-table-input" />}
-            >
-              <MenuItem key="0" value="0">
-                Nenhum
-              </MenuItem>
-              {priceTables &&
-                priceTables.map(p => (
-                  <MenuItem key={p._id} value={p._id}>
-                    {p.name}
-                  </MenuItem>
-                ))}
-            </Select>
-          </FormControl>
+          {item.priceTableId && (
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="price-table-input">
+                Tabela de preço
+              </InputLabel>
+              <Select
+                className={classes.select}
+                value={priceTableId}
+                onChange={handlePriceTableChange}
+                input={<Input id="price-table-input" />}
+              >
+                <MenuItem key="0" value="0">
+                  Nenhum
+                </MenuItem>
+                {priceTables &&
+                  priceTables.map(p => (
+                    <MenuItem key={p._id} value={p._id}>
+                      {p.name}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+          )}
         </form>
       </DialogContent>
       <DialogActions>

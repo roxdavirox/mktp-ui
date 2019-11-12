@@ -90,7 +90,6 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
   };
 
   const items = useSelector(store => getOptionsItems(optionId, store));
-
   return (
     <>
       {open && (

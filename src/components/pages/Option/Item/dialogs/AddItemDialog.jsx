@@ -49,7 +49,6 @@ const AddItemDialog = ({ classes, onAddOptionItem, onClose }) => {
 
   const handleClose = () => onClose();
   const priceTables = useSelector(store => getPriceTables(store));
-
   return (
     <>
       <DialogTitle id="form-dialog-title">Adicionar item</DialogTitle>
