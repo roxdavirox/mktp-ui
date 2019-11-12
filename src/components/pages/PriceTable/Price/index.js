@@ -27,6 +27,8 @@ const PricePage = props => {
     setPrice(price);
   };
 
+  const handlePriceChange = price => setPrice(price);
+
   const handleOpen = type => {
     setOpen(true);
     setDialogType(type);
@@ -52,6 +54,7 @@ const PricePage = props => {
           type={dialogType}
           open={open}
           onClose={handleClose}
+          onSetPrice={handlePriceChange}
           priceTableId={priceTableId}
           {...props}
         />

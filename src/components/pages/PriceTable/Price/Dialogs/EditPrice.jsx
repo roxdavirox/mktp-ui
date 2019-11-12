@@ -22,7 +22,13 @@ const styles = theme => ({
   }
 });
 
-const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
+const EditPrice = ({
+  enqueueSnackbar: snack,
+  classes,
+  onClose,
+  price,
+  onSetPrice
+}) => {
   const prices = useSelector(store => getPrices(store));
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(0);
@@ -62,6 +68,7 @@ const EditPrice = ({ enqueueSnackbar: snack, classes, onClose, price }) => {
       variant: 'info',
       autoHideDuration: 2000
     });
+    onSetPrice(price);
     dispatch(editPrice(price, snack));
     handleClose();
   };
