@@ -37,7 +37,7 @@ const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
   useEffect(() => {
     if (item) {
       setItemName(item.name || '');
-      setPriceTableId(item.priceTableId ? item.priceTableId._id : '0');
+      setPriceTableId(item.priceTableId || '0');
       setItemId(item._id || '');
     }
     dispatch(fetchPriceTables());
