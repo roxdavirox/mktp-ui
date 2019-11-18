@@ -1,6 +1,6 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ProductCreate from 'components/pages/Product';
-import ProductList from 'components/pages/Product/ProductListPage';
+import ProductListPage from 'components/pages/Product/ProductListPage';
 import Templates from 'components/pages/Product/Template';
 import Category from 'components/pages/Category';
 import SubCategory from 'components/pages/Category/SubCategory';
@@ -41,7 +41,7 @@ var dashRoutes = [
           {
             path: '/config/products/list',
             name: 'Opções detalhadas',
-            component: ProductList,
+            component: ProductListPage,
             layout: '/admin'
           },
           {

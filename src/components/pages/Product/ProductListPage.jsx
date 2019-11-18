@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
-import Datatable from './Datatable';
+import Datatable from './OptionsDxDatatable';
 import uuid from 'uuid/v1';
 
 import { getEndpoint } from 'helpers/api';

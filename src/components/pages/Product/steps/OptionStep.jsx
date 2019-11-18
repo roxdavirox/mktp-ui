@@ -17,7 +17,7 @@ import {
 // theme components
 import GridContainer from 'components/theme/Grid/GridContainer.jsx';
 import GridItem from 'components/theme/Grid/GridItem.jsx';
-// import { generateRows, defaultColumnValues } from './helpers/generator';
+// import { generateRows, defaultColumnValues } from '/helpers/generator';
 
 const getChildRows = (row, rootRows) => {
   const childRows = rootRows.filter(r => r.parentId == (row ? row.id : null));
@@ -81,10 +81,10 @@ class OptionStep extends React.Component {
         : -1
     }));
 
-    const selectedOptionsIndex = rows
-      .filter(row => !row.parentId && row.id)
-      .map(option => option.id)
-      .map(optionId => _.indexOf(data, data.find(d => d.id === optionId)));
+    // const selectedOptionsIndex = rows
+    //   .filter(row => !row.parentId && row.id)
+    //   .map(option => option.id)
+    //   .map(optionId => _.indexOf(data, data.find(d => d.id === optionId)));
 
     const optionIds = rows
       .filter(option => option.parentId)
@@ -121,7 +121,7 @@ class OptionStep extends React.Component {
       defaultExpandedRowIds,
       tableColumnExtensions
     } = this.state;
-    const { classes } = this.props;
+    // const { classes } = this.props;
     return (
       <>
         <GridContainer justify="center">
