@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
-import Datatable from './OptionsDxDatatable';
+import DxDatatable from './OptionsDxDatatable';
 import uuid from 'uuid/v1';
 
 import { getEndpoint } from 'helpers/api';
@@ -93,17 +93,17 @@ const generateTree = data => {
 };
 
 const ProductListPage = () => {
-  const [data, setData] = useState([]);
+  const [productOptions, setData] = useState([]);
 
   useEffect(() => {
     const endpoint = getEndpoint('/products');
     fetch(endpoint)
       .then(res => res.json())
       .then(products => generateTree(products))
-      .then(data => setData(data));
+      .then(productOptions => setData(productOptions));
   }, []);
 
-  return <Datatable data={data} />;
+  return <DxDatatable data={productOptions} />;
 };
 
 export default ProductListPage;
