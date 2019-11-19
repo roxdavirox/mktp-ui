@@ -14,8 +14,7 @@ const getChildRows = (row, rootRows) => {
   return childRows.length ? childRows : null;
 };
 
-const Datatable = props => {
-  const { data } = props;
+const Datatable = ({ data }) => {
   const [columns] = useState([{ name: 'name', title: 'Nome' }]);
   const [tableColumnExtensions] = useState([
     { columnName: 'name', width: 300 }

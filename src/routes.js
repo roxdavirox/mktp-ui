@@ -40,7 +40,7 @@ var dashRoutes = [
           },
           {
             path: '/config/products/list',
-            name: 'Opções detalhadas',
+            name: 'Produtos',
             component: ProductListPage,
             layout: '/admin'
           },

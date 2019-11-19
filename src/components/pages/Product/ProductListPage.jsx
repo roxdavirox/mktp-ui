@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import DxDatatable from './OptionsDxDatatable';
 import uuid from 'uuid/v1';
-
+import Datatable from 
 import { getEndpoint } from 'helpers/api';
 
 const parseProducts = products => {
@@ -93,14 +93,14 @@ const generateTree = data => {
 };
 
 const ProductListPage = () => {
-  const [productOptions, setData] = useState([]);
+  const [productOptions, setProductOptions] = useState([]);
 
   useEffect(() => {
     const endpoint = getEndpoint('/products');
     fetch(endpoint)
       .then(res => res.json())
       .then(products => generateTree(products))
-      .then(productOptions => setData(productOptions));
+      .then(productOptions => setProductOptions(productOptions));
   }, []);
 
   return <DxDatatable data={productOptions} />;
