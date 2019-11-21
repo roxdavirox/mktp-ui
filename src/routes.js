@@ -1,5 +1,6 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import ProductCreate from 'components/pages/Product';
+import ProductCreate from 'components/pages/Product/CreateProductWizard';
+import ProductEditPage from 'components/pages/Product/EditProductWizard';
 import ProductListPage from 'components/pages/Product/ProductListPage';
 import Templates from 'components/pages/Product/Template';
 import Category from 'components/pages/Category';
@@ -28,19 +29,19 @@ var dashRoutes = [
         views: [
           {
             path: '/config/products/create',
-            name: 'Criar Produto',
+            name: 'Novo Produto',
             component: ProductCreate,
             layout: '/admin'
           },
           {
             path: '/config/product-templates',
-            name: 'Criar template',
+            name: 'Novo template',
             component: ProductTemplatePage,
             layout: '/admin'
           },
           {
             path: '/config/products/list',
-            name: 'Produtos',
+            name: 'Exibir Produtos',
             component: ProductListPage,
             layout: '/admin'
           },
@@ -54,26 +55,33 @@ var dashRoutes = [
       },
       {
         path: '/config/categories',
-        name: 'Categorias',
+        name: 'Exibir Categorias',
         mini: 'C',
         component: Category,
         layout: '/admin'
       },
       {
         path: '/config/options',
-        name: 'Opções',
+        name: 'Exibir Opções',
         mini: 'O',
         component: Option,
         layout: '/admin'
       },
       {
         path: '/config/price-table',
-        name: 'Tabelas de preço',
+        name: 'Exibir Tabelas de preço',
         mini: 'TP',
         layout: '/admin',
         component: PriceTable
       }
     ]
+  },
+  {
+    path: '/config/products/edit',
+    name: 'Editar Produto',
+    component: ProductEditPage,
+    layout: '/admin',
+    invisible: true
   },
   {
     path: '/config/option/items',

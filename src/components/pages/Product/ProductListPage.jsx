@@ -60,9 +60,9 @@ const ProductListPage = () => {
         customBodyRender: (value, tableMeta) => (
           <Link
             to={{
-              pathname: '/admin',
+              pathname: '/admin/config/products/edit',
               state: {
-                value
+                productId: value
               }
             }}
           >

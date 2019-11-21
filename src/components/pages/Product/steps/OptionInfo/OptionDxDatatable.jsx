@@ -17,12 +17,13 @@ import {
 // theme components
 import GridContainer from 'components/theme/Grid/GridContainer.jsx';
 import GridItem from 'components/theme/Grid/GridItem.jsx';
-// import { generateRows, defaultColumnValues } from '/helpers/generator';
+import { getEndpoint } from 'helpers/api';
 
 const getChildRows = (row, rootRows) => {
   const childRows = rootRows.filter(r => r.parentId == (row ? row.id : null));
   return childRows.length ? childRows : null;
 };
+
 const generateTree = prevOptions => {
   const options = prevOptions.map(op => ({
     id: op._id,
@@ -44,6 +45,8 @@ const generateTree = prevOptions => {
   return rows;
 };
 
+const mapOptionsToDataTree = ({ options }) => generateTree(options);
+
 const style = {
   infoText: {
     fontWeight: '300',
@@ -55,36 +58,41 @@ const style = {
 class OptionStep extends React.Component {
   state = {
     columns: [{ name: 'name', title: 'Opção' }],
-    data: [],
+    dataRows: [],
     tableColumnExtensions: [{ columnName: 'name', width: 300 }],
     defaultExpandedRowIds: [0],
     selectionIds: []
   };
 
-  componentDidMount = async () => {
-    const host = process.env.REACT_APP_HOST_API;
+  componentDidMount = () => {
+    const endpoint = getEndpoint('/options');
 
-    const response = await fetch(`${host}/options`);
-    const data = await response.json();
-    const { options } = data;
-    const rows = generateTree(options);
-    this.setState({ data: rows });
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(mapOptionsToDataTree)
+      .then(dataRows => this.setState({ dataRows }));
+
+    // if (!this.props.allStates.locationState) return;
+
+    // const { allStates } = this.props;
+    // if (allStates.locationState.pathname === '/admin/config/products/edit') {
+
+    // }
   };
+
   handleSelectionChange = selection => {
     if (selection.length < 0) return;
-    const { data } = this.state;
-
+    const { dataRows } = this.state;
+    console.log('selection', selection);
     const rows = selection.map(rowId => ({
-      ...data[rowId],
-      optionIndex: data[rowId].parentId
-        ? _.indexOf(data, data.find(d => d.id === data[rowId].parentId))
+      ...dataRows[rowId],
+      optionIndex: dataRows[rowId].parentId
+        ? _.indexOf(
+            dataRows,
+            dataRows.find(d => d.id === dataRows[rowId].parentId)
+          )
         : -1
     }));
-
-    // const selectedOptionsIndex = rows
-    //   .filter(row => !row.parentId && row.id)
-    //   .map(option => option.id)
-    //   .map(optionId => _.indexOf(data, data.find(d => d.id === optionId)));
 
     const optionIds = rows
       .filter(option => option.parentId)
@@ -98,9 +106,9 @@ class OptionStep extends React.Component {
 
   sendState() {
     // retornar os itens selecionados
-    const { data, selectionIds } = this.state;
-    if (!data) return this.state;
-    const options = selectionIds.map(rowId => data[rowId]);
+    const { dataRows, selectionIds } = this.state;
+    if (!dataRows) return this.state;
+    const options = selectionIds.map(rowId => dataRows[rowId]);
     const newOptions = options.filter(o => !o.parentId && o.id);
     const newItems = newOptions.map(o => ({
       ...o,
@@ -110,12 +118,14 @@ class OptionStep extends React.Component {
     }));
     return newItems;
   }
+
   isValidated() {
     return true;
   }
+
   render() {
     const {
-      data,
+      dataRows,
       columns,
       selectionIds,
       defaultExpandedRowIds,
@@ -127,7 +137,7 @@ class OptionStep extends React.Component {
         <GridContainer justify="center">
           <GridItem xs={12} sm={12}>
             <Paper>
-              <Grid rows={data} columns={columns}>
+              <Grid rows={dataRows} columns={columns}>
                 <SelectionState
                   selection={selectionIds}
                   onSelectionChange={this.handleSelectionChange}

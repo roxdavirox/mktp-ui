@@ -3,11 +3,11 @@
 import React from 'react';
 import { withSnackbar } from 'notistack';
 // core components
-import Wizard from 'components/theme/Wizard/Wizard.jsx';
+import Wizard from 'components/common/Wizard/CustomWizard.jsx';
 import GridContainer from 'components/theme/Grid/GridContainer.jsx';
 import GridItem from 'components/theme/Grid/GridItem.jsx';
-import ProductStep from './steps/ProductStep';
-import OptionStep from './steps/OptionStep';
+import ProductStep from './steps/ProductInfo/ProductForm';
+import OptionStep from './steps/OptionInfo/OptionDxDatatable';
 import history from 'providers/history';
 import { getEndpoint } from 'helpers/api';
 
@@ -16,7 +16,7 @@ const steps = [
   { stepName: 'Opções', stepComponent: OptionStep, stepId: 'optionStep' }
 ];
 
-class ProductPage extends React.Component {
+class CreateProductPage extends React.Component {
   handleFinish = async steps => {
     const { enqueueSnackbar: snack } = this.props;
     const { optionStep: prevOptions, productStep } = steps;
@@ -70,4 +70,4 @@ class ProductPage extends React.Component {
   }
 }
 
-export default withSnackbar(ProductPage);
+export default withSnackbar(CreateProductPage);

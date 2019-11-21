@@ -10,7 +10,7 @@ import Build from '@material-ui/icons/Build';
 import GridContainer from 'components/theme/Grid/GridContainer.jsx';
 import GridItem from 'components/theme/Grid/GridItem.jsx';
 import CustomInput from 'components/theme/CustomInput/CustomInput.jsx';
-import ImageUpload from '../ImageUpload';
+import ImageUpload from './ImageUpload';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
@@ -51,6 +51,21 @@ class ProductStep extends React.Component {
     fetch(categoriesEndpoint)
       .then(res => res.json())
       .then(({ categories }) => this.setState({ categories }));
+
+    if (!this.props.allStates.locationState) return;
+
+    const { allStates } = this.props;
+    if (allStates.locationState.pathname === '/admin/config/products/edit') {
+      const { productId } = allStates.locationState.state;
+      const productEndpoint = getEndpoint(`/products/${productId}`);
+      fetch(productEndpoint)
+        .then(res => res.json())
+        .then(product => {
+          this.setState({ productName: product.name });
+          this.setState({ categoryId: product.category });
+          this.setState({ nameState: 'success' });
+        });
+    }
   }
 
   handleNameChange = e => {
@@ -65,9 +80,6 @@ class ProductStep extends React.Component {
       categoryId: e.target.value
     });
 
-  // handleBaseSelect = e => this.setState({
-
-  // })
   // wizard functions
   isValidated() {
     return this.state.nameState === 'success';
@@ -84,7 +96,7 @@ class ProductStep extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { nameState, categories, productsBase } = this.state;
+    const { nameState, categories, productName } = this.state;
 
     return (
       <>
@@ -104,7 +116,7 @@ class ProductStep extends React.Component {
                   Nome do produto <small>(obrigatório)</small>
                 </span>
               }
-              id="firstname"
+              id="product-name"
               formControlProps={{
                 fullWidth: true
               }}
@@ -117,7 +129,8 @@ class ProductStep extends React.Component {
                   >
                     <Build className={classes.inputAdornmentIcon} />
                   </InputAdornment>
-                )
+                ),
+                value: productName
               }}
             />
             <GridContainer
