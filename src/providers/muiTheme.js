@@ -15,6 +15,9 @@ const theme = createMuiTheme({
     },
     MUIDataTableSelectCell: {
       root: { width: '10px' }
+    },
+    MuiTableCell: {
+      root: { padding: '1px 1px 1px 10px' }
     }
   }
 });

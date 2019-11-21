@@ -1,16 +1,21 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import Slide from '@material-ui/core/Slide';
 import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 import MuiDatatable from 'components/common/tables/MuiDatatable';
 import { getEndpoint } from 'helpers/api';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({ EditCell: { textAlign: 'right' } });
 
 const mapProduct = ({ _id, name }) => ({ _id, name });
 
 const mapProductNames = products => products.map(mapProduct);
 
 const ProductListPage = () => {
+  const classes = useStyles();
   const [productNames, setProductNames] = useState([]);
   const [showSlide, setSlideShow] = useState(false);
 
@@ -34,10 +39,6 @@ const ProductListPage = () => {
       body: {
         noMatch: <h1>sem dados</h1>
       }
-    },
-    customBodyRender: function renderSlide(value) {
-      // TODO: Utilizar grow pra renderizar cada linha de uma vez
-      return value;
     }
   };
   const columns = [
@@ -67,7 +68,12 @@ const ProductListPage = () => {
           >
             <MoreHorizIcon key={tableMeta.columnIndex} />
           </Link>
-        )
+        ),
+        setCellProps: () => {
+          return {
+            className: classNames({ [classes.EditCell]: true })
+          };
+        }
       }
     }
   ];
