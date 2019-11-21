@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
+import Container from '@material-ui/core/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
@@ -48,24 +49,26 @@ const PricePage = props => {
 
   return (
     <>
-      {open && (
-        <DialogContainer
-          price={price}
-          type={dialogType}
-          open={open}
-          onClose={handleClose}
-          onSetPrice={handlePriceChange}
+      <Container maxWidth="xl">
+        {open && (
+          <DialogContainer
+            price={price}
+            type={dialogType}
+            open={open}
+            onClose={handleClose}
+            onSetPrice={handlePriceChange}
+            priceTableId={priceTableId}
+            {...props}
+          />
+        )}
+        <Datatable
+          data={data}
+          onOpen={handleOpen}
+          onUpdate={handleRowUpdate}
           priceTableId={priceTableId}
           {...props}
         />
-      )}
-      <Datatable
-        data={data}
-        onOpen={handleOpen}
-        onUpdate={handleRowUpdate}
-        priceTableId={priceTableId}
-        {...props}
-      />
+      </Container>
     </>
   );
 };

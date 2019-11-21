@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
@@ -22,8 +23,10 @@ const PriceTablePage = props => {
   const data = useSelector(store => getPriceTables(store));
   return (
     <>
-      <AddPriceTableDialog open={open} onClose={handleClose} {...props} />
-      <Datatable data={data} onOpen={handleOpen} {...props} />
+      <Container maxWidth="xl">
+        <AddPriceTableDialog open={open} onClose={handleClose} {...props} />
+        <Datatable data={data} onOpen={handleOpen} {...props} />
+      </Container>
     </>
   );
 };

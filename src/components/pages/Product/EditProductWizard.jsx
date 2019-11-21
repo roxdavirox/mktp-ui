@@ -4,10 +4,12 @@ import React from 'react';
 import { withSnackbar } from 'notistack';
 // core components
 import Wizard from 'components/common/Wizard/CustomWizard.jsx';
-import GridContainer from 'components/theme/Grid/GridContainer.jsx';
-import GridItem from 'components/theme/Grid/GridItem.jsx';
+import Container from '@material-ui/core/Container';
+
+// import GridContainer from 'components/theme/Grid/GridContainer.jsx';
+// import GridItem from 'components/theme/Grid/GridItem.jsx';
 import ProductStep from './steps/ProductInfo/ProductForm';
-import OptionStep from './steps/OptionInfo/OptionDxDatatable';
+import OptionStep from './steps/OptionInfo/Option';
 import history from 'providers/history';
 import { getEndpoint } from 'helpers/api';
 
@@ -54,18 +56,16 @@ class EditProductPage extends React.Component {
   };
   render() {
     return (
-      <GridContainer justify="center">
-        <GridItem xs={12} sm={8} lg={12}>
-          <Wizard
-            initialState={{ locationState: { ...this.props.location } }}
-            validate
-            steps={steps}
-            title="Editar produto"
-            subtitle="Preencha as informações com atenção."
-            finishButtonClick={this.handleFinish}
-          />
-        </GridItem>
-      </GridContainer>
+      <Container maxWidth="xl">
+        <Wizard
+          initialState={{ locationState: { ...this.props.location } }}
+          validate
+          steps={steps}
+          title="Editar produto"
+          subtitle="Preencha as informações com atenção."
+          finishButtonClick={this.handleFinish}
+        />
+      </Container>
     );
   }
 }

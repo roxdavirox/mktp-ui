@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
+import Container from '@material-ui/core/Container';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { withSnackbar } from 'notistack';
@@ -92,22 +93,24 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
   const items = useSelector(store => getOptionsItems(optionId, store));
   return (
     <>
-      {open && (
-        <DialogContainer
-          open={open}
-          onClose={handleClose}
-          type={dialogType}
-          item={item}
-          onEdit={handleEditItem}
-          onAddOptionItem={handleAddOptionItem}
+      <Container maxWidth="xl">
+        {open && (
+          <DialogContainer
+            open={open}
+            onClose={handleClose}
+            type={dialogType}
+            item={item}
+            onEdit={handleEditItem}
+            onAddOptionItem={handleAddOptionItem}
+          />
+        )}
+        <Datatable
+          data={items}
+          onUpdate={handleUpdate}
+          onOpen={handleOpen}
+          onRowsDelete={handleRowsDelete}
         />
-      )}
-      <Datatable
-        data={items}
-        onUpdate={handleUpdate}
-        onOpen={handleOpen}
-        onRowsDelete={handleRowsDelete}
-      />
+      </Container>
     </>
   );
 };

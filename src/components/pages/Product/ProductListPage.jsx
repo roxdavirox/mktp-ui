@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
+import Container from '@material-ui/core/Container';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import Slide from '@material-ui/core/Slide';
@@ -82,13 +83,13 @@ const ProductListPage = () => {
     productNames &&
     showSlide && (
       <Slide direction="left" in={showSlide} mountOnEnter unmountOnExit>
-        <div>
+        <Container maxWidth="xl">
           <MuiDatatable
             data={productNames}
             options={options}
             columns={columns}
           />
-        </div>
+        </Container>
       </Slide>
     )
   );

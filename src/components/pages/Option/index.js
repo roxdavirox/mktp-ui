@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react';
+import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
@@ -20,8 +21,10 @@ const OptionPage = props => {
   const handleClose = () => setOpen(false);
   return (
     <>
-      {open && <Dialog open={open} onClose={handleClose} {...props} />}
-      <Datatable data={selectedData} onOpen={handleOpen} />
+      <Container maxWidth="xl">
+        {open && <Dialog open={open} onClose={handleClose} {...props} />}
+        <Datatable data={selectedData} onOpen={handleOpen} />
+      </Container>
     </>
   );
 };

@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useEffect } from 'react';
+import Container from '@material-ui/core/Container';
 import Stepper from './Stepper';
 import { useDispatch } from 'react-redux';
 import {
@@ -27,7 +28,11 @@ const ProductTemplatePage = () => {
     };
   }, []);
 
-  return <Stepper />;
+  return (
+    <Container maxWidth="xl">
+      <Stepper />
+    </Container>
+  );
 };
 
 export default ProductTemplatePage;
