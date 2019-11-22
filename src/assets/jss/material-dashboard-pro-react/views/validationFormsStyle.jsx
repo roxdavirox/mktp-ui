@@ -3,8 +3,8 @@ import {
   dangerColor,
   whiteColor,
   grayColor
-} from "assets/jss/material-dashboard-pro-react.jsx";
-import customCheckboxRadioSwitch from "assets/jss/material-dashboard-pro-react/customCheckboxRadioSwitch.jsx";
+} from 'assets/jss/material-dashboard-pro-react.jsx';
+import customCheckboxRadioSwitch from 'assets/jss/material-dashboard-pro-react/customCheckboxRadioSwitch.jsx';
 
 const validationFormsStyle = {
   ...customCheckboxRadioSwitch,
@@ -14,29 +14,29 @@ const validationFormsStyle = {
   },
   cardIconTitle: {
     ...cardTitle,
-    marginTop: "15px",
-    marginBottom: "0px"
+    marginTop: '15px',
+    marginBottom: '0px'
   },
   formCategory: {
-    marginBottom: "0",
+    marginBottom: '0',
     color: grayColor[0],
-    fontSize: "14px",
-    padding: "10px 0 10px"
+    fontSize: '14px',
+    padding: '10px 0 10px'
   },
   center: {
-    textAlign: "center"
+    textAlign: 'center'
   },
   justifyContentCenter: {
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   registerButton: {
-    float: "right"
+    float: 'right'
   },
   danger: {
-    color: dangerColor[0] + "!important"
+    color: dangerColor[0] + '!important'
   },
   dialogPaper: {
-    maxHeight: "100%"
+    maxHeight: '100%'
   }
 };
 

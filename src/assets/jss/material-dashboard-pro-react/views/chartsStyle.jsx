@@ -7,23 +7,23 @@ import {
   roseColor,
   grayColor,
   cardTitle
-} from "assets/jss/material-dashboard-pro-react.jsx";
+} from 'assets/jss/material-dashboard-pro-react.jsx';
 
 const chartsStyle = {
   cardTitle,
   cardCategory: {
-    margin: "0",
+    margin: '0',
     color: grayColor[0]
   },
   cardIconTitle: {
     ...cardTitle,
-    marginTop: "15px",
-    marginBottom: "0px"
+    marginTop: '15px',
+    marginBottom: '0px'
   },
   legendTitle: {
     color: grayColor[0],
-    margin: "10px 0 !important",
-    display: "flex"
+    margin: '10px 0 !important',
+    display: 'flex'
   },
   primary: {
     color: primaryColor[0]
@@ -47,7 +47,7 @@ const chartsStyle = {
     color: grayColor[0]
   },
   cardFooter: {
-    display: "block"
+    display: 'block'
   }
 };
 

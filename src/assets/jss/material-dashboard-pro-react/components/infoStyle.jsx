@@ -6,18 +6,18 @@ import {
   infoColor,
   roseColor,
   grayColor
-} from "assets/jss/material-dashboard-pro-react.jsx";
+} from 'assets/jss/material-dashboard-pro-react.jsx';
 
 const infoStyle = {
   infoArea: {
-    maxWidth: "360px",
-    margin: "0 auto",
-    padding: "0px"
+    maxWidth: '360px',
+    margin: '0 auto',
+    padding: '0px'
   },
   iconWrapper: {
-    float: "left",
-    marginTop: "24px",
-    marginRight: "10px"
+    float: 'left',
+    marginTop: '24px',
+    marginRight: '10px'
   },
   primary: {
     color: primaryColor[0]
@@ -41,24 +41,24 @@ const infoStyle = {
     color: grayColor[0]
   },
   icon: {
-    width: "36px",
-    height: "36px"
+    width: '36px',
+    height: '36px'
   },
   descriptionWrapper: {
     color: grayColor[0],
-    overflow: "hidden"
+    overflow: 'hidden'
   },
   title: {
     color: grayColor[2],
-    margin: "30px 0 15px",
-    textDecoration: "none",
-    fontSize: "18px"
+    margin: '30px 0 15px',
+    textDecoration: 'none',
+    fontSize: '18px'
   },
   description: {
     color: grayColor[0],
-    overflow: "hidden",
-    marginTop: "0px",
-    fontSize: "14px"
+    overflow: 'hidden',
+    marginTop: '0px',
+    fontSize: '14px'
   }
 };
 
