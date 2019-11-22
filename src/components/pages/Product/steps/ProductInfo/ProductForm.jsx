@@ -18,7 +18,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { getEndpoint } from 'helpers/api';
 
-const style = theme => ({
+const style = () => ({
   infoText: {
     fontWeight: '300',
     margin: '10px 0 30px',

@@ -54,6 +54,7 @@ class CreateProductPage extends React.Component {
     const endpoint = getEndpoint('/products');
     fetch(endpoint, request)
       .then(res => res.json())
+      // eslint-disable-next-line no-unused-vars
       .then(product => {
         snack('Produto criado com sucesso!', {
           variant: 'success',

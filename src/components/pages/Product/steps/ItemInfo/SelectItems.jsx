@@ -52,6 +52,7 @@ class OptionStep extends React.Component {
     return {
       selectedItems: this.state.items
         .filter(item => item.isChecked)
+        // eslint-disable-next-line no-unused-vars
         .map(({ isChecked, ...rest }) => ({ ...rest }))
     };
   }

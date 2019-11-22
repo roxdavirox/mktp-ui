@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 // import AuthService from 'services/auth.service';
 import { useCookies } from 'react-cookie';
@@ -32,6 +33,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       }}
     />
   );
+};
+
+PrivateRoute.propTypes = {
+  component: PropTypes.object
 };
 
 export default PrivateRoute;
