@@ -1,34 +1,35 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React from 'react';
 // react components used to create a google map
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker
-} from "react-google-maps";
+} from 'react-google-maps';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 // @material-ui/icons
-import Map from "@material-ui/icons/Map";
-import AddLocation from "@material-ui/icons/AddLocation";
-import Place from "@material-ui/icons/Place";
+import Map from '@material-ui/icons/Map';
+import AddLocation from '@material-ui/icons/AddLocation';
+import Place from '@material-ui/icons/Place';
 
 // core components
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
-import CardIcon from "components/Theme/Card/CardIcon.jsx";
-import CardHeader from "components/Theme/Card/CardHeader.jsx";
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
+import CardIcon from 'components/Theme/Card/CardIcon.jsx';
+import CardHeader from 'components/Theme/Card/CardHeader.jsx';
 
-import { cardTitle } from "assets/jss/material-dashboard-pro-react.jsx";
+import { cardTitle } from 'assets/jss/material-dashboard-pro-react.jsx';
 
 const styles = {
   cardIconTitle: {
     ...cardTitle,
-    marginTop: "15px",
-    marginBottom: "0px"
+    marginTop: '15px',
+    marginBottom: '0px'
   }
 };
 
@@ -36,7 +37,7 @@ const SatelliteMap = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
       defaultZoom={3}
-      mapTypeId={"satellite"}
+      mapTypeId={'satellite'}
       defaultCenter={{ lat: 40.748817, lng: -73.985428 }}
       defaultOptions={{
         scrollwheel: false
@@ -72,62 +73,62 @@ const CustomSkinMap = withScriptjs(
         zoomControl: true,
         styles: [
           {
-            featureType: "water",
+            featureType: 'water',
             stylers: [
               { saturation: 43 },
               { lightness: -11 },
-              { hue: "#0088ff" }
+              { hue: '#0088ff' }
             ]
           },
           {
-            featureType: "road",
-            elementType: "geometry.fill",
+            featureType: 'road',
+            elementType: 'geometry.fill',
             stylers: [
-              { hue: "#ff0000" },
+              { hue: '#ff0000' },
               { saturation: -100 },
               { lightness: 99 }
             ]
           },
           {
-            featureType: "road",
-            elementType: "geometry.stroke",
-            stylers: [{ color: "#808080" }, { lightness: 54 }]
+            featureType: 'road',
+            elementType: 'geometry.stroke',
+            stylers: [{ color: '#808080' }, { lightness: 54 }]
           },
           {
-            featureType: "landscape.man_made",
-            elementType: "geometry.fill",
-            stylers: [{ color: "#ece2d9" }]
+            featureType: 'landscape.man_made',
+            elementType: 'geometry.fill',
+            stylers: [{ color: '#ece2d9' }]
           },
           {
-            featureType: "poi.park",
-            elementType: "geometry.fill",
-            stylers: [{ color: "#ccdca1" }]
+            featureType: 'poi.park',
+            elementType: 'geometry.fill',
+            stylers: [{ color: '#ccdca1' }]
           },
           {
-            featureType: "road",
-            elementType: "labels.text.fill",
-            stylers: [{ color: "#767676" }]
+            featureType: 'road',
+            elementType: 'labels.text.fill',
+            stylers: [{ color: '#767676' }]
           },
           {
-            featureType: "road",
-            elementType: "labels.text.stroke",
-            stylers: [{ color: "#ffffff" }]
+            featureType: 'road',
+            elementType: 'labels.text.stroke',
+            stylers: [{ color: '#ffffff' }]
           },
-          { featureType: "poi", stylers: [{ visibility: "off" }] },
+          { featureType: 'poi', stylers: [{ visibility: 'off' }] },
           {
-            featureType: "landscape.natural",
-            elementType: "geometry.fill",
-            stylers: [{ visibility: "on" }, { color: "#b8cb93" }]
+            featureType: 'landscape.natural',
+            elementType: 'geometry.fill',
+            stylers: [{ visibility: 'on' }, { color: '#b8cb93' }]
           },
-          { featureType: "poi.park", stylers: [{ visibility: "on" }] },
+          { featureType: 'poi.park', stylers: [{ visibility: 'on' }] },
           {
-            featureType: "poi.sports_complex",
-            stylers: [{ visibility: "on" }]
+            featureType: 'poi.sports_complex',
+            stylers: [{ visibility: 'on' }]
           },
-          { featureType: "poi.medical", stylers: [{ visibility: "on" }] },
+          { featureType: 'poi.medical', stylers: [{ visibility: 'on' }] },
           {
-            featureType: "poi.business",
-            stylers: [{ visibility: "simplified" }]
+            featureType: 'poi.business',
+            stylers: [{ visibility: 'simplified' }]
           }
         ]
       }}
@@ -158,8 +159,8 @@ class GoogleMaps extends React.Component {
                   <div
                     style={{
                       height: `280px`,
-                      borderRadius: "6px",
-                      overflow: "hidden"
+                      borderRadius: '6px',
+                      overflow: 'hidden'
                     }}
                   />
                 }
@@ -184,8 +185,8 @@ class GoogleMaps extends React.Component {
                   <div
                     style={{
                       height: `280px`,
-                      borderRadius: "6px",
-                      overflow: "hidden"
+                      borderRadius: '6px',
+                      overflow: 'hidden'
                     }}
                   />
                 }
@@ -212,8 +213,8 @@ class GoogleMaps extends React.Component {
                   <div
                     style={{
                       height: `280px`,
-                      borderRadius: "6px",
-                      overflow: "hidden"
+                      borderRadius: '6px',
+                      overflow: 'hidden'
                     }}
                   />
                 }

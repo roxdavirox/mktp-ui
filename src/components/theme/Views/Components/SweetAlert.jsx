@@ -1,19 +1,21 @@
-import React from "react";
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+import React from 'react';
 // react component used to create sweet alerts
-import SweetAlert from "react-bootstrap-sweetalert";
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 
 // core components
-import Heading from "components/Theme/Heading/Heading.jsx";
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import Button from "components/Theme/CustomButtons/Button.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
+import Heading from 'components/Theme/Heading/Heading.jsx';
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import Button from 'components/Theme/CustomButtons/Button.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
 
-import sweetAlertStyle from "assets/jss/material-dashboard-pro-react/views/sweetAlertStyle.jsx";
+import sweetAlertStyle from 'assets/jss/material-dashboard-pro-react/views/sweetAlertStyle.jsx';
 
 class SweetAlertPage extends React.Component {
   constructor(props) {
@@ -32,12 +34,12 @@ class SweetAlertPage extends React.Component {
     this.setState({
       alert: (
         <SweetAlert
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           title="Here's a message!"
           onConfirm={() => this.hideAlert()}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.success
+            this.props.classes.button + ' ' + this.props.classes.success
           }
         />
       )
@@ -47,12 +49,12 @@ class SweetAlertPage extends React.Component {
     this.setState({
       alert: (
         <SweetAlert
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           title="Here's a message!"
           onConfirm={() => this.hideAlert()}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.info
+            this.props.classes.button + ' ' + this.props.classes.info
           }
         >
           It's pretty, isn't it?
@@ -65,12 +67,12 @@ class SweetAlertPage extends React.Component {
       alert: (
         <SweetAlert
           success
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           title="Good job!"
           onConfirm={() => this.hideAlert()}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.success
+            this.props.classes.button + ' ' + this.props.classes.success
           }
         >
           You clicked the button!
@@ -82,15 +84,15 @@ class SweetAlertPage extends React.Component {
     this.setState({
       alert: (
         <SweetAlert
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           title="HTML example"
           onConfirm={() => this.hideAlert()}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.success
+            this.props.classes.button + ' ' + this.props.classes.success
           }
         >
-          You can use <b>bold</b> text,{" "}
+          You can use <b>bold</b> text,{' '}
           <a href="https://www.creative-tim.com/">links</a> and other HTML tags
         </SweetAlert>
       )
@@ -101,15 +103,15 @@ class SweetAlertPage extends React.Component {
       alert: (
         <SweetAlert
           warning
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           title="Are you sure?"
           onConfirm={() => this.successDelete()}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.success
+            this.props.classes.button + ' ' + this.props.classes.success
           }
           cancelBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.danger
+            this.props.classes.button + ' ' + this.props.classes.danger
           }
           confirmBtnText="Yes, delete it!"
           cancelBtnText="Cancel"
@@ -125,15 +127,15 @@ class SweetAlertPage extends React.Component {
       alert: (
         <SweetAlert
           warning
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           title="Are you sure?"
           onConfirm={() => this.successDelete()}
           onCancel={() => this.cancelDetele()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.success
+            this.props.classes.button + ' ' + this.props.classes.success
           }
           cancelBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.danger
+            this.props.classes.button + ' ' + this.props.classes.danger
           }
           confirmBtnText="Yes, delete it!"
           cancelBtnText="Cancel"
@@ -148,7 +150,7 @@ class SweetAlertPage extends React.Component {
     this.setState({
       alert: (
         <SweetAlert
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           title="Auto close alert!"
           onConfirm={() => this.hideAlert()}
           showConfirm={false}
@@ -165,15 +167,15 @@ class SweetAlertPage extends React.Component {
         <SweetAlert
           input
           showCancel
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           title="Input something"
           onConfirm={e => this.inputConfirmAlert(e)}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.info
+            this.props.classes.button + ' ' + this.props.classes.info
           }
           cancelBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.danger
+            this.props.classes.button + ' ' + this.props.classes.danger
           }
         />
       )
@@ -188,11 +190,11 @@ class SweetAlertPage extends React.Component {
     this.setState({
       alert: (
         <SweetAlert
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           onConfirm={() => this.hideAlert()}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.info
+            this.props.classes.button + ' ' + this.props.classes.info
           }
           title={
             <p>
@@ -208,12 +210,12 @@ class SweetAlertPage extends React.Component {
       alert: (
         <SweetAlert
           success
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           title="Deleted!"
           onConfirm={() => this.hideAlert()}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.success
+            this.props.classes.button + ' ' + this.props.classes.success
           }
         >
           Your imaginary file has been deleted.
@@ -226,12 +228,12 @@ class SweetAlertPage extends React.Component {
       alert: (
         <SweetAlert
           danger
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           title="Cancelled"
           onConfirm={() => this.hideAlert()}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.success
+            this.props.classes.button + ' ' + this.props.classes.success
           }
         >
           Your imaginary file is safe :)
@@ -254,7 +256,7 @@ class SweetAlertPage extends React.Component {
           category={
             <span>
               A beautiful plugin, that replace the classic alert, Handcrafted by
-              our friend{" "}
+              our friend{' '}
               <a
                 target="_blank"
                 href="https://github.com/djorg83"
@@ -262,7 +264,7 @@ class SweetAlertPage extends React.Component {
               >
                 Daniel Jorgensen
               </a>
-              . Please check out the{" "}
+              . Please check out the{' '}
               <a
                 href="https://github.com/djorg83/react-bootstrap-sweetalert"
                 target="_blank"
@@ -308,7 +310,10 @@ class SweetAlertPage extends React.Component {
               <CardBody>
                 <div className={classes.center}>
                   <h5>A success message</h5>
-                  <Button color="primary" onClick={this.successAlert.bind(this)}>
+                  <Button
+                    color="primary"
+                    onClick={this.successAlert.bind(this)}
+                  >
                     Try me!
                   </Button>
                 </div>
@@ -368,7 +373,10 @@ class SweetAlertPage extends React.Component {
               <CardBody>
                 <div className={classes.center}>
                   <h5>A message with auto close timer set to 2 seconds</h5>
-                  <Button color="primary" onClick={this.autoCloseAlert.bind(this)}>
+                  <Button
+                    color="primary"
+                    onClick={this.autoCloseAlert.bind(this)}
+                  >
                     Try me!
                   </Button>
                 </div>

@@ -1,24 +1,26 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React from 'react';
 // react component used to create a calendar with events on it
-import BigCalendar from "react-big-calendar";
+import BigCalendar from 'react-big-calendar';
 // dependency plugin for react-big-calendar
-import moment from "moment";
+import moment from 'moment';
 // react component used to create alerts
-import SweetAlert from "react-bootstrap-sweetalert";
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 
 // core components
-import Heading from "components/Theme/Heading/Heading.jsx";
-import GridContainer from "components/ThemeGrid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
+import Heading from 'components/Theme/Heading/Heading.jsx';
+import GridContainer from 'components/ThemeGrid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
 
-import buttonStyle from "assets/jss/material-dashboard-pro-react/components/buttonStyle.jsx";
+import buttonStyle from 'assets/jss/material-dashboard-pro-react/components/buttonStyle.jsx';
 
-import { events } from "../../variables/general.jsx";
+import { events } from '../../variables/general.jsx';
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -40,15 +42,15 @@ class Calendar extends React.Component {
         <SweetAlert
           input
           showCancel
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: 'block', marginTop: '-100px' }}
           title="Input something"
           onConfirm={e => this.addNewEvent(e, slotInfo)}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.success
+            this.props.classes.button + ' ' + this.props.classes.success
           }
           cancelBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.danger
+            this.props.classes.button + ' ' + this.props.classes.danger
           }
         />
       )
@@ -72,10 +74,10 @@ class Calendar extends React.Component {
     });
   }
   eventColors(event, start, end, isSelected) {
-    var backgroundColor = "event-";
+    var backgroundColor = 'event-';
     event.color
       ? (backgroundColor = backgroundColor + event.color)
-      : (backgroundColor = backgroundColor + "default");
+      : (backgroundColor = backgroundColor + 'default');
     return {
       className: backgroundColor
     };
@@ -88,7 +90,7 @@ class Calendar extends React.Component {
           title="React Big Calendar"
           category={
             <span>
-              A beautiful react component made by{" "}
+              A beautiful react component made by{' '}
               <a
                 href="https://github.com/intljusticemission"
                 target="_blank"
@@ -96,7 +98,7 @@ class Calendar extends React.Component {
               >
                 International Justice Mission
               </a>
-              . Please checkout their{" "}
+              . Please checkout their{' '}
               <a
                 href="https://github.com/intljusticemission/react-big-calendar"
                 target="_blank"

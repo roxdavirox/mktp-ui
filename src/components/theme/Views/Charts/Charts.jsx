@@ -1,23 +1,24 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React from 'react';
 // react plugin for creating charts
-import ChartistGraph from "react-chartist";
+import ChartistGraph from 'react-chartist';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 
 // @material-ui/icons
-import Timeline from "@material-ui/icons/Timeline";
+import Timeline from '@material-ui/icons/Timeline';
 
 // core components
-import Heading from "components/Theme/Heading/Heading.jsx";
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
+import Heading from 'components/Theme/Heading/Heading.jsx';
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
 
-import Card from "components/Theme/Card/Card.jsx";
-import CardHeader from "components/Theme/Card/CardHeader.jsx";
-import CardIcon from "components/Theme/Card/CardIcon.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
-import CardFooter from "components/Theme/Card/CardFooter.jsx";
+import Card from 'components/Theme/Card/Card.jsx';
+import CardHeader from 'components/Theme/Card/CardHeader.jsx';
+import CardIcon from 'components/Theme/Card/CardIcon.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
+import CardFooter from 'components/Theme/Card/CardFooter.jsx';
 
 import {
   roundedLineChart,
@@ -27,9 +28,9 @@ import {
   multipleBarsChart,
   colouredLinesChart,
   pieChart
-} from "../../variables/charts.jsx";
+} from '../../variables/charts.jsx';
 
-import chartsStyle from "assets/jss/material-dashboard-pro-react/views/chartsStyle.jsx";
+import chartsStyle from 'assets/jss/material-dashboard-pro-react/views/chartsStyle.jsx';
 
 class Charts extends React.Component {
   render() {
@@ -41,7 +42,7 @@ class Charts extends React.Component {
           title="React Chartist"
           category={
             <span>
-              A react wrapper for{" "}
+              A react wrapper for{' '}
               <a
                 target="_blank"
                 href="https://gionkunz.github.io/chartist-js/"
@@ -49,15 +50,15 @@ class Charts extends React.Component {
               >
                 Chartist.js
               </a>
-              . Please checkout the{" "}
+              . Please checkout the{' '}
               <a
                 href="https://gionkunz.github.io/chartist-js/getting-started.html"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 full documentation of Chartist.js
-              </a>{" "}
-              and{" "}
+              </a>{' '}
+              and{' '}
               <a
                 href="https://fraserxu.me/react-chartist/"
                 target="_blank"
@@ -203,10 +204,10 @@ class Charts extends React.Component {
               </CardBody>
               <CardFooter stats className={classes.cardFooter}>
                 <h6 className={classes.legendTitle}>Legend</h6>
-                <i className={"fas fa-circle " + classes.info} /> Apple{` `}
-                <i className={"fas fa-circle " + classes.warning} /> Samsung
+                <i className={'fas fa-circle ' + classes.info} /> Apple{` `}
+                <i className={'fas fa-circle ' + classes.warning} /> Samsung
                 {` `}
-                <i className={"fas fa-circle " + classes.danger} /> Windows
+                <i className={'fas fa-circle ' + classes.danger} /> Windows
                 Phone{` `}
               </CardFooter>
             </Card>

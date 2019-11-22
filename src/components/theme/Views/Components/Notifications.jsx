@@ -1,33 +1,32 @@
-/*eslint-disable*/
-import React from "react";
+import React from 'react';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import Slide from "@material-ui/core/Slide";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
+import withStyles from '@material-ui/core/styles/withStyles';
+import Slide from '@material-ui/core/Slide';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 
 // @material-ui/icons
-import AddAlert from "@material-ui/icons/AddAlert";
-import Close from "@material-ui/icons/Close";
+import AddAlert from '@material-ui/icons/AddAlert';
+import Close from '@material-ui/icons/Close';
 
 // core components
-import Heading from "components/Theme/Heading/Heading.jsx";
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import SnackbarContent from "components/Theme/Snackbar/SnackbarContent.jsx";
-import Button from "components/Theme/CustomButtons/Button.jsx";
-import Snackbar from "components/Theme/Snackbar/Snackbar.jsx";
-import Instruction from "components/Theme/Instruction/Instruction.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
+import Heading from 'components/Theme/Heading/Heading.jsx';
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import SnackbarContent from 'components/Theme/Snackbar/SnackbarContent.jsx';
+import Button from 'components/Theme/CustomButtons/Button.jsx';
+import Snackbar from 'components/Theme/Snackbar/Snackbar.jsx';
+import Instruction from 'components/Theme/Instruction/Instruction.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
 
-import notificationsStyle from "assets/jss/material-dashboard-pro-react/views/notificationsStyle.jsx";
+import notificationsStyle from 'assets/jss/material-dashboard-pro-react/views/notificationsStyle.jsx';
 
-import noticeModal1 from "assets/img/card-1.jpeg";
-import noticeModal2 from "assets/img/card-2.jpeg";
+import noticeModal1 from 'assets/img/card-1.jpeg';
+import noticeModal2 from 'assets/img/card-2.jpeg';
 
 function Transition(props) {
   return <Slide direction="down" {...props} />;
@@ -88,15 +87,15 @@ class Notifications extends React.Component {
           textAlign="center"
           category={
             <span>
-              Handcrafted by our friends from{" "}
+              Handcrafted by our friends from{' '}
               <a target="_blank" href="https://material-ui-next.com/">
                 Material UI
-              </a>{" "}
-              and styled by{" "}
+              </a>{' '}
+              and styled by{' '}
               <a target="_blank" href="https://www.creative-tim.com/">
                 Creative Tim
               </a>
-              . Please checkout the{" "}
+              . Please checkout the{' '}
               <a href="#pablo" target="_blank">
                 full documentation
               </a>
@@ -113,11 +112,11 @@ class Notifications extends React.Component {
                 </div>
                 <br />
                 <SnackbarContent
-                  message={"This is a plain notification"}
+                  message={'This is a plain notification'}
                   color="info"
                 />
                 <SnackbarContent
-                  message={"This is a notification with close button."}
+                  message={'This is a notification with close button.'}
                   close
                   color="info"
                 />
@@ -210,7 +209,7 @@ class Notifications extends React.Component {
                   <GridContainer justify="center">
                     <GridItem xs={12}>
                       <div
-                        className={classes.cardHeader + " " + classes.center}
+                        className={classes.cardHeader + ' ' + classes.center}
                       >
                         <h4 className={classes.cardTitle}>
                           Notifications Places
@@ -226,7 +225,7 @@ class Notifications extends React.Component {
                       <Button
                         fullWidth
                         color="secondary"
-                        onClick={() => this.showNotification("tl")}
+                        onClick={() => this.showNotification('tl')}
                       >
                         Top Left
                       </Button>
@@ -244,7 +243,7 @@ class Notifications extends React.Component {
                       <Button
                         fullWidth
                         color="secondary"
-                        onClick={() => this.showNotification("tc")}
+                        onClick={() => this.showNotification('tc')}
                       >
                         Top Center
                       </Button>
@@ -262,7 +261,7 @@ class Notifications extends React.Component {
                       <Button
                         fullWidth
                         color="secondary"
-                        onClick={() => this.showNotification("tr")}
+                        onClick={() => this.showNotification('tr')}
                       >
                         Top Right
                       </Button>
@@ -282,7 +281,7 @@ class Notifications extends React.Component {
                       <Button
                         fullWidth
                         color="secondary"
-                        onClick={() => this.showNotification("bl")}
+                        onClick={() => this.showNotification('bl')}
                       >
                         Bottom Left
                       </Button>
@@ -300,7 +299,7 @@ class Notifications extends React.Component {
                       <Button
                         fullWidth
                         color="secondary"
-                        onClick={() => this.showNotification("bc")}
+                        onClick={() => this.showNotification('bc')}
                       >
                         Bottom Center
                       </Button>
@@ -318,7 +317,7 @@ class Notifications extends React.Component {
                       <Button
                         fullWidth
                         color="secondary"
-                        onClick={() => this.showNotification("br")}
+                        onClick={() => this.showNotification('br')}
                       >
                         Bottom Right
                       </Button>
@@ -343,9 +342,9 @@ class Notifications extends React.Component {
                       <div
                         className={
                           classes.cardHeader +
-                          " " +
+                          ' ' +
                           classes.center +
-                          " " +
+                          ' ' +
                           classes.modalSectionTitle
                         }
                       >
@@ -355,19 +354,19 @@ class Notifications extends React.Component {
                         color="secondary"
                         round
                         className={classes.marginRight}
-                        onClick={() => this.handleClickOpen("classicModal")}
+                        onClick={() => this.handleClickOpen('classicModal')}
                       >
                         Classic modal
                       </Button>
                       <Dialog
                         classes={{
-                          root: classes.center + " " + classes.modalRoot,
+                          root: classes.center + ' ' + classes.modalRoot,
                           paper: classes.modal
                         }}
                         open={this.state.classicModal}
                         TransitionComponent={Transition}
                         keepMounted
-                        onClose={() => this.handleClose("classicModal")}
+                        onClose={() => this.handleClose('classicModal')}
                         aria-labelledby="classic-modal-slide-title"
                         aria-describedby="classic-modal-slide-description"
                       >
@@ -382,7 +381,7 @@ class Notifications extends React.Component {
                             key="close"
                             aria-label="Close"
                             color="transparent"
-                            onClick={() => this.handleClose("classicModal")}
+                            onClick={() => this.handleClose('classicModal')}
                           >
                             <Close className={classes.modalClose} />
                           </Button>
@@ -411,7 +410,7 @@ class Notifications extends React.Component {
                         <DialogActions className={classes.modalFooter}>
                           <Button color="transparent">Nice Button</Button>
                           <Button
-                            onClick={() => this.handleClose("classicModal")}
+                            onClick={() => this.handleClose('classicModal')}
                             color="danger"
                             simple
                           >
@@ -423,19 +422,19 @@ class Notifications extends React.Component {
                         color="info"
                         round
                         className={classes.marginRight}
-                        onClick={() => this.handleClickOpen("noticeModal")}
+                        onClick={() => this.handleClickOpen('noticeModal')}
                       >
                         Notice Modal
                       </Button>
                       <Dialog
                         classes={{
-                          root: classes.center + " " + classes.modalRoot,
+                          root: classes.center + ' ' + classes.modalRoot,
                           paper: classes.modal
                         }}
                         open={this.state.noticeModal}
                         TransitionComponent={Transition}
                         keepMounted
-                        onClose={() => this.handleClose("noticeModal")}
+                        onClose={() => this.handleClose('noticeModal')}
                         aria-labelledby="notice-modal-slide-title"
                         aria-describedby="notice-modal-slide-description"
                       >
@@ -450,7 +449,7 @@ class Notifications extends React.Component {
                             key="close"
                             aria-label="Close"
                             color="transparent"
-                            onClick={() => this.handleClose("noticeModal")}
+                            onClick={() => this.handleClose('noticeModal')}
                           >
                             <Close className={classes.modalClose} />
                           </Button>
@@ -464,7 +463,7 @@ class Notifications extends React.Component {
                             title="1. Register"
                             text={
                               <span>
-                                The first step is to create an account at{" "}
+                                The first step is to create an account at{' '}
                                 <a href="https://www.creative-tim.com/">
                                   Creative Tim
                                 </a>
@@ -480,7 +479,7 @@ class Notifications extends React.Component {
                             title="2. Apply"
                             text={
                               <span>
-                                The first step is to create an account at{" "}
+                                The first step is to create an account at{' '}
                                 <a href="https://www.creative-tim.com/">
                                   Creative Tim
                                 </a>
@@ -501,12 +500,12 @@ class Notifications extends React.Component {
                         <DialogActions
                           className={
                             classes.modalFooter +
-                            " " +
+                            ' ' +
                             classes.modalFooterCenter
                           }
                         >
                           <Button
-                            onClick={() => this.handleClose("noticeModal")}
+                            onClick={() => this.handleClose('noticeModal')}
                             color="info"
                             round
                           >
@@ -518,19 +517,19 @@ class Notifications extends React.Component {
                         color="primary"
                         round
                         className={classes.marginRight}
-                        onClick={() => this.handleClickOpen("smallModal")}
+                        onClick={() => this.handleClickOpen('smallModal')}
                       >
                         Small alert modal
                       </Button>
                       <Dialog
                         classes={{
-                          root: classes.center + " " + classes.modalRoot,
-                          paper: classes.modal + " " + classes.modalSmall
+                          root: classes.center + ' ' + classes.modalRoot,
+                          paper: classes.modal + ' ' + classes.modalSmall
                         }}
                         open={this.state.smallModal}
                         TransitionComponent={Transition}
                         keepMounted
-                        onClose={() => this.handleClose("noticeModal")}
+                        onClose={() => this.handleClose('noticeModal')}
                         aria-labelledby="small-modal-slide-title"
                         aria-describedby="small-modal-slide-description"
                       >
@@ -545,7 +544,7 @@ class Notifications extends React.Component {
                             key="close"
                             aria-label="Close"
                             color="transparent"
-                            onClick={() => this.handleClose("smallModal")}
+                            onClick={() => this.handleClose('smallModal')}
                           >
                             <Close className={classes.modalClose} />
                           </Button>
@@ -553,7 +552,7 @@ class Notifications extends React.Component {
                         <DialogContent
                           id="small-modal-slide-description"
                           className={
-                            classes.modalBody + " " + classes.modalSmallBody
+                            classes.modalBody + ' ' + classes.modalSmallBody
                           }
                         >
                           <h5>Are you sure you want to do this?</h5>
@@ -561,24 +560,24 @@ class Notifications extends React.Component {
                         <DialogActions
                           className={
                             classes.modalFooter +
-                            " " +
+                            ' ' +
                             classes.modalFooterCenter
                           }
                         >
                           <Button
-                            onClick={() => this.handleClose("smallModal")}
+                            onClick={() => this.handleClose('smallModal')}
                             color="transparent"
                             className={classes.modalSmallFooterFirstButton}
                           >
                             Never Mind
                           </Button>
                           <Button
-                            onClick={() => this.handleClose("smallModal")}
+                            onClick={() => this.handleClose('smallModal')}
                             color="success"
                             simple
                             className={
                               classes.modalSmallFooterFirstButton +
-                              " " +
+                              ' ' +
                               classes.modalSmallFooterSecondButton
                             }
                           >

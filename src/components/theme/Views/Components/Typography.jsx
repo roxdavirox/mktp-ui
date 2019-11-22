@@ -1,39 +1,40 @@
-import React from "react";
-import PropTypes from "prop-types";
+/* eslint-disable react/no-unescaped-entities */
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 
 // core components
-import Quote from "components/Theme/Typography/Quote.jsx";
-import Muted from "components/Theme/Typography/Muted.jsx";
-import Primary from "components/Theme/Typography/Primary.jsx";
-import Info from "components/Theme/Typography/Info.jsx";
-import Success from "components/Theme/Typography/Success.jsx";
-import Warning from "components/Theme/Typography/Warning.jsx";
-import Danger from "components/Theme/Typography/Danger.jsx";
-import Heading from "components/Theme/Heading/Heading.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
+import Quote from 'components/Theme/Typography/Quote.jsx';
+import Muted from 'components/Theme/Typography/Muted.jsx';
+import Primary from 'components/Theme/Typography/Primary.jsx';
+import Info from 'components/Theme/Typography/Info.jsx';
+import Success from 'components/Theme/Typography/Success.jsx';
+import Warning from 'components/Theme/Typography/Warning.jsx';
+import Danger from 'components/Theme/Typography/Danger.jsx';
+import Heading from 'components/Theme/Heading/Heading.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
 
 const style = {
   typo: {
-    paddingLeft: "25%",
-    marginBottom: "40px",
-    position: "relative"
+    paddingLeft: '25%',
+    marginBottom: '40px',
+    position: 'relative'
   },
   note: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    bottom: "10px",
-    color: "#c0c1c2",
-    display: "block",
-    fontWeight: "400",
-    fontSize: "13px",
-    lineHeight: "13px",
-    left: "0",
-    marginLeft: "20px",
-    position: "absolute",
-    width: "260px"
+    bottom: '10px',
+    color: '#c0c1c2',
+    display: 'block',
+    fontWeight: '400',
+    fontSize: '13px',
+    lineHeight: '13px',
+    left: '0',
+    marginLeft: '20px',
+    position: 'absolute',
+    width: '260px'
   }
 };
 function Typography({ ...props }) {

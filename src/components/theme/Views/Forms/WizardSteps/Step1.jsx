@@ -1,31 +1,32 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React from 'react';
 
 // @material-ui/icons
-import Face from "@material-ui/icons/Face";
-import RecordVoiceOver from "@material-ui/icons/RecordVoiceOver";
-import Email from "@material-ui/icons/Email";
+import Face from '@material-ui/icons/Face';
+import RecordVoiceOver from '@material-ui/icons/RecordVoiceOver';
+import Email from '@material-ui/icons/Email';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import withStyles from '@material-ui/core/styles/withStyles';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 // core components
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import PictureUpload from "components/Theme/CustomUpload/PictureUpload.jsx";
-import CustomInput from "components/Theme/CustomInput/CustomInput.jsx";
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import PictureUpload from 'components/Theme/CustomUpload/PictureUpload.jsx';
+import CustomInput from 'components/Theme/CustomInput/CustomInput.jsx';
 
 const style = {
   infoText: {
-    fontWeight: "300",
-    margin: "10px 0 30px",
-    textAlign: "center"
+    fontWeight: '300',
+    margin: '10px 0 30px',
+    textAlign: 'center'
   },
   inputAdornmentIcon: {
-    color: "#555"
+    color: '#555'
   },
   inputAdornment: {
-    position: "relative"
+    position: 'relative'
   }
 };
 
@@ -33,12 +34,12 @@ class Step1 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      firstnameState: "",
-      lastname: "",
-      lastnameState: "",
-      email: "",
-      emailState: ""
+      firstname: '',
+      firstnameState: '',
+      lastname: '',
+      lastnameState: '',
+      email: '',
+      emailState: ''
     };
   }
   sendState() {
@@ -61,18 +62,18 @@ class Step1 extends React.Component {
   }
   change(event, stateName, type, stateNameEqualTo) {
     switch (type) {
-      case "email":
+      case 'email':
         if (this.verifyEmail(event.target.value)) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
-      case "length":
+      case 'length':
         if (this.verifyLength(event.target.value, stateNameEqualTo)) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
       default:
@@ -82,20 +83,20 @@ class Step1 extends React.Component {
   }
   isValidated() {
     if (
-      this.state.firstnameState === "success" &&
-      this.state.lastnameState === "success" &&
-      this.state.emailState === "success"
+      this.state.firstnameState === 'success' &&
+      this.state.lastnameState === 'success' &&
+      this.state.emailState === 'success'
     ) {
       return true;
     } else {
-      if (this.state.firstnameState !== "success") {
-        this.setState({ firstnameState: "error" });
+      if (this.state.firstnameState !== 'success') {
+        this.setState({ firstnameState: 'error' });
       }
-      if (this.state.lastnameState !== "success") {
-        this.setState({ lastnameState: "error" });
+      if (this.state.lastnameState !== 'success') {
+        this.setState({ lastnameState: 'error' });
       }
-      if (this.state.emailState !== "success") {
-        this.setState({ emailState: "error" });
+      if (this.state.emailState !== 'success') {
+        this.setState({ emailState: 'error' });
       }
     }
     return false;
@@ -114,8 +115,8 @@ class Step1 extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={6}>
           <CustomInput
-            success={this.state.firstnameState === "success"}
-            error={this.state.firstnameState === "error"}
+            success={this.state.firstnameState === 'success'}
+            error={this.state.firstnameState === 'error'}
             labelText={
               <span>
                 First Name <small>(required)</small>
@@ -126,7 +127,7 @@ class Step1 extends React.Component {
               fullWidth: true
             }}
             inputProps={{
-              onChange: event => this.change(event, "firstname", "length", 3),
+              onChange: event => this.change(event, 'firstname', 'length', 3),
               endAdornment: (
                 <InputAdornment
                   position="end"
@@ -138,8 +139,8 @@ class Step1 extends React.Component {
             }}
           />
           <CustomInput
-            success={this.state.lastnameState === "success"}
-            error={this.state.lastnameState === "error"}
+            success={this.state.lastnameState === 'success'}
+            error={this.state.lastnameState === 'error'}
             labelText={
               <span>
                 Last Name <small>(required)</small>
@@ -150,7 +151,7 @@ class Step1 extends React.Component {
               fullWidth: true
             }}
             inputProps={{
-              onChange: event => this.change(event, "lastname", "length", 3),
+              onChange: event => this.change(event, 'lastname', 'length', 3),
               endAdornment: (
                 <InputAdornment
                   position="end"
@@ -164,8 +165,8 @@ class Step1 extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={12} lg={10}>
           <CustomInput
-            success={this.state.emailState === "success"}
-            error={this.state.emailState === "error"}
+            success={this.state.emailState === 'success'}
+            error={this.state.emailState === 'error'}
             labelText={
               <span>
                 Email <small>(required)</small>
@@ -176,7 +177,7 @@ class Step1 extends React.Component {
               fullWidth: true
             }}
             inputProps={{
-              onChange: event => this.change(event, "email", "email"),
+              onChange: event => this.change(event, 'email', 'email'),
               endAdornment: (
                 <InputAdornment
                   position="end"

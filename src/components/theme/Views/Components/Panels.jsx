@@ -1,37 +1,38 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React from 'react';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 
 // @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
-import Schedule from "@material-ui/icons/Schedule";
-import Info from "@material-ui/icons/Info";
-import LocationOn from "@material-ui/icons/LocationOn";
-import Gavel from "@material-ui/icons/Gavel";
-import HelpOutline from "@material-ui/icons/HelpOutline";
+import Dashboard from '@material-ui/icons/Dashboard';
+import Schedule from '@material-ui/icons/Schedule';
+import Info from '@material-ui/icons/Info';
+import LocationOn from '@material-ui/icons/LocationOn';
+import Gavel from '@material-ui/icons/Gavel';
+import HelpOutline from '@material-ui/icons/HelpOutline';
 
 // core components
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import NavPills from "components/Theme/NavPills/NavPills.jsx";
-import Accordion from "components/Theme/Accordion/Accordion.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardHeader from "components/Theme/Card/CardHeader.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import NavPills from 'components/Theme/NavPills/NavPills.jsx';
+import Accordion from 'components/Theme/Accordion/Accordion.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardHeader from 'components/Theme/Card/CardHeader.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
 
-import { cardTitle } from "assets/jss/material-dashboard-pro-react.jsx";
+import { cardTitle } from 'assets/jss/material-dashboard-pro-react.jsx';
 
 const styles = {
   cardTitle,
   pageSubcategoriesTitle: {
-    color: "#3C4858",
-    textDecoration: "none",
-    textAlign: "center"
+    color: '#3C4858',
+    textDecoration: 'none',
+    textAlign: 'center'
   },
   cardCategory: {
-    margin: "0",
-    color: "#999999"
+    margin: '0',
+    color: '#999999'
   }
 };
 
@@ -53,7 +54,7 @@ class Panels extends React.Component {
                   color="warning"
                   tabs={[
                     {
-                      tabButton: "Profile",
+                      tabButton: 'Profile',
                       tabContent: (
                         <span>
                           <p>
@@ -75,7 +76,7 @@ class Panels extends React.Component {
                       )
                     },
                     {
-                      tabButton: "Settings",
+                      tabButton: 'Settings',
                       tabContent: (
                         <span>
                           <p>
@@ -92,13 +93,13 @@ class Panels extends React.Component {
                       )
                     },
                     {
-                      tabButton: "Options",
+                      tabButton: 'Options',
                       tabContent: (
                         <span>
                           <p>
                             Completely synergize resource taxing relationships
                             via premier niche markets. Professionally cultivate
-                            one-to-one customer service with robust ideas.{" "}
+                            one-to-one customer service with robust ideas.{' '}
                           </p>
                           <br />
                           <p>
@@ -129,7 +130,7 @@ class Panels extends React.Component {
                   }}
                   tabs={[
                     {
-                      tabButton: "Profile",
+                      tabButton: 'Profile',
                       tabContent: (
                         <span>
                           <p>
@@ -151,7 +152,7 @@ class Panels extends React.Component {
                       )
                     },
                     {
-                      tabButton: "Settings",
+                      tabButton: 'Settings',
                       tabContent: (
                         <span>
                           <p>
@@ -168,13 +169,13 @@ class Panels extends React.Component {
                       )
                     },
                     {
-                      tabButton: "Options",
+                      tabButton: 'Options',
                       tabContent: (
                         <span>
                           <p>
                             Completely synergize resource taxing relationships
                             via premier niche markets. Professionally cultivate
-                            one-to-one customer service with robust ideas.{" "}
+                            one-to-one customer service with robust ideas.{' '}
                           </p>
                           <br />
                           <p>
@@ -201,17 +202,17 @@ class Panels extends React.Component {
                   active={0}
                   collapses={[
                     {
-                      title: "Collapsible group Item #1",
+                      title: 'Collapsible group Item #1',
                       content:
                         "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS."
                     },
                     {
-                      title: "Collapsible group Item #2",
+                      title: 'Collapsible group Item #2',
                       content:
                         "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS."
                     },
                     {
-                      title: "Collapsible group Item #3",
+                      title: 'Collapsible group Item #3',
                       content:
                         "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS."
                     }
@@ -236,7 +237,7 @@ class Panels extends React.Component {
                   }}
                   tabs={[
                     {
-                      tabButton: "Dashboard",
+                      tabButton: 'Dashboard',
                       tabIcon: Dashboard,
                       tabContent: (
                         <span>
@@ -265,7 +266,7 @@ class Panels extends React.Component {
                       )
                     },
                     {
-                      tabButton: "Schedule",
+                      tabButton: 'Schedule',
                       tabIcon: Schedule,
                       tabContent: (
                         <span>
@@ -304,7 +305,7 @@ class Panels extends React.Component {
               alignCenter
               tabs={[
                 {
-                  tabButton: "Description",
+                  tabButton: 'Description',
                   tabIcon: Info,
                   tabContent: (
                     <Card>
@@ -329,7 +330,7 @@ class Panels extends React.Component {
                   )
                 },
                 {
-                  tabButton: "Location",
+                  tabButton: 'Location',
                   tabIcon: LocationOn,
                   tabContent: (
                     <Card>
@@ -354,7 +355,7 @@ class Panels extends React.Component {
                   )
                 },
                 {
-                  tabButton: "Legal Info",
+                  tabButton: 'Legal Info',
                   tabIcon: Gavel,
                   tabContent: (
                     <Card>
@@ -379,7 +380,7 @@ class Panels extends React.Component {
                   )
                 },
                 {
-                  tabButton: "Help Center",
+                  tabButton: 'Help Center',
                   tabIcon: HelpOutline,
                   tabContent: (
                     <Card>

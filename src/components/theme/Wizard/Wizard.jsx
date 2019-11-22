@@ -1,3 +1,4 @@
+/* eslint-disable react/no-string-refs */
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';

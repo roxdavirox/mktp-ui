@@ -1,15 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
+/* eslint-disable react/prop-types */
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 
-import typographyStyle from "assets/jss/material-dashboard-pro-react/components/typographyStyle.jsx";
+import typographyStyle from 'assets/jss/material-dashboard-pro-react/components/typographyStyle.jsx';
 
 function Muted({ ...props }) {
   const { classes, children } = props;
   return (
-    <div className={classes.defaultFontStyle + " " + classes.mutedText}>
+    <div className={classes.defaultFontStyle + ' ' + classes.mutedText}>
       {children}
     </div>
   );

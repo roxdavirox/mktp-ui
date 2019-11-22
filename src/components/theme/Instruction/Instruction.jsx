@@ -1,15 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import cx from "classnames";
+import React from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 
 // core components
-import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem";
+import GridContainer from 'components/Grid/GridContainer.jsx';
+import GridItem from 'components/Grid/GridItem';
 
-import instructionStyle from "assets/jss/material-dashboard-pro-react/components/instructionStyle.jsx";
+import instructionStyle from 'assets/jss/material-dashboard-pro-react/components/instructionStyle.jsx';
 
 function Instruction({ ...props }) {
   const {
@@ -47,7 +47,7 @@ function Instruction({ ...props }) {
 }
 
 Instruction.defaultProps = {
-  imageAlt: "..."
+  imageAlt: '...'
 };
 
 Instruction.propTypes = {

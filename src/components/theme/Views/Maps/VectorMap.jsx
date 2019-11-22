@@ -1,14 +1,13 @@
-/*eslint-disable*/
-import React from "react";
+import React from 'react';
 // react plugin for creating vector maps
-import { VectorMap } from "react-jvectormap";
+import { VectorMap } from 'react-jvectormap';
 
 // core components
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import Heading from "components/Theme/Heading/Heading.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import Heading from 'components/Theme/Heading/Heading.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
 
 var mapData = {
   AU: 760,
@@ -37,11 +36,11 @@ function VectorMaps({ ...prop }) {
               target="_blank"
             >
               React wrapper component
-            </a>{" "}
-            of jQuery{" "}
+            </a>{' '}
+            of jQuery{' '}
             <a href="http://jvectormap.com/" target="_blank">
               jVector Map
-            </a>{" "}
+            </a>{' '}
             pluging.
           </span>
         }
@@ -51,29 +50,29 @@ function VectorMaps({ ...prop }) {
           <Card plain>
             <CardBody plain>
               <VectorMap
-                map={"world_mill"}
+                map={'world_mill'}
                 backgroundColor="transparent"
                 zoomOnScroll={false}
                 containerStyle={{
-                  width: "100%",
-                  height: "420px"
+                  width: '100%',
+                  height: '420px'
                 }}
                 containerClassName="map"
                 regionStyle={{
                   initial: {
-                    fill: "#e4e4e4",
-                    "fill-opacity": 0.9,
-                    stroke: "none",
-                    "stroke-width": 0,
-                    "stroke-opacity": 0
+                    fill: '#e4e4e4',
+                    'fill-opacity': 0.9,
+                    stroke: 'none',
+                    'stroke-width': 0,
+                    'stroke-opacity': 0
                   }
                 }}
                 series={{
                   regions: [
                     {
                       values: mapData,
-                      scale: ["#AAAAAA", "#444444"],
-                      normalizeFunction: "polynomial"
+                      scale: ['#AAAAAA', '#444444'],
+                      normalizeFunction: 'polynomial'
                     }
                   ]
                 }}

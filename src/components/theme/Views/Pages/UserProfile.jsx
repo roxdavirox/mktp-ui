@@ -1,27 +1,28 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React from 'react';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import InputLabel from "@material-ui/core/InputLabel";
+import withStyles from '@material-ui/core/styles/withStyles';
+import InputLabel from '@material-ui/core/InputLabel';
 
 // @material-ui/icons
-import PermIdentity from "@material-ui/icons/PermIdentity";
+import PermIdentity from '@material-ui/icons/PermIdentity';
 
 // core components
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import Button from "components/Theme/CustomButtons/Button.jsx";
-import CustomInput from "components/Theme/CustomInput/CustomInput.jsx";
-import Clearfix from "components/Theme/Clearfix/Clearfix.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
-import CardHeader from "components/Theme/Card/CardHeader.jsx";
-import CardIcon from "components/Theme/Card/CardIcon.jsx";
-import CardAvatar from "components/Theme/Card/CardAvatar.jsx";
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import Button from 'components/Theme/CustomButtons/Button.jsx';
+import CustomInput from 'components/Theme/CustomInput/CustomInput.jsx';
+import Clearfix from 'components/Theme/Clearfix/Clearfix.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
+import CardHeader from 'components/Theme/Card/CardHeader.jsx';
+import CardIcon from 'components/Theme/Card/CardIcon.jsx';
+import CardAvatar from 'components/Theme/Card/CardAvatar.jsx';
 
-import userProfileStyles from "assets/jss/material-dashboard-pro-react/views/userProfileStyles.jsx";
+import userProfileStyles from 'assets/jss/material-dashboard-pro-react/views/userProfileStyles.jsx';
 
-import avatar from "assets/img/faces/marc.jpg";
+import avatar from 'assets/img/faces/marc.jpg';
 
 function UserProfile(props) {
   const { classes } = props;
@@ -122,7 +123,7 @@ function UserProfile(props) {
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
-                  <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel>
+                  <InputLabel style={{ color: '#AAAAAA' }}>About me</InputLabel>
                   <CustomInput
                     labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
                     id="about-me"

@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import SweetAlert from "react-bootstrap-sweetalert";
+import React from 'react';
+import PropTypes from 'prop-types';
+import SweetAlert from 'react-bootstrap-sweetalert';
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 // react component used to create sweet alerts
-import sweetAlertStyle from "assets/jss/material-dashboard-pro-react/views/sweetAlertStyle.jsx";
+import sweetAlertStyle from 'assets/jss/material-dashboard-pro-react/views/sweetAlertStyle.jsx';
 
 const CustomSweetAlertInput = props => {
   const { classes, title, ...rest } = props;
@@ -13,10 +13,10 @@ const CustomSweetAlertInput = props => {
     <SweetAlert
       input
       showCancel
-      style={{ display: "block", marginTop: "-100px" }}
-      title={title ? title : "Input something"}
-      confirmBtnCssClass={classes.button + " " + classes.info}
-      cancelBtnCssClass={classes.button + " " + classes.danger}
+      style={{ display: 'block', marginTop: '-100px' }}
+      title={title ? title : 'Input something'}
+      confirmBtnCssClass={classes.button + ' ' + classes.info}
+      cancelBtnCssClass={classes.button + ' ' + classes.danger}
       // onConfirm={e => this.inputConfirmAlert(e)}
       // onCancel={() => this.hideAlert()}x  v
       {...rest}

@@ -1,14 +1,15 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React from 'react';
 // nodejs library that concatenates classes
-import classNames from "classnames";
+import classNames from 'classnames';
 // nodejs library to set properties for components
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 // @material-ui/icons
 
 // core components
-import cardHeaderStyle from "assets/jss/material-dashboard-pro-react/components/cardHeaderStyle.jsx";
+import cardHeaderStyle from 'assets/jss/material-dashboard-pro-react/components/cardHeaderStyle.jsx';
 
 function CardHeader({ ...props }) {
   const {
@@ -27,7 +28,7 @@ function CardHeader({ ...props }) {
   } = props;
   const cardHeaderClasses = classNames({
     [classes.cardHeader]: true,
-    [classes[color + "CardHeader"]]: color,
+    [classes[color + 'CardHeader']]: color,
     [classes.cardHeaderPlain]: plain,
     [classes.cardHeaderImage]: image,
     [classes.cardHeaderContact]: contact,
@@ -48,13 +49,13 @@ CardHeader.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   color: PropTypes.oneOf([
-    "warning",
-    "success",
-    "danger",
-    "info",
-    "primary",
-    "secondary",
-    "rose"
+    'warning',
+    'success',
+    'danger',
+    'info',
+    'primary',
+    'secondary',
+    'rose'
   ]),
   plain: PropTypes.bool,
   image: PropTypes.bool,

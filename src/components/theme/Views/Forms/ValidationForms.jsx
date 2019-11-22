@@ -1,74 +1,75 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React from 'react';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormLabel from "@material-ui/core/FormLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import withStyles from '@material-ui/core/styles/withStyles';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 // material ui icons
-import MailOutline from "@material-ui/icons/MailOutline";
-import Contacts from "@material-ui/icons/Contacts";
-import Check from "@material-ui/icons/Check";
-import Close from "@material-ui/icons/Close";
+import MailOutline from '@material-ui/icons/MailOutline';
+import Contacts from '@material-ui/icons/Contacts';
+import Check from '@material-ui/icons/Check';
+import Close from '@material-ui/icons/Close';
 
 // core components
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import CustomInput from "components/Theme/CustomInput/CustomInput.jsx";
-import Button from "components/Theme/CustomButtons/Button.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardHeader from "components/Theme/Card/CardHeader.jsx";
-import CardText from "components/Theme/Card/CardText.jsx";
-import CardIcon from "components/Theme/Card/CardIcon.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
-import CardFooter from "components/Theme/Card/CardFooter.jsx";
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import CustomInput from 'components/Theme/CustomInput/CustomInput.jsx';
+import Button from 'components/Theme/CustomButtons/Button.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardHeader from 'components/Theme/Card/CardHeader.jsx';
+import CardText from 'components/Theme/Card/CardText.jsx';
+import CardIcon from 'components/Theme/Card/CardIcon.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
+import CardFooter from 'components/Theme/Card/CardFooter.jsx';
 
 // style for this view
-import validationFormsStyle from "assets/jss/material-dashboard-pro-react/views/validationFormsStyle.jsx";
+import validationFormsStyle from 'assets/jss/material-dashboard-pro-react/views/validationFormsStyle.jsx';
 
 class ValidationForms extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       // register form
-      registerEmail: "",
-      registerEmailState: "",
-      registerPassword: "",
-      registerPasswordState: "",
-      registerConfirmPassword: "",
-      registerConfirmPasswordState: "",
+      registerEmail: '',
+      registerEmailState: '',
+      registerPassword: '',
+      registerPasswordState: '',
+      registerConfirmPassword: '',
+      registerConfirmPasswordState: '',
       registerCheckbox: false,
-      registerCheckboxState: "",
+      registerCheckboxState: '',
       // login form
-      loginEmail: "",
-      loginEmailState: "",
-      loginPassword: "",
-      loginPasswordState: "",
+      loginEmail: '',
+      loginEmailState: '',
+      loginPassword: '',
+      loginPasswordState: '',
       // type validation
-      required: "",
-      requiredState: "",
-      typeEmail: "",
-      typeEmailState: "",
-      number: "",
-      numberState: "",
-      url: "",
-      urlState: "",
-      equalTo: "",
-      whichEqualTo: "",
-      equalToState: "",
+      required: '',
+      requiredState: '',
+      typeEmail: '',
+      typeEmailState: '',
+      number: '',
+      numberState: '',
+      url: '',
+      urlState: '',
+      equalTo: '',
+      whichEqualTo: '',
+      equalToState: '',
       // range validation
-      minLength: "",
-      minLengthState: "",
-      maxLength: "",
-      maxLengthState: "",
-      range: "",
-      rangeState: "",
-      minValue: "",
-      minValueState: "",
-      maxValue: "",
-      maxValueState: ""
+      minLength: '',
+      minLengthState: '',
+      maxLength: '',
+      maxLengthState: '',
+      range: '',
+      rangeState: '',
+      minValue: '',
+      minValueState: '',
+      maxValue: '',
+      maxValueState: ''
     };
     this.registerClick = this.registerClick.bind(this);
     this.loginClick = this.loginClick.bind(this);
@@ -99,7 +100,7 @@ class ValidationForms extends React.Component {
   }
   // function that verifies if value contains only numbers
   verifyNumber(value) {
-    var numberRex = new RegExp("^[0-9]+$");
+    var numberRex = new RegExp('^[0-9]+$');
     if (numberRex.test(value)) {
       return true;
     }
@@ -116,98 +117,98 @@ class ValidationForms extends React.Component {
   }
   change(event, stateName, type, stateNameEqualTo, maxValue) {
     switch (type) {
-      case "email":
+      case 'email':
         if (this.verifyEmail(event.target.value)) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
-      case "password":
+      case 'password':
         if (this.verifyLength(event.target.value, 1)) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
-      case "equalTo":
+      case 'equalTo':
         if (this.compare(event.target.value, this.state[stateNameEqualTo])) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
-      case "checkbox":
+      case 'checkbox':
         if (event.target.checked) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
-      case "number":
+      case 'number':
         if (this.verifyNumber(event.target.value)) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
-      case "length":
+      case 'length':
         if (this.verifyLength(event.target.value, stateNameEqualTo)) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
-      case "max-length":
+      case 'max-length':
         if (!this.verifyLength(event.target.value, stateNameEqualTo + 1)) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
-      case "url":
+      case 'url':
         if (this.verifyUrl(event.target.value)) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
-      case "min-value":
+      case 'min-value':
         if (
           this.verifyNumber(event.target.value) &&
           event.target.value >= stateNameEqualTo
         ) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
-      case "max-value":
+      case 'max-value':
         if (
           this.verifyNumber(event.target.value) &&
           event.target.value <= stateNameEqualTo
         ) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
-      case "range":
+      case 'range':
         if (
           this.verifyNumber(event.target.value) &&
           event.target.value >= stateNameEqualTo &&
           event.target.value <= maxValue
         ) {
-          this.setState({ [stateName + "State"]: "success" });
+          this.setState({ [stateName + 'State']: 'success' });
         } else {
-          this.setState({ [stateName + "State"]: "error" });
+          this.setState({ [stateName + 'State']: 'error' });
         }
         break;
       default:
         break;
     }
     switch (type) {
-      case "checkbox":
+      case 'checkbox':
         this.setState({ [stateName]: event.target.checked });
         break;
       default:
@@ -216,59 +217,59 @@ class ValidationForms extends React.Component {
     }
   }
   registerClick() {
-    if (this.state.registerEmailState === "") {
-      this.setState({ registerEmailState: "error" });
+    if (this.state.registerEmailState === '') {
+      this.setState({ registerEmailState: 'error' });
     }
-    if (this.state.registerPasswordState === "") {
-      this.setState({ registerPasswordState: "error" });
+    if (this.state.registerPasswordState === '') {
+      this.setState({ registerPasswordState: 'error' });
     }
-    if (this.state.registerConfirmPasswordState === "") {
-      this.setState({ registerConfirmPasswordState: "error" });
+    if (this.state.registerConfirmPasswordState === '') {
+      this.setState({ registerConfirmPasswordState: 'error' });
     }
-    if (this.state.registerCheckboxState === "") {
-      this.setState({ registerCheckboxState: "error" });
+    if (this.state.registerCheckboxState === '') {
+      this.setState({ registerCheckboxState: 'error' });
     }
   }
   loginClick() {
-    if (this.state.loginEmailState === "") {
-      this.setState({ loginEmailState: "error" });
+    if (this.state.loginEmailState === '') {
+      this.setState({ loginEmailState: 'error' });
     }
-    if (this.state.loginPasswordState === "") {
-      this.setState({ loginPasswordState: "error" });
+    if (this.state.loginPasswordState === '') {
+      this.setState({ loginPasswordState: 'error' });
     }
   }
   typeClick() {
-    if (this.state.requiredState === "") {
-      this.setState({ requiredState: "error" });
+    if (this.state.requiredState === '') {
+      this.setState({ requiredState: 'error' });
     }
-    if (this.state.typeEmailState === "") {
-      this.setState({ typeEmailState: "error" });
+    if (this.state.typeEmailState === '') {
+      this.setState({ typeEmailState: 'error' });
     }
-    if (this.state.numberState === "") {
-      this.setState({ numberState: "error" });
+    if (this.state.numberState === '') {
+      this.setState({ numberState: 'error' });
     }
-    if (this.state.urlState === "") {
-      this.setState({ urlState: "error" });
+    if (this.state.urlState === '') {
+      this.setState({ urlState: 'error' });
     }
-    if (this.state.equalToState === "") {
-      this.setState({ equalToState: "error" });
+    if (this.state.equalToState === '') {
+      this.setState({ equalToState: 'error' });
     }
   }
   rangeClick() {
-    if (this.state.minLengthState === "") {
-      this.setState({ minLengthState: "error" });
+    if (this.state.minLengthState === '') {
+      this.setState({ minLengthState: 'error' });
     }
-    if (this.state.maxLengthState === "") {
-      this.setState({ maxLengthState: "error" });
+    if (this.state.maxLengthState === '') {
+      this.setState({ maxLengthState: 'error' });
     }
-    if (this.state.rangeState === "") {
-      this.setState({ rangeState: "error" });
+    if (this.state.rangeState === '') {
+      this.setState({ rangeState: 'error' });
     }
-    if (this.state.minValueState === "") {
-      this.setState({ minValueState: "error" });
+    if (this.state.minValueState === '') {
+      this.setState({ minValueState: 'error' });
     }
-    if (this.state.maxValueState === "") {
-      this.setState({ maxValueState: "error" });
+    if (this.state.maxValueState === '') {
+      this.setState({ maxValueState: 'error' });
     }
   }
   render() {
@@ -286,8 +287,8 @@ class ValidationForms extends React.Component {
             <CardBody>
               <form>
                 <CustomInput
-                  success={this.state.registerEmailState === "success"}
-                  error={this.state.registerEmailState === "error"}
+                  success={this.state.registerEmailState === 'success'}
+                  error={this.state.registerEmailState === 'error'}
                   labelText="Email Address *"
                   id="registeremail"
                   formControlProps={{
@@ -295,13 +296,13 @@ class ValidationForms extends React.Component {
                   }}
                   inputProps={{
                     onChange: event =>
-                      this.change(event, "registerEmail", "email"),
-                    type: "email"
+                      this.change(event, 'registerEmail', 'email'),
+                    type: 'email'
                   }}
                 />
                 <CustomInput
-                  success={this.state.registerPasswordState === "success"}
-                  error={this.state.registerPasswordState === "error"}
+                  success={this.state.registerPasswordState === 'success'}
+                  error={this.state.registerPasswordState === 'error'}
                   labelText="Password *"
                   id="registerpassword"
                   formControlProps={{
@@ -309,15 +310,15 @@ class ValidationForms extends React.Component {
                   }}
                   inputProps={{
                     onChange: event =>
-                      this.change(event, "registerPassword", "password"),
-                    type: "password"
+                      this.change(event, 'registerPassword', 'password'),
+                    type: 'password'
                   }}
                 />
                 <CustomInput
                   success={
-                    this.state.registerConfirmPasswordState === "success"
+                    this.state.registerConfirmPasswordState === 'success'
                   }
-                  error={this.state.registerConfirmPasswordState === "error"}
+                  error={this.state.registerConfirmPasswordState === 'error'}
                   labelText="Confirm Password *"
                   id="registerconfirmpassword"
                   formControlProps={{
@@ -327,11 +328,11 @@ class ValidationForms extends React.Component {
                     onChange: event =>
                       this.change(
                         event,
-                        "registerConfirmPassword",
-                        "equalTo",
-                        "registerPassword"
+                        'registerConfirmPassword',
+                        'equalTo',
+                        'registerPassword'
                       ),
-                    type: "password"
+                    type: 'password'
                   }}
                 />
                 <div className={classes.formCategory}>
@@ -342,7 +343,7 @@ class ValidationForms extends React.Component {
                     <Checkbox
                       tabIndex={-1}
                       onClick={event =>
-                        this.change(event, "registerCheckbox", "checkbox")
+                        this.change(event, 'registerCheckbox', 'checkbox')
                       }
                       checkedIcon={<Check className={classes.checkedIcon} />}
                       icon={<Check className={classes.uncheckedIcon} />}
@@ -355,9 +356,9 @@ class ValidationForms extends React.Component {
                   classes={{
                     label:
                       classes.label +
-                      (this.state.registerCheckboxState === "error"
-                        ? " " + classes.labelError
-                        : "")
+                      (this.state.registerCheckboxState === 'error'
+                        ? ' ' + classes.labelError
+                        : '')
                   }}
                   label="Subscribe to newsletter"
                 />
@@ -383,8 +384,8 @@ class ValidationForms extends React.Component {
             <CardBody>
               <form>
                 <CustomInput
-                  success={this.state.loginEmailState === "success"}
-                  error={this.state.loginEmailState === "error"}
+                  success={this.state.loginEmailState === 'success'}
+                  error={this.state.loginEmailState === 'error'}
                   labelText="Email Address *"
                   id="loginemail"
                   formControlProps={{
@@ -392,13 +393,13 @@ class ValidationForms extends React.Component {
                   }}
                   inputProps={{
                     onChange: event =>
-                      this.change(event, "loginEmail", "email"),
-                    type: "email"
+                      this.change(event, 'loginEmail', 'email'),
+                    type: 'email'
                   }}
                 />
                 <CustomInput
-                  success={this.state.loginPasswordState === "success"}
-                  error={this.state.loginPasswordState === "error"}
+                  success={this.state.loginPasswordState === 'success'}
+                  error={this.state.loginPasswordState === 'error'}
                   labelText="Password *"
                   id="loginpassword"
                   formControlProps={{
@@ -406,8 +407,8 @@ class ValidationForms extends React.Component {
                   }}
                   inputProps={{
                     onChange: event =>
-                      this.change(event, "loginPassword", "password"),
-                    type: "password"
+                      this.change(event, 'loginPassword', 'password'),
+                    type: 'password'
                   }}
                 />
                 <div className={classes.formCategory}>
@@ -439,18 +440,18 @@ class ValidationForms extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={7}>
                     <CustomInput
-                      success={this.state.requiredState === "success"}
-                      error={this.state.requiredState === "error"}
+                      success={this.state.requiredState === 'success'}
+                      error={this.state.requiredState === 'error'}
                       id="required"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
                         onChange: event =>
-                          this.change(event, "required", "length", 0),
-                        type: "text",
+                          this.change(event, 'required', 'length', 0),
+                        type: 'text',
                         endAdornment:
-                          this.state.requiredState === "error" ? (
+                          this.state.requiredState === 'error' ? (
                             <InputAdornment position="end">
                               <Close className={classes.danger} />
                             </InputAdornment>
@@ -474,18 +475,18 @@ class ValidationForms extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={7}>
                     <CustomInput
-                      success={this.state.typeEmailState === "success"}
-                      error={this.state.typeEmailState === "error"}
+                      success={this.state.typeEmailState === 'success'}
+                      error={this.state.typeEmailState === 'error'}
                       id="typeemail"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
                         onChange: event =>
-                          this.change(event, "typeEmail", "email"),
-                        type: "email",
+                          this.change(event, 'typeEmail', 'email'),
+                        type: 'email',
                         endAdornment:
-                          this.state.typeEmailState === "error" ? (
+                          this.state.typeEmailState === 'error' ? (
                             <InputAdornment position="end">
                               <Close className={classes.danger} />
                             </InputAdornment>
@@ -509,18 +510,18 @@ class ValidationForms extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={7}>
                     <CustomInput
-                      success={this.state.numberState === "success"}
-                      error={this.state.numberState === "error"}
+                      success={this.state.numberState === 'success'}
+                      error={this.state.numberState === 'error'}
                       id="number"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
                         onChange: event =>
-                          this.change(event, "number", "number"),
-                        type: "number",
+                          this.change(event, 'number', 'number'),
+                        type: 'number',
                         endAdornment:
-                          this.state.numberState === "error" ? (
+                          this.state.numberState === 'error' ? (
                             <InputAdornment position="end">
                               <Close className={classes.danger} />
                             </InputAdornment>
@@ -544,17 +545,17 @@ class ValidationForms extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={7}>
                     <CustomInput
-                      success={this.state.urlState === "success"}
-                      error={this.state.urlState === "error"}
+                      success={this.state.urlState === 'success'}
+                      error={this.state.urlState === 'error'}
                       id="url"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
-                        onChange: event => this.change(event, "url", "url"),
-                        type: "text",
+                        onChange: event => this.change(event, 'url', 'url'),
+                        type: 'text',
                         endAdornment:
-                          this.state.urlState === "error" ? (
+                          this.state.urlState === 'error' ? (
                             <InputAdornment position="end">
                               <Close className={classes.danger} />
                             </InputAdornment>
@@ -578,17 +579,17 @@ class ValidationForms extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={3}>
                     <CustomInput
-                      success={this.state.equalToState === "success"}
-                      error={this.state.equalToState === "error"}
+                      success={this.state.equalToState === 'success'}
+                      error={this.state.equalToState === 'error'}
                       id="equalto"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
-                        onChange: event => this.change(event, "whichEqualTo"),
-                        type: "text",
+                        onChange: event => this.change(event, 'whichEqualTo'),
+                        type: 'text',
                         endAdornment:
-                          this.state.equalToState === "error" ? (
+                          this.state.equalToState === 'error' ? (
                             <InputAdornment position="end">
                               <Close className={classes.danger} />
                             </InputAdornment>
@@ -600,8 +601,8 @@ class ValidationForms extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={3}>
                     <CustomInput
-                      success={this.state.equalToState === "success"}
-                      error={this.state.equalToState === "error"}
+                      success={this.state.equalToState === 'success'}
+                      error={this.state.equalToState === 'error'}
                       id="whichequalto"
                       formControlProps={{
                         fullWidth: true
@@ -610,13 +611,13 @@ class ValidationForms extends React.Component {
                         onChange: event =>
                           this.change(
                             event,
-                            "equalTo",
-                            "equalTo",
-                            "whichEqualTo"
+                            'equalTo',
+                            'equalTo',
+                            'whichEqualTo'
                           ),
-                        type: "text",
+                        type: 'text',
                         endAdornment:
-                          this.state.equalToState === "error" ? (
+                          this.state.equalToState === 'error' ? (
                             <InputAdornment position="end">
                               <Close className={classes.danger} />
                             </InputAdornment>
@@ -658,18 +659,18 @@ class ValidationForms extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={7}>
                     <CustomInput
-                      success={this.state.minLengthState === "success"}
-                      error={this.state.minLengthState === "error"}
+                      success={this.state.minLengthState === 'success'}
+                      error={this.state.minLengthState === 'error'}
                       id="minlength"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
                         onChange: event =>
-                          this.change(event, "minLength", "length", 5),
-                        type: "text",
+                          this.change(event, 'minLength', 'length', 5),
+                        type: 'text',
                         endAdornment:
-                          this.state.minLengthState === "error" ? (
+                          this.state.minLengthState === 'error' ? (
                             <InputAdornment position="end">
                               <Close className={classes.danger} />
                             </InputAdornment>
@@ -691,18 +692,18 @@ class ValidationForms extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={7}>
                     <CustomInput
-                      success={this.state.maxLengthState === "success"}
-                      error={this.state.maxLengthState === "error"}
+                      success={this.state.maxLengthState === 'success'}
+                      error={this.state.maxLengthState === 'error'}
                       id="maxlength"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
                         onChange: event =>
-                          this.change(event, "maxLength", "max-length", 5),
-                        type: "text",
+                          this.change(event, 'maxLength', 'max-length', 5),
+                        type: 'text',
                         endAdornment:
-                          this.state.maxLengthState === "error" ? (
+                          this.state.maxLengthState === 'error' ? (
                             <InputAdornment position="end">
                               <Close className={classes.danger} />
                             </InputAdornment>
@@ -724,18 +725,18 @@ class ValidationForms extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={7}>
                     <CustomInput
-                      success={this.state.rangeState === "success"}
-                      error={this.state.rangeState === "error"}
+                      success={this.state.rangeState === 'success'}
+                      error={this.state.rangeState === 'error'}
                       id="range"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
                         onChange: event =>
-                          this.change(event, "range", "range", 6, 10),
-                        type: "text",
+                          this.change(event, 'range', 'range', 6, 10),
+                        type: 'text',
                         endAdornment:
-                          this.state.rangeState === "error" ? (
+                          this.state.rangeState === 'error' ? (
                             <InputAdornment position="end">
                               <Close className={classes.danger} />
                             </InputAdornment>
@@ -757,18 +758,18 @@ class ValidationForms extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={7}>
                     <CustomInput
-                      success={this.state.minValueState === "success"}
-                      error={this.state.minValueState === "error"}
+                      success={this.state.minValueState === 'success'}
+                      error={this.state.minValueState === 'error'}
                       id="minvalue"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
                         onChange: event =>
-                          this.change(event, "minValue", "min-value", 6),
-                        type: "text",
+                          this.change(event, 'minValue', 'min-value', 6),
+                        type: 'text',
                         endAdornment:
-                          this.state.minValueState === "error" ? (
+                          this.state.minValueState === 'error' ? (
                             <InputAdornment position="end">
                               <Close className={classes.danger} />
                             </InputAdornment>
@@ -790,18 +791,18 @@ class ValidationForms extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={7}>
                     <CustomInput
-                      success={this.state.maxValueState === "success"}
-                      error={this.state.maxValueState === "error"}
+                      success={this.state.maxValueState === 'success'}
+                      error={this.state.maxValueState === 'error'}
                       id="maxvalue"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
                         onChange: event =>
-                          this.change(event, "maxValue", "max-value", 6),
-                        type: "text",
+                          this.change(event, 'maxValue', 'max-value', 6),
+                        type: 'text',
                         endAdornment:
-                          this.state.maxValueState === "error" ? (
+                          this.state.maxValueState === 'error' ? (
                             <InputAdornment position="end">
                               <Close className={classes.danger} />
                             </InputAdornment>

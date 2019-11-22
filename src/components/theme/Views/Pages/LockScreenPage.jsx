@@ -1,34 +1,34 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 
 // core components
-import Button from "components/Theme/CustomButtons/Button.jsx";
-import CustomInput from "components/Theme/CustomInput/CustomInput.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
-import CardAvatar from "components/Theme/Card/CardAvatar.jsx";
-import CardFooter from "components/Theme/Card/CardFooter.jsx";
+import Button from 'components/Theme/CustomButtons/Button.jsx';
+import CustomInput from 'components/Theme/CustomInput/CustomInput.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
+import CardAvatar from 'components/Theme/Card/CardAvatar.jsx';
+import CardFooter from 'components/Theme/Card/CardFooter.jsx';
 
-import avatar from "assets/img/faces/avatar.jpg";
+import avatar from 'assets/img/faces/avatar.jpg';
 
-import lockScreenPageStyle from "assets/jss/material-dashboard-pro-react/views/lockScreenPageStyle.jsx";
+import lockScreenPageStyle from 'assets/jss/material-dashboard-pro-react/views/lockScreenPageStyle.jsx';
 
 class LockScreenPage extends React.Component {
   constructor(props) {
     super(props);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-      cardAnimaton: "cardHidden"
+      cardAnimaton: 'cardHidden'
     };
   }
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     this.timeOutFunction = setTimeout(
       function() {
-        this.setState({ cardAnimaton: "" });
+        this.setState({ cardAnimaton: '' });
       }.bind(this),
       700
     );
@@ -45,7 +45,7 @@ class LockScreenPage extends React.Component {
           <Card
             profile
             className={
-              classes.customCardClass + " " + classes[this.state.cardAnimaton]
+              classes.customCardClass + ' ' + classes[this.state.cardAnimaton]
             }
           >
             <CardAvatar profile className={classes.cardAvatar}>
@@ -62,7 +62,7 @@ class LockScreenPage extends React.Component {
                   fullWidth: true
                 }}
                 inputProps={{
-                  type: "password"
+                  type: 'password'
                 }}
               />
             </CardBody>

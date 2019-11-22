@@ -1,32 +1,33 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React from 'react';
 // react component for creating dynamic tables
-import ReactTable from "react-table";
+import ReactTable from 'react-table';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 // @material-ui/icons
-import Assignment from "@material-ui/icons/Assignment";
-import Dvr from "@material-ui/icons/Dvr";
-import Favorite from "@material-ui/icons/Favorite";
-import Close from "@material-ui/icons/Close";
+import Assignment from '@material-ui/icons/Assignment';
+import Dvr from '@material-ui/icons/Dvr';
+import Favorite from '@material-ui/icons/Favorite';
+import Close from '@material-ui/icons/Close';
 // core components
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import Button from "components/Theme/CustomButtons/Button.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
-import CardIcon from "components/Theme/Card/CardIcon.jsx";
-import CardHeader from "components/Theme/Card/CardHeader.jsx";
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import Button from 'components/Theme/CustomButtons/Button.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
+import CardIcon from 'components/Theme/Card/CardIcon.jsx';
+import CardHeader from 'components/Theme/Card/CardHeader.jsx';
 
-import { dataTable } from "../../variables/general.jsx";
+import { dataTable } from '../../variables/general.jsx';
 
-import { cardTitle } from "assets/jss/material-dashboard-pro-react.jsx";
+import { cardTitle } from 'assets/jss/material-dashboard-pro-react.jsx';
 
 const styles = {
   cardIconTitle: {
     ...cardTitle,
-    marginTop: "15px",
-    marginBottom: "0px"
+    marginTop: '15px',
+    marginBottom: '0px'
   }
 };
 
@@ -54,20 +55,20 @@ class ReactTables extends React.Component {
                   alert(
                     "You've clicked LIKE button on \n{ \nName: " +
                       obj.name +
-                      ", \nposition: " +
+                      ', \nposition: ' +
                       obj.position +
-                      ", \noffice: " +
+                      ', \noffice: ' +
                       obj.office +
-                      ", \nage: " +
+                      ', \nage: ' +
                       obj.age +
-                      "\n}."
+                      '\n}.'
                   );
                 }}
                 color="info"
                 className="like"
               >
                 <Favorite />
-              </Button>{" "}
+              </Button>{' '}
               {/* use this button to add a edit kind of action */}
               <Button
                 justIcon
@@ -78,20 +79,20 @@ class ReactTables extends React.Component {
                   alert(
                     "You've clicked EDIT button on \n{ \nName: " +
                       obj.name +
-                      ", \nposition: " +
+                      ', \nposition: ' +
                       obj.position +
-                      ", \noffice: " +
+                      ', \noffice: ' +
                       obj.office +
-                      ", \nage: " +
+                      ', \nage: ' +
                       obj.age +
-                      "\n}."
+                      '\n}.'
                   );
                 }}
                 color="warning"
                 className="edit"
               >
                 <Dvr />
-              </Button>{" "}
+              </Button>{' '}
               {/* use this button to remove the data row */}
               <Button
                 justIcon
@@ -114,7 +115,7 @@ class ReactTables extends React.Component {
                 className="remove"
               >
                 <Close />
-              </Button>{" "}
+              </Button>{' '}
             </div>
           )
         };
@@ -139,24 +140,24 @@ class ReactTables extends React.Component {
                 filterable
                 columns={[
                   {
-                    Header: "Name",
-                    accessor: "name"
+                    Header: 'Name',
+                    accessor: 'name'
                   },
                   {
-                    Header: "Position",
-                    accessor: "position"
+                    Header: 'Position',
+                    accessor: 'position'
                   },
                   {
-                    Header: "Office",
-                    accessor: "office"
+                    Header: 'Office',
+                    accessor: 'office'
                   },
                   {
-                    Header: "Age",
-                    accessor: "age"
+                    Header: 'Age',
+                    accessor: 'age'
                   },
                   {
-                    Header: "Actions",
-                    accessor: "actions",
+                    Header: 'Actions',
+                    accessor: 'actions',
                     sortable: false,
                     filterable: false
                   }

@@ -1,93 +1,93 @@
-import React from "react";
+import React from 'react';
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import Icon from "@material-ui/core/Icon";
+import withStyles from '@material-ui/core/styles/withStyles';
+import Icon from '@material-ui/core/Icon';
 // @material-ui/icons
 // import Weekend from "@material-ui/icons/Weekend";
-import Home from "@material-ui/icons/Home";
-import BugReport from "@material-ui/icons/BugReport";
-import Code from "@material-ui/icons/Code";
-import Cloud from "@material-ui/icons/Cloud";
-import FormatQuote from "@material-ui/icons/FormatQuote";
+import Home from '@material-ui/icons/Home';
+import BugReport from '@material-ui/icons/BugReport';
+import Code from '@material-ui/icons/Code';
+import Cloud from '@material-ui/icons/Cloud';
+import FormatQuote from '@material-ui/icons/FormatQuote';
 
 // core components
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import Table from "components/Theme/Table/Table.jsx";
-import Timeline from "components/Theme/Timeline/Timeline.jsx";
-import Button from "components/Theme/CustomButtons/Button.jsx";
-import CustomTabs from "components/Theme/CustomTabs/CustomTabs.jsx";
-import Tasks from "components/Theme/Tasks/Tasks.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardHeader from "components/Theme/Card/CardHeader.jsx";
-import CardAvatar from "components/Theme/Card/CardAvatar.jsx";
-import CardText from "components/Theme/Card/CardText.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
-import CardFooter from "components/Theme/Card/CardFooter.jsx";
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import Table from 'components/Theme/Table/Table.jsx';
+import Timeline from 'components/Theme/Timeline/Timeline.jsx';
+import Button from 'components/Theme/CustomButtons/Button.jsx';
+import CustomTabs from 'components/Theme/CustomTabs/CustomTabs.jsx';
+import Tasks from 'components/Theme/Tasks/Tasks.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardHeader from 'components/Theme/Card/CardHeader.jsx';
+import CardAvatar from 'components/Theme/Card/CardAvatar.jsx';
+import CardText from 'components/Theme/Card/CardText.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
+import CardFooter from 'components/Theme/Card/CardFooter.jsx';
 
 import {
   rtlStories,
   rtlBugs,
   rtlWebsite,
   rtlServer
-} from "../variables/general.jsx";
+} from '../variables/general.jsx';
 
-import image from "assets/img/faces/card-profile1-square.jpg";
+import image from 'assets/img/faces/card-profile1-square.jpg';
 
 import {
   cardTitle,
   roseColor
-} from "assets/jss/material-dashboard-pro-react.jsx";
+} from 'assets/jss/material-dashboard-pro-react.jsx';
 
 const styles = {
   cardTitle,
   cardTitleWhite: {
     ...cardTitle,
-    color: "#FFFFFF",
-    marginTop: "0"
+    color: '#FFFFFF',
+    marginTop: '0'
   },
   cardCategoryWhite: {
-    margin: "0",
-    color: "rgba(255, 255, 255, 0.8)",
-    fontSize: ".875rem"
+    margin: '0',
+    color: 'rgba(255, 255, 255, 0.8)',
+    fontSize: '.875rem'
   },
   cardCategory: {
-    color: "#999999",
-    marginTop: "10px"
+    color: '#999999',
+    marginTop: '10px'
   },
   icon: {
-    color: "#333333",
-    margin: "10px auto 0",
-    width: "130px",
-    height: "130px",
-    border: "1px solid #E5E5E5",
-    borderRadius: "50%",
-    lineHeight: "174px",
-    "& svg": {
-      width: "55px",
-      height: "55px"
+    color: '#333333',
+    margin: '10px auto 0',
+    width: '130px',
+    height: '130px',
+    border: '1px solid #E5E5E5',
+    borderRadius: '50%',
+    lineHeight: '174px',
+    '& svg': {
+      width: '55px',
+      height: '55px'
     },
-    "& .fab,& .fas,& .far,& .fal,& .material-icons": {
-      width: "55px",
-      fontSize: "55px"
+    '& .fab,& .fas,& .far,& .fal,& .material-icons': {
+      width: '55px',
+      fontSize: '55px'
     }
   },
   iconRose: {
     color: roseColor
   },
   marginTop30: {
-    marginTop: "30px"
+    marginTop: '30px'
   },
   testimonialIcon: {
-    marginTop: "30px",
-    "& svg": {
-      width: "40px",
-      height: "40px"
+    marginTop: '30px',
+    '& svg': {
+      width: '40px',
+      height: '40px'
     }
   },
   cardTestimonialDescription: {
-    fontStyle: "italic",
-    color: "#999999"
+    fontStyle: 'italic',
+    color: '#999999'
   }
 };
 
@@ -112,16 +112,16 @@ class RTLSupport extends React.Component {
                   hover
                   tableHeaderColor="warning"
                   tableHead={[
-                    "وتم",
-                    "لأمريكية هذا",
-                    "شاسعالأمريكية",
-                    "الأمريكية "
+                    'وتم',
+                    'لأمريكية هذا',
+                    'شاسعالأمريكية',
+                    'الأمريكية '
                   ]}
                   tableData={[
-                    ["وا حد", "السبب وفرنسا الصينية ", "$36,738", "تكاليف"],
-                    ["إثنان", "بمباركة بها ", "$23,789", "الأمريكية من"],
-                    ["ثلاثة", " شاسعالأمريكية ", "$56,142", "السفن وعُرفت"],
-                    ["أربعة", " الاندونيسية", "$38,735", " فصل."]
+                    ['وا حد', 'السبب وفرنسا الصينية ', '$36,738', 'تكاليف'],
+                    ['إثنان', 'بمباركة بها ', '$23,789', 'الأمريكية من'],
+                    ['ثلاثة', ' شاسعالأمريكية ', '$56,142', 'السفن وعُرفت'],
+                    ['أربعة', ' الاندونيسية', '$38,735', ' فصل.']
                   ]}
                 />
               </CardBody>
@@ -134,7 +134,7 @@ class RTLSupport extends React.Component {
               headerColor="rose"
               tabs={[
                 {
-                  tabName: "ضرب",
+                  tabName: 'ضرب',
                   tabIcon: BugReport,
                   tabContent: (
                     <Tasks
@@ -145,7 +145,7 @@ class RTLSupport extends React.Component {
                   )
                 },
                 {
-                  tabName: "السفن",
+                  tabName: 'السفن',
                   tabIcon: Code,
                   tabContent: (
                     <Tasks
@@ -156,7 +156,7 @@ class RTLSupport extends React.Component {
                   )
                 },
                 {
-                  tabName: "فصل.",
+                  tabName: 'فصل.',
                   tabIcon: Cloud,
                   tabContent: (
                     <Tasks
