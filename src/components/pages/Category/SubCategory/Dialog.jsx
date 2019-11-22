@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { withSnackbar } from 'notistack';
 import Button from '@material-ui/core/Button';
 import MuiDialog from '@material-ui/core/Dialog';
@@ -13,7 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { addSubCategory } from 'store/ducks/category';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   container: {
     display: 'grid',
     flexWrap: 'wrap'
@@ -23,15 +23,10 @@ const styles = theme => ({
     minWidth: 120
   },
   select: { height: '37px' }
-});
+}));
 
-const Dialog = ({
-  enqueueSnackbar: snack,
-  onClose,
-  classes,
-  open,
-  categoryId
-}) => {
+const Dialog = ({ enqueueSnackbar: snack, onClose, open, categoryId }) => {
+  const classes = useStyles();
   const [name, setName] = useState('');
 
   const handleNameChange = e => setName(e.target.value);
@@ -84,8 +79,7 @@ Dialog.propTypes = {
   fnSubmit: PropTypes.func.isRequired,
   postOption: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  classes: PropTypes.object.isRequired
+  open: PropTypes.bool.isRequired
 };
 
-export default withSnackbar(withStyles(styles)(Dialog));
+export default withSnackbar(Dialog);

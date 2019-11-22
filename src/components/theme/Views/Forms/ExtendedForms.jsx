@@ -1,37 +1,40 @@
-import React from "react";
+/* eslint-disable react/no-string-refs */
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
+import React from 'react';
 // react component plugin for creating a beautiful datetime dropdown picker
-import Datetime from "react-datetime";
+import Datetime from 'react-datetime';
 // react component plugin for creating beatiful tags on an input
-import TagsInput from "react-tagsinput";
+import TagsInput from 'react-tagsinput';
 // plugin that creates slider
-import nouislider from "nouislider";
+import nouislider from 'nouislider';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import InputLabel from "@material-ui/core/InputLabel";
-import Switch from "@material-ui/core/Switch";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import withStyles from '@material-ui/core/styles/withStyles';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import Switch from '@material-ui/core/Switch';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 // @material-ui/icons
-import Today from "@material-ui/icons/Today";
-import LibraryBooks from "@material-ui/icons/LibraryBooks";
-import AvTimer from "@material-ui/icons/AvTimer";
+import Today from '@material-ui/icons/Today';
+import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import AvTimer from '@material-ui/icons/AvTimer';
 
 // core components
-import GridContainer from "components/Theme/Grid/GridContainer.jsx";
-import GridItem from "components/Theme/Grid/GridItem.jsx";
-import CustomDropdown from "components/Theme/CustomDropdown/CustomDropdown.jsx";
-import CustomLinearProgress from "components/Theme/CustomLinearProgress/CustomLinearProgress.jsx";
-import ImageUpload from "components/Theme/CustomUpload/ImageUpload.jsx";
-import Card from "components/Theme/Card/Card.jsx";
-import CardHeader from "components/Theme/Card/CardHeader.jsx";
-import CardIcon from "components/Theme/Card/CardIcon.jsx";
-import CardBody from "components/Theme/Card/CardBody.jsx";
+import GridContainer from 'components/Theme/Grid/GridContainer.jsx';
+import GridItem from 'components/Theme/Grid/GridItem.jsx';
+import CustomDropdown from 'components/Theme/CustomDropdown/CustomDropdown.jsx';
+import CustomLinearProgress from 'components/Theme/CustomLinearProgress/CustomLinearProgress.jsx';
+import ImageUpload from 'components/Theme/CustomUpload/ImageUpload.jsx';
+import Card from 'components/Theme/Card/Card.jsx';
+import CardHeader from 'components/Theme/Card/CardHeader.jsx';
+import CardIcon from 'components/Theme/Card/CardIcon.jsx';
+import CardBody from 'components/Theme/Card/CardBody.jsx';
 
-import extendedFormsStyle from "assets/jss/material-dashboard-pro-react/views/extendedFormsStyle.jsx";
+import extendedFormsStyle from 'assets/jss/material-dashboard-pro-react/views/extendedFormsStyle.jsx';
 
 class ExtendedForms extends React.Component {
   constructor(props) {
@@ -39,9 +42,9 @@ class ExtendedForms extends React.Component {
     this.state = {
       checkedA: true,
       checkedB: false,
-      simpleSelect: "",
+      simpleSelect: '',
       multipleSelect: [],
-      tags: ["pizza", "pasta", "parmesan"]
+      tags: ['pizza', 'pasta', 'parmesan']
     };
     this.handleTags = this.handleTags.bind(this);
   }
@@ -91,7 +94,7 @@ class ExtendedForms extends React.Component {
                 <br />
                 <FormControl fullWidth>
                   <Datetime
-                    inputProps={{ placeholder: "Datetime Picker Here" }}
+                    inputProps={{ placeholder: 'Datetime Picker Here' }}
                   />
                 </FormControl>
               </CardBody>
@@ -111,7 +114,7 @@ class ExtendedForms extends React.Component {
                 <FormControl fullWidth>
                   <Datetime
                     timeFormat={false}
-                    inputProps={{ placeholder: "Date Picker Here" }}
+                    inputProps={{ placeholder: 'Date Picker Here' }}
                   />
                 </FormControl>
               </CardBody>
@@ -131,7 +134,7 @@ class ExtendedForms extends React.Component {
                 <FormControl fullWidth>
                   <Datetime
                     dateFormat={false}
-                    inputProps={{ placeholder: "Time Picker Here" }}
+                    inputProps={{ placeholder: 'Time Picker Here' }}
                   />
                 </FormControl>
               </CardBody>
@@ -152,7 +155,7 @@ class ExtendedForms extends React.Component {
                         control={
                           <Switch
                             checked={this.state.checkedA}
-                            onChange={this.handleChange("checkedA")}
+                            onChange={this.handleChange('checkedA')}
                             value="checkedA"
                             classes={{
                               switchBase: classes.switchBase,
@@ -174,7 +177,7 @@ class ExtendedForms extends React.Component {
                         control={
                           <Switch
                             checked={this.state.checkedB}
-                            onChange={this.handleChange("checkedB")}
+                            onChange={this.handleChange('checkedB')}
                             value="checkedB"
                             classes={{
                               switchBase: classes.switchBase,
@@ -216,8 +219,8 @@ class ExtendedForms extends React.Component {
                             value={this.state.simpleSelect}
                             onChange={this.handleSimple}
                             inputProps={{
-                              name: "simpleSelect",
-                              id: "simple-select"
+                              name: 'simpleSelect',
+                              id: 'simple-select'
                             }}
                           >
                             <MenuItem
@@ -411,8 +414,8 @@ class ExtendedForms extends React.Component {
                             MenuProps={{ className: classes.selectMenu }}
                             classes={{ select: classes.select }}
                             inputProps={{
-                              name: "multipleSelect",
-                              id: "multiple-select"
+                              name: 'multipleSelect',
+                              id: 'multiple-select'
                             }}
                           >
                             <MenuItem
@@ -599,7 +602,7 @@ class ExtendedForms extends React.Component {
                     <TagsInput
                       value={this.state.tags}
                       onChange={this.handleTags}
-                      tagProps={{ className: "react-tagsinput-tag info" }}
+                      tagProps={{ className: 'react-tagsinput-tag info' }}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={6}>
@@ -612,12 +615,12 @@ class ExtendedForms extends React.Component {
                           buttonProps={{
                             round: true,
                             block: true,
-                            color: "info"
+                            color: 'info'
                           }}
                           dropPlacement="bottom"
                           dropdownList={[
-                            "Action",
-                            "Another action",
+                            'Action',
+                            'Another action',
                             <CustomDropdown
                               ref="multi"
                               innerDropDown
@@ -629,8 +632,8 @@ class ExtendedForms extends React.Component {
                               }}
                               dropPlacement="right-start"
                               dropdownList={[
-                                "Submenu action",
-                                "Submenu action",
+                                'Submenu action',
+                                'Submenu action',
                                 <CustomDropdown
                                   ref="multi"
                                   innerDropDown
@@ -641,8 +644,8 @@ class ExtendedForms extends React.Component {
                                   }}
                                   dropPlacement="right-start"
                                   dropdownList={[
-                                    "Subsubmenu action 1",
-                                    "Subsubmenu action 2"
+                                    'Subsubmenu action 1',
+                                    'Subsubmenu action 2'
                                   ]}
                                 />,
                                 <CustomDropdown
@@ -655,8 +658,8 @@ class ExtendedForms extends React.Component {
                                   }}
                                   dropPlacement="right-start"
                                   dropdownList={[
-                                    "Second Subsubmenu action 1",
-                                    "Second Subsubmenu action 2"
+                                    'Second Subsubmenu action 1',
+                                    'Second Subsubmenu action 2'
                                   ]}
                                 />
                               ]}
@@ -671,18 +674,18 @@ class ExtendedForms extends React.Component {
                           buttonProps={{
                             round: true,
                             fullWidth: true,
-                            style: { marginBottom: "0" },
-                            color: "info"
+                            style: { marginBottom: '0' },
+                            color: 'info'
                           }}
                           dropdownHeader="Dropdown header"
                           dropdownList={[
-                            "Action",
-                            "Another action",
-                            "Something else here",
+                            'Action',
+                            'Another action',
+                            'Something else here',
                             { divider: true },
-                            "Separated link",
+                            'Separated link',
                             { divider: true },
-                            "One more separated link"
+                            'One more separated link'
                           ]}
                         />
                       </GridItem>
@@ -700,18 +703,18 @@ class ExtendedForms extends React.Component {
                           buttonProps={{
                             round: true,
                             fullWidth: true,
-                            style: { marginBottom: "0" },
-                            color: "info"
+                            style: { marginBottom: '0' },
+                            color: 'info'
                           }}
                           dropdownHeader="Dropdown header"
                           dropdownList={[
-                            "Action",
-                            "Another action",
-                            "Something else here",
+                            'Action',
+                            'Another action',
+                            'Something else here',
                             { divider: true },
-                            "Separated link",
+                            'Separated link',
                             { divider: true },
-                            "One more separated link"
+                            'One more separated link'
                           ]}
                         />
                       </GridItem>
@@ -737,19 +740,19 @@ class ExtendedForms extends React.Component {
                       variant="determinate"
                       color="success"
                       value={100}
-                      style={{ width: "35%", display: "inline-block" }}
+                      style={{ width: '35%', display: 'inline-block' }}
                     />
                     <CustomLinearProgress
                       variant="determinate"
                       color="warning"
                       value={100}
-                      style={{ width: "20%", display: "inline-block" }}
+                      style={{ width: '20%', display: 'inline-block' }}
                     />
                     <CustomLinearProgress
                       variant="determinate"
                       color="danger"
                       value={25}
-                      style={{ width: "45%", display: "inline-block" }}
+                      style={{ width: '45%', display: 'inline-block' }}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={6}>
@@ -764,15 +767,15 @@ class ExtendedForms extends React.Component {
                     <legend>Regular Image</legend>
                     <ImageUpload
                       addButtonProps={{
-                        color: "primary",
+                        color: 'primary',
                         round: true
                       }}
                       changeButtonProps={{
-                        color: "primary",
+                        color: 'primary',
                         round: true
                       }}
                       removeButtonProps={{
-                        color: "danger",
+                        color: 'danger',
                         round: true
                       }}
                     />
@@ -782,15 +785,15 @@ class ExtendedForms extends React.Component {
                     <ImageUpload
                       avatar
                       addButtonProps={{
-                        color: "primary",
+                        color: 'primary',
                         round: true
                       }}
                       changeButtonProps={{
-                        color: "primary",
+                        color: 'primary',
                         round: true
                       }}
                       removeButtonProps={{
-                        color: "danger",
+                        color: 'danger',
                         round: true
                       }}
                     />

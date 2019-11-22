@@ -5,23 +5,18 @@ import { useDispatch } from 'react-redux';
 import MuiDatatable from 'components/common/tables/MuiDatatable';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'components/common/tables/Toolbar.jsx';
 import { deleteSubCategories } from 'store/ducks/category';
 
-const styles = {
+const useStyles = makeStyles({
   EditCell: { textAlign: 'right' },
   NameCell: { fontWeight: 500 }
-};
+});
 
-const Datatable = ({
-  data,
-  classes,
-  onOpen,
-  enqueueSnackbar: snack,
-  categoryId
-}) => {
+const Datatable = ({ data, onOpen, enqueueSnackbar: snack, categoryId }) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const handleRowsDelete = rows => {
     const { data: dataRows } = rows;
@@ -100,4 +95,4 @@ const Datatable = ({
   return <MuiDatatable data={data} columns={columns} options={options} />;
 };
 
-export default withStyles(styles)(Datatable);
+export default Datatable;

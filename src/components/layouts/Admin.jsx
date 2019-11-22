@@ -1,3 +1,4 @@
+/* eslint-disable react/no-string-refs */
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -82,6 +83,7 @@ class Dashboard extends React.Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
   getRoute() {
+    // eslint-disable-next-line react/prop-types
     return this.props.location.pathname !== '/admin/full-screen-maps';
   }
   getActiveRoute = routes => {
@@ -193,7 +195,7 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object
 };
 
 export default withStyles(appStyle)(Dashboard);
