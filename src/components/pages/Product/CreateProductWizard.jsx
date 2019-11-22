@@ -6,7 +6,7 @@ import { withSnackbar } from 'notistack';
 import Wizard from 'components/common/Wizard/CustomWizard.jsx';
 import Container from '@material-ui/core/Container';
 import ProductStep from './steps/ProductInfo/ProductForm';
-import OptionStep from './steps/OptionInfo/Option';
+import OptionStep from './steps/ItemInfo/SelectItems';
 import history from 'providers/history';
 import { getEndpoint } from 'helpers/api';
 

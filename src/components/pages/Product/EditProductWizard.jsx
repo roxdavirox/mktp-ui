@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container';
 // import GridContainer from 'components/theme/Grid/GridContainer.jsx';
 // import GridItem from 'components/theme/Grid/GridItem.jsx';
 import ProductStep from './steps/ProductInfo/ProductForm';
-import OptionStep from './steps/OptionInfo/Option';
+import OptionStep from './steps/ItemInfo/SelectItems';
 import history from 'providers/history';
 import { getEndpoint } from 'helpers/api';
 
