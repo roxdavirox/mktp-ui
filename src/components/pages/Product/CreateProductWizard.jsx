@@ -1,29 +1,40 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 import React from 'react';
+import _ from 'lodash';
 import { withSnackbar } from 'notistack';
 // core components
 import Wizard from 'components/common/Wizard/CustomWizard.jsx';
 import Container from '@material-ui/core/Container';
 import ProductStep from './steps/ProductInfo/ProductForm';
-import OptionStep from './steps/ItemInfo/SelectItems';
+import ItemStep from './steps/ItemInfo/SelectItems';
 import history from 'providers/history';
 import { getEndpoint } from 'helpers/api';
 
 const steps = [
   { stepName: 'Produto', stepComponent: ProductStep, stepId: 'productStep' },
-  { stepName: 'Opções', stepComponent: OptionStep, stepId: 'optionStep' }
+  {
+    stepName: 'Selecione os itens',
+    stepComponent: ItemStep,
+    stepId: 'itemStep'
+  }
 ];
 
 class CreateProductPage extends React.Component {
   handleFinish = async steps => {
     const { enqueueSnackbar: snack } = this.props;
-    const { optionStep: prevOptions, productStep } = steps;
+    const { itemStep, productStep } = steps;
     const { productName: name, categoryId, imageFile } = productStep;
-    const options = prevOptions.map(op => ({
-      id: op.id,
-      items: op.items.map(i => i.id)
+    const { selectedItems } = itemStep;
+    const optionsId = selectedItems.map(item => item.optionId);
+    const uniqOptionsId = _.uniq(optionsId);
+    const options = uniqOptionsId.map(optionId => ({
+      option: optionId,
+      items: selectedItems
+        .filter(i => i.optionId === optionId)
+        .map(item => item._id)
     }));
+
     snack('Criando produto...', {
       variant: 'info',
       autoHideDuration: 2000

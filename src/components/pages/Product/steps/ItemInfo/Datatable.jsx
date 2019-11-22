@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiDatatable from 'components/common/tables/MuiDatatable';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -10,7 +11,7 @@ const useStyles = makeStyles({
   NameCell: { fontWeight: 500 }
 });
 
-const Datatable = ({ data }) => {
+const Datatable = ({ data, onCheckItem }) => {
   const classes = useStyles();
   const options = {
     filterType: 'checkbox',
@@ -24,12 +25,6 @@ const Datatable = ({ data }) => {
       body: {
         noMatch: 'empty'
       }
-    },
-    onRowsDelete: function rowsDelete(rows) {
-      const indexRows = rows.data.map(r => r.index);
-      // if (indexRows) {
-      //   dispatch(deleteTemplateItems(indexRows));
-      // }
     },
     selectableRows: 'none',
     customToolbarSelect: () => {} // apaga botão de delete
@@ -99,7 +94,7 @@ const Datatable = ({ data }) => {
               }
               onChange={event => {
                 const isChecked = event.target.value === 'Yes' ? false : true;
-
+                onCheckItem(tableMeta.rowIndex);
                 updateValue(isChecked);
               }}
             />
@@ -109,6 +104,11 @@ const Datatable = ({ data }) => {
     }
   ];
   return <MuiDatatable data={data} options={options} columns={columns} />;
+};
+
+Datatable.propTypes = {
+  data: PropTypes.array,
+  onCheckItem: PropTypes.func
 };
 
 export default Datatable;

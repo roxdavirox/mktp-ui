@@ -14,7 +14,9 @@ const style = {
 };
 
 const mapItemsWithOptionname = ({ options }) =>
-  options.map(o => o.items.map(i => ({ optionName: o.name, ...i })));
+  options.map(o =>
+    o.items.map(i => ({ optionId: o._id, optionName: o.name, ...i }))
+  );
 
 const mapOptionsItems = options =>
   options.reduce((all, item) => [...all, ...item], []);
@@ -47,18 +49,28 @@ class OptionStep extends React.Component {
 
   sendState() {
     // retornar os itens selecionados
-
-    return [];
+    return {
+      selectedItems: this.state.items
+        .filter(item => item.isChecked)
+        .map(({ isChecked, ...rest }) => ({ ...rest }))
+    };
   }
 
   isValidated() {
     return true;
   }
 
+  handleCheckItem = index =>
+    this.setState({
+      items: this.state.items.map((item, i) =>
+        i === index ? { ...item, isChecked: !item.isChecked } : item
+      )
+    });
+
   render() {
     return (
       <>
-        <Datatable data={this.state.items} />
+        <Datatable data={this.state.items} onCheckItem={this.handleCheckItem} />
       </>
     );
   }
