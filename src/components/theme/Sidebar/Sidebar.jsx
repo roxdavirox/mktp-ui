@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-string-refs */
 import React from 'react';
 import PropTypes from 'prop-types';
 // javascript plugin used to create scrollbars on windows
@@ -69,6 +71,7 @@ class Sidebar extends React.Component {
   // that it gets through this.props.routes
   getCollapseStates = routes => {
     let initialState = {};
+    // eslint-disable-next-line no-unused-vars
     routes.map((prop, key) => {
       if (prop.collapse) {
         initialState = {

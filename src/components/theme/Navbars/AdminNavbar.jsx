@@ -1,32 +1,32 @@
-import React from "react";
-import PropTypes from "prop-types";
-import cx from "classnames";
+import React from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Hidden from "@material-ui/core/Hidden";
+import withStyles from '@material-ui/core/styles/withStyles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Hidden from '@material-ui/core/Hidden';
 
 // material-ui icons
-import Menu from "@material-ui/icons/Menu";
-import MoreVert from "@material-ui/icons/MoreVert";
-import ViewList from "@material-ui/icons/ViewList";
+import Menu from '@material-ui/icons/Menu';
+import MoreVert from '@material-ui/icons/MoreVert';
+import ViewList from '@material-ui/icons/ViewList';
 
 // core components
-import AdminNavbarLinks from "./AdminNavbarLinks";
-import Button from "components/theme/CustomButtons/Button.jsx";
+import AdminNavbarLinks from './AdminNavbarLinks';
+import Button from 'components/theme/CustomButtons/Button.jsx';
 
-import adminNavbarStyle from "assets/jss/material-dashboard-pro-react/components/adminNavbarStyle.jsx";
+import adminNavbarStyle from 'assets/jss/material-dashboard-pro-react/components/adminNavbarStyle.jsx';
 
 function AdminNavbar({ ...props }) {
   const { classes, color, rtlActive, brandText } = props;
   const appBarClasses = cx({
-    [" " + classes[color]]: color
+    [' ' + classes[color]]: color
   });
   const sidebarMinimize =
     classes.sidebarMinimize +
-    " " +
+    ' ' +
     cx({
       [classes.sidebarMinimizeRTL]: rtlActive
     });
@@ -82,10 +82,13 @@ function AdminNavbar({ ...props }) {
 }
 
 AdminNavbar.propTypes = {
-  classes: PropTypes.object.isRequired,
-  color: PropTypes.oneOf(["primary", "info", "success", "warning", "danger"]),
+  classes: PropTypes.object,
+  color: PropTypes.oneOf(['primary', 'info', 'success', 'warning', 'danger']),
   rtlActive: PropTypes.bool,
-  brandText: PropTypes.string
+  brandText: PropTypes.string,
+  miniActive: PropTypes.any,
+  handleDrawerToggle: PropTypes.func,
+  sidebarMinimize: PropTypes.func
 };
 
 export default withStyles(adminNavbarStyle)(AdminNavbar);
