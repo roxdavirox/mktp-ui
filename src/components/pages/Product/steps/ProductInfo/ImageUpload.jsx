@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // used for making the prop types of this component
 import PropTypes from 'prop-types';
 
@@ -8,88 +8,92 @@ import Button from 'components/theme/CustomButtons/Button.jsx';
 import defaultImage from 'assets/img/image_placeholder.jpg';
 import defaultAvatar from 'assets/img/placeholder.jpg';
 
-class ImageUpload extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      file: null,
-      imagePreviewUrl: this.props.avatar ? defaultAvatar : defaultImage
-    };
-    this.handleImageChange = this.handleImageChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
-  }
-  handleImageChange(e) {
+const ImageUpload = props => {
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const [inputRef, setInputRef] = useState({});
+  const [imageNotChanged, setImageNotChangeState] = useState(true);
+
+  useEffect(() => {
+    const previewImage = props.avatar ? defaultAvatar : defaultImage;
+    setImagePreviewUrl(previewImage);
+  }, []);
+
+  const handleImageChange = e => {
     e.preventDefault();
     let reader = new FileReader();
-    let file = e.target.files[0];
+    let [file] = e.target.files;
+
     reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
-      });
-      this.props.onImageChange(file);
+      setImageFile(file);
+      setImagePreviewUrl(reader.result);
+      setImageNotChangeState(false);
+      // props.onImageChange(file);
     };
+
     reader.readAsDataURL(file);
-  }
-  handleSubmit(e) {
-    e.preventDefault();
-    // this.state.file is the file/image uploaded
-    // in this function you can save the image (this.state.file) on form submit
-    // you have to call it yourself
-  }
-  handleClick() {
-    this.refs.fileInput.click();
-  }
-  handleRemove() {
-    this.setState({
-      file: null,
-      imagePreviewUrl: this.props.avatar ? defaultAvatar : defaultImage
-    });
-    this.refs.fileInput.value = null;
-  }
-  render() {
-    var {
-      avatar,
-      addButtonProps,
-      changeButtonProps,
-      removeButtonProps
-    } = this.props;
-    return (
-      <div className="fileinput text-center">
-        <input type="file" onChange={this.handleImageChange} ref="fileInput" />
-        <div className={'thumbnail' + (avatar ? ' img-circle' : '')}>
-          <img src={this.state.imagePreviewUrl} alt="..." />
-        </div>
-        <div>
-          {this.state.file === null ? (
-            <Button {...addButtonProps} onClick={() => this.handleClick()}>
-              {avatar ? 'Add Photo' : 'Selecione uma imagem'}
-            </Button>
-          ) : (
-            <span>
-              <Button {...changeButtonProps} onClick={() => this.handleClick()}>
-                Alterar
-              </Button>
-              {avatar ? <br /> : null}
-              <Button
-                {...removeButtonProps}
-                onClick={() => this.handleRemove()}
-              >
-                <i className="fas fa-times" /> Excluir
-              </Button>
-            </span>
-          )}
-        </div>
+  };
+
+  const handleClick = () => {
+    inputRef.click();
+  };
+
+  const handleRemove = () => {
+    setInputRef(null);
+    setImageFile(null);
+    const imagePreview = props.avatar ? defaultAvatar : defaultImage;
+    setImagePreviewUrl(imagePreview);
+    // inputRef.value = null;
+  };
+
+  const {
+    avatar,
+    addButtonProps,
+    changeButtonProps,
+    removeButtonProps
+  } = props;
+  return (
+    <div className="fileinput text-center">
+      <input
+        type="file"
+        onChange={handleImageChange}
+        ref={thisRef => setInputRef(thisRef)}
+      />
+      <div className={'thumbnail' + (avatar ? ' img-circle' : '')}>
+        <img
+          src={
+            props.imagePreviewUrl && imageNotChanged
+              ? props.imagePreviewUrl
+              : imagePreviewUrl
+          }
+          alt="..."
+        />
       </div>
-    );
-  }
-}
+      <div>
+        {imageFile === null && !props.imagePreviewUrl ? (
+          <Button {...addButtonProps} onClick={handleClick}>
+            {avatar ? 'Add Photo' : 'Selecione uma imagem'}
+          </Button>
+        ) : (
+          <span>
+            <Button {...changeButtonProps} onClick={handleClick}>
+              Alterar
+            </Button>
+            {avatar ? <br /> : null}
+            <Button {...removeButtonProps} onClick={handleRemove}>
+              <i className="fas fa-times" /> Excluir
+            </Button>
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
 
 ImageUpload.propTypes = {
   avatar: PropTypes.bool,
   addButtonProps: PropTypes.object,
+  imagePreviewUrl: PropTypes.object,
   changeButtonProps: PropTypes.object,
   removeButtonProps: PropTypes.object,
   onImageChange: PropTypes.func

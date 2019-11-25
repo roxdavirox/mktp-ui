@@ -39,7 +39,7 @@ const style = () => ({
 
 class ProductStep extends React.Component {
   state = {
-    imageFile: null,
+    imageUrl: null,
     nameState: '',
     productName: '',
     categories: [],
@@ -64,6 +64,7 @@ class ProductStep extends React.Component {
           this.setState({ productName: product.name });
           this.setState({ categoryId: product.category });
           this.setState({ nameState: 'success' });
+          this.setState({ imageUrl: product.imageUrl });
         });
     }
   }
@@ -89,15 +90,9 @@ class ProductStep extends React.Component {
     return this.state;
   }
 
-  handleImageChange = imageFile =>
-    this.setState({
-      imageFile
-    });
-
   render() {
     const { classes } = this.props;
     const { nameState, categories, productName } = this.state;
-
     return (
       <>
         <GridContainer justify="center">
@@ -105,7 +100,7 @@ class ProductStep extends React.Component {
             <h4 className={classes.infoText}>Digite o nome do produto</h4>
           </GridItem>
           <GridItem xs={12} sm={4}>
-            <ImageUpload onImageChange={this.handleImageChange} />
+            <ImageUpload imagePreviewUrl={this.state.imageUrl} />
           </GridItem>
           <GridItem xs={12} sm={6}>
             <CustomInput
