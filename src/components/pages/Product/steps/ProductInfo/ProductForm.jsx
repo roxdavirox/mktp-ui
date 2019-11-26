@@ -40,10 +40,12 @@ const style = () => ({
 class ProductStep extends React.Component {
   state = {
     imageUrl: null,
+    imageFile: null,
     nameState: '',
     productName: '',
     categories: [],
-    categoryId: ''
+    categoryId: '',
+    productId: null
   };
 
   componentDidMount() {
@@ -65,6 +67,7 @@ class ProductStep extends React.Component {
           this.setState({ categoryId: product.category });
           this.setState({ nameState: 'success' });
           this.setState({ imageUrl: product.imageUrl });
+          this.setState({ productId: product._id });
         });
     }
   }
@@ -74,6 +77,10 @@ class ProductStep extends React.Component {
     const newName = name.length >= 3 ? 'success' : 'error';
 
     this.setState({ nameState: newName, productName: name });
+  };
+  handleImageChange = imageFile => {
+    console.log('image file change', imageFile);
+    this.setState({ imageFile });
   };
 
   handleCategorySelect = e =>
@@ -100,7 +107,10 @@ class ProductStep extends React.Component {
             <h4 className={classes.infoText}>Digite o nome do produto</h4>
           </GridItem>
           <GridItem xs={12} sm={4}>
-            <ImageUpload imagePreviewUrl={this.state.imageUrl} />
+            <ImageUpload
+              imagePreviewUrl={this.state.imageUrl}
+              onImageChange={this.handleImageChange}
+            />
           </GridItem>
           <GridItem xs={12} sm={6}>
             <CustomInput
