@@ -13,6 +13,7 @@ const ImageUpload = props => {
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
   const [inputRef, setInputRef] = useState({});
   const [imageNotChanged, setImageNotChangeState] = useState(true);
+  const [imageRemoved, setImageRemoved] = useState(false);
 
   useEffect(() => {
     const previewImage = props.avatar ? defaultAvatar : defaultImage;
@@ -28,6 +29,7 @@ const ImageUpload = props => {
       setImageFile(file);
       setImagePreviewUrl(reader.result);
       setImageNotChangeState(false);
+      setImageRemoved(false);
       // props.onImageChange(file);
     };
 
@@ -42,7 +44,9 @@ const ImageUpload = props => {
     setInputRef(null);
     setImageFile(null);
     const imagePreview = props.avatar ? defaultAvatar : defaultImage;
-    setImagePreviewUrl(imagePreview);
+    setImagePreviewUrl(defaultImage);
+    setImageNotChangeState(false);
+    setImageRemoved(true);
     // inputRef.value = null;
   };
 
@@ -70,7 +74,7 @@ const ImageUpload = props => {
         />
       </div>
       <div>
-        {imageFile === null && !props.imagePreviewUrl ? (
+        {(imageFile === null && !props.imagePreviewUrl) || imageRemoved ? (
           <Button {...addButtonProps} onClick={handleClick}>
             {avatar ? 'Add Photo' : 'Selecione uma imagem'}
           </Button>
