@@ -40,7 +40,9 @@ class OptionStep extends React.Component {
       .then(mapAllItemsWithCheckedProp)
       .then(async prevItems => {
         const { allStates } = this.props;
+        if (!allStates.locationState) return prevItems;
         const { pathname } = allStates.locationState;
+        console.log('prevItems', prevItems);
         if (pathname === '/admin/config/products/edit') {
           const { productId } = allStates.locationState.state;
           const itemsEndpoint = getEndpoint(`/products/${productId}/items`);
