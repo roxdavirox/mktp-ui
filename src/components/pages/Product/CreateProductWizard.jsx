@@ -26,14 +26,12 @@ class CreateProductPage extends React.Component {
     const { itemStep, productStep } = steps;
     const { productName: name, categoryId, imageFile } = productStep;
     const { selectedItems } = itemStep;
-    const optionsId = selectedItems.map(item => item.optionId);
-    const uniqOptionsId = _.uniq(optionsId);
-    const options = uniqOptionsId.map(optionId => ({
-      option: optionId,
-      items: selectedItems
-        .filter(i => i.optionId === optionId)
-        .map(item => item._id)
+    const productOptions = selectedItems.map(item => ({
+      option: item.optionId,
+      item: item._id
     }));
+    console.log('productStep', productStep)
+    console.log('productOptions', productOptions)
 
     snack('Criando produto...', {
       variant: 'info',
@@ -43,7 +41,7 @@ class CreateProductPage extends React.Component {
     const data = new FormData();
     data.append('name', name);
     data.append('categoryId', categoryId);
-    data.append('options', JSON.stringify(options));
+    data.append('productOptions', JSON.stringify(productOptions));
     data.append('image', imageFile);
 
     const request = {
@@ -73,6 +71,7 @@ class CreateProductPage extends React.Component {
           title="Cadastrar produto"
           subtitle="Preencha as informações com atenção."
           finishButtonClick={this.handleFinish}
+          finishButtonDisabled={false}
         />
       </Container>
     );

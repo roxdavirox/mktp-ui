@@ -27,12 +27,12 @@ const ImageUpload = props => {
 
     reader.onloadend = () => {
       setImageFile(file);
+      props.onImageChange(file);
       setImagePreviewUrl(reader.result);
       setImageNotChangeState(false);
       setImageRemoved(false);
-      // props.onImageChange(file);
     };
-
+    console.log('image change component file', file)
     reader.readAsDataURL(file);
   };
 

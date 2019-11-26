@@ -37,6 +37,7 @@ class Wizard extends React.Component {
       nextButton: this.props.steps.length > 1 ? true : false,
       previousButton: false,
       finishButton: this.props.steps.length === 1 ? true : false,
+      finishButtonDisabled: this.props.finishButtonDisabled,
       width: width,
       movingTabStyle: {
         transition: 'transform 0s'
@@ -49,6 +50,8 @@ class Wizard extends React.Component {
     this.previousButtonClick = this.previousButtonClick.bind(this);
     this.finishButtonClick = this.finishButtonClick.bind(this);
     this.updateWidth = this.updateWidth.bind(this);
+    this.disableFinishButton = this.disableFinishButton.bind(this);
+    this.enableFinishButton = this.enableFinishButton.bind(this);
   }
   componentDidMount() {
     this.refreshAnimation(0);
@@ -59,6 +62,12 @@ class Wizard extends React.Component {
   }
   updateWidth() {
     this.refreshAnimation(this.state.currentStep);
+  }
+  disableFinishButton() {
+    this.setState({ finishButtonDisabled: true });
+  }
+  enableFinishButton() {
+    this.setState({ finishButtonDisabled: false });
   }
   navigationStepChange(key) {
     if (this.props.steps) {
@@ -278,6 +287,8 @@ class Wizard extends React.Component {
                   <prop.stepComponent
                     innerRef={node => (this[prop.stepId] = node)}
                     allStates={this.state.allStates}
+                    enableFinishButton={this.enableFinishButton}
+                    disableFinishButton={this.disableFinishButton}
                   />
                 </div>
               );
@@ -309,6 +320,7 @@ class Wizard extends React.Component {
                   color={color}
                   className={this.finishButtonClasses}
                   onClick={() => this.finishButtonClick()}
+                  disabled={this.state.finishButtonDisabled}
                 >
                   {this.props.finishButtonText}
                 </Button>
@@ -362,7 +374,8 @@ Wizard.propTypes = {
   finishButtonText: PropTypes.string,
   finishButtonClick: PropTypes.func,
   validate: PropTypes.bool,
-  initialState: PropTypes.object
+  initialState: PropTypes.object,
+  finishButtonDisabled: PropTypes.bool.isRequired
 };
 
 export default withStyles(wizardStyle)(Wizard);

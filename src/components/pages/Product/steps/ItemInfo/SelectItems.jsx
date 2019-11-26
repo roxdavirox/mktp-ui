@@ -42,7 +42,6 @@ class OptionStep extends React.Component {
         const { allStates } = this.props;
         if (!allStates.locationState) return prevItems;
         const { pathname } = allStates.locationState;
-        console.log('prevItems', prevItems);
         if (pathname === '/admin/config/products/edit') {
           const { productId } = allStates.locationState.state;
           const itemsEndpoint = getEndpoint(`/products/${productId}/items`);
@@ -80,14 +79,17 @@ class OptionStep extends React.Component {
     return true;
   }
 
-  handleCheckItem = index =>
+  handleCheckItem = index => {
+    this.props.enableFinishButton();
     this.setState({
       items: this.state.items.map((item, i) =>
         i === index ? { ...item, isChecked: !item.isChecked } : item
       )
     });
+  };
 
   render() {
+    console.log('items', this.state.items)
     return (
       <>
         <Datatable data={this.state.items} onCheckItem={this.handleCheckItem} />
@@ -97,7 +99,9 @@ class OptionStep extends React.Component {
 }
 
 OptionStep.propTypes = {
-  allStates: PropTypes.object
+  allStates: PropTypes.object,
+  enableFinishButton: PropTypes.func,
+  disableFinishButton: PropTypes.func
 };
 
 export default withStyles(style)(OptionStep);
