@@ -30,8 +30,6 @@ class CreateProductPage extends React.Component {
       option: item.optionId,
       item: item._id
     }));
-    console.log('productStep', productStep)
-    console.log('productOptions', productOptions)
 
     snack('Criando produto...', {
       variant: 'info',

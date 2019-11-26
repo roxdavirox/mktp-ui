@@ -49,10 +49,8 @@ class OptionStep extends React.Component {
           const data = await result.json();
 
           const { product } = data;
-          const { options: productOptions } = product;
-          const itemsIds = productOptions
-            ? productOptions.reduce((arr, op) => [...arr, ...op.items], [])
-            : [];
+          const { productOptions } = product;
+          const itemsIds = productOptions.map(po => po.item);
           const checkedItems = prevItems.map(item =>
             itemsIds.indexOf(item._id) !== -1
               ? { ...item, isChecked: !item.isChecked }

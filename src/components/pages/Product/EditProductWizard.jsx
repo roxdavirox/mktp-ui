@@ -27,18 +27,14 @@ class EditProductPage extends React.Component {
   handleFinish = async steps => {
     const { enqueueSnackbar: snack } = this.props;
     const { itemStep, productStep } = steps;
-    const { productName: name, categoryId, imageFile } = productStep;
+    const { productName: name, categoryId, imageFile, productId } = productStep;
     const { selectedItems } = itemStep;
-    const optionsId = selectedItems.map(item => item.optionId);
-    const uniqOptionsId = _.uniq(optionsId);
-    const options = uniqOptionsId.map(optionId => ({
-      option: optionId,
-      items: selectedItems
-        .filter(i => i.optionId === optionId)
-        .map(item => item._id)
+    const productOptions = selectedItems.map(item => ({
+      option: item.optionId,
+      item: item._id
     }));
 
-    snack('Criando produto...', {
+    snack('Editando produto...', {
       variant: 'info',
       autoHideDuration: 2000
     });
@@ -46,7 +42,7 @@ class EditProductPage extends React.Component {
     const data = new FormData();
     data.append('name', name);
     data.append('categoryId', categoryId);
-    data.append('options', JSON.stringify(options));
+    data.append('productOptions', JSON.stringify(productOptions));
     data.append('image', imageFile);
 
     const request = {
@@ -54,11 +50,11 @@ class EditProductPage extends React.Component {
       body: data
     };
 
-    const endpoint = getEndpoint('/products');
+    const endpoint = getEndpoint(`/products/${productId}`);
     fetch(endpoint, request)
       .then(res => res.json())
       // eslint-disable-next-line no-unused-vars
-      .then(product => {
+      .then(({ product }) => {
         snack('Produto criado com sucesso!', {
           variant: 'success',
           autoHideDuration: 2000
@@ -74,8 +70,10 @@ class EditProductPage extends React.Component {
           validate
           steps={steps}
           title="Editar produto"
+          finishButtonText="Editar"
           subtitle="Preencha as informações com atenção."
           finishButtonClick={this.handleFinish}
+          finishButtonDisabled={true}
         />
       </Container>
     );
