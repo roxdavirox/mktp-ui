@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 // theme components
 import { getEndpoint } from 'helpers/api';
@@ -30,21 +31,37 @@ class OptionStep extends React.Component {
   };
 
   componentDidMount = () => {
-    const endpoint = getEndpoint('/options');
+    const optionsEndpoint = getEndpoint('/options');
 
-    fetch(endpoint)
+    fetch(optionsEndpoint)
       .then(res => res.json())
       .then(mapItemsWithOptionname)
       .then(mapOptionsItems)
       .then(mapAllItemsWithCheckedProp)
+      .then(async prevItems => {
+        const { allStates } = this.props;
+        const { pathname } = allStates.locationState;
+        if (pathname === '/admin/config/products/edit') {
+          const { productId } = allStates.locationState.state;
+          const itemsEndpoint = getEndpoint(`/products/${productId}/items`);
+          const result = await fetch(itemsEndpoint);
+          const data = await result.json();
+
+          const { product } = data;
+          const { options: productOptions } = product;
+          const itemsIds = productOptions
+            ? productOptions.reduce((arr, op) => [...arr, ...op.items], [])
+            : [];
+          const checkedItems = prevItems.map(item =>
+            itemsIds.indexOf(item._id) !== -1
+              ? { ...item, isChecked: !item.isChecked }
+              : item
+          );
+          return checkedItems;
+        }
+        return prevItems;
+      })
       .then(items => this.setState({ items }));
-
-    // if (!this.props.allStates.locationState) return;
-    // TODO: SELECIONAR OS ITENS QUE JA EXISTEM NO PRODUTO
-    // const { allStates } = this.props;
-    // if (allStates.locationState.pathname === '/admin/config/products/edit') {
-
-    // }
   };
 
   //envia o estado para o wizard
@@ -76,5 +93,9 @@ class OptionStep extends React.Component {
     );
   }
 }
+
+OptionStep.propTypes = {
+  allStates: PropTypes.object
+};
 
 export default withStyles(style)(OptionStep);
