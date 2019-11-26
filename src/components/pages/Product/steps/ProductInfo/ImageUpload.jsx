@@ -43,7 +43,6 @@ const ImageUpload = props => {
   const handleRemove = () => {
     setInputRef(null);
     setImageFile(null);
-    const imagePreview = props.avatar ? defaultAvatar : defaultImage;
     setImagePreviewUrl(defaultImage);
     setImageNotChangeState(false);
     setImageRemoved(true);

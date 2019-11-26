@@ -40,15 +40,15 @@ class OptionStep extends React.Component {
       .then(items => this.setState({ items }));
 
     // if (!this.props.allStates.locationState) return;
-
+    // TODO: SELECIONAR OS ITENS QUE JA EXISTEM NO PRODUTO
     // const { allStates } = this.props;
     // if (allStates.locationState.pathname === '/admin/config/products/edit') {
 
     // }
   };
 
+  //envia o estado para o wizard
   sendState() {
-    // retornar os itens selecionados
     return {
       selectedItems: this.state.items
         .filter(item => item.isChecked)
