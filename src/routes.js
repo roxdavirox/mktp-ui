@@ -1,4 +1,13 @@
-import DashboardIcon from '@material-ui/icons/Dashboard';
+//icons
+import ExtensionIcon from '@material-ui/icons/Extension';
+import CreateIcon from '@material-ui/icons/Create';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import ListIcon from '@material-ui/icons/List';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import StorageIcon from '@material-ui/icons/Storage';
+import CategoryIcon from '@material-ui/icons/Category';
+import BuildIcon from '@material-ui/icons/Build';
+//pages
 import ProductCreate from 'components/pages/Product/CreateProductWizard';
 import ProductEditPage from 'components/pages/Product/EditProductWizard';
 import ProductListPage from 'components/pages/Product/List/ProductPage';
@@ -19,58 +28,66 @@ var dashRoutes = [
   {
     collapse: true,
     name: 'Configurações',
-    icon: DashboardIcon,
+    icon: BuildIcon,
     state: 'configCollapse',
     views: [
       {
         collapse: true,
-        name: 'Produtos',
-        mini: 'P',
+        name: 'Novo',
+        icon: CreateIcon,
+        mini: 'A',
         views: [
           {
             path: '/config/products/create',
-            name: 'Novo Produto',
+            icon: AddCircleOutlineIcon,
+            name: 'Produto',
             component: ProductCreate,
             layout: '/admin'
           },
           {
             path: '/config/product-templates',
-            name: 'Novo template',
+            name: 'Template',
+            icon: AddCircleOutlineIcon,
             component: ProductTemplatePage,
-            layout: '/admin'
-          },
-          {
-            path: '/config/products/list',
-            name: 'Exibir Produtos',
-            component: ProductListPage,
-            layout: '/admin'
-          },
-          {
-            path: '/config/products/templates',
-            name: 'Templates dos produtos',
-            component: Templates,
             layout: '/admin'
           }
         ]
       },
       {
+        path: '/config/products/templates',
+        name: 'Design Templates',
+        icon: ExtensionIcon,
+        component: Templates,
+        layout: '/admin'
+      },
+      {
+        path: '/config/products/list',
+        name: 'Produtos',
+        icon: ListIcon,
+        component: ProductListPage,
+        layout: '/admin'
+      },
+      {
         path: '/config/categories',
-        name: 'Exibir Categorias',
+        name: 'Categorias',
         mini: 'C',
+        icon: CategoryIcon,
         component: Category,
         layout: '/admin'
       },
       {
         path: '/config/options',
-        name: 'Exibir Opções',
+        name: 'Opções',
         mini: 'O',
+        icon: StorageIcon,
         component: Option,
         layout: '/admin'
       },
       {
         path: '/config/price-table',
-        name: 'Exibir Tabelas de preço',
+        name: 'Tabelas de preço',
         mini: 'TP',
+        icon: MonetizationOnIcon,
         layout: '/admin',
         component: PriceTable
       }
