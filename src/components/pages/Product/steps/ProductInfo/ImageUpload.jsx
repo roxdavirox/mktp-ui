@@ -32,7 +32,6 @@ const ImageUpload = props => {
       setImageNotChangeState(false);
       setImageRemoved(false);
     };
-    console.log('image change component file', file)
     reader.readAsDataURL(file);
   };
 

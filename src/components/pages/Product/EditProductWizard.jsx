@@ -2,7 +2,6 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { withSnackbar } from 'notistack';
-import _ from 'lodash';
 // core components
 import Wizard from 'components/common/Wizard/CustomWizard.jsx';
 import Container from '@material-ui/core/Container';
