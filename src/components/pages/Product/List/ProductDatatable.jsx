@@ -1,35 +1,17 @@
-/* eslint-disable no-console */
-import React, { useState, useEffect } from 'react';
-import Container from '@material-ui/core/Container';
+import React from 'react';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
-import Slide from '@material-ui/core/Slide';
-import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
-import MuiDatatable from 'components/common/tables/MuiDatatable';
-import { getEndpoint } from 'helpers/api';
 import { makeStyles } from '@material-ui/core/styles';
+import MuiDatatable from 'components/common/tables/MuiDatatable';
+import { Link } from 'react-router-dom';
+import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 
 const useStyles = makeStyles({ EditCell: { textAlign: 'right' } });
 
-const mapProduct = ({ _id, name }) => ({ _id, name });
-
-const mapProductNames = products => products.map(mapProduct);
-
-const ProductListPage = () => {
+const ProductDatatable = ({ products, onRowsDelete }) => {
   const classes = useStyles();
-  const [productNames, setProductNames] = useState([]);
-  const [showSlide, setSlideShow] = useState(false);
-
-  useEffect(() => {
-    const endpoint = getEndpoint('/products');
-    fetch(endpoint)
-      .then(res => res.json())
-      .then(mapProductNames)
-      .then(setProductNames)
-      .then(() => setSlideShow(true));
-  }, []);
 
   const options = {
+    onRowsDelete,
     filterType: 'checkbox',
     download: false,
     print: false,
@@ -79,20 +61,7 @@ const ProductListPage = () => {
     }
   ];
 
-  return (
-    productNames &&
-    showSlide && (
-      <Slide direction="left" in={showSlide} mountOnEnter unmountOnExit>
-        <Container maxWidth="xl">
-          <MuiDatatable
-            data={productNames}
-            options={options}
-            columns={columns}
-          />
-        </Container>
-      </Slide>
-    )
-  );
+  return <MuiDatatable data={products} options={options} columns={columns} />;
 };
 
-export default ProductListPage;
+export default ProductDatatable;
