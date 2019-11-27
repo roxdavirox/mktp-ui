@@ -27,7 +27,14 @@ class EditProductPage extends React.Component {
   handleFinish = async steps => {
     const { enqueueSnackbar: snack } = this.props;
     const { itemStep, productStep } = steps;
-    const { productName: name, categoryId, imageFile, productId } = productStep;
+    const {
+      productName: name,
+      categoryId,
+      imageFile,
+      productId,
+      isImageChanged,
+      isImageDeleted
+    } = productStep;
     const { selectedItems } = itemStep;
     const productOptions = selectedItems.map(item => ({
       option: item.optionId,
@@ -43,6 +50,8 @@ class EditProductPage extends React.Component {
     data.append('name', name);
     data.append('categoryId', categoryId);
     data.append('productOptions', JSON.stringify(productOptions));
+    data.append('isImageChanged', isImageChanged);
+    data.append('isImageDeleted', isImageDeleted);
     data.append('image', imageFile);
 
     const request = {
