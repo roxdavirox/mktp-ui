@@ -45,7 +45,9 @@ class ProductStep extends React.Component {
     productName: '',
     categories: [],
     categoryId: '',
-    productId: null
+    productId: null,
+    isImageChanged: false,
+    isImageDeleted: false
   };
 
   componentDidMount() {
@@ -77,10 +79,19 @@ class ProductStep extends React.Component {
     const newName = name.length >= 3 ? 'success' : 'error';
 
     this.setState({ nameState: newName, productName: name });
+    this.props.enableFinishButton();
   };
   handleImageChange = imageFile => {
-    console.log('image file change', imageFile);
     this.setState({ imageFile });
+    this.setState({ isImageChanged: true });
+    this.setState({ isImageDeleted: false });
+    this.props.enableFinishButton();
+  };
+
+  handleDeleteImage = () => {
+    this.setState({ isImageDeleted: true });
+    this.setState({ isImageChanged: false });
+    this.props.enableFinishButton();
   };
 
   handleCategorySelect = e =>
@@ -110,6 +121,7 @@ class ProductStep extends React.Component {
             <ImageUpload
               imagePreviewUrl={this.state.imageUrl}
               onImageChange={this.handleImageChange}
+              onDeleteImage={this.handleDeleteImage}
             />
           </GridItem>
           <GridItem xs={12} sm={6}>

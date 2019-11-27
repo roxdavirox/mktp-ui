@@ -7,6 +7,7 @@ import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 
 const useStyles = makeStyles({ EditCell: { textAlign: 'right' } });
 
+// eslint-disable-next-line react/prop-types
 const ProductDatatable = ({ products, onRowsDelete }) => {
   const classes = useStyles();
 
@@ -20,7 +21,7 @@ const ProductDatatable = ({ products, onRowsDelete }) => {
     rowHover: false,
     textLabels: {
       body: {
-        noMatch: <h1>sem dados</h1>
+        noMatch: <p>sem dados</p>
       }
     }
   };

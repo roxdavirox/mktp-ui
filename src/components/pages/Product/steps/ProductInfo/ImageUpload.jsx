@@ -47,6 +47,7 @@ const ImageUpload = props => {
     setImageNotChangeState(false);
     setImageRemoved(true);
     // inputRef.value = null;
+    props.onDeleteImage();
   };
 
   const {
@@ -99,7 +100,8 @@ ImageUpload.propTypes = {
   imagePreviewUrl: PropTypes.object,
   changeButtonProps: PropTypes.object,
   removeButtonProps: PropTypes.object,
-  onImageChange: PropTypes.func
+  onImageChange: PropTypes.func,
+  onDeleteImage: PropTypes.func
 };
 
 export default ImageUpload;
