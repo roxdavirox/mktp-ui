@@ -71,29 +71,25 @@ const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
               onChange={handleNameChange}
             />
           </FormControl>
-          {item.priceTableId && (
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="price-table-input">
-                Tabela de preço
-              </InputLabel>
-              <Select
-                className={classes.select}
-                value={priceTableId}
-                onChange={handlePriceTableChange}
-                input={<Input id="price-table-input" />}
-              >
-                <MenuItem key="0" value="0">
-                  Nenhum
-                </MenuItem>
-                {priceTables &&
-                  priceTables.map(p => (
-                    <MenuItem key={p._id} value={p._id}>
-                      {p.name}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-          )}
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="price-table-input">Tabela de preço</InputLabel>
+            <Select
+              className={classes.select}
+              value={priceTableId}
+              onChange={handlePriceTableChange}
+              input={<Input id="price-table-input" />}
+            >
+              <MenuItem key="0" value="0">
+                Nenhum
+              </MenuItem>
+              {priceTables &&
+                priceTables.map(p => (
+                  <MenuItem key={p._id} value={p._id}>
+                    {p.name}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
         </form>
       </DialogContent>
       <DialogActions>
