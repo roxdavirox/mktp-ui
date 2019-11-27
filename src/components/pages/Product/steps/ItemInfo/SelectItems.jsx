@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 // theme components
 import { getEndpoint } from 'helpers/api';
 import Datatable from './Datatable';
@@ -87,10 +88,14 @@ class OptionStep extends React.Component {
   };
 
   render() {
-    console.log('items', this.state.items)
     return (
       <>
-        <Datatable data={this.state.items} onCheckItem={this.handleCheckItem} />
+        <Container maxWidth="xl">
+          <Datatable
+            data={this.state.items}
+            onCheckItem={this.handleCheckItem}
+          />
+        </Container>
       </>
     );
   }
