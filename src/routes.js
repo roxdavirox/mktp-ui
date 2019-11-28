@@ -1,5 +1,4 @@
 //icons
-import ExtensionIcon from '@material-ui/icons/Extension';
 import CreateIcon from '@material-ui/icons/Create';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import AccountTreeSharpIcon from '@material-ui/icons/AccountTreeSharp';
