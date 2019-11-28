@@ -108,7 +108,7 @@ const DataTable = ({ dataItems, dataOptions }) => {
         ) {
           return (
             <FormControlLabel
-              label={value ? 'Yes' : 'No'}
+              // label={value ? 'Yes' : 'No'}
               value={value ? 'Yes' : 'No'}
               control={
                 <Switch

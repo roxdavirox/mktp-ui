@@ -83,7 +83,7 @@ const Datatable = ({ data, onCheckItem }) => {
         ) {
           return (
             <FormControlLabel
-              label={value ? 'Yes' : 'No'}
+              // label={value ? 'Yes' : 'No'}
               value={value ? 'Yes' : 'No'}
               control={
                 <Switch

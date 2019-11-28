@@ -2,9 +2,9 @@
 import ExtensionIcon from '@material-ui/icons/Extension';
 import CreateIcon from '@material-ui/icons/Create';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import ListIcon from '@material-ui/icons/List';
+import AccountTreeSharpIcon from '@material-ui/icons/AccountTreeSharp';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import StorageIcon from '@material-ui/icons/Storage';
+import ViewListIcon from '@material-ui/icons/ViewList';
 import CategoryIcon from '@material-ui/icons/Category';
 import BuildIcon from '@material-ui/icons/Build';
 //pages
@@ -54,20 +54,6 @@ var dashRoutes = [
         ]
       },
       {
-        path: '/config/products/templates',
-        name: 'Design Templates',
-        icon: ExtensionIcon,
-        component: Templates,
-        layout: '/admin'
-      },
-      {
-        path: '/config/products/list',
-        name: 'Produtos',
-        icon: ListIcon,
-        component: ProductListPage,
-        layout: '/admin'
-      },
-      {
         path: '/config/categories',
         name: 'Categorias',
         mini: 'C',
@@ -76,11 +62,25 @@ var dashRoutes = [
         layout: '/admin'
       },
       {
+        path: '/config/products/templates',
+        name: 'Design Templates',
+        icon: ExtensionIcon,
+        component: Templates,
+        layout: '/admin'
+      },
+      {
         path: '/config/options',
         name: 'Opções',
         mini: 'O',
-        icon: StorageIcon,
+        icon: AccountTreeSharpIcon,
         component: Option,
+        layout: '/admin'
+      },
+      {
+        path: '/config/products/list',
+        name: 'Produtos',
+        icon: ViewListIcon,
+        component: ProductListPage,
         layout: '/admin'
       },
       {

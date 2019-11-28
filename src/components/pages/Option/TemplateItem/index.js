@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { getEndpoint } from 'helpers/api';
 
+// TODO: Criar edição de template3
 const TemplateItemPage = ({ location }) => {
   const { itemId } = location.state;
   const [item, setItem] = useState({});
