@@ -9,8 +9,8 @@ import classNames from 'classnames';
 import MuiDatatable from 'components/common/tables/MuiDatatable';
 import { AddToolbar } from 'components/common/tables/Toolbar';
 import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
-import ItemIcon from 'components/common/icons/ItemIcon.jsx';
-import TemplateIcon from 'components/common/icons/TemplateIcon.jsx';
+import ExtensionIcon from '@material-ui/icons/Extension';
+import LabelIcon from '@material-ui/icons/Label';
 const styles = {
   EditCell: { textAlign: 'right' },
   NameCell: { fontWeight: 500 }
@@ -79,7 +79,7 @@ const Datatable = ({
         filter: false,
         sort: false,
         customBodyRender: itemType =>
-          itemType === 'item' ? <ItemIcon /> : <TemplateIcon />
+          itemType === 'item' ? <LabelIcon /> : <ExtensionIcon />
       }
     },
     {
@@ -97,7 +97,7 @@ const Datatable = ({
         sort: false,
         filter: false,
         customBodyRender: (itemId, tableMeta) => {
-          const [_, itemType] = tableMeta.rowData;
+          const [, itemType] = tableMeta.rowData;
           console.log('type', itemType);
           return itemType === 'item' ? (
             <MoreHorizIcon

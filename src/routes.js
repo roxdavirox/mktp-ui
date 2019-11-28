@@ -6,6 +6,7 @@ import AccountTreeSharpIcon from '@material-ui/icons/AccountTreeSharp';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import CategoryIcon from '@material-ui/icons/Category';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import BuildIcon from '@material-ui/icons/Build';
 //pages
 import ProductCreate from 'components/pages/Product/CreateProductWizard';
@@ -64,7 +65,7 @@ var dashRoutes = [
       {
         path: '/config/products/templates',
         name: 'Design Templates',
-        icon: ExtensionIcon,
+        icon: PhotoLibraryIcon,
         component: Templates,
         layout: '/admin'
       },
