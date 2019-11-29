@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const CustomLoadingSkeleton = ({ isLoading }) =>
@@ -10,14 +9,11 @@ const CustomLoadingSkeleton = ({ isLoading }) =>
       <Skeleton count={8} height={50} />
     </div>
   ) : (
-    'Nenhuma opção'
+    'Nenhum produto'
   );
 
 CustomLoadingSkeleton.propTypes = {
   isLoading: PropTypes.any.isRequired
 };
 
-export default () => {
-  const isLoading = useSelector(state => state.options.isLoading);
-  return <CustomLoadingSkeleton isLoading={isLoading} />;
-};
+export default CustomLoadingSkeleton;

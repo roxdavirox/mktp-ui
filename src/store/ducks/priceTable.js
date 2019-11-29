@@ -105,11 +105,19 @@ export const deletePriceTablesMiddleware = ({ dispatch }) => next => action => {
 //reducers
 const initialState = {
   byId: {},
-  allIds: []
+  allIds: [],
+  isLoading: true
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case types.FETCH_PRICE_TABLES: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
     case ADD_ENTITIES: {
       const {
         entities: { priceTables }
@@ -122,7 +130,8 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         byId,
-        allIds
+        allIds,
+        isLoading: false
       };
     }
 

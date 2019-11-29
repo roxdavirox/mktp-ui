@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
-import Slide from '@material-ui/core/Slide';
 import { getEndpoint, createDeleteRequest } from 'helpers/api';
 import ProductDatatable from './ProductDatatable';
 import { withSnackbar } from 'notistack';
@@ -12,7 +11,7 @@ const mapProductNames = products => products.map(mapProduct);
 
 const ProductPage = ({ enqueueSnackbar: snack }) => {
   const [productNames, setProductNames] = useState([]);
-  const [showSlide, setSlideShow] = useState(false);
+  const [isLoading, setLoadingState] = useState(true);
 
   useEffect(() => {
     const endpoint = getEndpoint('/products');
@@ -20,7 +19,7 @@ const ProductPage = ({ enqueueSnackbar: snack }) => {
       .then(res => res.json())
       .then(mapProductNames)
       .then(setProductNames)
-      .then(() => setSlideShow(true));
+      .then(() => setLoadingState(false));
   }, []);
 
   const handleRowsDelete = rows => {
@@ -59,17 +58,13 @@ const ProductPage = ({ enqueueSnackbar: snack }) => {
   };
 
   return (
-    productNames &&
-    showSlide && (
-      <Slide direction="left" in={showSlide} mountOnEnter unmountOnExit>
-        <Container maxWidth="xl">
-          <ProductDatatable
-            products={productNames}
-            onRowsDelete={handleRowsDelete}
-          />
-        </Container>
-      </Slide>
-    )
+    <Container maxWidth="xl">
+      <ProductDatatable
+        products={productNames}
+        onRowsDelete={handleRowsDelete}
+        isLoading={isLoading}
+      />
+    </Container>
   );
 };
 

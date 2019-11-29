@@ -119,11 +119,18 @@ export const deleteOptionsMiddleware = ({ dispatch }) => next => action => {
 const initialState = {
   byId: {},
   allIds: [],
-  loading: false
+  isLoading: false
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case types.FETCH_OPTIONS: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
     case ADD_ENTITIES: {
       const {
         entities: { options }
@@ -137,7 +144,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         byId,
         allIds,
-        loading: false
+        isLoading: false
       };
     }
 

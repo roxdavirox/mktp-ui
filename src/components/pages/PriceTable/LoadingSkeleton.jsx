@@ -1,6 +1,7 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const CustomLoadingSkeleton = ({ isLoading }) =>
@@ -12,10 +13,11 @@ const CustomLoadingSkeleton = ({ isLoading }) =>
     'Nenhuma tabela de preço'
   );
 
-const mapStateToProps = store => ({ isLoading: store.options.loading });
-
 CustomLoadingSkeleton.propTypes = {
   isLoading: PropTypes.any.isRequired
 };
 
-export default connect(mapStateToProps)(CustomLoadingSkeleton);
+export default () => {
+  const isLoading = useSelector(state => state.priceTables.isLoading);
+  return <CustomLoadingSkeleton isLoading={isLoading} />;
+};

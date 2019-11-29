@@ -4,11 +4,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import MuiDatatable from 'components/common/tables/MuiDatatable';
 import { Link } from 'react-router-dom';
 import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
+import Loading from './LoadingSkeleton';
 
 const useStyles = makeStyles({ EditCell: { textAlign: 'right' } });
 
 // eslint-disable-next-line react/prop-types
-const ProductDatatable = ({ products, onRowsDelete }) => {
+const ProductDatatable = ({ products, onRowsDelete, isLoading }) => {
   const classes = useStyles();
 
   const options = {
@@ -21,7 +22,7 @@ const ProductDatatable = ({ products, onRowsDelete }) => {
     rowHover: false,
     textLabels: {
       body: {
-        noMatch: <p>sem dados</p>
+        noMatch: <Loading isLoading={isLoading} />
       }
     }
   };
