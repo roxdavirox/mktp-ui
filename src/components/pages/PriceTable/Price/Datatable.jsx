@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -10,8 +10,10 @@ import PriceFormat from 'components/common/format/NumberFormat/PriceFormat';
 import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
 import {
   AddToolbar,
-  ViewListToolbar
+  ViewListToolbar,
+  MoreToolbar
 } from 'components/common/tables/Toolbar.jsx';
+import DialogMenu from './DialogMenu';
 
 import Loading from './Loading';
 import { deletePrices } from 'store/ducks/price';
@@ -31,6 +33,7 @@ const Datatable = ({
   location
 }) => {
   const dispatch = useDispatch();
+  const [anchorElement, setAnchor] = useState(null);
   const {
     state: { priceTableId }
   } = location;
@@ -61,6 +64,8 @@ const Datatable = ({
       priceTable.unit === 'quantidade' ? 'EDIT_PRICE_QUANTITY' : 'EDIT_PRICE';
     onUpdate(price, dialogType);
   };
+
+  const handleMenuClick = e => setAnchor(e.currentTarget);
 
   const dataLength = data.length;
 
@@ -193,29 +198,56 @@ const Datatable = ({
               )
             }
           />
-          <ViewListToolbar
-            title="Gerar intervalos"
-            onClick={() =>
-              openDialogType(
-                priceTable.unit === 'quantidade'
-                  ? 'GENERATE_PRICE_QTY'
-                  : 'GENERATE_PRICE'
-              )
-            }
-          />
+          {priceTable.unit === 'quantidade' ? (
+            <ViewListToolbar
+              onClick={() => openDialogType('GENERATE_PRICE_QTY')}
+            />
+          ) : (
+            <MoreToolbar
+              title="Gerar intervalos"
+              onClick={e => {
+                // openDialogType(
+                //   priceTable.unit === 'quantidade'
+                //     ? 'GENERATE_PRICE_QTY'
+                //     : 'GENERATE_PRICE'
+                // );
+                handleMenuClick(e);
+              }}
+            />
+          )}
         </>
       );
     },
     onRowsDelete: rowsDeleted => handleRowsDelete(rowsDeleted)
   };
+  const handleCloseMenu = () => setAnchor(null);
+
+  const handleOpenSimpleMenu = () => {
+    openDialogType('GENERATE_PRICE_SIMPLE');
+    handleCloseMenu();
+  };
+
+  const hanleOpenSpecificMenu = () => {
+    openDialogType('GENERATE_PRICE');
+    handleCloseMenu();
+  };
 
   return (
-    <MuiDatatable
-      title={<h2>Tabela de preço: {priceTable.name}</h2>}
-      data={data}
-      columns={columns}
-      options={options}
-    />
+    <>
+      <DialogMenu
+        onSimpleClick={handleOpenSimpleMenu}
+        onSpecificClick={hanleOpenSpecificMenu}
+        anchorEl={anchorElement}
+        onSetAnchor={setAnchor}
+        onClose={handleCloseMenu}
+      />
+      <MuiDatatable
+        title={<h2>Tabela de preço: {priceTable.name}</h2>}
+        data={data}
+        columns={columns}
+        options={options}
+      />
+    </>
   );
 };
 

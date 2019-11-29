@@ -55,13 +55,10 @@ const GeneratePrice = ({
     const precoKg = kgPrice.floatValue;
 
     const pesoMaterial = (10000 * (espessura / 10) * pesoEspecifico) / 1000;
-    const precoM2 = pesoMaterial * precoKg;
-    // const precoCm2 = (precoM2 / 10000).toFixed(4);
+    const priceSize = pesoMaterial * precoKg;
 
-    const maxLines = 30;
     const prices = getPriceRange({
-      maxLines,
-      priceValue: precoM2,
+      priceValue: priceSize,
       higherSalesMargin: higherSalesMargin.floatValue,
       lowerSalesMargin: lowerSalesMargin.floatValue,
       unit: unitsObj[unit].value, // metro ou centimentros quadrados  - cm² m²,

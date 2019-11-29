@@ -3,6 +3,7 @@
 import AddPrice from './AddPrice';
 import EditPrice from './EditPrice';
 import GeneratePrice from './GeneratePrice.jsx';
+import GenerateSimplePrice from './GenerateSimplePrice';
 
 // componentes de dialogo para Quantiydade no intervalo
 import AddPriceQuantity from './AddPriceQuantity';
@@ -14,6 +15,7 @@ const DialogTypes = type =>
     ADD_PRICE: AddPrice,
     EDIT_PRICE: EditPrice,
     GENERATE_PRICE: GeneratePrice,
+    GENERATE_PRICE_SIMPLE: GenerateSimplePrice,
     GENERATE_PRICE_QTY: GeneratePriceQty,
     ADD_PRICE_QUANTITY: AddPriceQuantity,
     EDIT_PRICE_QUANTITY: EditPriceQuantity

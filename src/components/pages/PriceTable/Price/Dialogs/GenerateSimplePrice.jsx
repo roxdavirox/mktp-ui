@@ -9,9 +9,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import ReactNumberFormat from 'react-number-format';
-import { generatePriceRange } from './GeneratePriceQty.js';
 import { addPriceRange } from 'store/ducks/price';
 import { getPriceTableById } from 'store/ducks/priceTable';
+import { getPriceRange } from './GeneratePrice';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -26,23 +26,38 @@ const useStyles = makeStyles(theme => ({
   select: { height: '37px', width: '80px' }
 }));
 
-const GeneratePriceQty = ({ onClose, enqueueSnackbar, priceTableId }) => {
+const unitsObj = {
+  'm²': { value: 10000, precoDivisor: 1 },
+  'cm²': { value: 1, precoDivisor: 10000 }
+};
+
+const GenerateSimplePrice = ({ onClose, enqueueSnackbar, priceTableId }) => {
   const classes = useStyles();
   const [cost, setPriceCost] = useState('');
   const [maiorMargemVenda, setMaiorMargemVenda] = useState('');
   const [menorMargemVenda, setMenorMargemVenda] = useState('');
-  const dispatch = useDispatch();
+
   const priceTable = useSelector(store =>
     getPriceTableById(priceTableId, store)
   );
+
+  const dispatch = useDispatch();
+
   const handleClose = () => onClose();
+
   const handleSubmit = () => {
-    const prices = generatePriceRange(
-      cost.floatValue,
-      menorMargemVenda.floatValue,
-      maiorMargemVenda.floatValue
-    );
     const { unit } = priceTable;
+    enqueueSnackbar('Adicionando intervalo de preços...', {
+      variant: 'info',
+      autoHideDuration: 4000
+    });
+    const prices = getPriceRange({
+      priceValue: cost.floatValue,
+      higherSalesMargin: maiorMargemVenda.floatValue,
+      lowerSalesMargin: menorMargemVenda.floatValue,
+      unit: unitsObj[unit].value, // metro ou centimentros quadrados  - cm² m²,
+      precoDivisor: unitsObj[unit].precoDivisor
+    });
     dispatch(addPriceRange(prices, unit, priceTableId, enqueueSnackbar));
     handleClose();
   };
@@ -114,10 +129,10 @@ const GeneratePriceQty = ({ onClose, enqueueSnackbar, priceTableId }) => {
   );
 };
 
-GeneratePriceQty.propTypes = {
+GenerateSimplePrice.propTypes = {
   onClose: PropTypes.func,
   enqueueSnackbar: PropTypes.func,
   priceTableId: PropTypes.string
 };
 
-export default GeneratePriceQty;
+export default GenerateSimplePrice;
