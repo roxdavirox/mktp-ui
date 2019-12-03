@@ -98,7 +98,7 @@ export const fetchTemplateItemsMiddleware = ({
 }) => next => action => {
   if (action.type === types.FETCH_TEMPLATE_ITEMS) {
     const endpoint = getEndpoint('/items/templates');
-
+    // TODO: Calcular o preço total de um template item sempre que ele for requisitado
     fetch(endpoint)
       .then(res => res.json())
       .then(({ items }) => dispatch(setTemplateItems(items)))
@@ -118,6 +118,7 @@ export const fetchTotalMiddleware = ({ dispatch }) => next => action => {
       next(action);
       return;
     }
+    // TODO: enviar o valor do template item já calculado
     const { priceTableId: priceTable, quantity, size } = templateItem;
     const { _id: priceTableId } = priceTable;
     const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
@@ -171,7 +172,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           }
         })
         .map(item => ({ ...item, price: 0, quantity: 1, isChecked: false }))
-        .filter(item => item.priceTableId);
+        // .filter(item => item.priceTableId);
 
       return {
         ...state,

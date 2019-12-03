@@ -121,6 +121,7 @@ const DataTable = ({ dataItems, dataOptions }) => {
                 const isChecked = event.target.value === 'Yes' ? false : true;
                 dispatch(setCheckedItem(tableMeta.rowIndex, isChecked));
                 const templateItem = dataItems[tableMeta.rowIndex];
+                console.log('template item', templateItem)
                 dispatch(
                   fetchTotal(tableMeta.rowIndex, templateItem, isChecked)
                 );

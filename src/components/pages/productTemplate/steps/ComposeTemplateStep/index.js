@@ -13,7 +13,6 @@ const TemplateContainer = () => {
   const total = useSelector(selectTotal);
   const options = useSelector(selectOptions);
   const items = useSelector(selectTemplateItems);
-
   return (
     <>
       <Container maxWidth="xl">
