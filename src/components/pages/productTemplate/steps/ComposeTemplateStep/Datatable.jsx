@@ -20,6 +20,7 @@ import {
   deleteTemplateItems
 } from 'store/ducks/productTemplate';
 import DuplicateIcon from 'components/common/icons/DuplicateIcon';
+import Loading from './LoadingSkeleton';
 
 const useStyle = makeStyles({
   EditCell: { textAlign: 'right' },
@@ -174,7 +175,7 @@ const DataTable = ({ dataItems, dataOptions }) => {
     // selectableRows: 'none',
     textLabels: {
       body: {
-        noMatch: 'empty'
+        noMatch: <Loading />
       }
     },
     onRowsDelete: function rowsDelete(rows) {

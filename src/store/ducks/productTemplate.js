@@ -23,7 +23,8 @@ const INITIAL_STATE = {
   option: '0',
   templateItems: [],
   options: [],
-  total: 0
+  total: 0,
+  isLoading: false
 };
 
 export const setTemplateName = name => ({
@@ -148,6 +149,13 @@ export const fetchTotalMiddleware = ({ dispatch }) => next => action => {
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case types.FETCH_TEMPLATE_ITEMS: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
     case types.SET_TEMPLATE_NAME: {
       const { name } = action.playload;
       return {
@@ -176,13 +184,13 @@ export default function reducer(state = INITIAL_STATE, action) {
             return { ...item, size: { x: 1, y: 1 } };
           }
         })
-        .map(item => ({ ...item, price: 0, quantity: 1, isChecked: false }))
-        // .filter(item => item.priceTableId);
+        .map(item => ({ ...item, price: 0, quantity: 1, isChecked: false }));
 
       return {
         ...state,
         templateItems,
-        total: 0
+        total: 0,
+        isLoading: false
       };
     }
 
