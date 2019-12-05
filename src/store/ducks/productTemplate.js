@@ -72,9 +72,9 @@ export const setOptions = options => ({
   playload: { options }
 });
 
-export const fetchTotal = (rowIndex, templateItem, isChecked) => ({
+export const fetchTotal = (rowIndex, item, isChecked) => ({
   type: types.FETCH_TOTAL,
-  playload: { rowIndex, templateItem, isChecked }
+  playload: { rowIndex, item, isChecked }
 });
 
 export const setPriceValue = (rowIndex, priceValue) => ({
@@ -112,14 +112,19 @@ export const fetchTemplateItemsMiddleware = ({
 
 export const fetchTotalMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.FETCH_TOTAL) {
-    const { rowIndex, templateItem, isChecked } = action.playload;
+    const { rowIndex, item, isChecked } = action.playload;
     if (!isChecked) {
       dispatch(setPriceValue(rowIndex, 0));
       next(action);
       return;
     }
     // TODO: enviar o valor do template item já calculado
-    const { priceTableId: priceTable, quantity, size } = templateItem;
+    const { priceTableId: priceTable, quantity, size, itemType } = item;
+    if (itemType === 'template') {
+      dispatch(setPriceValue(rowIndex, item.itemPrice));
+      next(action);
+      return;
+    }
     const { _id: priceTableId } = priceTable;
     const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
 
