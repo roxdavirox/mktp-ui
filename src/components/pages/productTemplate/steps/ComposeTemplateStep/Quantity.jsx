@@ -22,6 +22,7 @@ const Quantity = ({ rowIndex, templateItem }) => {
   const dispatch = useDispatch();
 
   const handleChangeQuantity = e => {
+    console.log('templateItem', templateItem)
     dispatch(setQuantity(rowIndex, e.target.value));
     const { isChecked } = templateItem;
     dispatch(fetchTotal(rowIndex, templateItem, isChecked));
