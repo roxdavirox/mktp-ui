@@ -16,7 +16,7 @@ import Category from 'components/pages/Category';
 import SubCategory from 'components/pages/Category/SubCategory';
 import Option from 'components/pages/Option';
 import OptionItem from 'components/pages/Option/Item';
-import TemplateItem from 'components/pages/Option/TemplateItem';
+import EditTemplateItem from 'components/pages/Option/EditTemplateItem';
 import PriceTable from 'components/pages/PriceTable';
 import Price from 'components/pages/PriceTable/Price';
 import TemplateEditor from 'components/pages/Template/TemplateEditorPage';
@@ -150,8 +150,8 @@ var dashRoutes = [
   },
   {
     path: '/config/option/template',
-    name: 'Template item',
-    component: TemplateItem,
+    name: 'Template',
+    component: EditTemplateItem,
     layout: '/admin',
     invisible: true
   }
