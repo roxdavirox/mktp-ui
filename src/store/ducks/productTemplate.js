@@ -119,7 +119,7 @@ export const fetchTotalMiddleware = ({ dispatch }) => next => action => {
       next(action);
       return;
     }
-    // TODO: enviar o valor do template item já calculado
+
     const { priceTableId: priceTable, quantity, size, itemType } = item;
     if (itemType === 'template') {
       dispatch(setPriceValue(rowIndex, item.itemPrice * quantity));
