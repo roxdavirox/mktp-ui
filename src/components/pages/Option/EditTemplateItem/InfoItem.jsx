@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 
 // core components
@@ -46,12 +46,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const InfoItem = ({ options, onChangeSelectOption, selectedOption }) => {
+const InfoItem = ({
+  options,
+  templateName,
+  onChangeSelectOption,
+  selectedOption,
+  onNameChange
+}) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const templateName = useSelector(selectTemplateName);
-  const handleChangeSelect = e => onChangeSelectOption(e.target.value);
 
   return (
     <>
@@ -59,10 +61,10 @@ const InfoItem = ({ options, onChangeSelectOption, selectedOption }) => {
         <GridItem xs={12} sm={6}>
           <FormControl className={classes.formControl}>
             <TextField
-              value={name || templateName}
+              value={templateName}
               placeholder="Nome do template"
-              onChange={e => setName(e.target.value)}
-              onBlur={e => dispatch(setTemplateName(e.target.value))}
+              onChange={onNameChange}
+              // onBlur={e => dispatch(setTemplateName(e.target.value))}
             />
           </FormControl>
         </GridItem>
@@ -72,7 +74,7 @@ const InfoItem = ({ options, onChangeSelectOption, selectedOption }) => {
             <Select
               className={classes.select}
               value={selectedOption}
-              onChange={handleChangeSelect}
+              onChange={onChangeSelectOption}
               input={<Input id="option-input" />}
             >
               <MenuItem value="0">
@@ -80,7 +82,7 @@ const InfoItem = ({ options, onChangeSelectOption, selectedOption }) => {
               </MenuItem>
               {options &&
                 options.map(op => (
-                  <MenuItem key={op._id} value={op}>
+                  <MenuItem key={op._id} value={op._id}>
                     {op.name}
                   </MenuItem>
                 ))}
@@ -90,6 +92,14 @@ const InfoItem = ({ options, onChangeSelectOption, selectedOption }) => {
       </GridContainer>
     </>
   );
+};
+
+InfoItem.propTypes = {
+  templateName: PropTypes.object,
+  onTemplateNameChange: PropTypes.func.isRequired,
+  selectedOption: PropTypes.object,
+  onChangeSelectOption: PropTypes.func.isRequired,
+  options: PropTypes.array
 };
 
 export default InfoItem;

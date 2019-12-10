@@ -11,13 +11,19 @@ const TemplateItemPage = ({ location }) => {
   const [item, setItem] = useState({});
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectOption] = useState('0');
+  const [templateName, setTemplateName] = useState('');
 
   console.log('itemId', itemId);
   useEffect(() => {
     const itemsEndpoint = getEndpoint(`/items/${itemId}`);
     fetch(itemsEndpoint)
       .then(res => res.json())
-      .then(({ item }) => setItem(item))
+      .then(({ item }) => {
+        setItem(item);
+        setTemplateName(item.name);
+        setSelectOption(item.option._id);
+        return item;
+      })
       .catch(e => console.log(e));
   }, []);
 
@@ -33,7 +39,7 @@ const TemplateItemPage = ({ location }) => {
   const handleDuplicateItem = () => {};
   const handleCheckItem = () => {};
   const handleSelectOption = () => {};
-  const handleChangeTemplateName = () => {};
+  const handleChangeTemplateName = e => setTemplateName(e.target.value);
   const handleChangeSizeX = () => {};
   const handleChangeSizeY = () => {};
   const handleChangeQuantity = () => {};
@@ -49,9 +55,10 @@ const TemplateItemPage = ({ location }) => {
             onChangeSelectOption={handleSelectOption}
             onNameChange={handleChangeTemplateName}
             selectedOption={selectedOption}
+            templateName={templateName}
           />
         }
-        data={options}
+        data={item.templates}
         onDeleteTemplateItems={handleDeleteTemplateItems}
         onDuplicateItem={handleDuplicateItem}
         onCheckItem={handleCheckItem}

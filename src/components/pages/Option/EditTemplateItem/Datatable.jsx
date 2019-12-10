@@ -27,7 +27,8 @@ const Datatable = ({
   onCheckItem,
   onCalculateTotal,
   enqueueSnackbar,
-  onChangeQuantity
+  onChangeQuantity,
+  title
 }) => {
   const classes = useStyle();
   const columns = [
@@ -54,7 +55,7 @@ const Datatable = ({
       }
     },
     {
-      name: 'name',
+      name: 'item.name',
       label: 'Nome do item ',
       options: {
         sort: false,
@@ -189,7 +190,14 @@ const Datatable = ({
     }
     // customToolbarSelect: () => {}
   };
-  return <MuiDatatable data={data} columns={columns} options={options} />;
+  return (
+    <MuiDatatable
+      title={title}
+      data={data}
+      columns={columns}
+      options={options}
+    />
+  );
 };
 
 Datatable.propTypes = {
@@ -198,6 +206,7 @@ Datatable.propTypes = {
   onCheckItem: PropTypes.func.isRequired,
   onCalculateTotal: PropTypes.func.isRequired,
   data: PropTypes.array,
+  title: PropTypes.object,
   enqueueSnackbar: PropTypes.func.isRequired,
   onChangeQuantity: PropTypes.func.isRequired
 };
