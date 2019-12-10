@@ -23,10 +23,14 @@ const Quantity = ({
   const classes = useStyles();
 
   const handleChangeQuantity = e => {
-    console.log('templateItem', templateItem);
+    console.log('quantity', e.target.value);
     onChangeQuantity(rowIndex, e.target.value);
     const { isChecked } = templateItem;
-    onCalculateTotal(rowIndex, templateItem, isChecked);
+    // onCalculateTotal(
+    //   rowIndex,
+    //   { ...templateItem, quantity: e.target.value },
+    //   isChecked
+    // );
   };
 
   return (

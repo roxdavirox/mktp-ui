@@ -157,8 +157,14 @@ const Datatable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderPriceValue(price, tableMeta) {
-          console.log('price', price)
-          return price ? price : 0;
+          const {
+            quantity,
+            item: { itemType }
+          } = data[tableMeta.rowIndex];
+
+          return price && itemType === 'template'
+            ? price * quantity
+            : price || 0;
         }
       }
     },

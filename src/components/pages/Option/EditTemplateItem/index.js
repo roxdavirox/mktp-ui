@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Datatable from './Datatable';
 import InfoItem from './InfoItem';
-import { getEndpoint } from 'helpers/api';
+import { getEndpoint, createPostRequest } from 'helpers/api';
 
 const TemplateItemPage = ({ location }) => {
   const { itemId } = location.state;
@@ -13,7 +13,6 @@ const TemplateItemPage = ({ location }) => {
   const [selectedOption, setSelectOption] = useState('0');
   const [templateName, setTemplateName] = useState('');
   const [templateItems, setTemplateItems] = useState([]);
-  const [total, setTotal] = useState(0);
 
   console.log('itemId', itemId);
   useEffect(() => {
@@ -32,11 +31,6 @@ const TemplateItemPage = ({ location }) => {
           ...t,
           isChecked: true
         }));
-        const totalPrice = item.templates.reduce(
-          (acc, tp) => acc + tp.itemPrice,
-          0
-        );
-        setTotal(totalPrice);
         setTemplateItems(checkedTemplates);
       })
       .catch(e => console.log(e));
@@ -57,10 +51,66 @@ const TemplateItemPage = ({ location }) => {
   const handleChangeTemplateName = e => setTemplateName(e.target.value);
   const handleChangeSizeX = () => {};
   const handleChangeSizeY = () => {};
-  const handleChangeQuantity = () => {};
+  const handleChangeQuantity = (rowIndex, quantity) => {
+    const templateItem = { ...templateItems[rowIndex], quantity };
+    templateItems[rowIndex] = templateItem;
+    handleCalculateTotal(rowIndex, templateItem, templateItem.isChecked);
+  };
   const handleUpdate = () => {};
 
-  console.log('item', item);
+  const calculateTotal = () => {
+    const totalTemplates = templateItems
+      .filter(tp => tp.item.itemType === 'template')
+      .reduce((acc, tp) => acc + tp.itemPrice * tp.quantity, 0);
+
+    const totalItems = templateItems
+      .filter(tp => tp.item.itemType === 'item')
+      .reduce((acc, tp) => acc + tp.itemPrice, 0);
+
+    return totalTemplates + totalItems;
+  };
+
+  const handleCalculateTotal = (rowIndex, templateItem, isChecked) => {
+    const { item, quantity } = templateItem;
+    console.log('templateItem', templateItem);
+    console.log('item', item);
+    if (!isChecked) {
+      templateItems[rowIndex].itemPrice = 0;
+      setTemplateItems([...templateItems]);
+      return;
+    }
+
+    const { priceTableId: priceTable, size, itemType } = item;
+    if (itemType === 'template') {
+      templateItems[rowIndex] = { ...templateItems[rowIndex], quantity };
+      setTemplateItems([...templateItems]);
+      return;
+    }
+
+    const { _id: priceTableId } = priceTable;
+    const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
+
+    const body = {
+      quantity,
+      size
+    };
+
+    const request = createPostRequest(body);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ total }) => {
+        templateItems[rowIndex].itemPrice = total;
+        setTemplateItems([...templateItems]);
+        return total;
+      })
+      .catch(error => {
+        console.log(`Error on get total value ${error}`);
+      });
+  };
+
+  console.log('templates', templateItems);
+  const total = calculateTotal();
   return (
     <Container maxWidth="xl">
       <p>Total: {total}</p>
@@ -81,6 +131,7 @@ const TemplateItemPage = ({ location }) => {
         onChangeSizeX={handleChangeSizeX}
         onChanSizeY={handleChangeSizeY}
         onChangeQuantity={handleChangeQuantity}
+        onCalculateTotal={handleCalculateTotal}
       />
     </Container>
   );
