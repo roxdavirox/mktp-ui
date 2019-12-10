@@ -14,11 +14,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 // theme components
 import GridContainer from 'components/theme/Grid/GridContainer.jsx';
 import GridItem from 'components/theme/Grid/GridItem.jsx';
-
-import {
-  setTemplateName,
-  selectTemplateName
-} from 'store/ducks/productTemplate';
 import { TextField } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({

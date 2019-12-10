@@ -53,7 +53,7 @@ const TemplateItemPage = ({ location }) => {
     handleCalculateTotal(rowIndex, templateItem, isChecked);
   };
 
-  const handleSelectOption = () => {};
+  const handleSelectOption = e => setSelectOption(e.target.value);
 
   const handleChangeTemplateName = e => setTemplateName(e.target.value);
 
