@@ -46,9 +46,17 @@ const TemplateItemPage = ({ location }) => {
 
   const handleDeleteTemplateItems = () => {};
   const handleDuplicateItem = () => {};
-  const handleCheckItem = () => {};
+
+  const handleCheckItem = (rowIndex, isChecked) => {
+    const templateItem = { ...templateItems[rowIndex], isChecked };
+    templateItems[rowIndex] = templateItem;
+    handleCalculateTotal(rowIndex, templateItem, isChecked);
+  };
+
   const handleSelectOption = () => {};
+
   const handleChangeTemplateName = e => setTemplateName(e.target.value);
+
   const handleChangeSizeX = (rowIndex, valueX) => {
     const templateItem = {
       ...templateItems[rowIndex],
@@ -60,6 +68,7 @@ const TemplateItemPage = ({ location }) => {
     templateItems[rowIndex] = templateItem;
     handleCalculateTotal(rowIndex, templateItem, templateItem.isChecked);
   };
+
   const handleChangeSizeY = (rowIndex, valueY) => {
     const templateItem = {
       ...templateItems[rowIndex],
@@ -71,19 +80,23 @@ const TemplateItemPage = ({ location }) => {
     templateItems[rowIndex] = templateItem;
     handleCalculateTotal(rowIndex, templateItem, templateItem.isChecked);
   };
+
   const handleChangeQuantity = (rowIndex, quantity) => {
     const templateItem = { ...templateItems[rowIndex], quantity };
     templateItems[rowIndex] = templateItem;
     handleCalculateTotal(rowIndex, templateItem, templateItem.isChecked);
   };
+
   const handleUpdate = () => {};
 
   const calculateTotal = () => {
     const totalTemplates = templateItems
+      .filter(tp => tp.isChecked)
       .filter(tp => tp.item.itemType === 'template')
       .reduce((acc, tp) => acc + tp.itemPrice * tp.quantity, 0);
 
     const totalItems = templateItems
+      .filter(tp => tp.isChecked)
       .filter(tp => tp.item.itemType === 'item')
       .reduce((acc, tp) => acc + tp.itemPrice, 0);
 

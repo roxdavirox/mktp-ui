@@ -99,7 +99,7 @@ export const fetchTemplateItemsMiddleware = ({
 }) => next => action => {
   if (action.type === types.FETCH_TEMPLATE_ITEMS) {
     const endpoint = getEndpoint('/items/templates');
-    // TODO: Calcular o preço total de um template item sempre que ele for requisitado
+
     fetch(endpoint)
       .then(res => res.json())
       .then(({ items }) => dispatch(setTemplateItems(items)))
