@@ -28,7 +28,11 @@ const Datatable = ({
   onCalculateTotal,
   enqueueSnackbar,
   onChangeQuantity,
-  title
+  title,
+  valueX,
+  valueY,
+  onChangeSizeX,
+  onChangeSizeY
 }) => {
   const classes = useStyle();
   const columns = [
@@ -84,18 +88,28 @@ const Datatable = ({
       }
     },
     {
-      name: 'priceTableId.unit',
+      name: 'item.priceTableId.unit',
       label: 'medida',
       options: {
         sort: false,
         filter: false,
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
-          const hasUnit = unit !== 'quantidade' && unit;
+          const hasSize =
+            (unit !== 'quantidade' && unit) ||
+            data[tableMeta.rowIndex].item.itemType === 'template';
           const templateItem = data[tableMeta.rowIndex];
-
+          console.log('unit', unit);
           return (
-            hasUnit && (
-              <Size rowIndex={tableMeta.rowIndex} templateItem={templateItem} />
+            hasSize && (
+              <Size
+                rowIndex={tableMeta.rowIndex}
+                onCalculateTotal={onCalculateTotal}
+                templateItem={templateItem}
+                valueX={valueX}
+                valueY={valueY}
+                onChangeSizeX={onChangeSizeX}
+                onChangeSizeY={onChangeSizeY}
+              />
             )
           );
         }
@@ -208,7 +222,11 @@ Datatable.propTypes = {
   data: PropTypes.array,
   title: PropTypes.object,
   enqueueSnackbar: PropTypes.func.isRequired,
-  onChangeQuantity: PropTypes.func.isRequired
+  onChangeQuantity: PropTypes.func.isRequired,
+  onChangeSizeX: PropTypes.func.isRequired,
+  onChangeSizeY: PropTypes.func.isRequired,
+  valueX: PropTypes.object,
+  valueY: PropTypes.object
 };
 
 export default withSnackbar(Datatable);
