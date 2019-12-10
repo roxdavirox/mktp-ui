@@ -23,19 +23,19 @@ const Size = ({
 }) => {
   const classes = useStyles();
 
-  const handleChange = () => {
-    const { isChecked } = templateItem;
-    onCalculateTotal(rowIndex, templateItem, isChecked);
-  };
+  // const handleChange = () => {
+  //   const { isChecked } = templateItem;
+  //   onCalculateTotal(rowIndex, templateItem, isChecked);
+  // };
 
   const handleValueXChange = e => {
     onChangeSizeX(rowIndex, e.target.value);
-    handleChange();
+    // handleChange();
   };
 
   const handleValueYChange = e => {
     onChangeSizeY(rowIndex, e.target.value);
-    handleChange();
+    // handleChange();
   };
 
   return (

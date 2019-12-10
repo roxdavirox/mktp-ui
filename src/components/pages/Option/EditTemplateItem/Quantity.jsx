@@ -13,24 +13,12 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Quantity = ({
-  rowIndex,
-  templateItem,
-  onCalculateTotal,
-  onChangeQuantity,
-  quantity
-}) => {
+const Quantity = ({ rowIndex, onChangeQuantity, quantity }) => {
   const classes = useStyles();
 
   const handleChangeQuantity = e => {
     console.log('quantity', e.target.value);
     onChangeQuantity(rowIndex, e.target.value);
-    const { isChecked } = templateItem;
-    // onCalculateTotal(
-    //   rowIndex,
-    //   { ...templateItem, quantity: e.target.value },
-    //   isChecked
-    // );
   };
 
   return (

@@ -49,8 +49,28 @@ const TemplateItemPage = ({ location }) => {
   const handleCheckItem = () => {};
   const handleSelectOption = () => {};
   const handleChangeTemplateName = e => setTemplateName(e.target.value);
-  const handleChangeSizeX = () => {};
-  const handleChangeSizeY = () => {};
+  const handleChangeSizeX = (rowIndex, valueX) => {
+    const templateItem = {
+      ...templateItems[rowIndex],
+      size: {
+        ...templateItems[rowIndex].size,
+        x: valueX
+      }
+    };
+    templateItems[rowIndex] = templateItem;
+    handleCalculateTotal(rowIndex, templateItem, templateItem.isChecked);
+  };
+  const handleChangeSizeY = (rowIndex, valueY) => {
+    const templateItem = {
+      ...templateItems[rowIndex],
+      size: {
+        ...templateItems[rowIndex].size,
+        y: valueY
+      }
+    };
+    templateItems[rowIndex] = templateItem;
+    handleCalculateTotal(rowIndex, templateItem, templateItem.isChecked);
+  };
   const handleChangeQuantity = (rowIndex, quantity) => {
     const templateItem = { ...templateItems[rowIndex], quantity };
     templateItems[rowIndex] = templateItem;
@@ -71,7 +91,7 @@ const TemplateItemPage = ({ location }) => {
   };
 
   const handleCalculateTotal = (rowIndex, templateItem, isChecked) => {
-    const { item, quantity } = templateItem;
+    const { item, quantity, size } = templateItem;
     console.log('templateItem', templateItem);
     console.log('item', item);
     if (!isChecked) {
@@ -80,7 +100,7 @@ const TemplateItemPage = ({ location }) => {
       return;
     }
 
-    const { priceTableId: priceTable, size, itemType } = item;
+    const { priceTableId: priceTable, itemType } = item;
     if (itemType === 'template') {
       templateItems[rowIndex] = { ...templateItems[rowIndex], quantity };
       setTemplateItems([...templateItems]);
@@ -129,7 +149,7 @@ const TemplateItemPage = ({ location }) => {
         onDuplicateItem={handleDuplicateItem}
         onCheckItem={handleCheckItem}
         onChangeSizeX={handleChangeSizeX}
-        onChanSizeY={handleChangeSizeY}
+        onChangeSizeY={handleChangeSizeY}
         onChangeQuantity={handleChangeQuantity}
         onCalculateTotal={handleCalculateTotal}
       />
