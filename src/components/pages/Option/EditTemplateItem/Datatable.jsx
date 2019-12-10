@@ -162,8 +162,11 @@ const Datatable = ({
         customBodyRender: function renderPriceValue(price, tableMeta) {
           const {
             quantity,
+            isChecked,
             item: { itemType }
           } = data[tableMeta.rowIndex];
+
+          if (!isChecked) return 0;
 
           return price && itemType === 'template'
             ? price * quantity

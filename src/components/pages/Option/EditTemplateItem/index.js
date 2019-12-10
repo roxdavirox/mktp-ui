@@ -44,8 +44,18 @@ const TemplateItemPage = ({ location }) => {
       .catch(e => console.log(e));
   }, []);
 
-  const handleDeleteTemplateItems = () => {};
-  const handleDuplicateItem = () => {};
+  const handleDeleteTemplateItems = indexRows => {
+    console.log('index rows', indexRows);
+    const _templateItems = templateItems.filter(
+      (_, index) => indexRows.indexOf(index) === -1
+    );
+    setTemplateItems([..._templateItems]);
+  };
+
+  const handleDuplicateItem = rowIndex => {
+    templateItems.splice(rowIndex + 1, 0, { ...templateItems[rowIndex] });
+    setTemplateItems([...templateItems]);
+  };
 
   const handleCheckItem = (rowIndex, isChecked) => {
     const templateItem = { ...templateItems[rowIndex], isChecked };
@@ -108,7 +118,7 @@ const TemplateItemPage = ({ location }) => {
     console.log('templateItem', templateItem);
     console.log('item', item);
     if (!isChecked) {
-      templateItems[rowIndex].itemPrice = 0;
+      // templateItems[rowIndex].itemPrice = 0;
       setTemplateItems([...templateItems]);
       return;
     }
@@ -133,6 +143,7 @@ const TemplateItemPage = ({ location }) => {
     fetch(endpoint, request)
       .then(res => res.json())
       .then(({ total }) => {
+        console.log('total', total);
         templateItems[rowIndex].itemPrice = total;
         setTemplateItems([...templateItems]);
         return total;
