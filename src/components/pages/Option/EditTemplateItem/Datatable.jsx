@@ -94,8 +94,8 @@ const Datatable = ({
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
           const templateItem = data[tableMeta.rowIndex];
 
-          const hasSize = unit !== 'quantidade' && unit;
           const { size } = templateItem;
+          const hasSize = unit !== 'quantidade' && size;
           console.log('unit', unit);
           return (
             hasSize && (
@@ -151,12 +151,13 @@ const Datatable = ({
       }
     },
     {
-      name: 'price',
+      name: 'itemPrice',
       label: 'Preço',
       options: {
         sort: false,
         filter: false,
         customBodyRender: function renderPriceValue(price, tableMeta) {
+          console.log('price', price)
           return price ? price : 0;
         }
       }

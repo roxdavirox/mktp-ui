@@ -32,6 +32,11 @@ const TemplateItemPage = ({ location }) => {
           ...t,
           isChecked: true
         }));
+        const totalPrice = item.templates.reduce(
+          (acc, tp) => acc + tp.itemPrice,
+          0
+        );
+        setTotal(totalPrice);
         setTemplateItems(checkedTemplates);
       })
       .catch(e => console.log(e));
