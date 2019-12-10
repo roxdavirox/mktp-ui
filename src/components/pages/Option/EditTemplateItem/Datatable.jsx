@@ -96,9 +96,7 @@ const Datatable = ({
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
           const templateItem = data[tableMeta.rowIndex];
 
-          const hasSize =
-            (unit !== 'quantidade' && unit) ||
-            templateItem.item.itemType === 'template';
+          const hasSize = unit !== 'quantidade' && unit;
           const { size } = templateItem;
           console.log('unit', unit);
           return (

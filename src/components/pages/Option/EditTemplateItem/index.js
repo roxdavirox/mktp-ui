@@ -13,6 +13,7 @@ const TemplateItemPage = ({ location }) => {
   const [selectedOption, setSelectOption] = useState('0');
   const [templateName, setTemplateName] = useState('');
   const [templateItems, setTemplateItems] = useState([]);
+  const [total, setTotal] = useState(0);
 
   console.log('itemId', itemId);
   useEffect(() => {
@@ -57,6 +58,7 @@ const TemplateItemPage = ({ location }) => {
   console.log('item', item);
   return (
     <Container maxWidth="xl">
+      <p>Total: {total}</p>
       <Datatable
         title={
           <InfoItem
