@@ -12,6 +12,7 @@ const TemplateItemPage = ({ location }) => {
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectOption] = useState('0');
   const [templateName, setTemplateName] = useState('');
+  const [templateItems, setTemplateItems] = useState([]);
 
   console.log('itemId', itemId);
   useEffect(() => {
@@ -23,6 +24,14 @@ const TemplateItemPage = ({ location }) => {
         setTemplateName(item.name);
         setSelectOption(item.option._id);
         return item;
+      })
+      .then(item => {
+        const { templates } = item;
+        const checkedTemplates = templates.map(t => ({
+          ...t,
+          isChecked: true
+        }));
+        setTemplateItems(checkedTemplates);
       })
       .catch(e => console.log(e));
   }, []);
@@ -58,7 +67,7 @@ const TemplateItemPage = ({ location }) => {
             templateName={templateName}
           />
         }
-        data={item.templates}
+        data={templateItems}
         onDeleteTemplateItems={handleDeleteTemplateItems}
         onDuplicateItem={handleDuplicateItem}
         onCheckItem={handleCheckItem}

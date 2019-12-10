@@ -94,10 +94,12 @@ const Datatable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
+          const templateItem = data[tableMeta.rowIndex];
+
           const hasSize =
             (unit !== 'quantidade' && unit) ||
-            data[tableMeta.rowIndex].item.itemType === 'template';
-          const templateItem = data[tableMeta.rowIndex];
+            templateItem.item.itemType === 'template';
+          const { size } = templateItem;
           console.log('unit', unit);
           return (
             hasSize && (
@@ -105,8 +107,8 @@ const Datatable = ({
                 rowIndex={tableMeta.rowIndex}
                 onCalculateTotal={onCalculateTotal}
                 templateItem={templateItem}
-                valueX={valueX}
-                valueY={valueY}
+                valueX={size.x}
+                valueY={size.y}
                 onChangeSizeX={onChangeSizeX}
                 onChangeSizeY={onChangeSizeY}
               />
