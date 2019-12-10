@@ -33,12 +33,12 @@ export const fetchItems = () => ({
 
 export const fetchItemsSuccess = items => ({
   type: types.FETCH_ITEMS_SUCCESS,
-  playload: { items }
+  payload: { items }
 });
 
 export const addItem = (item, snack) => ({
   type: types.ADD_ITEM,
-  playload: {
+  payload: {
     item,
     snack
   }
@@ -46,59 +46,59 @@ export const addItem = (item, snack) => ({
 
 export const addItemSuccess = item => ({
   type: types.ADD_ITEM_SUCCESS,
-  playload: { item }
+  payload: { item }
 });
 
 export const deleteItems = (itemsId, snack) => ({
   type: types.DELETE_ITEMS,
-  playload: { itemsId, snack }
+  payload: { itemsId, snack }
 });
 
 export const deleteItemsSuccess = itemsId => ({
   type: types.DELETE_ITEMS_SUCCESS,
-  playload: { itemsId }
+  payload: { itemsId }
 });
 
 export const editItem = (item, snack) => ({
   type: types.EDIT_ITEM,
-  playload: { item, snack }
+  payload: { item, snack }
 });
 
 export const editItemSuccess = item => ({
   type: types.EDIT_ITEM_SUCCESS,
-  playload: { item }
+  payload: { item }
 });
 
 // option's item actions
 
 export const addExistingItems = (itemsId, optionId, snack) => ({
   type: types.ADD_EXISTING_ITEMS,
-  playload: { itemsId, optionId, snack }
+  payload: { itemsId, optionId, snack }
 });
 
 export const addExistingItemsSuccess = (itemsId, optionId) => ({
   type: types.ADD_EXISTING_ITEMS_SUCCESS,
-  playload: { itemsId, optionId }
+  payload: { itemsId, optionId }
 });
 
 export const addOptionItem = (item, optionId, snack) => ({
   type: types.ADD_OPTION_ITEM,
-  playload: { item, optionId, snack }
+  payload: { item, optionId, snack }
 });
 
 export const addOptionItemSuccess = (item, optionId) => ({
   type: types.ADD_OPTION_ITEM_SUCCESS,
-  playload: { item, optionId }
+  payload: { item, optionId }
 });
 
 export const deleteOptionItems = (itemsId, optionId, snack) => ({
   type: types.DELETE_OPTION_ITEMS,
-  playload: { itemsId, optionId, snack }
+  payload: { itemsId, optionId, snack }
 });
 
 export const deleteOptionItemsSuccess = (itemsId, optionId) => ({
   type: types.DELETE_OPTION_ITEMS_SUCCESS,
-  playload: { itemsId, optionId }
+  payload: { itemsId, optionId }
 });
 
 // middlewares
@@ -118,7 +118,7 @@ export const fetchItemsMiddleware = ({ dispatch }) => next => action => {
 
 export const editItemMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.EDIT_ITEM) {
-    const { item, snack } = action.playload;
+    const { item, snack } = action.payload;
     const { _id: itemId, ...body } = item;
     const request = createPutRequest({ ...body });
     const endpoint = getEndpoint(`/items/${itemId}`);
@@ -139,7 +139,7 @@ export const editItemMiddleware = ({ dispatch }) => next => action => {
 
 export const addItemMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_ITEM) {
-    const { item, snack } = action.playload;
+    const { item, snack } = action.payload;
     const request = createPostRequest(item);
     const endpoint = getEndpoint('/items');
 
@@ -160,7 +160,7 @@ export const addItemMiddleware = ({ dispatch }) => next => action => {
 
 export const addOptionItemMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_OPTION_ITEM) {
-    const { item, optionId, snack } = action.playload;
+    const { item, optionId, snack } = action.payload;
     const request = createPostRequest(item);
     const endpoint = getEndpoint(`/items/${optionId}`);
 
@@ -181,7 +181,7 @@ export const addOptionItemMiddleware = ({ dispatch }) => next => action => {
 
 export const addExistingItemsMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_EXISTING_ITEMS) {
-    const { itemsId, optionId, snack } = action.playload;
+    const { itemsId, optionId, snack } = action.payload;
     const body = { itemsId };
     const request = createPutRequest(body);
     const endpoint = getEndpoint(`/options/${optionId}`);
@@ -208,7 +208,7 @@ export const addExistingItemsMiddleware = ({ dispatch }) => next => action => {
 
 export const deleteItemsMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.DELETE_ITEMS) {
-    const { itemsId, snack } = action.playload;
+    const { itemsId, snack } = action.payload;
     const body = {
       itemsId
     };
@@ -236,7 +236,7 @@ export const deleteItemsMiddleware = ({ dispatch }) => next => action => {
 
 export const deleteOptionItemsMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.DELETE_OPTION_ITEMS) {
-    const { itemsId, optionId, snack } = action.playload;
+    const { itemsId, optionId, snack } = action.payload;
     const body = { itemsId };
     const request = createDeleteRequest(body);
     const endpoint = getEndpoint(`/items/${optionId}`);
@@ -272,7 +272,7 @@ export default function reducer(state = initialState, action) {
     case ADD_ENTITIES: {
       const {
         entities: { items }
-      } = action.playload;
+      } = action.payload;
 
       if (!items) return state;
 
@@ -289,7 +289,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.DELETE_ITEMS_SUCCESS: {
-      const { itemsId } = action.playload;
+      const { itemsId } = action.payload;
 
       const allIds = state.allIds.filter(id => itemsId.indexOf(id) === -1);
 
@@ -314,7 +314,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.ADD_ITEM_SUCCESS: {
-      const { item } = action.playload;
+      const { item } = action.payload;
 
       return {
         ...state,
@@ -327,7 +327,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.ADD_OPTION_ITEM_SUCCESS: {
-      const { item } = action.playload;
+      const { item } = action.payload;
 
       return {
         ...state,
@@ -340,7 +340,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.EDIT_ITEM_SUCCESS: {
-      const { item } = action.playload;
+      const { item } = action.payload;
 
       return {
         ...state,

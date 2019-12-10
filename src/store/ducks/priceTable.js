@@ -22,22 +22,22 @@ export const fetchPriceTables = () => ({
 
 export const addPriceTable = (name, unit, snack) => ({
   type: types.ADD_PRICE_TABLE,
-  playload: { name, unit, snack }
+  payload: { name, unit, snack }
 });
 
 export const addPriceTableSuccess = priceTable => ({
   type: types.ADD_PRICE_TABLE_SUCCESS,
-  playload: { priceTable }
+  payload: { priceTable }
 });
 
 export const deletePriceTables = (priceTableIds, snack) => ({
   type: types.DELETE_PRICE_TABLES,
-  playload: { priceTableIds, snack }
+  payload: { priceTableIds, snack }
 });
 
 export const deletePriceTablesSuccess = priceTableIds => ({
   type: types.DELETE_PRICE_TABLES_SUCCESS,
-  playload: { priceTableIds }
+  payload: { priceTableIds }
 });
 
 // middlewares
@@ -57,7 +57,7 @@ export const fetchPriceTablesMiddleware = ({ dispatch }) => next => action => {
 
 export const addPriceTableMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_PRICE_TABLE) {
-    const { name, unit, snack } = action.playload;
+    const { name, unit, snack } = action.payload;
     const endpoint = getEndpoint('/price-tables');
     const request = createPostRequest({ name, unit });
 
@@ -78,7 +78,7 @@ export const addPriceTableMiddleware = ({ dispatch }) => next => action => {
 
 export const deletePriceTablesMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.DELETE_PRICE_TABLES) {
-    const { priceTableIds, snack } = action.playload;
+    const { priceTableIds, snack } = action.payload;
     const request = createDeleteRequest({ priceTableIds });
     const endpoint = getEndpoint('/price-tables');
 
@@ -121,7 +121,7 @@ export default function reducer(state = initialState, action) {
     case ADD_ENTITIES: {
       const {
         entities: { priceTables }
-      } = action.playload;
+      } = action.payload;
 
       if (!priceTables) return state;
 
@@ -136,7 +136,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.ADD_PRICE_TABLE_SUCCESS: {
-      const { priceTable } = action.playload;
+      const { priceTable } = action.payload;
 
       return {
         ...state,
@@ -149,7 +149,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.DELETE_PRICE_TABLES_SUCCESS: {
-      const { priceTableIds } = action.playload;
+      const { priceTableIds } = action.payload;
 
       const allIds = state.allIds.filter(
         id => priceTableIds.indexOf(id) === -1

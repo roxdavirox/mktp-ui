@@ -27,27 +27,27 @@ export const types = {
 
 export const fetchPrices = priceTableId => ({
   type: types.FETCH_PRICES,
-  playload: { priceTableId }
+  payload: { priceTableId }
 });
 
 export const fetchPricesSuccess = prices => ({
   type: types.FETCH_PRICES_SUCCESS,
-  playload: { prices }
+  payload: { prices }
 });
 
 export const addPrice = (price, priceTableId, snack) => ({
   type: types.ADD_PRICE,
-  playload: { price, priceTableId, snack }
+  payload: { price, priceTableId, snack }
 });
 
 export const addPriceSuccess = price => ({
   type: types.ADD_PRICE_SUCCESS,
-  playload: { price }
+  payload: { price }
 });
 
 export const addLastPrice = (price, priceTableId, snack) => ({
   type: types.ADD_LAST_PRICE,
-  playload: {
+  payload: {
     price,
     priceTableId,
     snack
@@ -56,50 +56,50 @@ export const addLastPrice = (price, priceTableId, snack) => ({
 
 export const addLastPriceSuccess = prices => ({
   type: types.ADD_LAST_PRICE_SUCCESS,
-  playload: {
+  payload: {
     prices
   }
 });
 
 export const addPriceRange = (prices, unit, priceTableId, snack) => ({
   type: types.ADD_PRICE_RANGE,
-  playload: { prices, unit, priceTableId, snack }
+  payload: { prices, unit, priceTableId, snack }
 });
 
 export const addPriceRangeSuccess = prices => ({
   type: types.ADD_PRICE_RANGE_SUCCESS,
-  playload: { prices }
+  payload: { prices }
 });
 
 export const editPrice = (price, snack) => ({
   type: types.EDIT_PRICE,
-  playload: { price, snack }
+  payload: { price, snack }
 });
 
 export const editPriceSuccess = price => ({
   type: types.EDIT_PRICE_SUCCESS,
-  playload: { price }
+  payload: { price }
 });
 
 export const deletePrices = (priceIds, snack) => ({
   type: types.DELETE_PRICES,
-  playload: { priceIds, snack }
+  payload: { priceIds, snack }
 });
 
 export const deletePricesSuccess = priceIds => ({
   type: types.DELETE_PRICES_SUCCESS,
-  playload: { priceIds }
+  payload: { priceIds }
 });
 
 export const updateDeletedPricesSuccess = newPrices => ({
   type: types.UPDATE_DELETED_PRICES_SUCCESS,
-  playload: { newPrices }
+  payload: { newPrices }
 });
 
 //middlewares
 export const fetchPricesMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.FETCH_PRICES) {
-    const { priceTableId } = action.playload;
+    const { priceTableId } = action.payload;
     const endpoint = getEndpoint(`/prices/${priceTableId}`);
 
     fetch(endpoint)
@@ -114,7 +114,7 @@ export const fetchPricesMiddleware = ({ dispatch }) => next => action => {
 
 export const addPriceMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_PRICE) {
-    const { price, priceTableId, snack } = action.playload;
+    const { price, priceTableId, snack } = action.payload;
     const body = { price };
     const request = createPutRequest(body);
     const endpoint = getEndpoint(`/price-tables/${priceTableId}`);
@@ -136,7 +136,7 @@ export const addPriceMiddleware = ({ dispatch }) => next => action => {
 
 export const addLastPriceMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_LAST_PRICE) {
-    const { price, priceTableId, snack } = action.playload;
+    const { price, priceTableId, snack } = action.payload;
     const body = { price };
     const request = createPostRequest(body);
     const endpoint = getEndpoint(`/prices/${priceTableId}/last`);
@@ -158,7 +158,7 @@ export const addLastPriceMiddleware = ({ dispatch }) => next => action => {
 
 export const addPriceRangeMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_PRICE_RANGE) {
-    const { prices, unit, priceTableId, snack } = action.playload;
+    const { prices, unit, priceTableId, snack } = action.payload;
     const body = { prices, unit };
     const request = createPostRequest(body);
     const endpoint = getEndpoint(`/prices/${priceTableId}/range`);
@@ -181,7 +181,7 @@ export const addPriceRangeMiddleware = ({ dispatch }) => next => action => {
 
 export const deletePricesMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.DELETE_PRICES) {
-    const { priceIds, snack } = action.playload;
+    const { priceIds, snack } = action.payload;
     const request = createDeleteRequest({ priceIds });
     const endpoint = getEndpoint('/prices');
 
@@ -213,7 +213,7 @@ export const deletePricesMiddleware = ({ dispatch }) => next => action => {
 
 export const editPriceMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.EDIT_PRICE) {
-    const { price, snack } = action.playload;
+    const { price, snack } = action.payload;
     const { _id: priceId, ...body } = price;
     const request = createPutRequest({ ...body });
     const endpoint = getEndpoint(`/prices/${priceId}`);
@@ -247,7 +247,7 @@ export default function reducer(state = initialState, action) {
     case ADD_ENTITIES: {
       const {
         entities: { prices }
-      } = action.playload;
+      } = action.payload;
 
       if (!prices) return { ...initialState };
 
@@ -261,7 +261,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.ADD_PRICE_SUCCESS: {
-      const { price } = action.playload;
+      const { price } = action.payload;
 
       return {
         ...state,
@@ -274,7 +274,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.ADD_LAST_PRICE_SUCCESS: {
-      const { prices } = action.playload;
+      const { prices } = action.payload;
       const [lastPrice, newPrice] = prices;
       return {
         ...state,
@@ -288,7 +288,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.ADD_PRICE_RANGE_SUCCESS: {
-      const { prices } = action.playload;
+      const { prices } = action.payload;
 
       const byId = { ...prices };
       const allIds = Object.keys(prices);
@@ -300,7 +300,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.EDIT_PRICE_SUCCESS: {
-      const { price } = action.playload;
+      const { price } = action.payload;
 
       return {
         ...state,
@@ -312,7 +312,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.DELETE_PRICES_SUCCESS: {
-      const { priceIds } = action.playload;
+      const { priceIds } = action.payload;
 
       const allIds = state.allIds.filter(id => priceIds.indexOf(id) === -1);
 
@@ -333,7 +333,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.UPDATE_DELETED_PRICES_SUCCESS: {
-      const { newPrices } = action.playload;
+      const { newPrices } = action.payload;
 
       const byIds = newPrices.reduce((all, p) => {
         return {

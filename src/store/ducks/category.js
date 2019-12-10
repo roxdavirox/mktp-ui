@@ -27,42 +27,42 @@ export const fetchCategories = () => ({ type: types.FETCH_CATEGORIES });
 
 export const addCategory = (name, snack) => ({
   type: types.ADD_CATEGORY,
-  playload: { name, snack }
+  payload: { name, snack }
 });
 
 export const addCategorySuccess = category => ({
   type: types.ADD_CATEGORY_SUCCESS,
-  playload: { category }
+  payload: { category }
 });
 
 export const deleteCategories = (categoryIds, snack) => ({
   type: types.DELETE_CATEGORIES,
-  playload: { categoryIds, snack }
+  payload: { categoryIds, snack }
 });
 
 export const deleteCategoriesSuccess = categoryIds => ({
   type: types.DELETE_CATEGORIES_SUCCESS,
-  playload: { categoryIds }
+  payload: { categoryIds }
 });
 
 export const addSubCategory = (name, categoryId, snack) => ({
   type: types.ADD_SUB_CATEGORY,
-  playload: { name, categoryId, snack }
+  payload: { name, categoryId, snack }
 });
 
 export const addSubCategorySuccess = (subCategory, categoryId) => ({
   type: types.ADD_SUB_CATEGORY_SUCCESS,
-  playload: { subCategory, categoryId }
+  payload: { subCategory, categoryId }
 });
 
 export const deleteSubCategories = (subCategoryIds, categoryId, snack) => ({
   type: types.DELETE_SUB_CATEGORIES,
-  playload: { subCategoryIds, categoryId, snack }
+  payload: { subCategoryIds, categoryId, snack }
 });
 
 export const deleteSubCategoriesSuccess = (subCategoryIds, categoryId) => ({
   type: types.DELETE_SUB_CATEGORIES_SUCCESS,
-  playload: { subCategoryIds, categoryId }
+  payload: { subCategoryIds, categoryId }
 });
 
 // middlewares
@@ -83,7 +83,7 @@ export const fetchCategoriesMiddleware = ({ dispatch }) => next => action => {
 
 export const addCategoryMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_CATEGORY) {
-    const { name, snack } = action.playload;
+    const { name, snack } = action.payload;
     const request = createPostRequest({ name });
     const endpoint = getEndpoint('/categories');
 
@@ -108,7 +108,7 @@ export const addCategoryMiddleware = ({ dispatch }) => next => action => {
 
 export const deleteCategoriesMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.DELETE_CATEGORIES) {
-    const { categoryIds, snack } = action.playload;
+    const { categoryIds, snack } = action.payload;
     const request = createDeleteRequest({ categoryIds });
     const endpoint = getEndpoint('/categories');
 
@@ -137,7 +137,7 @@ export const deleteCategoriesMiddleware = ({ dispatch }) => next => action => {
 
 export const addSubCategoryMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_SUB_CATEGORY) {
-    const { name, categoryId, snack } = action.playload;
+    const { name, categoryId, snack } = action.payload;
     const request = createPostRequest({ name });
     const endpoint = getEndpoint(`/categories/${categoryId}`);
 
@@ -161,7 +161,7 @@ export const deleteSubCategoriesMiddleware = ({
   dispatch
 }) => next => action => {
   if (action.type === types.DELETE_SUB_CATEGORIES) {
-    const { subCategoryIds, categoryId, snack } = action.playload;
+    const { subCategoryIds, categoryId, snack } = action.payload;
     const request = createDeleteRequest({ subCategoryIds });
     const endpoint = getEndpoint('/sub-categories');
 
@@ -202,7 +202,7 @@ export default function reducer(state = initialState, action) {
     case ADD_ENTITIES: {
       const {
         entities: { categories }
-      } = action.playload;
+      } = action.payload;
 
       if (!categories) return state;
 
@@ -216,7 +216,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.ADD_CATEGORY_SUCCESS: {
-      const { category } = action.playload;
+      const { category } = action.payload;
 
       return {
         ...state,
@@ -229,7 +229,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.DELETE_CATEGORIES_SUCCESS: {
-      const { categoryIds } = action.playload;
+      const { categoryIds } = action.payload;
 
       const allIds = state.allIds.filter(id => categoryIds.indexOf(id) === -1);
 
@@ -250,7 +250,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.DELETE_SUB_CATEGORIES_SUCCESS: {
-      const { subCategoryIds, categoryId } = action.playload;
+      const { subCategoryIds, categoryId } = action.payload;
       const category = state.byId[categoryId];
       return {
         ...state,
@@ -267,7 +267,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.ADD_SUB_CATEGORY_SUCCESS: {
-      const { subCategory, categoryId } = action.playload;
+      const { subCategory, categoryId } = action.payload;
 
       return {
         ...state,

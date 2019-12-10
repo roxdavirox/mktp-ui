@@ -22,22 +22,22 @@ export const fetchOptions = () => ({ type: types.FETCH_OPTIONS });
 
 export const addOption = (optionName, snack) => ({
   type: types.ADD_OPTION,
-  playload: { optionName, snack }
+  payload: { optionName, snack }
 });
 
 export const addOptionSuccess = option => ({
   type: types.ADD_OPTION_SUCCESS,
-  playload: { option }
+  payload: { option }
 });
 
 export const deleteOptions = (optionsId, snack) => ({
   type: types.DELETE_OPTIONS,
-  playload: { optionsId, snack }
+  payload: { optionsId, snack }
 });
 
 export const deleteOptionsSuccess = optionsId => ({
   type: types.DELETE_OPTIONS_SUCCESS,
-  playload: { optionsId }
+  payload: { optionsId }
 });
 
 // middlewares
@@ -59,7 +59,7 @@ export const fetchOptionsMiddleware = ({ dispatch }) => next => action => {
 
 export const addOptionMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.ADD_OPTION) {
-    const { optionName, snack } = action.playload;
+    const { optionName, snack } = action.payload;
     const option = {
       name: optionName
     };
@@ -87,7 +87,7 @@ export const addOptionMiddleware = ({ dispatch }) => next => action => {
 
 export const deleteOptionsMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.DELETE_OPTIONS) {
-    const { optionsId, snack } = action.playload;
+    const { optionsId, snack } = action.payload;
     const body = { optionsId };
     const request = createDeleteRequest(body);
     const endpoint = getEndpoint('/options');
@@ -134,7 +134,7 @@ export default function reducer(state = initialState, action) {
     case ADD_ENTITIES: {
       const {
         entities: { options }
-      } = action.playload;
+      } = action.payload;
 
       if (!options) return state;
 
@@ -149,7 +149,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.ADD_OPTION_SUCCESS: {
-      const { option } = action.playload;
+      const { option } = action.payload;
 
       return {
         ...state,
@@ -162,7 +162,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case itemTypes.ADD_OPTION_ITEM_SUCCESS: {
-      const { item, optionId } = action.playload;
+      const { item, optionId } = action.payload;
 
       return {
         ...state,
@@ -177,7 +177,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case itemTypes.DELETE_OPTION_ITEMS_SUCCESS: {
-      const { itemsId, optionId } = action.playload;
+      const { itemsId, optionId } = action.payload;
 
       const items = state.byId[optionId].items.filter(
         itemId => itemsId.indexOf(itemId) === -1
@@ -196,7 +196,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case itemTypes.ADD_EXISTING_ITEMS_SUCCESS: {
-      const { itemsId, optionId } = action.playload;
+      const { itemsId, optionId } = action.payload;
 
       return {
         ...state,
@@ -216,7 +216,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.DELETE_OPTIONS_SUCCESS: {
-      const { optionsId } = action.playload;
+      const { optionsId } = action.payload;
 
       const allIds = state.allIds.filter(id => optionsId.indexOf(id) === -1);
 

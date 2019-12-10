@@ -29,12 +29,12 @@ const INITIAL_STATE = {
 
 export const setTemplateName = name => ({
   type: types.SET_TEMPLATE_NAME,
-  playload: { name }
+  payload: { name }
 });
 
 export const setOption = option => ({
   type: types.SET_OPTION,
-  playload: { option }
+  payload: { option }
 });
 
 export const resetTemplateState = () => ({ type: types.RESET });
@@ -45,52 +45,52 @@ export const fetchTemplateItems = () => ({
 
 export const setTemplateItems = templateItems => ({
   type: types.SET_TEMPLATE_ITEMS,
-  playload: { templateItems }
+  payload: { templateItems }
 });
 
 export const setCheckedItem = (rowIndex, isChecked) => ({
   type: types.SET_CHECKED_ITEM,
-  playload: { rowIndex, isChecked }
+  payload: { rowIndex, isChecked }
 });
 
 export const setQuantity = (rowIndex, quantity) => ({
   type: types.SET_QUANTITY,
-  playload: { rowIndex, quantity }
+  payload: { rowIndex, quantity }
 });
 
 export const setValueX = (rowIndex, valueX) => ({
   type: types.SET_VALUE_X,
-  playload: { rowIndex, valueX }
+  payload: { rowIndex, valueX }
 });
 
 export const setValueY = (rowIndex, valueY) => ({
   type: types.SET_VALUE_Y,
-  playload: { rowIndex, valueY }
+  payload: { rowIndex, valueY }
 });
 
 export const setOptions = options => ({
   type: types.SET_OPTIONS,
-  playload: { options }
+  payload: { options }
 });
 
 export const fetchTotal = (rowIndex, item, isChecked) => ({
   type: types.FETCH_TOTAL,
-  playload: { rowIndex, item, isChecked }
+  payload: { rowIndex, item, isChecked }
 });
 
 export const setPriceValue = (rowIndex, priceValue) => ({
   type: types.SET_PRICE_VALUE,
-  playload: { rowIndex, priceValue }
+  payload: { rowIndex, priceValue }
 });
 
 export const duplicateItem = rowIndex => ({
   type: types.DUPLICATE_ITEM,
-  playload: { rowIndex }
+  payload: { rowIndex }
 });
 
 export const deleteTemplateItems = indexRows => ({
   type: types.DELETE_TEMPLATE_ITEMS,
-  playload: { indexRows }
+  payload: { indexRows }
 });
 
 // middlewares
@@ -113,7 +113,7 @@ export const fetchTemplateItemsMiddleware = ({
 
 export const fetchTotalMiddleware = ({ dispatch }) => next => action => {
   if (action.type === types.FETCH_TOTAL) {
-    const { rowIndex, item, isChecked } = action.playload;
+    const { rowIndex, item, isChecked } = action.payload;
     if (!isChecked) {
       dispatch(setPriceValue(rowIndex, 0));
       next(action);
@@ -157,7 +157,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     }
 
     case types.SET_TEMPLATE_NAME: {
-      const { name } = action.playload;
+      const { name } = action.payload;
       return {
         ...state,
         name
@@ -165,7 +165,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     }
 
     case types.SET_OPTION: {
-      const { option } = action.playload;
+      const { option } = action.payload;
       return { ...state, option };
     }
 
@@ -174,7 +174,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     }
 
     case types.SET_TEMPLATE_ITEMS: {
-      const { templateItems: prevTemplateItems } = action.playload;
+      const { templateItems: prevTemplateItems } = action.payload;
 
       const templateItems = prevTemplateItems
         .map(item => {
@@ -195,8 +195,8 @@ export default function reducer(state = INITIAL_STATE, action) {
     }
 
     case types.SET_CHECKED_ITEM: {
-      state.templateItems[action.playload.rowIndex].isChecked =
-        action.playload.isChecked;
+      state.templateItems[action.payload.rowIndex].isChecked =
+        action.payload.isChecked;
       return {
         ...state,
         templateItems: [...state.templateItems]
@@ -204,8 +204,8 @@ export default function reducer(state = INITIAL_STATE, action) {
     }
 
     case types.SET_QUANTITY: {
-      const { quantity } = action.playload;
-      state.templateItems[action.playload.rowIndex].quantity =
+      const { quantity } = action.payload;
+      state.templateItems[action.payload.rowIndex].quantity =
         quantity <= 0 ? 1 : quantity;
       return {
         ...state,
@@ -214,7 +214,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     }
 
     case types.SET_VALUE_X: {
-      const { rowIndex, valueX } = action.playload;
+      const { rowIndex, valueX } = action.payload;
 
       state.templateItems[rowIndex].size = {
         ...state.templateItems[rowIndex].size,
@@ -227,7 +227,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     }
 
     case types.SET_VALUE_Y: {
-      const { rowIndex, valueY } = action.playload;
+      const { rowIndex, valueY } = action.payload;
 
       state.templateItems[rowIndex].size = {
         ...state.templateItems[rowIndex].size,
@@ -242,13 +242,13 @@ export default function reducer(state = INITIAL_STATE, action) {
     case types.SET_OPTIONS: {
       return {
         ...state,
-        options: action.playload.options,
+        options: action.payload.options,
         total: 0
       };
     }
 
     case types.SET_PRICE_VALUE: {
-      const { rowIndex, priceValue } = action.playload;
+      const { rowIndex, priceValue } = action.payload;
       state.templateItems[rowIndex].price = priceValue;
       return {
         ...state,
@@ -260,7 +260,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     }
 
     case types.DUPLICATE_ITEM: {
-      const { rowIndex } = action.playload;
+      const { rowIndex } = action.payload;
       const templateItems = state.templateItems;
       templateItems.splice(rowIndex + 1, 0, { ...templateItems[rowIndex] });
       return {
@@ -273,7 +273,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     }
 
     case types.DELETE_TEMPLATE_ITEMS: {
-      const { indexRows } = action.playload;
+      const { indexRows } = action.payload;
       const templateItems = state.templateItems.filter(
         (_, index) => indexRows.indexOf(index) === -1
       );

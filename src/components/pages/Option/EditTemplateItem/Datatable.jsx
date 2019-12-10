@@ -29,8 +29,6 @@ const Datatable = ({
   enqueueSnackbar,
   onChangeQuantity,
   title,
-  valueX,
-  valueY,
   onChangeSizeX,
   onChangeSizeY
 }) => {
@@ -224,9 +222,7 @@ Datatable.propTypes = {
   enqueueSnackbar: PropTypes.func.isRequired,
   onChangeQuantity: PropTypes.func.isRequired,
   onChangeSizeX: PropTypes.func.isRequired,
-  onChangeSizeY: PropTypes.func.isRequired,
-  valueX: PropTypes.object,
-  valueY: PropTypes.object
+  onChangeSizeY: PropTypes.func.isRequired
 };
 
 export default withSnackbar(Datatable);

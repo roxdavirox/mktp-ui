@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 
 export const setUser = user => ({
   type: types.SET_USER,
-  playload: {
+  payload: {
     user
   }
 });
@@ -19,7 +19,7 @@ export const setUser = user => ({
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case types.SET_USER: {
-      const { user } = action.playload;
+      const { user } = action.payload;
       return {
         ...state,
         isAuthenticated: !isEmpty(user),
