@@ -16,10 +16,7 @@ const useStyles = makeStyles({
 const Quantity = ({ rowIndex, onChangeQuantity, quantity }) => {
   const classes = useStyles();
 
-  const handleChangeQuantity = e => {
-    console.log('quantity', e.target.value);
-    onChangeQuantity(rowIndex, e.target.value);
-  };
+  const handleChangeQuantity = e => onChangeQuantity(rowIndex, e.target.value);
 
   return (
     <>

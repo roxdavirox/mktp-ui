@@ -45,7 +45,6 @@ const TemplateItemPage = ({ location }) => {
   }, []);
 
   const handleDeleteTemplateItems = indexRows => {
-    console.log('index rows', indexRows);
     const _templateItems = templateItems.filter(
       (_, index) => indexRows.indexOf(index) === -1
     );

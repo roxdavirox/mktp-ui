@@ -12,31 +12,12 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Size = ({
-  rowIndex,
-  templateItem,
-  onCalculateTotal,
-  valueX,
-  valueY,
-  onChangeSizeX,
-  onChangeSizeY
-}) => {
+const Size = ({ rowIndex, valueX, valueY, onChangeSizeX, onChangeSizeY }) => {
   const classes = useStyles();
 
-  // const handleChange = () => {
-  //   const { isChecked } = templateItem;
-  //   onCalculateTotal(rowIndex, templateItem, isChecked);
-  // };
+  const handleValueXChange = e => onChangeSizeX(rowIndex, e.target.value);
 
-  const handleValueXChange = e => {
-    onChangeSizeX(rowIndex, e.target.value);
-    // handleChange();
-  };
-
-  const handleValueYChange = e => {
-    onChangeSizeY(rowIndex, e.target.value);
-    // handleChange();
-  };
+  const handleValueYChange = e => onChangeSizeY(rowIndex, e.target.value);
 
   return (
     <>

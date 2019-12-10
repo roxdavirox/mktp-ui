@@ -99,7 +99,6 @@ const Datatable = ({
             item: { itemType }
           } = templateItem;
           const hasSize = unit !== 'quantidade' && itemType !== 'template';
-          console.log('unit', unit);
           return (
             hasSize && (
               <Size
@@ -129,7 +128,6 @@ const Datatable = ({
         ) {
           return (
             <FormControlLabel
-              // label={value ? 'Yes' : 'No'}
               value={value ? 'Yes' : 'No'}
               control={
                 <Switch
@@ -142,7 +140,6 @@ const Datatable = ({
                 const isChecked = event.target.value === 'Yes' ? false : true;
                 onCheckItem(tableMeta.rowIndex, isChecked);
                 const templateItem = data[tableMeta.rowIndex];
-                console.log('template item', templateItem);
 
                 onCalculateTotal(tableMeta.rowIndex, templateItem, isChecked);
 
