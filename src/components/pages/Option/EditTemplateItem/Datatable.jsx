@@ -61,7 +61,13 @@ const Datatable = ({
       label: 'Nome do item ',
       options: {
         sort: false,
-        filter: false
+        filter: false,
+        customBodyRender: function(value, tableMeta) { 
+          const templateItem = data[tableMeta.rowIndex];
+          const name = templateItem.name || value;
+          return name;
+        }
+
       }
     },
     {
@@ -93,12 +99,15 @@ const Datatable = ({
         filter: false,
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
           const templateItem = data[tableMeta.rowIndex];
-
-          const {
-            size,
-            item: { itemType }
-          } = templateItem;
-          const hasSize = unit !== 'quantidade' && itemType !== 'template';
+          console.log('templateItem', templateItem);
+          const { size } = templateItem;
+          const itemType =
+            templateItem.itemType !== undefined
+              ? templateItem.itemType
+              : templateItem.item.itemType || '';
+          if (!templateItem.itemType) return;
+          const hasSize =
+            unit !== 'quantidade' && itemType !== 'template' && size;
           return (
             hasSize && (
               <Size
@@ -157,12 +166,17 @@ const Datatable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderPriceValue(price, tableMeta) {
+          const templateItem = data[tableMeta.rowIndex];
           const {
             quantity,
-            isChecked,
-            item: { itemType }
-          } = data[tableMeta.rowIndex];
+            isChecked
+            // item: { itemType }
+          } = templateItem;
 
+          const itemType =
+            templateItem.itemType !== undefined
+              ? templateItem.itemType
+              : templateItem.item.itemType || '';
           if (!isChecked) return 0;
 
           return price && itemType === 'template'

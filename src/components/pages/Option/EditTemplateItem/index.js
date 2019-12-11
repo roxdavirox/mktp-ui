@@ -22,29 +22,40 @@ const TemplateItemPage = ({ location }) => {
 
     fetch(endpoint)
       .then(res => res.json())
-      .then(({ items }) => setTemplateItems(items))
+      .then(({ items }) => {
+        const _templateItems = items
+          .map(item => {
+            if (item.priceTableId && item.priceTableId.unit === 'quantidade') {
+              return item;
+            } else {
+              return { ...item, size: { x: 1, y: 1 } };
+            }
+          })
+          .map(item => ({ ...item, price: 0, quantity: 1, isChecked: false }));
+        setTemplateItems([..._templateItems]);
+      })
       .catch(error => {
         console.log(`Error on get template items ${error}`);
       });
 
-    const itemsEndpoint = getEndpoint(`/items/${itemId}`);
-    fetch(itemsEndpoint)
-      .then(res => res.json())
-      .then(({ item }) => {
-        setItem(item);
-        setTemplateName(item.name);
-        setSelectOption(item.option._id);
-        return item;
-      })
-      .then(item => {
-        const { templates } = item;
-        const checkedTemplates = templates.map(t => ({
-          ...t,
-          isChecked: true
-        }));
-        setTemplateItems(checkedTemplates);
-      })
-      .catch(e => console.log(e));
+    // const itemsEndpoint = getEndpoint(`/items/${itemId}`);
+    // fetch(itemsEndpoint)
+    //   .then(res => res.json())
+    //   .then(({ item }) => {
+    //     setItem(item);
+    //     setTemplateName(item.name);
+    //     setSelectOption(item.option._id);
+    //     return item;
+    //   })
+    //   .then(item => {
+    //     const { templates } = item;
+    //     const checkedTemplates = templates.map(t => ({
+    //       ...t,
+    //       isChecked: true
+    //     }));
+    //     setTemplateItems(checkedTemplates);
+    //   })
+    //   .catch(e => console.log(e));
   }, []);
 
   useEffect(() => {
@@ -162,7 +173,7 @@ const TemplateItemPage = ({ location }) => {
         console.log(`Error on get total value ${error}`);
       });
   };
-
+  console.log('template items', templateItems);
   const total = calculateTotal();
   return (
     <>
