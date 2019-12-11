@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Datatable from './Datatable';
 import InfoItem from './InfoItem';
+import Button from '@material-ui/core/Button';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 
 const TemplateItemPage = ({ location }) => {
@@ -15,7 +16,17 @@ const TemplateItemPage = ({ location }) => {
   const [templateItems, setTemplateItems] = useState([]);
 
   console.log('itemId', itemId);
+
   useEffect(() => {
+    const endpoint = getEndpoint('/items/templates');
+
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(({ items }) => setTemplateItems(items))
+      .catch(error => {
+        console.log(`Error on get template items ${error}`);
+      });
+
     const itemsEndpoint = getEndpoint(`/items/${itemId}`);
     fetch(itemsEndpoint)
       .then(res => res.json())
@@ -96,7 +107,7 @@ const TemplateItemPage = ({ location }) => {
     handleCalculateTotal(rowIndex, templateItem, templateItem.isChecked);
   };
 
-  const handleUpdate = () => {};
+  const handleSubmit = () => {};
 
   const calculateTotal = () => {
     const totalTemplates = templateItems
@@ -152,31 +163,43 @@ const TemplateItemPage = ({ location }) => {
       });
   };
 
-  console.log('templates', templateItems);
   const total = calculateTotal();
   return (
-    <Container maxWidth="xl">
-      <p>Total: {total}</p>
-      <Datatable
-        title={
-          <InfoItem
-            options={options}
-            onChangeSelectOption={handleSelectOption}
-            onNameChange={handleChangeTemplateName}
-            selectedOption={selectedOption}
-            templateName={templateName}
-          />
-        }
-        data={templateItems}
-        onDeleteTemplateItems={handleDeleteTemplateItems}
-        onDuplicateItem={handleDuplicateItem}
-        onCheckItem={handleCheckItem}
-        onChangeSizeX={handleChangeSizeX}
-        onChangeSizeY={handleChangeSizeY}
-        onChangeQuantity={handleChangeQuantity}
-        onCalculateTotal={handleCalculateTotal}
-      />
-    </Container>
+    <>
+      <Container maxWidth="xl">
+        <p>Total: {total}</p>
+        <Datatable
+          title={
+            <InfoItem
+              options={options}
+              onChangeSelectOption={handleSelectOption}
+              onNameChange={handleChangeTemplateName}
+              selectedOption={selectedOption}
+              templateName={templateName}
+            />
+          }
+          data={templateItems}
+          onDeleteTemplateItems={handleDeleteTemplateItems}
+          onDuplicateItem={handleDuplicateItem}
+          onCheckItem={handleCheckItem}
+          onChangeSizeX={handleChangeSizeX}
+          onChangeSizeY={handleChangeSizeY}
+          onChangeQuantity={handleChangeQuantity}
+          onCalculateTotal={handleCalculateTotal}
+        />
+      </Container>
+      <br />
+      <Container maxWidth="xl">
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          style={{ float: 'right' }}
+          color="primary"
+        >
+          Atualizar
+        </Button>
+      </Container>
+    </>
   );
 };
 
