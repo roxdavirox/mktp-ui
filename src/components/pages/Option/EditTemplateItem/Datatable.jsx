@@ -57,17 +57,16 @@ const Datatable = ({
       }
     },
     {
-      name: 'item.name',
+      name: 'name',
       label: 'Nome do item ',
       options: {
         sort: false,
         filter: false,
-        customBodyRender: function(value, tableMeta) { 
+        customBodyRender: function(value, tableMeta) {
           const templateItem = data[tableMeta.rowIndex];
           const name = templateItem.name || value;
           return name;
         }
-
       }
     },
     {
@@ -92,7 +91,7 @@ const Datatable = ({
       }
     },
     {
-      name: 'item.priceTableId.unit',
+      name: 'item.priceTable.unit',
       label: 'medida',
       options: {
         sort: false,

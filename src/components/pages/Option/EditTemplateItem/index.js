@@ -25,7 +25,7 @@ const TemplateItemPage = ({ location }) => {
       .then(({ items }) => {
         const _templateItems = items
           .map(item => {
-            if (item.priceTableId && item.priceTableId.unit === 'quantidade') {
+            if (item.priceTable && item.priceTable.unit === 'quantidade') {
               return item;
             } else {
               return { ...item, size: { x: 1, y: 1 } };
@@ -144,7 +144,7 @@ const TemplateItemPage = ({ location }) => {
       return;
     }
 
-    const { priceTableId: priceTable, itemType } = item;
+    const { priceTable, itemType } = item;
     if (itemType === 'template') {
       templateItems[rowIndex] = { ...templateItems[rowIndex], quantity };
       setTemplateItems([...templateItems]);

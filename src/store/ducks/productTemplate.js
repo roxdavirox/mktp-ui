@@ -120,7 +120,7 @@ export const fetchTotalMiddleware = ({ dispatch }) => next => action => {
       return;
     }
 
-    const { priceTableId: priceTable, quantity, size, itemType } = item;
+    const { priceTable, quantity, size, itemType } = item;
     if (itemType === 'template') {
       dispatch(setPriceValue(rowIndex, item.itemPrice * quantity));
       next(action);
@@ -178,7 +178,7 @@ export default function reducer(state = INITIAL_STATE, action) {
 
       const templateItems = prevTemplateItems
         .map(item => {
-          if (item.priceTableId && item.priceTableId.unit === 'quantidade') {
+          if (item.priceTable && item.priceTable.unit === 'quantidade') {
             return item;
           } else {
             return { ...item, size: { x: 1, y: 1 } };
