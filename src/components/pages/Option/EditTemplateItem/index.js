@@ -7,6 +7,33 @@ import InfoItem from './InfoItem';
 import Button from '@material-ui/core/Button';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 
+const getTemplateItems = async () => {
+  const mapSizeItem = item => {
+    if (item.priceTable && item.priceTable.unit === 'quantidade') {
+      return item;
+    } else {
+      return { ...item, size: { x: 1, y: 1 } };
+    }
+  };
+  const convertIdToItemId = ({ _id: itemId, ...rest }) => ({ itemId, ...rest });
+  const mapDefaultItemInfos = item => ({
+    ...item,
+    price: 0,
+    quantity: 1,
+    isChecked: false
+  });
+
+  const endpoint = getEndpoint('/items/templates');
+  const response = await fetch(endpoint);
+  const { items } = await response.json();
+  const _templateItems = items
+    .map(convertIdToItemId)
+    .map(mapSizeItem)
+    .map(mapDefaultItemInfos);
+
+  return _templateItems;
+};
+
 const TemplateItemPage = ({ location }) => {
   const { itemId } = location.state;
   const [item, setItem] = useState({});
@@ -15,47 +42,29 @@ const TemplateItemPage = ({ location }) => {
   const [templateName, setTemplateName] = useState('');
   const [templateItems, setTemplateItems] = useState([]);
 
-  console.log('itemId', itemId);
-
-  useEffect(() => {
-    const endpoint = getEndpoint('/items/templates');
-
-    fetch(endpoint)
+  useEffect(async () => {
+    const _templateItems = await getTemplateItems();
+    const itemsEndpoint = getEndpoint(`/items/${itemId}`);
+    fetch(itemsEndpoint)
       .then(res => res.json())
-      .then(({ items }) => {
-        const _templateItems = items
-          .map(item => {
-            if (item.priceTable && item.priceTable.unit === 'quantidade') {
-              return item;
-            } else {
-              return { ...item, size: { x: 1, y: 1 } };
-            }
-          })
-          .map(item => ({ ...item, price: 0, quantity: 1, isChecked: false }));
-        setTemplateItems([..._templateItems]);
+      .then(({ item }) => {
+        setItem(item);
+        setTemplateName(item.name);
+        setSelectOption(item.option._id);
+        return item;
       })
-      .catch(error => {
-        console.log(`Error on get template items ${error}`);
-      });
-
-    // const itemsEndpoint = getEndpoint(`/items/${itemId}`);
-    // fetch(itemsEndpoint)
-    //   .then(res => res.json())
-    //   .then(({ item }) => {
-    //     setItem(item);
-    //     setTemplateName(item.name);
-    //     setSelectOption(item.option._id);
-    //     return item;
-    //   })
-    //   .then(item => {
-    //     const { templates } = item;
-    //     const checkedTemplates = templates.map(t => ({
-    //       ...t,
-    //       isChecked: true
-    //     }));
-    //     setTemplateItems(checkedTemplates);
-    //   })
-    //   .catch(e => console.log(e));
+      .then(item => {
+        const { templates } = item;
+        console.log('item templates', templates);
+        const checkedTemplates = templates.map(t => ({
+          ...t.item,
+          ...t,
+          isChecked: true
+        }));
+        console.log('checkedTemplates', checkedTemplates);
+        setTemplateItems([...checkedTemplates, ..._templateItems]);
+      })
+      .catch(e => console.log(e));
   }, []);
 
   useEffect(() => {
@@ -163,7 +172,6 @@ const TemplateItemPage = ({ location }) => {
     fetch(endpoint, request)
       .then(res => res.json())
       .then(({ total }) => {
-        console.log('total', total);
         templateItems[rowIndex].itemPrice = total;
         setTemplateItems([...templateItems]);
         return total;
@@ -172,8 +180,9 @@ const TemplateItemPage = ({ location }) => {
         console.log(`Error on get total value ${error}`);
       });
   };
-  console.log('template items', templateItems);
   const total = calculateTotal();
+
+  console.log('templates: ', templateItems);
   return (
     <>
       <Container maxWidth="xl">

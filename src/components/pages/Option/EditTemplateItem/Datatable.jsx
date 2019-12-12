@@ -35,7 +35,7 @@ const Datatable = ({
   const classes = useStyle();
   const columns = [
     {
-      name: '_id',
+      name: 'itemId',
       label: ' ',
       options: {
         sort: false,
@@ -98,7 +98,7 @@ const Datatable = ({
         filter: false,
         customBodyRender: function renderSizeComponent(unit, tableMeta) {
           const templateItem = data[tableMeta.rowIndex];
-          console.log('templateItem', templateItem);
+
           const { size } = templateItem;
           const itemType =
             templateItem.itemType !== undefined
