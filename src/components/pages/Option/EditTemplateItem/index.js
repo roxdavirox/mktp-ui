@@ -123,28 +123,27 @@ const TemplateItemPage = ({ location }) => {
   const calculateTotal = () => {
     const totalTemplates = templateItems
       .filter(tp => tp.isChecked)
-      .filter(tp => tp.item.itemType === 'template')
+      .filter(tp => tp.itemType === 'template')
       .reduce((acc, tp) => acc + tp.itemPrice * tp.quantity, 0);
 
     const totalItems = templateItems
       .filter(tp => tp.isChecked)
-      .filter(tp => tp.item.itemType === 'item')
+      .filter(tp => tp.itemType === 'item')
       .reduce((acc, tp) => acc + tp.itemPrice, 0);
 
     return totalTemplates + totalItems;
   };
 
   const handleCalculateTotal = (rowIndex, templateItem, isChecked) => {
-    const { item, quantity, size } = templateItem;
+    const { quantity, size } = templateItem;
     console.log('templateItem', templateItem);
-    console.log('item', item);
     if (!isChecked) {
       // templateItems[rowIndex].itemPrice = 0;
       setTemplateItems([...templateItems]);
       return;
     }
 
-    const { priceTable, itemType } = item;
+    const { priceTable, itemType } = templateItem;
     if (itemType === 'template') {
       templateItems[rowIndex] = { ...templateItems[rowIndex], quantity };
       setTemplateItems([...templateItems]);

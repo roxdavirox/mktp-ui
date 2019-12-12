@@ -166,16 +166,8 @@ const Datatable = ({
         filter: false,
         customBodyRender: function renderPriceValue(price, tableMeta) {
           const templateItem = data[tableMeta.rowIndex];
-          const {
-            quantity,
-            isChecked
-            // item: { itemType }
-          } = templateItem;
+          const { quantity, isChecked, itemType } = templateItem;
 
-          const itemType =
-            templateItem.itemType !== undefined
-              ? templateItem.itemType
-              : templateItem.item.itemType || '';
           if (!isChecked) return 0;
 
           return price && itemType === 'template'
