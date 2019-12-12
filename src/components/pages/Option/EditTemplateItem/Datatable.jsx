@@ -91,12 +91,12 @@ const Datatable = ({
       }
     },
     {
-      name: 'item.priceTable.unit',
+      name: 'priceTable.unit',
       label: 'medida',
       options: {
         sort: false,
         filter: false,
-        customBodyRender: function renderUnitComponent(unit, tableMeta) {
+        customBodyRender: function renderSizeComponent(unit, tableMeta) {
           const templateItem = data[tableMeta.rowIndex];
           console.log('templateItem', templateItem);
           const { size } = templateItem;

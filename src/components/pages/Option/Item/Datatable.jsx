@@ -24,11 +24,11 @@ const Datatable = ({
   data
 }) => {
   const handleOpenEditItem = (itemId, tableMeta) => {
-    const [name, itemType, priceTableId] = tableMeta.rowData;
+    const [name, itemType, priceTable] = tableMeta.rowData;
     const item = {
       name,
       itemType,
-      priceTableId: itemType === 'item' ? priceTableId : undefined,
+      priceTable: itemType === 'item' ? priceTable : undefined,
       _id: itemId
     };
     setEditedItem(item);
@@ -83,7 +83,7 @@ const Datatable = ({
       }
     },
     {
-      name: 'priceTableId',
+      name: 'priceTable',
       options: {
         filter: false,
         sort: false,

@@ -30,14 +30,14 @@ const styles = theme => ({
 
 const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
   const [itemName, setItemName] = useState('');
-  const [priceTableId, setPriceTableId] = useState('0');
+  const [priceTable, setPriceTableId] = useState('0');
   const [itemId, setItemId] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (item) {
       setItemName(item.name || '');
-      setPriceTableId(item.priceTableId || '0');
+      setPriceTableId(item.priceTable || '0');
       setItemId(item._id || '');
     }
     dispatch(fetchPriceTables());
@@ -48,13 +48,15 @@ const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
   const handleNameChange = e => setItemName(e.target.value);
 
   const handleSubmit = () => {
-    const item = { name: itemName, priceTableId, _id: itemId };
+    const item = { name: itemName, priceTable, _id: itemId }; 
+    console.log('submit item', item);
     onEdit(item);
   };
 
   const handleClose = () => onClose();
 
   const priceTables = useSelector(store => getPriceTables(store));
+  console.log('priceTables'. priceTable);
   return (
     <>
       <DialogTitle id="form-dialog-title">Editar item</DialogTitle>
@@ -75,7 +77,7 @@ const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
             <InputLabel htmlFor="price-table-input">Tabela de preço</InputLabel>
             <Select
               className={classes.select}
-              value={priceTableId}
+              value={priceTable}
               onChange={handlePriceTableChange}
               input={<Input id="price-table-input" />}
             >

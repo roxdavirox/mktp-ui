@@ -30,7 +30,7 @@ const styles = theme => ({
 
 const AddItemDialog = ({ classes, onAddOptionItem, onClose }) => {
   const [itemName, setItemName] = useState('');
-  const [priceTableId, setPriceTableId] = useState('0');
+  const [priceTable, setPriceTable] = useState('0');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,10 +39,10 @@ const AddItemDialog = ({ classes, onAddOptionItem, onClose }) => {
 
   const handleNameChange = e => setItemName(e.target.value);
 
-  const handlePriceTableChange = e => setPriceTableId(e.target.value);
+  const handlePriceTableChange = e => setPriceTable(e.target.value);
 
   const handleSubmit = () => {
-    const item = { name: itemName, priceTableId };
+    const item = { name: itemName, priceTable };
 
     onAddOptionItem(item);
   };
@@ -68,7 +68,7 @@ const AddItemDialog = ({ classes, onAddOptionItem, onClose }) => {
             <InputLabel htmlFor="price-table-input">Tabela de preço</InputLabel>
             <Select
               className={classes.select}
-              value={priceTableId}
+              value={priceTable}
               onChange={handlePriceTableChange}
               input={<Input id="price-table-input" />}
             >
