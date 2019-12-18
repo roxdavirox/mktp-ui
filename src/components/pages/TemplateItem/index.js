@@ -94,6 +94,12 @@ const TemplateItems = () => {
 
   const handleNameChange = newName => setTemplateName(newName);
 
+  const handleChangeQuantity = (index, quantity) => {
+    templateItems[index] = { ...templateItems[index], quantity };
+    const templateItem = templateItems[index];
+    handleCalculateItemPrice(index, templateItem);
+  };
+
   const handleSubmit = () => {
     const optionId = selectedOption._id;
     const options = templateItems.map(item => ({
@@ -132,6 +138,7 @@ const TemplateItems = () => {
           onChangeValueY={handleChangeValueY}
           onDuplicateItem={handleDuplicate}
           onCheckItem={handleCheck}
+          onChangeQuantity={handleChangeQuantity}
         />
       </Container>
       <br />
