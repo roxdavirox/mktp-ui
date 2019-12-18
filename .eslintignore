@@ -1,3 +1,7 @@
 !.eslintrc.js
 documentation/
 build/
+node_modules/
+src/assets/
+.vscode/
+public/
