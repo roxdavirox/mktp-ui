@@ -25,7 +25,6 @@ const DataTable = ({
   onDeleteTemplateItems,
   onDuplicateItem,
   onCheckItem,
-  onCalculateTotal,
   onChangeValueX,
   onChangeValueY
 }) => {
@@ -87,14 +86,12 @@ const DataTable = ({
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
           const templateItem = templateItems[tableMeta.rowIndex];
           const { size } = templateItem;
-          console.log('templateItem', templateItem);
           const hasUnit = unit !== 'quantidade' && unit && size;
           return (
             hasUnit && (
               <Size
                 rowIndex={tableMeta.rowIndex}
                 templateItem={templateItem}
-                onCalculateTotal={onCalculateTotal}
                 onChangeValueX={onChangeValueX}
                 onChangeValueY={onChangeValueY}
               />
@@ -128,11 +125,6 @@ const DataTable = ({
               onChange={event => {
                 const isChecked = event.target.value === 'Yes' ? false : true;
                 onCheckItem(tableMeta.rowIndex, isChecked);
-                const templateItem = templateItems[tableMeta.rowIndex];
-                // eslint-disable-next-line no-console
-
-                onCalculateTotal(tableMeta.rowIndex, templateItem, isChecked);
-
                 updateValue(isChecked);
               }}
             />

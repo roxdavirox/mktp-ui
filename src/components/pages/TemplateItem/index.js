@@ -7,7 +7,6 @@ import InfoItem from './InfoItem';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 
 const TemplateItems = () => {
-  const [total, setTotal] = useState(0);
   const [templateItems, setTemplateItems] = useState([]);
   const [options, setOptions] = useState([]);
   const [templateName, setTemplateName] = useState('');
@@ -48,7 +47,7 @@ const TemplateItems = () => {
     setTemplateItems([...templateItems]);
   };
 
-  const handleCalculateTotal = (index, templateItem) => {
+  const handleCalculateItemPrice = (index, templateItem) => {
     const { priceTable, quantity, size, itemType, isChecked } = templateItem;
     if (!isChecked) {
       handleChangeItemPrice(index, 0);
@@ -81,8 +80,18 @@ const TemplateItems = () => {
   const handleChangeValueX = () => {};
   const handleChangeValueY = () => {};
   const handleDuplicate = () => {};
-  const handleCheck = () => {};
-  const reduceTotalPrice = () => total;
+
+  const handleCheck = (index, isChecked) => {
+    templateItems[index] = { ...templateItems[index], isChecked };
+    const templateItem = templateItems[index];
+    handleCalculateItemPrice(index, templateItem);
+  };
+
+  const reduceTotalPrice = () =>
+    templateItems
+      .filter(item => item.isChecked)
+      .reduce((total, item) => total + item.price, 0);
+
   const handleNameChange = newName => setTemplateName(newName);
 
   const handleSubmit = () => {
@@ -102,12 +111,13 @@ const TemplateItems = () => {
       .then(res => console.log('create template response:', res));
   };
   console.log('options', options);
-  const _total = reduceTotalPrice();
-  console.log('total', _total);
+  const total = reduceTotalPrice();
+  console.log('total', total);
 
   return (
     <>
       <Container maxWidth="xl">
+        <p>Total: {total}</p>
         <TemplateDatatable
           title={
             <InfoItem
@@ -118,7 +128,6 @@ const TemplateItems = () => {
             />
           }
           templateItems={templateItems}
-          onCalculateTotal={handleCalculateTotal}
           onChangeValueX={handleChangeValueX}
           onChangeValueY={handleChangeValueY}
           onDuplicateItem={handleDuplicate}
