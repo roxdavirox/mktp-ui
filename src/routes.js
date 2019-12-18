@@ -19,10 +19,10 @@ import OptionItem from 'components/pages/Option/Item';
 import EditTemplateItem from 'components/pages/Option/EditTemplateItem';
 import PriceTable from 'components/pages/PriceTable';
 import Price from 'components/pages/PriceTable/Price';
-import TemplateEditor from 'components/pages/Template/TemplateEditorPage';
+import TemplateEditor from 'components/pages/DesignTemplate/TemplateEditorPage';
 import LoginPage from 'components/pages/Login';
-import ProductTemplates from 'components/pages/Template';
-import ProductTemplatePage from './components/pages/productTemplate';
+import ProductTemplates from 'components/pages/DesignTemplate';
+import CreateTemplateItem from './components/pages/TemplateItem';
 
 var dashRoutes = [
   {
@@ -48,7 +48,7 @@ var dashRoutes = [
             path: '/config/product-templates',
             name: 'Template',
             icon: AddCircleOutlineIcon,
-            component: ProductTemplatePage,
+            component: CreateTemplateItem,
             layout: '/admin'
           }
         ]
