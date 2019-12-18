@@ -34,7 +34,6 @@ const Quantity = ({ rowIndex, onChangeQuantity, quantity }) => {
 Quantity.propTypes = {
   rowIndex: PropTypes.object,
   templateItem: PropTypes.object,
-  onCalculateTotal: PropTypes.func.isRequired,
   onChangeQuantity: PropTypes.func.isRequired,
   quantity: PropTypes.object
 };

@@ -111,7 +111,6 @@ const Datatable = ({
             hasSize && (
               <Size
                 rowIndex={tableMeta.rowIndex}
-                onCalculateTotal={onCalculateTotal}
                 templateItem={templateItem}
                 valueX={size.x}
                 valueY={size.y}
