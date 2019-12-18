@@ -4,13 +4,6 @@ import Container from '@material-ui/core/Container';
 import TemplateDatatable from './Datatable';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 
-const toJson = async res => await res.json();
-
-const fetchData = endpoint => async setData =>
-  await setData(toJson(fetch(endpoint)));
-
-const fetchOptions = setData => fetchData('options')(setData);
-
 const TemplateItems = () => {
   const [total, setTotal] = useState(0);
   const [templateItems, setTemplateItems] = useState([]);
@@ -19,12 +12,11 @@ const TemplateItems = () => {
   const [selectedOption, setOptionSelected] = useState('0');
 
   useEffect(() => {
-    // const optionsEndpoint = getEndpoint('/options');
-    // fetch(optionsEndpoint)
-    //   .then(res => res.json())
-    //   .then(({ options }) => setOptions(options))
-    //   .catch(e => console.log(e));
-    fetchOptions(setOptions);
+    const optionsEndpoint = getEndpoint('/options');
+    fetch(optionsEndpoint)
+      .then(res => res.json())
+      .then(({ options }) => setOptions(options))
+      .catch(e => console.log(e));
   }, []);
 
   useEffect(() => {
@@ -48,12 +40,10 @@ const TemplateItems = () => {
       quantity: item.quantity,
       size: item.size || undefined
     }));
-    const body = {
-      name,
-      options
-    };
+
     const endpoint = getEndpoint(`/items/templates/${optionId}`);
-    const postRequest = createPostRequest(body);
+
+    const postRequest = createPostRequest({ name: templateName, options });
     fetch(endpoint, postRequest)
       .then(res => res.json())
       .then(res => console.log('create template response:', res));

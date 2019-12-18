@@ -124,12 +124,12 @@ const DataTable = ({
               }
               onChange={event => {
                 const isChecked = event.target.value === 'Yes' ? false : true;
-                dispatch(setCheckedItem(tableMeta.rowIndex, isChecked));
+                setCheckedItem(tableMeta.rowIndex, isChecked);
                 const templateItem = dataItems[tableMeta.rowIndex];
-                console.log('template item', templateItem)
-                dispatch(
-                  fetchTotal(tableMeta.rowIndex, templateItem, isChecked)
-                );
+                console.log('template item', templateItem);
+
+                fetchTotal(tableMeta.rowIndex, templateItem, isChecked);
+
                 updateValue(isChecked);
               }}
             />
@@ -159,7 +159,7 @@ const DataTable = ({
             <DuplicateIcon
               onClick={() => {
                 if (window.confirm('Deseja duplicar este item?')) {
-                  dispatch(duplicateItem(tableMeta.rowIndex));
+                  duplicateItem(tableMeta.rowIndex);
                 }
               }}
             />
