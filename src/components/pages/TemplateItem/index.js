@@ -42,20 +42,24 @@ const TemplateItems = () => {
       });
   }, []);
 
-  const handleChangeItemPrice = (index, price) => {
-    templateItems[index] = { ...templateItems[index], price };
+  const handleChangeItemPrice = (index, price, templateItem) => {
+    templateItems[index] = { ...templateItem, price };
     setTemplateItems([...templateItems]);
   };
 
   const handleCalculateItemPrice = (index, templateItem) => {
     const { priceTable, quantity, size, itemType, isChecked } = templateItem;
     if (!isChecked) {
-      handleChangeItemPrice(index, 0);
+      handleChangeItemPrice(index, 0, templateItem);
       return;
     }
 
     if (itemType === 'template') {
-      handleChangeItemPrice(index, templateItem.price * quantity);
+      handleChangeItemPrice(
+        index,
+        templateItem.templatePrice * quantity,
+        templateItem
+      );
       return;
     }
 
@@ -71,14 +75,34 @@ const TemplateItems = () => {
 
     fetch(endpoint, request)
       .then(res => res.json())
-      .then(({ total }) => handleChangeItemPrice(index, total))
+      .then(({ total }) => handleChangeItemPrice(index, total, templateItem))
       .catch(error => {
         console.log(`Error on get total value ${error}`);
       });
   };
 
-  const handleChangeValueX = () => {};
-  const handleChangeValueY = () => {};
+  const handleChangeSizeX = (rowIndex, valueX) => {
+    const templateItem = {
+      ...templateItems[rowIndex],
+      size: {
+        ...templateItems[rowIndex].size,
+        x: valueX
+      }
+    };
+    handleCalculateItemPrice(rowIndex, templateItem);
+  };
+
+  const handleChangeSizeY = (rowIndex, valueY) => {
+    const templateItem = {
+      ...templateItems[rowIndex],
+      size: {
+        ...templateItems[rowIndex].size,
+        y: valueY
+      }
+    };
+    handleCalculateItemPrice(rowIndex, templateItem);
+  };
+
   const handleDuplicate = () => {};
 
   const handleCheck = (index, isChecked) => {
@@ -134,8 +158,8 @@ const TemplateItems = () => {
             />
           }
           templateItems={templateItems}
-          onChangeValueX={handleChangeValueX}
-          onChangeValueY={handleChangeValueY}
+          onChangeValueX={handleChangeSizeX}
+          onChangeValueY={handleChangeSizeY}
           onDuplicateItem={handleDuplicate}
           onCheckItem={handleCheck}
           onChangeQuantity={handleChangeQuantity}
