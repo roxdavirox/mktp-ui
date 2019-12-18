@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const CustomLoadingSkeleton = ({ isLoading }) =>
@@ -17,7 +16,4 @@ CustomLoadingSkeleton.propTypes = {
   isLoading: PropTypes.any.isRequired
 };
 
-export default () => {
-  const isLoading = useSelector(state => state.productTemplates.isLoading);
-  return <CustomLoadingSkeleton isLoading={isLoading} />;
-};
+export default CustomLoadingSkeleton;

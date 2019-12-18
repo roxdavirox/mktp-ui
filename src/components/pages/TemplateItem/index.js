@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
+import { withSnackbar } from 'notistack';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import TemplateDatatable from './Datatable';
 import InfoItem from './InfoItem';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 
-const TemplateItems = () => {
+const TemplateItems = ({ enqueueSnackbar }) => {
   const [templateItems, setTemplateItems] = useState([]);
   const [options, setOptions] = useState([]);
   const [templateName, setTemplateName] = useState('');
@@ -125,6 +126,10 @@ const TemplateItems = () => {
   };
 
   const handleSubmit = () => {
+    enqueueSnackbar('Criado template...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
     const optionId = selectedOption._id;
     const options = templateItems.map(item => ({
       option: item.option._id,
@@ -138,7 +143,12 @@ const TemplateItems = () => {
     const postRequest = createPostRequest({ name: templateName, options });
     fetch(endpoint, postRequest)
       .then(res => res.json())
-      .then(res => console.log('create template response:', res));
+      .then(res => {
+        enqueueSnackbar('Template criado com sucesso!', {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+      });
   };
   console.log('options', options);
   const total = reduceTotalPrice();
@@ -180,4 +190,4 @@ const TemplateItems = () => {
   );
 };
 
-export default TemplateItems;
+export default withSnackbar(TemplateItems);
