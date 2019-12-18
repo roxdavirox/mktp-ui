@@ -143,7 +143,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
     const postRequest = createPostRequest({ name: templateName, options });
     fetch(endpoint, postRequest)
       .then(res => res.json())
-      .then(res => {
+      .then(() => {
         enqueueSnackbar('Template criado com sucesso!', {
           variant: 'success',
           autoHideDuration: 2000
