@@ -25,7 +25,9 @@ const DataTable = ({
   onDeleteTemplateItems,
   onDuplicateItem,
   onCheckItem,
-  onCalculateTotal
+  onCalculateTotal,
+  onChangeValueX,
+  onChangeValueY
 }) => {
   const classes = useStyle();
   const columns = [
@@ -92,7 +94,8 @@ const DataTable = ({
                 rowIndex={tableMeta.rowIndex}
                 templateItem={templateItem}
                 onCalculateTotal={onCalculateTotal}
-
+                onChangeValueX={onChangeValueX}
+                onChangeValueY={onChangeValueY}
               />
             )
           );
@@ -208,7 +211,9 @@ DataTable.propTypes = {
   title: PropTypes.object,
   onDuplicateItem: PropTypes.func.isRequired,
   onCheckItem: PropTypes.func.isRequired,
-  onCalculateTotal: PropTypes.func.isRequired
+  onCalculateTotal: PropTypes.func.isRequired,
+  onChangeValueX: PropTypes.func.isRequired,
+  onChangeValueY: PropTypes.func.isRequired
 };
 
 export default withSnackbar(DataTable);

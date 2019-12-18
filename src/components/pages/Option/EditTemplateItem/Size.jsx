@@ -42,7 +42,6 @@ const Size = ({ rowIndex, valueX, valueY, onChangeSizeX, onChangeSizeY }) => {
 Size.propTypes = {
   onChangeSizeX: PropTypes.func.isRequired,
   onChangeSizeY: PropTypes.func.isRequired,
-  onCalculateTotal: PropTypes.func.isRequired,
   rowIndex: PropTypes.object,
   templateItem: PropTypes.object,
   valueX: PropTypes.object,

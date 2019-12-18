@@ -12,31 +12,13 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Size = ({
-  valueX,
-  valueY,
-  onChangeValueX,
-  onChangeValueY,
-  rowIndex,
-  templateItem,
-  onCalculateTotal
-}) => {
+const Size = ({ onChangeValueX, onChangeValueY, rowIndex, templateItem }) => {
   const classes = useStyles();
+  const { size } = templateItem;
 
-  const handleChange = () => {
-    const { isChecked } = templateItem;
-    onCalculateTotal(rowIndex, templateItem, isChecked);
-  };
+  const handleValueXChange = e => onChangeValueX(rowIndex, e.target.value);
 
-  const handleValueXChange = e => {
-    onChangeValueX(rowIndex, e.target.value);
-    handleChange();
-  };
-
-  const handleValueYChange = e => {
-    onChangeValueY(rowIndex, e.target.value);
-    handleChange();
-  };
+  const handleValueYChange = e => onChangeValueY(rowIndex, e.target.value);
 
   return (
     <>
@@ -44,14 +26,14 @@ const Size = ({
         type="number"
         onChange={handleValueXChange}
         placeholder={'x'}
-        value={valueX <= 0 ? 1 : valueX || 1}
+        value={size.x <= 0 ? 1 : size.x || 1}
         className={classes.TextField}
       />{' '}
       <TextField
         type="number"
         onChange={handleValueYChange}
         placeholder={'y'}
-        value={valueY <= 0 ? 1 : valueY || 1}
+        value={size.y <= 0 ? 1 : size.y || 1}
         className={classes.TextField}
       />{' '}
     </>
@@ -59,11 +41,8 @@ const Size = ({
 };
 
 Size.propTypes = {
-  valueX: PropTypes.string,
-  valueY: PropTypes.string,
   onChangeValueX: PropTypes.func.isRequired,
   onChangeValueY: PropTypes.func.isRequired,
-  onCalculateTotal: PropTypes.func.isRequired,
   templateItem: PropTypes.object,
   rowIndex: PropTypes.number
 };
