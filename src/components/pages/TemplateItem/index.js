@@ -26,19 +26,65 @@ const TemplateItems = () => {
 
     fetch(endpoint)
       .then(res => res.json())
-      .then(({ items }) => setTemplateItems(items))
+      .then(({ items }) => {
+        const _items = items
+          .map(item => {
+            if (item.priceTable && item.priceTable.unit === 'quantidade') {
+              return item;
+            } else {
+              return { ...item, size: { x: 1, y: 1 } };
+            }
+          })
+          .map(item => ({ ...item, price: 0, quantity: 1, isChecked: false }));
+        setTemplateItems(_items);
+      })
       .catch(error => {
         console.log(`Error on get template items ${error}`);
       });
   }, []);
 
-  const handleCalculateTotal = () => {};
+  const handleChangeItemPrice = (index, price) => {
+    templateItems[index] = { ...templateItems[index], price };
+    setTemplateItems([...templateItems]);
+  };
+
+  const handleCalculateTotal = (index, templateItem) => {
+    const { priceTable, quantity, size, itemType, isChecked } = templateItem;
+    if (!isChecked) {
+      handleChangeItemPrice(index, 0);
+      return;
+    }
+
+    if (itemType === 'template') {
+      handleChangeItemPrice(index, templateItem.price * quantity);
+      return;
+    }
+
+    const { _id: priceTableId } = priceTable;
+    const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
+
+    const body = {
+      quantity,
+      size
+    };
+
+    const request = createPostRequest(body);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ total }) => handleChangeItemPrice(index, total))
+      .catch(error => {
+        console.log(`Error on get total value ${error}`);
+      });
+  };
+
   const handleChangeValueX = () => {};
   const handleChangeValueY = () => {};
   const handleDuplicate = () => {};
   const handleCheck = () => {};
   const reduceTotalPrice = () => total;
   const handleNameChange = newName => setTemplateName(newName);
+
   const handleSubmit = () => {
     const optionId = selectedOption._id;
     const options = templateItems.map(item => ({

@@ -12,21 +12,12 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Quantity = ({
-  rowIndex,
-  templateItem,
-  quantity,
-  onChangeQuantity,
-  onCalculateTotal
-}) => {
+const Quantity = ({ rowIndex, templateItem, onChangeQuantity }) => {
   const classes = useStyles();
 
-  const handleChangeQuantity = e => {
-    onChangeQuantity(rowIndex, e.target.value);
-    const { isChecked } = templateItem;
-    onCalculateTotal(rowIndex, templateItem, isChecked);
-  };
+  const handleChangeQuantity = e => onChangeQuantity(rowIndex, e.target.value);
 
+  const { quantity } = templateItem;
   return (
     <>
       <TextField
@@ -41,7 +32,7 @@ const Quantity = ({
 };
 
 Quantity.propTypes = {
-  quantity: PropTypes.number,
+  templateItem: PropTypes.object,
   onCalculateTotal: PropTypes.func.isRequired,
   onChangeQuantity: PropTypes.func.isRequired
 };

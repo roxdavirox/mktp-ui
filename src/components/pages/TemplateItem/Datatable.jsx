@@ -85,9 +85,10 @@ const DataTable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
-          const hasUnit = unit !== 'quantidade' && unit;
           const templateItem = templateItems[tableMeta.rowIndex];
-
+          const { size } = templateItem;
+          console.log('templateItem', templateItem);
+          const hasUnit = unit !== 'quantidade' && unit && size;
           return (
             hasUnit && (
               <Size
@@ -129,7 +130,6 @@ const DataTable = ({
                 onCheckItem(tableMeta.rowIndex, isChecked);
                 const templateItem = templateItems[tableMeta.rowIndex];
                 // eslint-disable-next-line no-console
-                console.log('template item', templateItem);
 
                 onCalculateTotal(tableMeta.rowIndex, templateItem, isChecked);
 
