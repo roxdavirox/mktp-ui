@@ -27,9 +27,13 @@ const useStyle = makeStyles({
   NameCell: { fontWeight: 500 }
 });
 
-const DataTable = ({ dataItems, dataOptions }) => {
+const DataTable = ({
+  dataItems,
+  dataOptions,
+  Title,
+  onDeleteTemplateItems
+}) => {
   const classes = useStyle();
-  const dispatch = useDispatch();
   const columns = [
     {
       name: '_id',
@@ -181,7 +185,7 @@ const DataTable = ({ dataItems, dataOptions }) => {
     onRowsDelete: function rowsDelete(rows) {
       const indexRows = rows.data.map(r => r.index);
       if (indexRows) {
-        dispatch(deleteTemplateItems(indexRows));
+        onDeleteTemplateItems(indexRows);
       }
     }
     // customToolbarSelect: () => {}
@@ -189,7 +193,7 @@ const DataTable = ({ dataItems, dataOptions }) => {
 
   return (
     <MuiDatatable
-      title={<InfoItem options={dataOptions} />}
+      title={Title}
       data={dataItems}
       columns={columns}
       options={options}
@@ -200,7 +204,9 @@ const DataTable = ({ dataItems, dataOptions }) => {
 DataTable.propTypes = {
   classes: PropTypes.object.isRequired,
   dataItems: PropTypes.array,
-  dataOptions: PropTypes.array
+  dataOptions: PropTypes.array,
+  onDeleteTemplateItems: PropTypes.func.isRequired,
+  Title: PropTypes.object
 };
 
 export default withSnackbar(DataTable);
