@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { withSnackbar } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,15 +9,8 @@ import Switch from '@material-ui/core/Switch';
 //Common components
 import MuiDatatable from 'components/common/tables/MuiDatatable';
 //core
-import InfoItem from './InfoItem';
 import Size from './Size';
 import Quantity from './Quantity';
-import {
-  setCheckedItem,
-  fetchTotal,
-  duplicateItem,
-  deleteTemplateItems
-} from 'store/ducks/productTemplate';
 import DuplicateIcon from 'components/common/icons/DuplicateIcon';
 import Loading from './LoadingSkeleton';
 
@@ -28,10 +20,12 @@ const useStyle = makeStyles({
 });
 
 const DataTable = ({
-  dataItems,
-  dataOptions,
-  Title,
-  onDeleteTemplateItems
+  templateItems,
+  title,
+  onDeleteTemplateItems,
+  onDuplicateItem,
+  onCheckItem,
+  onCalculateTotal
 }) => {
   const classes = useStyle();
   const columns = [
@@ -72,7 +66,7 @@ const DataTable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderUnitComponent(value, tableMeta) {
-          const templateItem = dataItems[tableMeta.rowIndex];
+          const templateItem = templateItems[tableMeta.rowIndex];
           return (
             <Quantity
               rowIndex={tableMeta.rowIndex}
@@ -83,18 +77,23 @@ const DataTable = ({
       }
     },
     {
-      name: 'priceTableId.unit',
+      name: 'priceTable.unit',
       label: 'medida',
       options: {
         sort: false,
         filter: false,
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
           const hasUnit = unit !== 'quantidade' && unit;
-          const templateItem = dataItems[tableMeta.rowIndex];
+          const templateItem = templateItems[tableMeta.rowIndex];
 
           return (
             hasUnit && (
-              <Size rowIndex={tableMeta.rowIndex} templateItem={templateItem} />
+              <Size
+                rowIndex={tableMeta.rowIndex}
+                templateItem={templateItem}
+                onCalculateTotal={onCalculateTotal}
+
+              />
             )
           );
         }
@@ -124,11 +123,12 @@ const DataTable = ({
               }
               onChange={event => {
                 const isChecked = event.target.value === 'Yes' ? false : true;
-                setCheckedItem(tableMeta.rowIndex, isChecked);
-                const templateItem = dataItems[tableMeta.rowIndex];
+                onCheckItem(tableMeta.rowIndex, isChecked);
+                const templateItem = templateItems[tableMeta.rowIndex];
+                // eslint-disable-next-line no-console
                 console.log('template item', templateItem);
 
-                fetchTotal(tableMeta.rowIndex, templateItem, isChecked);
+                onCalculateTotal(tableMeta.rowIndex, templateItem, isChecked);
 
                 updateValue(isChecked);
               }}
@@ -159,7 +159,7 @@ const DataTable = ({
             <DuplicateIcon
               onClick={() => {
                 if (window.confirm('Deseja duplicar este item?')) {
-                  duplicateItem(tableMeta.rowIndex);
+                  onDuplicateItem(tableMeta.rowIndex);
                 }
               }}
             />
@@ -193,8 +193,8 @@ const DataTable = ({
 
   return (
     <MuiDatatable
-      title={Title}
-      data={dataItems}
+      title={title}
+      data={templateItems}
       columns={columns}
       options={options}
     />
@@ -203,10 +203,12 @@ const DataTable = ({
 
 DataTable.propTypes = {
   classes: PropTypes.object.isRequired,
-  dataItems: PropTypes.array,
-  dataOptions: PropTypes.array,
+  templateItems: PropTypes.array,
   onDeleteTemplateItems: PropTypes.func.isRequired,
-  Title: PropTypes.object
+  title: PropTypes.object,
+  onDuplicateItem: PropTypes.func.isRequired,
+  onCheckItem: PropTypes.func.isRequired,
+  onCalculateTotal: PropTypes.func.isRequired
 };
 
 export default withSnackbar(DataTable);

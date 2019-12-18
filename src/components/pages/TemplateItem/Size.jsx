@@ -1,15 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setValueX,
-  selectValueX,
-  selectValueY,
-  setValueY,
-  fetchTotal
-} from 'store/ducks/productTemplate';
 
 const useStyles = makeStyles({
   TextField: {
@@ -19,27 +12,31 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Size = ({ rowIndex, templateItem }) => {
+const Size = ({
+  valueX,
+  valueY,
+  onChangeValueX,
+  onChangeValueY,
+  rowIndex,
+  templateItem,
+  onCalculateTotal
+}) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   const handleChange = () => {
     const { isChecked } = templateItem;
-    dispatch(fetchTotal(rowIndex, templateItem, isChecked));
+    onCalculateTotal(rowIndex, templateItem, isChecked);
   };
 
   const handleValueXChange = e => {
-    dispatch(setValueX(rowIndex, e.target.value));
+    onChangeValueX(rowIndex, e.target.value);
     handleChange();
   };
 
   const handleValueYChange = e => {
-    dispatch(setValueY(rowIndex, e.target.value));
+    onChangeValueY(rowIndex, e.target.value);
     handleChange();
   };
-
-  const valueX = useSelector(store => selectValueX(store, rowIndex));
-  const valueY = useSelector(store => selectValueY(store, rowIndex));
 
   return (
     <>
@@ -59,6 +56,16 @@ const Size = ({ rowIndex, templateItem }) => {
       />{' '}
     </>
   );
+};
+
+Size.propTypes = {
+  valueX: PropTypes.string,
+  valueY: PropTypes.string,
+  onChangeValueX: PropTypes.func.isRequired,
+  onChangeValueY: PropTypes.func.isRequired,
+  onCalculateTotal: PropTypes.func.isRequired,
+  templateItem: PropTypes.object,
+  rowIndex: PropTypes.number
 };
 
 export default Size;

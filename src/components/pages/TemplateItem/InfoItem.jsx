@@ -1,10 +1,6 @@
-/* eslint-disable no-console */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-key */
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
+import PropTypes from 'prop-types';
 // core components
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -15,12 +11,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import GridContainer from 'components/theme/Grid/GridContainer.jsx';
 import GridItem from 'components/theme/Grid/GridItem.jsx';
 
-import {
-  setTemplateName,
-  selectTemplateName,
-  setOption,
-  selectOption
-} from 'store/ducks/productTemplate';
 import { TextField } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -48,13 +38,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const InfoItem = ({ options }) => {
+const InfoItem = ({
+  options,
+  templateName,
+  onNameChange,
+  onSelectOption,
+  selectedOption
+}) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const option = useSelector(selectOption);
-  const templateName = useSelector(selectTemplateName);
-  const handleChangeSelect = e => dispatch(setOption(e.target.value));
+  const handleChangeSelect = e => onSelectOption(e.target.value);
 
   return (
     <>
@@ -62,10 +54,9 @@ const InfoItem = ({ options }) => {
         <GridItem xs={12} sm={6}>
           <FormControl className={classes.formControl}>
             <TextField
-              value={name || templateName}
+              value={templateName}
               placeholder="Nome do template"
-              onChange={e => setName(e.target.value)}
-              onBlur={e => dispatch(setTemplateName(e.target.value))}
+              onBlur={e => onNameChange(e.target.value)}
             />
           </FormControl>
         </GridItem>
@@ -74,7 +65,7 @@ const InfoItem = ({ options }) => {
             <InputLabel htmlFor="option-input">Opção</InputLabel>
             <Select
               className={classes.select}
-              value={option}
+              value={selectedOption}
               onChange={handleChangeSelect}
               input={<Input id="option-input" />}
             >
@@ -93,6 +84,14 @@ const InfoItem = ({ options }) => {
       </GridContainer>
     </>
   );
+};
+
+InfoItem.propTypes = {
+  options: PropTypes.array,
+  onNameChange: PropTypes.func,
+  onSelectOption: PropTypes.func,
+  templateName: PropTypes.string,
+  selectedOption: PropTypes.object
 };
 
 export default InfoItem;

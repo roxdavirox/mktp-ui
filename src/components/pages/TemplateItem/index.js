@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 import TemplateDatatable from './Datatable';
+import InfoItem from './InfoItem';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 
 const TemplateItems = () => {
@@ -12,8 +14,8 @@ const TemplateItems = () => {
   const [selectedOption, setOptionSelected] = useState('0');
 
   useEffect(() => {
-    const optionsEndpoint = getEndpoint('/options');
-    fetch(optionsEndpoint)
+    const endpoint = getEndpoint('/options');
+    fetch(endpoint)
       .then(res => res.json())
       .then(({ options }) => setOptions(options))
       .catch(e => console.log(e));
@@ -30,8 +32,13 @@ const TemplateItems = () => {
       });
   }, []);
 
-  const calculateTotal = () => {};
-
+  const handleCalculateTotal = () => {};
+  const handleChangeValueX = () => {};
+  const handleChangeValueY = () => {};
+  const handleDuplicate = () => {};
+  const handleCheck = () => {};
+  const reduceTotalPrice = () => total;
+  const handleNameChange = newName => setTemplateName(newName);
   const handleSubmit = () => {
     const optionId = selectedOption._id;
     const options = templateItems.map(item => ({
@@ -49,10 +56,41 @@ const TemplateItems = () => {
       .then(res => console.log('create template response:', res));
   };
   console.log('options', options);
+  const _total = reduceTotalPrice();
+  console.log('total', _total);
+
   return (
-    <Container maxWidth="xl">
-      <TemplateDatatable templateItems={templateItems} />
-    </Container>
+    <>
+      <Container maxWidth="xl">
+        <TemplateDatatable
+          title={
+            <InfoItem
+              options={options}
+              selectedOption={selectedOption}
+              onNameChange={handleNameChange}
+              onSelectOption={setOptionSelected}
+            />
+          }
+          templateItems={templateItems}
+          onCalculateTotal={handleCalculateTotal}
+          onChangeValueX={handleChangeValueX}
+          onChangeValueY={handleChangeValueY}
+          onDuplicateItem={handleDuplicate}
+          onCheckItem={handleCheck}
+        />
+      </Container>
+      <br />
+      <Container maxWidth="xl">
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          style={{ float: 'right' }}
+          color="primary"
+        >
+          Criar template
+        </Button>
+      </Container>
+    </>
   );
 };
 
