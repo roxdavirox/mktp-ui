@@ -42,11 +42,6 @@ import {
   deleteSubCategoriesMiddleware
 } from 'store/ducks/category';
 
-import {
-  fetchTemplateItemsMiddleware,
-  fetchTotalMiddleware
-} from 'store/ducks/productTemplate';
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const persistConfig = {
@@ -84,9 +79,7 @@ export const store = createStore(
       addCategoryMiddleware,
       deleteCategoriesMiddleware,
       addSubCategoryMiddleware,
-      deleteSubCategoriesMiddleware,
-      fetchTemplateItemsMiddleware,
-      fetchTotalMiddleware
+      deleteSubCategoriesMiddleware
     )
   )
 );
