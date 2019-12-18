@@ -131,12 +131,14 @@ const TemplateItems = ({ enqueueSnackbar }) => {
       autoHideDuration: 2000
     });
     const optionId = selectedOption._id;
-    const options = templateItems.map(item => ({
-      option: item.option._id,
-      item: item._id,
-      quantity: item.quantity,
-      size: item.size || undefined
-    }));
+    const options = templateItems
+      .filter(item => item.isChecked)
+      .map(item => ({
+        option: item.option._id,
+        item: item._id,
+        quantity: item.quantity,
+        size: item.size || undefined
+      }));
 
     const endpoint = getEndpoint(`/items/templates/${optionId}`);
 
