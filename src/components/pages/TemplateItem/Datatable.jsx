@@ -27,7 +27,8 @@ const DataTable = ({
   onCheckItem,
   onChangeValueX,
   onChangeValueY,
-  onChangeQuantity
+  onChangeQuantity,
+  isLoading
 }) => {
   const classes = useStyle();
   const columns = [
@@ -176,7 +177,7 @@ const DataTable = ({
     // selectableRows: 'none',
     textLabels: {
       body: {
-        noMatch: <Loading />
+        noMatch: <Loading isLoading={isLoading}/>
       }
     },
     onRowsDelete: function rowsDelete(rows) {
@@ -208,7 +209,8 @@ DataTable.propTypes = {
   onCalculateTotal: PropTypes.func.isRequired,
   onChangeValueX: PropTypes.func.isRequired,
   onChangeValueY: PropTypes.func.isRequired,
-  onChangeQuantity: PropTypes.func.isRequired
+  onChangeQuantity: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 };
 
 export default withSnackbar(DataTable);

@@ -8,6 +8,7 @@ import InfoItem from './InfoItem';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 
 const TemplateItems = ({ enqueueSnackbar }) => {
+  const [isLoading, setLoadingState] = useState(true);
   const [templateItems, setTemplateItems] = useState([]);
   const [options, setOptions] = useState([]);
   const [templateName, setTemplateName] = useState('');
@@ -37,6 +38,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
           })
           .map(item => ({ ...item, price: 0, quantity: 1, isChecked: false }));
         setTemplateItems(_items);
+        setLoadingState(false);
       })
       .catch(error => {
         console.log(`Error on get template items ${error}`);
@@ -175,6 +177,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
           onDuplicateItem={handleDuplicate}
           onCheckItem={handleCheck}
           onChangeQuantity={handleChangeQuantity}
+          isLoading={isLoading}
         />
       </Container>
       <br />
