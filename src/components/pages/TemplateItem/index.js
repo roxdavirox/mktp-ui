@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
@@ -193,6 +194,10 @@ const TemplateItems = ({ enqueueSnackbar }) => {
       </Container>
     </>
   );
+};
+
+TemplateItems.propTypes = {
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
 export default withSnackbar(TemplateItems);
