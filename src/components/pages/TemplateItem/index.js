@@ -24,26 +24,34 @@ const TemplateItems = ({ enqueueSnackbar }) => {
   }, []);
 
   useEffect(() => {
-    const endpoint = getEndpoint('/items/templates');
+    async function getTemplateItems() {
+      const endpoint = getEndpoint('/items/templates');
 
-    fetch(endpoint)
-      .then(res => res.json())
-      .then(({ items }) => {
-        const _items = items
-          .map(item => {
-            if (item.priceTable && item.priceTable.unit === 'quantidade') {
-              return item;
-            } else {
-              return { ...item, size: { x: 1, y: 1 } };
-            }
-          })
-          .map(item => ({ ...item, price: 0, quantity: 1, isChecked: false }));
-        setTemplateItems(_items);
-        setLoadingState(false);
-      })
-      .catch(error => {
-        console.log(`Error on get template items ${error}`);
-      });
+      fetch(endpoint)
+        .then(res => res.json())
+        .then(({ items }) => {
+          const _items = items
+            .map(item => {
+              if (item.priceTable && item.priceTable.unit === 'quantidade') {
+                return item;
+              } else {
+                return { ...item, size: { x: 1, y: 1 } };
+              }
+            })
+            .map(item => ({
+              ...item,
+              price: 0,
+              quantity: 1,
+              isChecked: false
+            }));
+          setTemplateItems(_items);
+          setLoadingState(false);
+        })
+        .catch(error => {
+          console.log(`Error on get template items ${error}`);
+        });
+    }
+    getTemplateItems();
   }, []);
 
   const handleChangeItemPrice = (index, price, templateItem) => {

@@ -7,22 +7,24 @@ import InfoItem from './InfoItem';
 import Button from '@material-ui/core/Button';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 
-const getTemplateItems = async () => {
-  const mapSizeItem = item => {
-    if (item.priceTable && item.priceTable.unit === 'quantidade') {
-      return item;
-    } else {
-      return { ...item, size: { x: 1, y: 1 } };
-    }
-  };
-  const convertIdToItemId = ({ _id: itemId, ...rest }) => ({ itemId, ...rest });
-  const mapDefaultItemInfos = item => ({
-    ...item,
-    price: 0,
-    quantity: 1,
-    isChecked: false
-  });
+const mapSizeItem = item => {
+  if (item.priceTable && item.priceTable.unit === 'quantidade') {
+    return item;
+  } else {
+    return { ...item, size: { x: 1, y: 1 } };
+  }
+};
 
+const convertIdToItemId = ({ _id: itemId, ...rest }) => ({ itemId, ...rest });
+
+const mapDefaultItemInfos = item => ({
+  ...item,
+  price: 0,
+  quantity: 1,
+  isChecked: false
+});
+
+const getTemplateItems = async () => {
   const endpoint = getEndpoint('/items/templates');
   const response = await fetch(endpoint);
   const { items } = await response.json();
@@ -42,29 +44,32 @@ const TemplateItemPage = ({ location }) => {
   const [templateName, setTemplateName] = useState('');
   const [templateItems, setTemplateItems] = useState([]);
 
-  useEffect(async () => {
-    const _templateItems = await getTemplateItems();
-    const itemsEndpoint = getEndpoint(`/items/${itemId}`);
-    fetch(itemsEndpoint)
-      .then(res => res.json())
-      .then(({ item }) => {
-        setItem(item);
-        setTemplateName(item.name);
-        setSelectOption(item.option._id);
-        return item;
-      })
-      .then(item => {
-        const { templates } = item;
-        console.log('item templates', templates);
-        const checkedTemplates = templates.map(t => ({
-          ...t.item,
-          ...t,
-          isChecked: true
-        }));
-        console.log('checkedTemplates', checkedTemplates);
-        setTemplateItems([...checkedTemplates, ..._templateItems]);
-      })
-      .catch(e => console.log(e));
+  useEffect(() => {
+    async function getTemplateItems() {
+      const _templateItems = await getTemplateItems();
+      const itemsEndpoint = getEndpoint(`/items/${itemId}`);
+      fetch(itemsEndpoint)
+        .then(res => res.json())
+        .then(({ item }) => {
+          setItem(item);
+          setTemplateName(item.name);
+          setSelectOption(item.option._id);
+          return item;
+        })
+        .then(item => {
+          const { templates } = item;
+          console.log('item templates', templates);
+          const checkedTemplates = templates.map(t => ({
+            ...t.item,
+            ...t,
+            isChecked: true
+          }));
+          console.log('checkedTemplates', checkedTemplates);
+          setTemplateItems([...checkedTemplates, ..._templateItems]);
+        })
+        .catch(e => console.log(e));
+    }
+    getTemplateItems();
   }, []);
 
   useEffect(() => {
