@@ -177,7 +177,7 @@ const DataTable = ({
     // selectableRows: 'none',
     textLabels: {
       body: {
-        noMatch: <Loading isLoading={isLoading}/>
+        noMatch: <Loading isLoading={isLoading} />
       }
     },
     onRowsDelete: function rowsDelete(rows) {

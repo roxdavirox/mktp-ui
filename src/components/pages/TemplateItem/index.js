@@ -24,7 +24,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
   }, []);
 
   useEffect(() => {
-    async function getTemplateItems() {
+    async function AsyncGetTemplateItems() {
       const endpoint = getEndpoint('/items/templates');
 
       fetch(endpoint)
@@ -51,7 +51,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
           console.log(`Error on get template items ${error}`);
         });
     }
-    getTemplateItems();
+    AsyncGetTemplateItems();
   }, []);
 
   const handleChangeItemPrice = (index, price, templateItem) => {
@@ -142,7 +142,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
       autoHideDuration: 2000
     });
     const optionId = selectedOption._id;
-    const options = templateItems
+    const templates = templateItems
       .filter(item => item.isChecked)
       .map(item => ({
         option: item.option._id,
@@ -153,7 +153,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
 
     const endpoint = getEndpoint(`/items/templates/${optionId}`);
 
-    const postRequest = createPostRequest({ name: templateName, options });
+    const postRequest = createPostRequest({ name: templateName, templates });
     fetch(endpoint, postRequest)
       .then(res => res.json())
       .then(() => {
