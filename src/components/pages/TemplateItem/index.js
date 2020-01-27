@@ -120,6 +120,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
   const handleCheck = (index, isChecked) => {
     templateItems[index] = { ...templateItems[index], isChecked };
     const templateItem = templateItems[index];
+    console.log('template item checado:', templateItem);
     handleCalculateItemPrice(index, templateItem);
   };
 
@@ -131,6 +132,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
   const handleNameChange = newName => setTemplateName(newName);
 
   const handleChangeQuantity = (index, quantity) => {
+    if (quantity < 1) return;
     templateItems[index] = { ...templateItems[index], quantity };
     const templateItem = templateItems[index];
     handleCalculateItemPrice(index, templateItem);
@@ -168,14 +170,17 @@ const TemplateItems = ({ enqueueSnackbar }) => {
           variant: 'success',
           autoHideDuration: 2000
         });
-        const _option = options.find(o => o._id === templateItem.option);
-        const indexOption = options.indexOf(_option);
-        _option.items.push(templateItem);
-        options[indexOption] = _option;
-        setOptions([...options]);
+        const unchekedTemplateItems = templateItems.map(tp => ({
+          ...tp,
+          isChecked: false,
+          price: 0
+        }));
+        setTemplateItems([
+          ...unchekedTemplateItems,
+          { ...templateItem, isChecked: false, price: 0, quantity: 1 }
+        ]);
         setTemplateName('');
         setOptionSelected('0');
-        console.log('indexOfOption', indexOption);
         console.log('create template item response:', templateItem);
       });
   };
@@ -191,6 +196,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
           title={
             <InfoItem
               options={options}
+              templateName={templateName}
               selectedOption={selectedOption}
               onNameChange={handleNameChange}
               onSelectOption={setOptionSelected}

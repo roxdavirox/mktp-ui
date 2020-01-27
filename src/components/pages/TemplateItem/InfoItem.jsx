@@ -53,11 +53,18 @@ const InfoItem = ({
       <GridContainer className={classes.container}>
         <GridItem xs={12} sm={6}>
           <FormControl className={classes.formControl}>
-            <TextField
-              value={templateName}
-              placeholder="Nome do template"
-              onBlur={e => onNameChange(e.target.value)}
-            />
+            {templateName !== '' ? (
+              <TextField
+                placeholder="Nome do template"
+                onBlur={e => onNameChange(e.target.value)}
+              />
+            ) : (
+              <TextField
+                placeholder="Nome do template"
+                value={templateName}
+                onChange={e => onNameChange(e.target.value)}
+              />
+            )}
           </FormControl>
         </GridItem>
         <GridItem xs={12} sm={6}>
