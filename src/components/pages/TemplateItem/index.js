@@ -136,6 +136,13 @@ const TemplateItems = ({ enqueueSnackbar }) => {
     handleCalculateItemPrice(index, templateItem);
   };
 
+  const handleDeleteTemplateItems = indexRows => {
+    const _templateItems = templateItems.filter(
+      (_, index) => indexRows.indexOf(index) === -1
+    );
+    setTemplateItems([..._templateItems]);
+  };
+
   const handleSubmit = () => {
     enqueueSnackbar('Criado template...', {
       variant: 'info',
@@ -156,11 +163,20 @@ const TemplateItems = ({ enqueueSnackbar }) => {
     const postRequest = createPostRequest({ name: templateName, templates });
     fetch(endpoint, postRequest)
       .then(res => res.json())
-      .then(() => {
+      .then(({ templateItem }) => {
         enqueueSnackbar('Template criado com sucesso!', {
           variant: 'success',
           autoHideDuration: 2000
         });
+        const _option = options.find(o => o._id === templateItem.option);
+        const indexOption = options.indexOf(_option);
+        _option.items.push(templateItem);
+        options[indexOption] = _option;
+        setOptions([...options]);
+        setTemplateName('');
+        setOptionSelected('0');
+        console.log('indexOfOption', indexOption);
+        console.log('create template item response:', templateItem);
       });
   };
   console.log('options', options);
@@ -186,6 +202,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
           onDuplicateItem={handleDuplicate}
           onCheckItem={handleCheck}
           onChangeQuantity={handleChangeQuantity}
+          onDeleteTemplateItems={handleDeleteTemplateItems}
           isLoading={isLoading}
         />
       </Container>
