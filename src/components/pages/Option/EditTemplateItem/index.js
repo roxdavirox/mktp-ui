@@ -45,7 +45,7 @@ const TemplateItemPage = ({ location }) => {
   const [templateItems, setTemplateItems] = useState([]);
 
   useEffect(() => {
-    async function getTemplateItems() {
+    async function AsyncGetTemplateItems() {
       const _templateItems = await getTemplateItems();
       const itemsEndpoint = getEndpoint(`/items/${itemId}`);
       fetch(itemsEndpoint)
@@ -69,7 +69,7 @@ const TemplateItemPage = ({ location }) => {
         })
         .catch(e => console.log(e));
     }
-    getTemplateItems();
+    AsyncGetTemplateItems();
   }, []);
 
   useEffect(() => {
