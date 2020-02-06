@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   select: { height: '37px' },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 420
+    minWidth: 400
   }
 }));
 
@@ -52,7 +52,7 @@ const InfoItem = ({
     <>
       <GridContainer className={classes.container}>
         <GridItem xs={12} sm={6}>
-          <FormControl className={classes.formControl}>
+          <FormControl className={classes.formControl} sm={3}>
             {templateName !== '' ? (
               <TextField
                 placeholder="Nome do template"
