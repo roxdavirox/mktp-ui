@@ -58,13 +58,11 @@ const TemplateItemPage = ({ location }) => {
         })
         .then(item => {
           const { templates } = item;
-          console.log('item templates', templates);
           const checkedTemplates = templates.map(t => ({
             ...t.item,
             ...t,
             isChecked: true
           }));
-          console.log('checkedTemplates', checkedTemplates);
           setTemplateItems([...checkedTemplates, ..._templateItems]);
         })
         .catch(e => console.log(e));
@@ -150,7 +148,6 @@ const TemplateItemPage = ({ location }) => {
 
   const handleCalculateTotal = (rowIndex, templateItem, isChecked) => {
     const { quantity, size } = templateItem;
-    console.log('templateItem', templateItem);
     if (!isChecked) {
       // templateItems[rowIndex].itemPrice = 0;
       setTemplateItems([...templateItems]);
@@ -187,21 +184,21 @@ const TemplateItemPage = ({ location }) => {
   };
   const total = calculateTotal();
 
-  console.log('templates: ', templateItems);
   return (
     <>
       <Container maxWidth="xl">
         <p>Total: {total}</p>
+        <Container maxWidth="xl">
+          <InfoItem
+            options={options}
+            onChangeSelectOption={handleSelectOption}
+            onNameChange={handleChangeTemplateName}
+            selectedOption={selectedOption}
+            templateName={templateName}
+          />
+        </Container>
         <Datatable
-          title={
-            <InfoItem
-              options={options}
-              onChangeSelectOption={handleSelectOption}
-              onNameChange={handleChangeTemplateName}
-              selectedOption={selectedOption}
-              templateName={templateName}
-            />
-          }
+          // title={}
           data={templateItems}
           onDeleteTemplateItems={handleDeleteTemplateItems}
           onDuplicateItem={handleDuplicateItem}

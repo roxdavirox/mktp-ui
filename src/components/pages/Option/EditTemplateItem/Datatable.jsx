@@ -216,6 +216,7 @@ const Datatable = ({
     }
     // customToolbarSelect: () => {}
   };
+  console.log('datatable render');
   return (
     <MuiDatatable
       title={title}
@@ -239,4 +240,7 @@ Datatable.propTypes = {
   onChangeSizeY: PropTypes.func.isRequired
 };
 
-export default memo(withSnackbar(Datatable));
+const MemoizedDatatable = memo(Datatable);
+const NotificationDatatable = withSnackbar(MemoizedDatatable);
+
+export default NotificationDatatable;

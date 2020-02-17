@@ -49,7 +49,7 @@ const InfoItem = ({
   onNameChange
 }) => {
   const classes = useStyles();
-
+  console.log('info render');
   return (
     <>
       <GridContainer className={classes.container}>
@@ -97,4 +97,6 @@ InfoItem.propTypes = {
   options: PropTypes.array
 };
 
-export default memo(InfoItem);
+const MemoizedInfoItem = memo(InfoItem);
+
+export default MemoizedInfoItem;
