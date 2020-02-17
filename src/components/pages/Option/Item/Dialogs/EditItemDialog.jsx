@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -14,7 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { getPriceTables, fetchPriceTables } from 'store/ducks/priceTable';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   container: {
     display: 'grid',
     flexWrap: 'wrap'
@@ -26,13 +26,14 @@ const styles = theme => ({
     maxWidth: 300
   },
   select: { height: '37px' }
-});
+}));
 
-const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
+const EditItemDialog = ({ item, onEdit, onClose }) => {
   const [itemName, setItemName] = useState('');
   const [priceTable, setPriceTableId] = useState('0');
   const [itemId, setItemId] = useState('');
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   useEffect(() => {
     if (item) {
@@ -48,15 +49,13 @@ const EditItemDialog = ({ classes, item, onEdit, onClose }) => {
   const handleNameChange = e => setItemName(e.target.value);
 
   const handleSubmit = () => {
-    const item = { name: itemName, priceTable, _id: itemId }; 
-    console.log('submit item', item);
+    const item = { name: itemName, priceTable, _id: itemId };
     onEdit(item);
   };
 
   const handleClose = () => onClose();
 
   const priceTables = useSelector(store => getPriceTables(store));
-  console.log('priceTables'. priceTable);
   return (
     <>
       <DialogTitle id="form-dialog-title">Editar item</DialogTitle>
@@ -113,4 +112,4 @@ EditItemDialog.propTypes = {
   item: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(EditItemDialog);
+export default EditItemDialog;
