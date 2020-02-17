@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
-import React, { useState } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -97,4 +97,4 @@ InfoItem.propTypes = {
   options: PropTypes.array
 };
 
-export default InfoItem;
+export default memo(InfoItem);

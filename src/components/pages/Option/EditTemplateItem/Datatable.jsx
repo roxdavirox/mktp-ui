@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withSnackbar } from 'notistack';
@@ -239,4 +239,4 @@ Datatable.propTypes = {
   onChangeSizeY: PropTypes.func.isRequired
 };
 
-export default withSnackbar(Datatable);
+export default memo(withSnackbar(Datatable));
