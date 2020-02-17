@@ -9,11 +9,11 @@ import { CookiesProvider } from 'react-cookie';
 const Providers = () => (
   <CookiesProvider>
     <Store>
-      <Notifications>
-        <Theme>
+      <Theme>
+        <Notifications>
           <Router />
-        </Theme>
-      </Notifications>
+        </Notifications>
+      </Theme>
     </Store>
   </CookiesProvider>
 );

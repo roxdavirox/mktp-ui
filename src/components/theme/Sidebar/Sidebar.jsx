@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-string-refs */
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from 'perfect-scrollbar';
@@ -307,6 +307,7 @@ class Sidebar extends React.Component {
     history.push('/auth/user');
   }
   render() {
+    console.log('sidebar render');
     const {
       classes,
       logo,
@@ -568,4 +569,4 @@ Sidebar.propTypes = {
   routes: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default withCookies(withStyles(sidebarStyle)(Sidebar));
+export default withCookies(memo(withStyles(sidebarStyle)(Sidebar)));
