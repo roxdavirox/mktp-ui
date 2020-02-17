@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
@@ -14,7 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { getPriceTables, fetchPriceTables } from 'store/ducks/priceTable';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   container: {
     display: 'grid',
     flexWrap: 'wrap'
@@ -26,12 +26,13 @@ const styles = theme => ({
     maxWidth: 300
   },
   select: { height: '37px' }
-});
+}));
 
-const AddItemDialog = ({ classes, onAddOptionItem, onClose }) => {
+const AddItemDialog = ({ onAddOptionItem, onClose }) => {
   const [itemName, setItemName] = useState('');
   const [priceTable, setPriceTable] = useState('0');
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   useEffect(() => {
     dispatch(fetchPriceTables());
@@ -97,9 +98,8 @@ const AddItemDialog = ({ classes, onAddOptionItem, onClose }) => {
 };
 
 AddItemDialog.propTypes = {
-  classes: PropTypes.object.isRequired,
   onAddOptionItem: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(AddItemDialog);
+export default AddItemDialog;
