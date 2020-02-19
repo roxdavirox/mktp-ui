@@ -15,7 +15,7 @@ import {
   MOVE_CARD,
   REORDER_LIST,
   REORDER_CARD_LIST
-} from "../actions/ScrumBoardActions";
+} from '../actions/ScrumBoardActions';
 
 const initialState = {};
 

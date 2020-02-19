@@ -1,12 +1,12 @@
-import { MatxLoadable } from "matx";
+import { MatxLoadable } from 'matx';
 
 const AppMap = MatxLoadable({
-  loader: () => import("./AppMap")
+  loader: () => import('./AppMap')
 });
 
 const mapRoutes = [
   {
-    path: "/map",
+    path: '/map',
     component: AppMap
   }
 ];

@@ -1,21 +1,20 @@
 class localStorageService {
-  ls = window.localStorage
+  ls = window.localStorage;
 
   setItem(key, value) {
-    value = JSON.stringify(value)
-    this.ls.setItem(key, value)
-    return true
+    value = JSON.stringify(value);
+    this.ls.setItem(key, value);
+    return true;
   }
 
   getItem(key) {
-    let value = this.ls.getItem(key)
+    let value = this.ls.getItem(key);
     try {
-      return JSON.parse(value)
+      return JSON.parse(value);
     } catch (e) {
-      return null
+      return null;
     }
   }
-
 }
 
 export default new localStorageService();

@@ -1,9 +1,9 @@
-import history from "history.js";
-import jwtAuthService from "../../services/jwtAuthService";
+import history from 'history.js';
+import jwtAuthService from '../../services/jwtAuthService';
 
-export const SET_USER_DATA = "USER_SET_DATA";
-export const REMOVE_USER_DATA = "USER_REMOVE_DATA";
-export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
+export const SET_USER_DATA = 'USER_SET_DATA';
+export const REMOVE_USER_DATA = 'USER_REMOVE_DATA';
+export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
 
 export function setUserData(user) {
   return dispatch => {
@@ -19,7 +19,7 @@ export function logoutUser() {
     jwtAuthService.logout();
 
     history.push({
-      pathname: "/session/signin"
+      pathname: '/session/signin'
     });
 
     dispatch({

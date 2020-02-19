@@ -3,7 +3,7 @@ import {
   LOGIN_ERROR,
   LOGIN_LOADING,
   RESET_PASSWORD
-} from "../actions/LoginActions";
+} from '../actions/LoginActions';
 
 const initialState = {
   success: false,

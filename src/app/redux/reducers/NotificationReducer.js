@@ -3,7 +3,7 @@ import {
   CREATE_NOTIFICATION,
   DELETE_ALL_NOTIFICATION,
   DELETE_NOTIFICATION
-} from "../actions/NotificationActions";
+} from '../actions/NotificationActions';
 
 const initialState = [];
 

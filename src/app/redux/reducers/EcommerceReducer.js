@@ -7,7 +7,7 @@ import {
   GET_CATEGORY_LIST,
   GET_RATING_LIST,
   GET_BRAND_LIST
-} from "../actions/EcommerceActions";
+} from '../actions/EcommerceActions';
 
 const initialState = {
   productList: [],

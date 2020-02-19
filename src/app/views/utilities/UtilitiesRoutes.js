@@ -1,16 +1,16 @@
-import {MatxLoadable} from "matx";
+import { MatxLoadable } from 'matx';
 
 const Color = MatxLoadable({
-  loader: () => import("./Color")
+  loader: () => import('./Color')
 });
 const Spacing = MatxLoadable({
-  loader: () => import("./Spacing")
+  loader: () => import('./Spacing')
 });
 const Typography = MatxLoadable({
-  loader: () => import("./Typography")
+  loader: () => import('./Typography')
 });
 const Display = MatxLoadable({
-  loader: () => import("./Display")
+  loader: () => import('./Display')
 });
 
 const utilitiesRoutes = [
@@ -19,17 +19,17 @@ const utilitiesRoutes = [
     component: Color
   },
   {
-    path: "/utilities/spacing",
+    path: '/utilities/spacing',
     component: Spacing
   },
   {
-    path: "/utilities/typography",
+    path: '/utilities/typography',
     component: Typography
   },
   {
-    path: "/utilities/display",
+    path: '/utilities/display',
     component: Display
-  },
-]
+  }
+];
 
 export default utilitiesRoutes;

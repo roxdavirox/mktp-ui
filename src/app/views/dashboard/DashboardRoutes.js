@@ -1,13 +1,13 @@
-import { MatxLoadable } from "matx";
-import { authRoles } from "../../auth/authRoles";
+import { MatxLoadable } from 'matx';
+import { authRoles } from '../../auth/authRoles';
 
 const Analytics = MatxLoadable({
-  loader: () => import("./Analytics")
-})
+  loader: () => import('./Analytics')
+});
 
 const dashboardRoutes = [
   {
-    path: "/dashboard/analytics",
+    path: '/dashboard/analytics',
     component: Analytics,
     auth: authRoles.admin
   }

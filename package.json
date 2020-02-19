@@ -63,6 +63,12 @@
     "eject": "react-scripts eject",
     "ghp": "react-scripts build && gh-pages -d build"
   },
+  "optionalDependencies": {
+    "@types/googlemaps": "3.30.16",
+    "@types/markerclustererplus": "2.1.33",
+    "ajv": "6.9.1",
+    "prettier": "1.16.4"
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
