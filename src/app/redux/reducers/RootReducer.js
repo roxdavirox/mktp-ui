@@ -5,8 +5,10 @@ import LayoutReducer from './LayoutReducer';
 import ScrumBoardReducer from './ScrumBoardReducer';
 import NotificationReducer from './NotificationReducer';
 import EcommerceReducer from './EcommerceReducer';
+import options from './Option.reducer';
 
 const RootReducer = combineReducers({
+  options,
   login: LoginReducer,
   user: UserReducer,
   layout: LayoutReducer,
