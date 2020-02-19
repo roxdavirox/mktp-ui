@@ -5,6 +5,12 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "redux-persist": "^6.0.0",
+    "uuid": "^3.3.3",
+    "mui-datatables": "^2.0.0-beta.59",
+    "redux-devtools-extension": "^2.13.8",
+    "react-loading-skeleton": "^1.1.1",
+    "react-number-format": "^4.0.8",
     "@babel/polyfill": "^7.8.3",
     "@date-io/date-fns": "^1.3.6",
     "@material-ui/core": "^4.3.1",
