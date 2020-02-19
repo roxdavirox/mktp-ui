@@ -1,11 +1,44 @@
 import React, { Component } from 'react';
-import { MuiThemeProvider } from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { setLayoutSettings } from 'app/redux/actions/LayoutActions';
 // import cssVars from "css-vars-ponyfill";
 
 import { Helmet } from 'react-helmet';
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiModal: {
+      root: {
+        overflowY: 'auto'
+      }
+    },
+    MuiDialog: {
+      container: { height: 'auto' }
+    },
+    MUIDataTableHeadCell: {
+      fixedHeaderCommon: {
+        position: 'inherit'
+      }
+    },
+    MUIDataTableSelectCell: {
+      root: { width: '10px' },
+      fixedHeader: {
+        position: 'inherit'
+      },
+      headerCell: {
+        position: 'inherit'
+      },
+      fixedHeaderCommon: {
+        position: 'inherit'
+      }
+    },
+    MuiTableCell: {
+      root: { padding: '1px 1px 1px 10px' }
+    }
+  }
+});
 
 class MatxTheme extends Component {
   componentWillReceiveProps() {
@@ -18,7 +51,7 @@ class MatxTheme extends Component {
 
   render() {
     let { children, settings } = this.props;
-    let activeTheme = { ...settings.themes[settings.activeTheme] };
+    let activeTheme = { ...settings.themes[settings.activeTheme], ...theme };
     // console.log(activeTheme);
 
     // activeTheme.direction = settings.direction;

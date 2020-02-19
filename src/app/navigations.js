@@ -5,6 +5,11 @@ export const navigations = [
     icon: 'dashboard'
   },
   {
+    name: 'Opções',
+    path: '/options',
+    icon: 'O'
+  },
+  {
     name: 'Forms',
     icon: 'description',
     children: [

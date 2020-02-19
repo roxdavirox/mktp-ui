@@ -12,7 +12,6 @@ import { Store } from './redux/Store';
 import Auth from './auth/Auth';
 import MatxLayout from './MatxLayout/MatxLayout';
 import AuthGuard from './auth/AuthGuard';
-
 import { SnackbarProvider } from 'notistack';
 
 const App = () => {
