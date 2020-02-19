@@ -22,7 +22,7 @@ const OptionPage = props => {
   const handleClose = () => setOpen(false);
   return (
     <>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" style={{ padding: '1em' }}>
         {open && <Dialog open={open} onClose={handleClose} {...props} />}
         <Datatable data={selectedData} onOpen={handleOpen} />
       </Container>
