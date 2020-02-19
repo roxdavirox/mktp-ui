@@ -28,6 +28,7 @@ const shadows = [
   '0px 10px 13px -6px rgba(0, 0, 0, 0.06),0px 20px 31px 3px rgba(0, 0, 0, 0.042),0px 8px 38px 7px rgba(0, 0, 0, 0.036)'
 ];
 
+// TODO: editar datatable props
 const themeOptions = {
   typography: {
     fontSize: 14,
@@ -55,7 +56,8 @@ const themeOptions = {
       root: {
         fontSize: '14px',
         whiteSpace: 'pre-wrap',
-        padding: '8px 0px'
+        padding: '1px 1px 1px 10px'
+        // padding: '8px 0px'
       }
     },
 
@@ -93,6 +95,32 @@ const themeOptions = {
     MuiMenuItem: {
       root: {
         fontSize: '0.875rem'
+      }
+    },
+    // new theme styles
+    MuiModal: {
+      root: {
+        overflowY: 'auto'
+      }
+    },
+    MuiDialog: {
+      container: { height: 'auto' }
+    },
+    MUIDataTableHeadCell: {
+      fixedHeaderCommon: {
+        position: 'inherit'
+      }
+    },
+    MUIDataTableSelectCell: {
+      root: { width: '10px' },
+      fixedHeader: {
+        position: 'inherit'
+      },
+      headerCell: {
+        position: 'inherit'
+      },
+      fixedHeaderCommon: {
+        position: 'inherit'
       }
     }
   }

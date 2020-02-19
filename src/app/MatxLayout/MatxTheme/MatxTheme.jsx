@@ -51,7 +51,7 @@ class MatxTheme extends Component {
 
   render() {
     let { children, settings } = this.props;
-    let activeTheme = { ...theme, ...settings.themes[settings.activeTheme] };
+    let activeTheme = { ...settings.themes[settings.activeTheme] };
     // console.log(activeTheme);
 
     // activeTheme.direction = settings.direction;
