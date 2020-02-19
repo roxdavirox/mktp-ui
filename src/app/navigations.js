@@ -1,3 +1,6 @@
+import ViewListIcon from '@material-ui/icons/ViewList';
+import AccountTreeSharpIcon from '@material-ui/icons/AccountTreeSharp';
+
 export const navigations = [
   {
     name: 'Dashboard',
@@ -7,7 +10,7 @@ export const navigations = [
   {
     name: 'Opções',
     path: '/options',
-    icon: 'O'
+    icon: AccountTreeSharpIcon
   },
   {
     name: 'Forms',

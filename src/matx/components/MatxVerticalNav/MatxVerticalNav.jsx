@@ -35,9 +35,8 @@ class MatxVerticalNav extends Component {
             <TouchRipple key={item.name} name="child" className="w-100">
               {(() => {
                 if (item.icon) {
-                  return (
-                    <Icon className="item-icon text-middle">{item.icon}</Icon>
-                  );
+                  const ItemIcon = item.icon;
+                  return <ItemIcon />;
                 } else {
                   return (
                     <span className="item-icon icon-text">{item.iconText}</span>
