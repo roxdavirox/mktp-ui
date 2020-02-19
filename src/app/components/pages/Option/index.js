@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
 
+import { Breadcrumb } from 'matx';
+
 import Datatable from './Datatable';
 import Dialog from './Dialog';
 import { fetchOptions } from 'app/redux/actions/Option.actions';
@@ -23,6 +25,9 @@ const OptionPage = props => {
   return (
     <>
       <Container maxWidth="xl" style={{ padding: '1em' }}>
+        <div className="mb-sm-30">
+          <Breadcrumb routeSegments={[{ name: 'Opções', path: '/options' }]} />
+        </div>
         {open && <Dialog open={open} onClose={handleClose} {...props} />}
         <Datatable data={selectedData} onOpen={handleOpen} />
       </Container>
