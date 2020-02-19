@@ -13,6 +13,8 @@ import Auth from './auth/Auth';
 import MatxLayout from './MatxLayout/MatxLayout';
 import AuthGuard from './auth/AuthGuard';
 
+import { SnackbarProvider } from 'notistack';
+
 const App = () => {
   return (
     <AppContext.Provider value={{ routes }}>
@@ -21,7 +23,15 @@ const App = () => {
           <Auth>
             <Router history={history}>
               <AuthGuard>
-                <MatxLayout />
+                <SnackbarProvider
+                  maxSnack={2}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right'
+                  }}
+                >
+                  <MatxLayout />
+                </SnackbarProvider>
               </AuthGuard>
             </Router>
           </Auth>
