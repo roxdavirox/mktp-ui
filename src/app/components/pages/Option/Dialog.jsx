@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import { addOption } from 'store/ducks/option';
+import { addOption } from 'app/redux/actions/Option.actions';
 
 const styles = theme => ({
   container: {

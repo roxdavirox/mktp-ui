@@ -11,7 +11,7 @@ import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
 import { AddToolbar } from 'app/components/common/tables/Toolbar.jsx';
 import OptionLoading from './LoadingSkeleton';
 
-import { deleteOptions } from 'store/ducks/option';
+import { deleteOptions } from 'app/redux/actions/Option.actions';
 
 import { withSnackbar } from 'notistack';
 

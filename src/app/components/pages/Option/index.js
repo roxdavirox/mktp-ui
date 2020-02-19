@@ -7,7 +7,8 @@ import { withSnackbar } from 'notistack';
 
 import Datatable from './Datatable';
 import Dialog from './Dialog';
-import { fetchOptions, getOptions } from 'store/ducks/option';
+import { fetchOptions } from 'app/redux/actions/Option.actions';
+import { getOptions } from 'app/redux/selectors/Option.selectors';
 
 const OptionPage = props => {
   const [open, setOpen] = useState(false);
