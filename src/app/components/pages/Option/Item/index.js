@@ -6,15 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import DialogContainer from './Dialogs';
 import Datatable from './Datatable';
-import { fetchOptions } from 'store/ducks/option';
+import { fetchOptions } from 'app/redux/actions/Option.actions';
 import {
   addOptionItem,
   deleteOptionItems,
   fetchItems,
   editItem,
   getOptionsItems
-} from 'store/ducks/item';
-// import { getPriceTables } from 'store/ducks/priceTable';
+} from 'app/redux/actions/Item.actions';
 
 const getOptionId = location => {
   const { state } = location;

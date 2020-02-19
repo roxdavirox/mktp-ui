@@ -26,7 +26,7 @@ export const deleteOptionsSuccess = optionsId => ({
   payload: { optionsId }
 });
 
-export const fetchOptions = dispatch => () => {
+export const fetchOptions = () => dispatch => {
   const endpoint = getEndpoint('/options');
 
   fetch(endpoint)
@@ -38,7 +38,7 @@ export const fetchOptions = dispatch => () => {
     });
 };
 
-export const addOption = dispatch => (optionName, snack) => {
+export const addOption = (optionName, snack) => dispatch => {
   const option = {
     name: optionName
   };
@@ -61,7 +61,7 @@ export const addOption = dispatch => (optionName, snack) => {
     });
 };
 
-export const deleteOptions = dispatch => (optionsId, snack) => {
+export const deleteOptions = (optionsId, snack) => dispatch => {
   const body = { optionsId };
   const request = createDeleteRequest(body);
   const endpoint = getEndpoint('/options');

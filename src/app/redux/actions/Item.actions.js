@@ -62,7 +62,7 @@ export const deleteOptionItemsSuccess = (itemsId, optionId) => ({
   payload: { itemsId, optionId }
 });
 
-export const fetchItems = dispatch => () => {
+export const fetchItems = () => dispatch => {
   const url = getEndpoint('/items');
 
   fetch(url)
@@ -72,7 +72,7 @@ export const fetchItems = dispatch => () => {
     .catch(console.error);
 };
 
-export const addItem = dispatch => (item, snack) => {
+export const addItem = (item, snack) => dispatch => {
   const request = createPostRequest(item);
   const endpoint = getEndpoint('/items');
 
@@ -88,7 +88,7 @@ export const addItem = dispatch => (item, snack) => {
     .catch(console.error);
 };
 
-export const editItem = dispatch => (item, snack) => {
+export const editItem = (item, snack) => dispatch => {
   const { _id: itemId, ...body } = item;
   const request = createPutRequest({ ...body });
   const endpoint = getEndpoint(`/items/${itemId}`);
@@ -105,7 +105,7 @@ export const editItem = dispatch => (item, snack) => {
     .catch(console.error);
 };
 
-export const deleteItems = dispatch => (itemsId, snack) => {
+export const deleteItems = (itemsId, snack) => dispatch => {
   const body = {
     itemsId
   };
@@ -128,7 +128,7 @@ export const deleteItems = dispatch => (itemsId, snack) => {
     .catch(console.error);
 };
 
-export const addOptionItem = dispatch => (item, optionId, snack) => {
+export const addOptionItem = (item, optionId, snack) => dispatch => {
   const request = createPostRequest(item);
   const endpoint = getEndpoint(`/items/${optionId}`);
 
@@ -144,7 +144,7 @@ export const addOptionItem = dispatch => (item, optionId, snack) => {
     .catch(console.error);
 };
 
-export const deleteOptionItems = dispatch => (itemsId, optionId, snack) => {
+export const deleteOptionItems = (itemsId, optionId, snack) => dispatch => {
   const body = { itemsId };
   const request = createDeleteRequest(body);
   const endpoint = getEndpoint(`/items/${optionId}`);
