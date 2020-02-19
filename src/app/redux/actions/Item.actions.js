@@ -1,3 +1,13 @@
+import { normalize } from 'normalizr';
+import { addEntities } from '../actions';
+import { itemSchema } from '../schemas';
+import {
+  getEndpoint,
+  createPostRequest,
+  createDeleteRequest,
+  createPutRequest
+} from 'helpers/api';
+
 /* eslint-disable no-console */
 export const FETCH_ITEMS = 'FETCH_ITEMS';
 export const FETCH_ITEMS_SUCCESS = 'FETCH_ITEMS_SUCCESS';
@@ -15,41 +25,14 @@ export const DELETE_OPTION_ITEMS = 'DELETE_OPTION_ITEMS';
 export const DELETE_OPTION_ITEMS_SUCCESS = 'DELETE_OPTION_ITEMS_SUCCESS';
 export const PUT_ITEM_PRICE_TABLE_BEGIN = 'PUT_ITEM_PRICE_TABLE_BEGIN';
 
-export const fetchItems = () => ({
-  type: FETCH_ITEMS
-});
-
-export const fetchItemsSuccess = items => ({
-  type: FETCH_ITEMS_SUCCESS,
-  payload: { items }
-});
-
-export const addItem = (item, snack) => ({
-  type: ADD_ITEM,
-  payload: {
-    item,
-    snack
-  }
-});
-
 export const addItemSuccess = item => ({
   type: ADD_ITEM_SUCCESS,
   payload: { item }
 });
 
-export const deleteItems = (itemsId, snack) => ({
-  type: DELETE_ITEMS,
-  payload: { itemsId, snack }
-});
-
 export const deleteItemsSuccess = itemsId => ({
   type: DELETE_ITEMS_SUCCESS,
   payload: { itemsId }
-});
-
-export const editItem = (item, snack) => ({
-  type: EDIT_ITEM,
-  payload: { item, snack }
 });
 
 export const editItemSuccess = item => ({
@@ -69,22 +52,115 @@ export const addExistingItemsSuccess = (itemsId, optionId) => ({
   payload: { itemsId, optionId }
 });
 
-export const addOptionItem = (item, optionId, snack) => ({
-  type: ADD_OPTION_ITEM,
-  payload: { item, optionId, snack }
-});
-
 export const addOptionItemSuccess = (item, optionId) => ({
   type: ADD_OPTION_ITEM_SUCCESS,
   payload: { item, optionId }
-});
-
-export const deleteOptionItems = (itemsId, optionId, snack) => ({
-  type: DELETE_OPTION_ITEMS,
-  payload: { itemsId, optionId, snack }
 });
 
 export const deleteOptionItemsSuccess = (itemsId, optionId) => ({
   type: DELETE_OPTION_ITEMS_SUCCESS,
   payload: { itemsId, optionId }
 });
+
+export const fetchItems = dispatch => () => {
+  const url = getEndpoint('/items');
+
+  fetch(url)
+    .then(res => res.json())
+    .then(({ items }) => normalize(items, [itemSchema]))
+    .then(({ entities }) => dispatch(addEntities(entities)))
+    .catch(console.error);
+};
+
+export const addItem = dispatch => (item, snack) => {
+  const request = createPostRequest(item);
+  const endpoint = getEndpoint('/items');
+
+  fetch(endpoint, request)
+    .then(res => res.json())
+    .then(({ item }) => {
+      dispatch(addItemSuccess(item));
+      snack(`Item ${item.name} adicionado com sucesso!`, {
+        variant: 'success',
+        autoHideDuration: 2000
+      });
+    })
+    .catch(console.error);
+};
+
+export const editItem = dispatch => (item, snack) => {
+  const { _id: itemId, ...body } = item;
+  const request = createPutRequest({ ...body });
+  const endpoint = getEndpoint(`/items/${itemId}`);
+
+  fetch(endpoint, request)
+    .then(res => res.json())
+    .then(({ item }) => {
+      dispatch(editItemSuccess(item));
+      snack('Item atualizado com sucesso!', {
+        variant: 'success',
+        autoHideDuration: 2000
+      });
+    })
+    .catch(console.error);
+};
+
+export const deleteItems = dispatch => (itemsId, snack) => {
+  const body = {
+    itemsId
+  };
+  const request = createDeleteRequest(body);
+  const endpoint = getEndpoint('/items');
+
+  fetch(endpoint, request)
+    .then(res => res.json())
+    .then(res => {
+      const { deletedItemsCount: count } = res;
+      if (count) {
+        snack(`${count} ite${count == 1 ? 'm deletado' : 'ns deletados'}`, {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+        dispatch(deleteItemsSuccess(itemsId));
+      }
+      return res;
+    })
+    .catch(console.error);
+};
+
+export const addOptionItem = dispatch => (item, optionId, snack) => {
+  const request = createPostRequest(item);
+  const endpoint = getEndpoint(`/items/${optionId}`);
+
+  fetch(endpoint, request)
+    .then(res => res.json())
+    .then(({ item }) => {
+      snack('Item adicionado!', {
+        variant: 'success',
+        autoHideDuration: 2000
+      });
+      dispatch(addOptionItemSuccess(item, optionId));
+    })
+    .catch(console.error);
+};
+
+export const deleteOptionItems = dispatch => (itemsId, optionId, snack) => {
+  const body = { itemsId };
+  const request = createDeleteRequest(body);
+  const endpoint = getEndpoint(`/items/${optionId}`);
+
+  fetch(endpoint, request)
+    .then(res => res.json())
+    .then(res => {
+      const { deletedItemsCount: count } = res;
+      if (count) {
+        snack(`${count} ite${count == 1 ? 'm deletado' : 'ns deletados'}`, {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+        dispatch(deleteOptionItemsSuccess(itemsId, optionId));
+      }
+      return res;
+    })
+    .catch(console.error);
+};
