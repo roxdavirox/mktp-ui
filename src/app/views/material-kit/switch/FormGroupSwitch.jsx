@@ -1,10 +1,10 @@
-import React from "react";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Switch from "@material-ui/core/Switch";
+import React from 'react';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Switch from '@material-ui/core/Switch';
 
 export default function FormGroupSwitch() {
   const [state, setState] = React.useState({
@@ -25,7 +25,7 @@ export default function FormGroupSwitch() {
           control={
             <Switch
               checked={state.gilad}
-              onChange={handleChange("gilad")}
+              onChange={handleChange('gilad')}
               value="gilad"
             />
           }
@@ -35,7 +35,7 @@ export default function FormGroupSwitch() {
           control={
             <Switch
               checked={state.jason}
-              onChange={handleChange("jason")}
+              onChange={handleChange('jason')}
               value="jason"
             />
           }
@@ -45,7 +45,7 @@ export default function FormGroupSwitch() {
           control={
             <Switch
               checked={state.antoine}
-              onChange={handleChange("antoine")}
+              onChange={handleChange('antoine')}
               value="antoine"
             />
           }

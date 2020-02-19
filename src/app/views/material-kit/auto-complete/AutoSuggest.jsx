@@ -1,51 +1,51 @@
-import React from "react";
-import deburr from "lodash/deburr";
-import Autosuggest from "react-autosuggest";
-import match from "autosuggest-highlight/match";
-import parse from "autosuggest-highlight/parse";
+import React from 'react';
+import deburr from 'lodash/deburr';
+import Autosuggest from 'react-autosuggest';
+import match from 'autosuggest-highlight/match';
+import parse from 'autosuggest-highlight/parse';
 import {
   makeStyles,
   Popper,
   MenuItem,
   Paper,
   TextField
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 const suggestions = [
-  { label: "Afghanistan" },
-  { label: "Aland Islands" },
-  { label: "Albania" },
-  { label: "Algeria" },
-  { label: "American Samoa" },
-  { label: "Andorra" },
-  { label: "Angola" },
-  { label: "Anguilla" },
-  { label: "Antarctica" },
-  { label: "Antigua and Barbuda" },
-  { label: "Argentina" },
-  { label: "Armenia" },
-  { label: "Aruba" },
-  { label: "Australia" },
-  { label: "Austria" },
-  { label: "Azerbaijan" },
-  { label: "Bahamas" },
-  { label: "Bahrain" },
-  { label: "Bangladesh" },
-  { label: "Barbados" },
-  { label: "Belarus" },
-  { label: "Belgium" },
-  { label: "Belize" },
-  { label: "Benin" },
-  { label: "Bermuda" },
-  { label: "Bhutan" },
-  { label: "Bolivia, Plurinational State of" },
-  { label: "Bonaire, Sint Eustatius and Saba" },
-  { label: "Bosnia and Herzegovina" },
-  { label: "Botswana" },
-  { label: "Bouvet Island" },
-  { label: "Brazil" },
-  { label: "British Indian Ocean Territory" },
-  { label: "Brunei Darussalam" }
+  { label: 'Afghanistan' },
+  { label: 'Aland Islands' },
+  { label: 'Albania' },
+  { label: 'Algeria' },
+  { label: 'American Samoa' },
+  { label: 'Andorra' },
+  { label: 'Angola' },
+  { label: 'Anguilla' },
+  { label: 'Antarctica' },
+  { label: 'Antigua and Barbuda' },
+  { label: 'Argentina' },
+  { label: 'Armenia' },
+  { label: 'Aruba' },
+  { label: 'Australia' },
+  { label: 'Austria' },
+  { label: 'Azerbaijan' },
+  { label: 'Bahamas' },
+  { label: 'Bahrain' },
+  { label: 'Bangladesh' },
+  { label: 'Barbados' },
+  { label: 'Belarus' },
+  { label: 'Belgium' },
+  { label: 'Belize' },
+  { label: 'Benin' },
+  { label: 'Bermuda' },
+  { label: 'Bhutan' },
+  { label: 'Bolivia, Plurinational State of' },
+  { label: 'Bonaire, Sint Eustatius and Saba' },
+  { label: 'Bosnia and Herzegovina' },
+  { label: 'Botswana' },
+  { label: 'Bouvet Island' },
+  { label: 'Brazil' },
+  { label: 'British Indian Ocean Territory' },
+  { label: 'Brunei Darussalam' }
 ];
 
 function renderInputComponent(inputProps) {
@@ -118,22 +118,22 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   container: {
-    position: "relative"
+    position: 'relative'
   },
   suggestionsContainerOpen: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 1,
     marginTop: theme.spacing(1),
     left: 0,
     right: 0
   },
   suggestion: {
-    display: "block"
+    display: 'block'
   },
   suggestionsList: {
     margin: 0,
     padding: 0,
-    listStyleType: "none"
+    listStyleType: 'none'
   },
   divider: {
     height: theme.spacing(2)
@@ -144,8 +144,8 @@ export default function IntegrationAutosuggest() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [state, setState] = React.useState({
-    single: "",
-    popper: ""
+    single: '',
+    popper: ''
   });
 
   const [stateSuggestions, setSuggestions] = React.useState([]);
@@ -180,11 +180,11 @@ export default function IntegrationAutosuggest() {
         {...autosuggestProps}
         inputProps={{
           classes,
-          id: "react-autosuggest-simple",
-          label: "Country",
-          placeholder: "Search a country (start with a)",
+          id: 'react-autosuggest-simple',
+          label: 'Country',
+          placeholder: 'Search a country (start with a)',
           value: state.single,
-          onChange: handleChange("single")
+          onChange: handleChange('single')
         }}
         theme={{
           container: classes.container,
@@ -203,11 +203,11 @@ export default function IntegrationAutosuggest() {
         {...autosuggestProps}
         inputProps={{
           classes,
-          id: "react-autosuggest-popper",
-          label: "Country",
-          placeholder: "With Popper",
+          id: 'react-autosuggest-popper',
+          label: 'Country',
+          placeholder: 'With Popper',
           value: state.popper,
-          onChange: handleChange("popper"),
+          onChange: handleChange('popper'),
           inputRef: node => {
             setAnchorEl(node);
           },

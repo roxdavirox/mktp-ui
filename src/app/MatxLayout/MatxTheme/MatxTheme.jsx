@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { MuiThemeProvider } from "@material-ui/core";
-import { connect } from "react-redux";
-import { PropTypes } from "prop-types";
-import { setLayoutSettings } from "app/redux/actions/LayoutActions";
+import React, { Component } from 'react';
+import { MuiThemeProvider } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import { setLayoutSettings } from 'app/redux/actions/LayoutActions';
 // import cssVars from "css-vars-ponyfill";
 
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 class MatxTheme extends Component {
   componentWillReceiveProps() {
@@ -53,7 +53,7 @@ class MatxTheme extends Component {
                   .map((shadow, i) => {
                     return `--elevation-z${i}: ${shadow};`;
                   })
-                  .join(" ")} 
+                  .join(' ')} 
 
               }
             `}

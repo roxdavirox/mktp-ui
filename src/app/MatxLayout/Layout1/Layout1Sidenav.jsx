@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import {
   Switch,
   Icon,
@@ -8,52 +8,50 @@ import {
   Tooltip,
   IconButton,
   MuiThemeProvider
-} from "@material-ui/core";
+} from '@material-ui/core';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import {
   setLayoutSettings,
   setDefaultSettings
-} from "app/redux/actions/LayoutActions";
-import { logoutUser } from "app/redux/actions/UserActions";
-import { withRouter } from "react-router-dom";
-import { MatxMenu } from "matx";
-import Sidenav from "../SharedCompoents/Sidenav";
-import Brand from "../SharedCompoents/Brand";
-import SidenavTheme from "../MatxTheme/SidenavTheme";
-import { isMdScreen } from "utils";
+} from 'app/redux/actions/LayoutActions';
+import { logoutUser } from 'app/redux/actions/UserActions';
+import { withRouter } from 'react-router-dom';
+import { MatxMenu } from 'matx';
+import Sidenav from '../SharedCompoents/Sidenav';
+import Brand from '../SharedCompoents/Brand';
+import SidenavTheme from '../MatxTheme/SidenavTheme';
+import { isMdScreen } from 'utils';
 
 const styles = theme => ({});
 
 const IconButtonWhite = withStyles(theme => ({
   root: {
     // color: theme.palette.getContrastText(purple[500]),
-    backgroundColor: "transparent",
-    padding: "5px"
+    backgroundColor: 'transparent',
+    padding: '5px'
   }
 }))(IconButton);
 
 const IconSmall = withStyles(() => ({
   root: {
-    fontSize: "1rem"
+    fontSize: '1rem'
   }
 }))(Icon);
 
 class Layout1Sidenav extends Component {
   state = {
-    sidenavToggleChecked: false,
+    sidenavToggleChecked: false
     // hidden: true
   };
 
   componentWillMount() {
-
     // CLOSE SIDENAV ON ROUTE CHANGE ON MOBILE
     this.unlistenRouteChange = this.props.history.listen((location, action) => {
       if (isMdScreen()) {
-        this.updateSidebarMode({ mode: "close" });
+        this.updateSidebarMode({ mode: 'close' });
       }
     });
-
   }
 
   componentWillUnmount() {
@@ -78,7 +76,7 @@ class Layout1Sidenav extends Component {
 
   handleSidenavToggle = () => {
     let { sidenavToggleChecked } = this.state;
-    let mode = sidenavToggleChecked ? "full" : "compact";
+    let mode = sidenavToggleChecked ? 'full' : 'compact';
     this.updateSidebarMode({ mode });
     this.setState({ sidenavToggleChecked: !sidenavToggleChecked });
   };
@@ -166,12 +164,12 @@ class Layout1Sidenav extends Component {
 
         <div className="sidenav">
           <div className="sidenav__hold">
-            {(
+            {
               <Fragment>
                 {this.renderLogoSwitch()}
                 <Sidenav>{this.renderUser()}</Sidenav>
               </Fragment>
-            )}
+            }
           </div>
         </div>
       </MuiThemeProvider>
@@ -197,10 +195,13 @@ const mapStateToProps = state => ({
 
 export default withStyles(styles, { withTheme: true })(
   withRouter(
-    connect(mapStateToProps, {
-      setLayoutSettings,
-      setDefaultSettings,
-      logoutUser
-    })(Layout1Sidenav)
+    connect(
+      mapStateToProps,
+      {
+        setLayoutSettings,
+        setDefaultSettings,
+        logoutUser
+      }
+    )(Layout1Sidenav)
   )
 );

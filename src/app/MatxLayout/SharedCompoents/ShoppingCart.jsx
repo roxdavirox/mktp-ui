@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 import {
   Icon,
   Badge,
   MuiThemeProvider,
   IconButton,
   Drawer
-} from "@material-ui/core";
-import { withStyles } from "@material-ui/styles";
-import { PropTypes } from "prop-types";
-import { connect } from "react-redux";
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
 import {
   getCartList,
   deleteProductFromCart,
   updateCartAmount
-} from "app/redux/actions/EcommerceActions";
+} from 'app/redux/actions/EcommerceActions';
 
 let cartListLoaded = false;
 
@@ -48,7 +48,7 @@ function ShoppingCart(props) {
         onClick={handleDrawerToggle}
         style={{
           color:
-            parentThemePalette.type === "light"
+            parentThemePalette.type === 'light'
               ? parentThemePalette.text.secondary
               : parentThemePalette.text.primary
         }}
@@ -61,7 +61,7 @@ function ShoppingCart(props) {
       <Drawer
         container={container}
         variant="temporary"
-        anchor={"right"}
+        anchor={'right'}
         open={panelOpen}
         onClose={handleDrawerToggle}
         ModalProps={{

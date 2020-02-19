@@ -1,18 +1,18 @@
-import React from "react";
-import SimpleCheckbox from "./SimpleCheckbox";
-import LabelledCheckbox from "./LabelledCheckbox";
-import PlacingCheckboxLabel from "./PlacingCheckboxLabel";
-import FormGroupCheckbox from "./FormGroupCheckbox";
-import { Breadcrumb, SimpleCard } from "matx";
+import React from 'react';
+import SimpleCheckbox from './SimpleCheckbox';
+import LabelledCheckbox from './LabelledCheckbox';
+import PlacingCheckboxLabel from './PlacingCheckboxLabel';
+import FormGroupCheckbox from './FormGroupCheckbox';
+import { Breadcrumb, SimpleCard } from 'matx';
 
 const AppCheckbox = () => {
   return (
     <div className="m-sm-30">
-      <div  className="mb-sm-30">
+      <div className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Material", path: "/material" },
-            { name: "Chckbox" }
+            { name: 'Material', path: '/material' },
+            { name: 'Chckbox' }
           ]}
         />
       </div>

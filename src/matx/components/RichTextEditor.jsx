@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import ReactQuill from "react-quill";
+import React from 'react';
+import PropTypes from 'prop-types';
+import ReactQuill from 'react-quill';
 
 /*
  * Simple editor component that takes placeholder text as a prop
@@ -26,24 +26,24 @@ const RichTextEditor = ({ content, placeholder, handleContentChange }) => {
 RichTextEditor.modules = {
   toolbar: [
     [{ font: [] }],
-    [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+    [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
 
-    ["bold", "italic", "underline", "strike"], // toggled buttons
-    ["blockquote", "code-block", "link"],
+    ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+    ['blockquote', 'code-block', 'link'],
 
-    [{ script: "sub" }, { script: "super" }], // superscript/subscript
+    [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
     [{ color: [] }, { background: [] }], // dropdown with defaults from theme
     [{ align: [] }],
 
-    ["image", "video"],
+    ['image', 'video'],
 
     [{ header: 1 }, { header: 2 }], // custom button values
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-    [{ direction: "rtl" }], // text direction
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+    [{ direction: 'rtl' }], // text direction
 
-    ["clean"]
+    ['clean']
   ],
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
@@ -56,28 +56,28 @@ RichTextEditor.modules = {
  * See https://quilljs.com/docs/formats/
  */
 RichTextEditor.formats = [
-  "align",
-  "background",
-  "bold",
-  "blockquote",
-  "bullet",
-  "color",
-  "code",
-  "code-block",
-  "clean",
-  "direction",
-  "font",
-  "header",
-  "italic",
-  "indent",
-  "image",
-  "list",
-  "link",
-  "size",
-  "strike",
-  "script",
-  "underline",
-  "video"
+  'align',
+  'background',
+  'bold',
+  'blockquote',
+  'bullet',
+  'color',
+  'code',
+  'code-block',
+  'clean',
+  'direction',
+  'font',
+  'header',
+  'italic',
+  'indent',
+  'image',
+  'list',
+  'link',
+  'size',
+  'strike',
+  'script',
+  'underline',
+  'video'
 ];
 
 /*

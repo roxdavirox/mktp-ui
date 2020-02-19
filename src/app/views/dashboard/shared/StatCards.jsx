@@ -1,13 +1,7 @@
-import React, { Component } from "react";
-import {
-  Grid,
-  Card,
-  Icon,
-  IconButton,
-  Tooltip,
-} from "@material-ui/core";
+import React, { Component } from 'react';
+import { Grid, Card, Icon, IconButton, Tooltip } from '@material-ui/core';
 
-const StatCards = ({theme}) => {
+const StatCards = ({ theme }) => {
   return (
     <Grid container spacing={3} className="mb-24">
       <Grid item xs={12} md={6}>
@@ -15,7 +9,7 @@ const StatCards = ({theme}) => {
           <div className="flex flex-middle">
             <Icon
               style={{
-                fontSize: "44px",
+                fontSize: '44px',
                 opacity: 0.6,
                 color: theme.palette.primary.main
               }}
@@ -39,7 +33,7 @@ const StatCards = ({theme}) => {
           <div className="flex flex-middle">
             <Icon
               style={{
-                fontSize: "44px",
+                fontSize: '44px',
                 opacity: 0.6,
                 color: theme.palette.primary.main
               }}
@@ -63,7 +57,7 @@ const StatCards = ({theme}) => {
           <div className="flex flex-middle">
             <Icon
               style={{
-                fontSize: "44px",
+                fontSize: '44px',
                 opacity: 0.6,
                 color: theme.palette.primary.main
               }}
@@ -89,7 +83,7 @@ const StatCards = ({theme}) => {
           <div className="flex flex-middle">
             <Icon
               style={{
-                fontSize: "44px",
+                fontSize: '44px',
                 opacity: 0.6,
                 color: theme.palette.primary.main
               }}

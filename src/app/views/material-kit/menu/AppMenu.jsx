@@ -1,18 +1,18 @@
-import React from "react";
-import SimpleMenu from "./SimpleMenu";
-import SelectedMenu from "./SelectedMenu";
-import CustomizedMenu from "./CustomizedMenu";
-import MaxHeightMenu from "./MaxHeightMenu";
-import { Breadcrumb, SimpleCard } from "matx";
+import React from 'react';
+import SimpleMenu from './SimpleMenu';
+import SelectedMenu from './SelectedMenu';
+import CustomizedMenu from './CustomizedMenu';
+import MaxHeightMenu from './MaxHeightMenu';
+import { Breadcrumb, SimpleCard } from 'matx';
 
 const AppMenu = () => {
   return (
     <div className="m-sm-30">
-      <div  className="mb-sm-30">
+      <div className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Material", path: "/material" },
-            { name: "Menu" }
+            { name: 'Material', path: '/material' },
+            { name: 'Menu' }
           ]}
         />
       </div>

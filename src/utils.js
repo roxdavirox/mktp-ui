@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment';
 
 export function debounce(func, wait, immediate) {
   var timeout;
@@ -103,8 +103,8 @@ export function scrollTo(scrollableElement, elmID) {
 
 export function getTimeDifference(date) {
   let difference =
-    moment(new Date(), "DD/MM/YYYY HH:mm:ss").diff(
-      moment(date, "DD/MM/YYYY HH:mm:ss")
+    moment(new Date(), 'DD/MM/YYYY HH:mm:ss').diff(
+      moment(date, 'DD/MM/YYYY HH:mm:ss')
     ) / 1000;
 
   if (difference < 60) return `${Math.floor(difference)} seconds`;
@@ -126,11 +126,11 @@ export function generateRandomId() {
 export function getQueryParam(prop) {
   var params = {};
   var search = decodeURIComponent(
-    window.location.href.slice(window.location.href.indexOf("?") + 1)
+    window.location.href.slice(window.location.href.indexOf('?') + 1)
   );
-  var definitions = search.split("&");
+  var definitions = search.split('&');
   definitions.forEach(function(val, key) {
-    var parts = val.split("=", 2);
+    var parts = val.split('=', 2);
     params[parts[0]] = parts[1];
   });
   return prop && prop in params ? params[prop] : params;
@@ -140,5 +140,5 @@ export function classList(classes) {
   return Object.entries(classes)
     .filter(entry => entry[1])
     .map(entry => entry[0])
-    .join(" ");
+    .join(' ');
 }

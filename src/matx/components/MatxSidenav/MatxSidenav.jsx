@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { isMobile } from "utils";
+import React, { Component } from 'react';
+import { isMobile } from 'utils';
 
 class MatxSidenav extends Component {
   handleResizeRef;
@@ -18,12 +18,12 @@ class MatxSidenav extends Component {
 
   componentDidMount() {
     this.handleResizeRef = this.handleWindowResize();
-    if (window) window.addEventListener("resize", this.handleResizeRef);
+    if (window) window.addEventListener('resize', this.handleResizeRef);
   }
 
   componentWillUnmount() {
     if (this.handleResizeRef)
-      window.removeEventListener("resize", this.handleResizeRef);
+      window.removeEventListener('resize', this.handleResizeRef);
   }
 
   render() {
@@ -31,7 +31,7 @@ class MatxSidenav extends Component {
       open,
       children,
       toggleSidenav,
-      width = "220px",
+      width = '220px',
       bgClass
     } = this.props;
 
@@ -41,7 +41,7 @@ class MatxSidenav extends Component {
       <div className="flex h-100">
         <div
           className={`matx-sidenav bg-default ${bgClass}`}
-          style={{ width: open || !mobile ? width : "0px" }}
+          style={{ width: open || !mobile ? width : '0px' }}
         >
           {children}
         </div>

@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
-import { Icon } from "@material-ui/core";
-import { NavLink } from "react-router-dom";
+import React, { Fragment } from 'react';
+import { Icon } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
 
 const Breadcrumb = ({ routeSegments }) => {
   return (
@@ -8,7 +8,7 @@ const Breadcrumb = ({ routeSegments }) => {
       {routeSegments ? (
         <Fragment>
           <h4 className="m-0 pb-2 font-size-16 capitalize text-middle">
-            {routeSegments[routeSegments.length - 1]["name"]}
+            {routeSegments[routeSegments.length - 1]['name']}
           </h4>
           <h4 className="m-0 pb-2 ml-8 text-hint">|</h4>
         </Fragment>

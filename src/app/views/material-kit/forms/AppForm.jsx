@@ -1,16 +1,16 @@
-import React from "react";
-import SimpleForm from "./SimpleForm";
-import StepperForm from "./StepperForm";
-import { Breadcrumb, SimpleCard } from "matx";
+import React from 'react';
+import SimpleForm from './SimpleForm';
+import StepperForm from './StepperForm';
+import { Breadcrumb, SimpleCard } from 'matx';
 
 const AppForm = () => {
   return (
     <div className="m-sm-30">
-      <div  className="mb-sm-30">
+      <div className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Material", path: "/material" },
-            { name: "Form" }
+            { name: 'Material', path: '/material' },
+            { name: 'Form' }
           ]}
         />
       </div>

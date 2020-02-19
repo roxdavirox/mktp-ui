@@ -1,11 +1,11 @@
-import React from "react";
-import { Dialog, Button } from "@material-ui/core";
+import React from 'react';
+import { Dialog, Button } from '@material-ui/core';
 
 const ConfirmationDialog = ({
   open,
   onConfirmDialogClose,
   text,
-  title = "confirm",
+  title = 'confirm',
   onYesClick
 }) => {
   return (

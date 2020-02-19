@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from "react";
-import { format } from "date-fns";
+import React, { Component, Fragment } from 'react';
+import { format } from 'date-fns';
 import {
   Grid,
   Card,
@@ -8,8 +8,8 @@ import {
   Checkbox,
   Fab,
   Avatar,
-  Hidden,
-} from "@material-ui/core";
+  Hidden
+} from '@material-ui/core';
 
 const RowCards = () => {
   return [1, 2, 3, 4].map(id => (
@@ -41,7 +41,7 @@ const RowCards = () => {
 
           <Grid item md={3} xs={4}>
             <div className="text-muted">
-              {format(new Date().getTime(), "MM/dd/yyyy hh:mma")}
+              {format(new Date().getTime(), 'MM/dd/yyyy hh:mma')}
             </div>
           </Grid>
 

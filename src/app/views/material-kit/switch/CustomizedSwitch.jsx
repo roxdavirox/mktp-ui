@@ -1,19 +1,19 @@
-import React from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { purple } from "@material-ui/core/colors";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import { purple } from '@material-ui/core/colors';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 const PurpleSwitch = withStyles({
   switchBase: {
     color: purple[300],
-    "&$checked": {
+    '&$checked': {
       color: purple[500]
     },
-    "&$checked + $track": {
+    '&$checked + $track': {
       backgroundColor: purple[500]
     }
   },
@@ -30,18 +30,18 @@ const IOSSwitch = withStyles(theme => ({
   },
   switchBase: {
     padding: 1,
-    "&$checked": {
-      transform: "translateX(16px)",
+    '&$checked': {
+      transform: 'translateX(16px)',
       color: theme.palette.common.white,
-      "& + $track": {
-        backgroundColor: "#52d869",
+      '& + $track': {
+        backgroundColor: '#52d869',
         opacity: 1,
-        border: "none"
+        border: 'none'
       }
     },
-    "&$focusVisible $thumb": {
-      color: "#52d869",
-      border: "6px solid #fff"
+    '&$focusVisible $thumb': {
+      color: '#52d869',
+      border: '6px solid #fff'
     }
   },
   thumb: {
@@ -53,7 +53,7 @@ const IOSSwitch = withStyles(theme => ({
     border: `1px solid ${theme.palette.grey[400]}`,
     backgroundColor: theme.palette.grey[50],
     opacity: 1,
-    transition: theme.transitions.create(["background-color", "border"])
+    transition: theme.transitions.create(['background-color', 'border'])
   },
   checked: {},
   focusVisible: {}
@@ -79,15 +79,15 @@ const AntSwitch = withStyles(theme => ({
     width: 28,
     height: 16,
     padding: 0,
-    display: "flex"
+    display: 'flex'
   },
   switchBase: {
     padding: 2,
     color: theme.palette.grey[500],
-    "&$checked": {
-      transform: "translateX(12px)",
+    '&$checked': {
+      transform: 'translateX(12px)',
       color: theme.palette.common.white,
-      "& + $track": {
+      '& + $track': {
         opacity: 1,
         backgroundColor: theme.palette.primary.main,
         borderColor: theme.palette.primary.main
@@ -97,7 +97,7 @@ const AntSwitch = withStyles(theme => ({
   thumb: {
     width: 12,
     height: 12,
-    boxShadow: "none"
+    boxShadow: 'none'
   },
   track: {
     border: `1px solid ${theme.palette.grey[500]}`,
@@ -125,7 +125,7 @@ export default function CustomizedSwitch() {
         control={
           <PurpleSwitch
             checked={state.checkedA}
-            onChange={handleChange("checkedA")}
+            onChange={handleChange('checkedA')}
             value="checkedA"
           />
         }
@@ -135,7 +135,7 @@ export default function CustomizedSwitch() {
         control={
           <IOSSwitch
             checked={state.checkedB}
-            onChange={handleChange("checkedB")}
+            onChange={handleChange('checkedB')}
             value="checkedB"
           />
         }
@@ -147,7 +147,7 @@ export default function CustomizedSwitch() {
           <Grid item>
             <AntSwitch
               checked={state.checkedC}
-              onChange={handleChange("checkedC")}
+              onChange={handleChange('checkedC')}
               value="checkedC"
             />
           </Grid>

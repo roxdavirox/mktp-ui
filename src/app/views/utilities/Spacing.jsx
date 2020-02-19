@@ -1,6 +1,6 @@
-import React from "react";
-import { Breadcrumb, SimpleCard } from "matx";
-import Highlight from "react-highlight";
+import React from 'react';
+import { Breadcrumb, SimpleCard } from 'matx';
+import Highlight from 'react-highlight';
 
 const Spacing = () => {
   return (
@@ -8,8 +8,8 @@ const Spacing = () => {
       <div className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Utilities", path: "/utilities" },
-            { name: "Spacing" }
+            { name: 'Utilities', path: '/utilities' },
+            { name: 'Spacing' }
           ]}
         />
       </div>
@@ -34,37 +34,37 @@ const Spacing = () => {
         </p>
         <ul>
           <li>
-            <code>t</code> - for classes that set <code>margin-top</code> or{" "}
+            <code>t</code> - for classes that set <code>margin-top</code> or{' '}
             <code>padding-top</code>
           </li>
           <li>
-            <code>b</code> - for classes that set <code>margin-bottom</code> or{" "}
+            <code>b</code> - for classes that set <code>margin-bottom</code> or{' '}
             <code>padding-bottom</code>
           </li>
           <li>
-            <code>l</code> - for classes that set <code>margin-left</code> or{" "}
+            <code>l</code> - for classes that set <code>margin-left</code> or{' '}
             <code>padding-left</code>
           </li>
           <li>
-            <code>r</code> - for classes that set <code>margin-right</code> or{" "}
+            <code>r</code> - for classes that set <code>margin-right</code> or{' '}
             <code>padding-right</code>
           </li>
           <li>
-            <code>x</code> - for classes that set both <code>*-left</code> and{" "}
+            <code>x</code> - for classes that set both <code>*-left</code> and{' '}
             <code>*-right</code>
           </li>
           <li>
-            <code>y</code> - for classes that set both <code>*-top</code> and{" "}
+            <code>y</code> - for classes that set both <code>*-top</code> and{' '}
             <code>*-bottom</code>
           </li>
           <li>
-            blank - for classes that set a <code>margin</code> or{" "}
+            blank - for classes that set a <code>margin</code> or{' '}
             <code>padding</code> on all 4 sides of the element
           </li>
         </ul>
 
         <h6 className="mb-16 pt-24">
-          Example{" "}
+          Example{' '}
           <span className=".font-weight-normal text-muted">
             [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48]
           </span>

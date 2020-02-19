@@ -1,28 +1,28 @@
-import Mock from "../mock";
+import Mock from '../mock';
 const date = new Date();
 
 const calendarEventDB = {
   events: [
     {
-      id: "344jdfher3wh23",
-      title: "Meeting with all employees",
+      id: '344jdfher3wh23',
+      title: 'Meeting with all employees',
       start: new Date(date.getFullYear(), date.getMonth(), 1),
       end: new Date(date.getFullYear(), date.getMonth(), 3)
     },
     {
-      id: "344jdfher3wh23",
-      title: "A trip to Bali Island",
+      id: '344jdfher3wh23',
+      title: 'A trip to Bali Island',
       start: new Date(),
       end: new Date(date.getFullYear(), date.getMonth(), date.getDate() + 2)
     }
   ]
 };
 
-Mock.onGet("/api/calendar/events/all").reply(config => {
+Mock.onGet('/api/calendar/events/all').reply(config => {
   return [200, calendarEventDB.events];
 });
 
-Mock.onPost("/api/calendar/events/add").reply(config => {
+Mock.onPost('/api/calendar/events/add').reply(config => {
   let { start, end, ...others } = JSON.parse(config.data);
   let event = {
     start: new Date(start),
@@ -33,7 +33,7 @@ Mock.onPost("/api/calendar/events/add").reply(config => {
   return [200, calendarEventDB.events];
 });
 
-Mock.onPost("/api/calendar/events/update").reply(config => {
+Mock.onPost('/api/calendar/events/update').reply(config => {
   let updatedEvent = JSON.parse(config.data);
 
   if (updatedEvent.event) {
@@ -62,7 +62,7 @@ Mock.onPost("/api/calendar/events/update").reply(config => {
   return [200, calendarEventDB.events];
 });
 
-Mock.onPost("/api/calendar/events/delete").reply(config => {
+Mock.onPost('/api/calendar/events/delete').reply(config => {
   let event = JSON.parse(config.data);
 
   let index = { i: 0 };

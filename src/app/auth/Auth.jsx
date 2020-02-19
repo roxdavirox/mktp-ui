@@ -1,23 +1,25 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { PropTypes } from "prop-types";
-import { setUserData } from "../redux/actions/UserActions";
-import jwtAuthService from "../services/jwtAuthService";
-import localStorageService from "../services/localStorageService";
-import firebaseAuthService from "../services/firebase/firebaseAuthService";
-import history from "history.js";
+/* eslint-disable no-console */
+/* eslint-disable react/prop-types */
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import { setUserData } from '../redux/actions/UserActions';
+import jwtAuthService from '../services/jwtAuthService';
+import localStorageService from '../services/localStorageService';
+import firebaseAuthService from '../services/firebase/firebaseAuthService';
+import history from 'history.js';
 
 class Auth extends Component {
   state = {};
-  
+
   constructor(props) {
     super(props);
 
     // Set user if exists in local storage
     // This is only for demo purpose
     // You should remove this
-    this.props.setUserData(localStorageService.getItem("auth_user"));
-    
+    this.props.setUserData(localStorageService.getItem('auth_user'));
+
     // Check current token is valid on page load/reload
     this.checkJwtAuth();
 
@@ -27,22 +29,23 @@ class Auth extends Component {
   checkJwtAuth = () => {
     // You need to send token to your server to check token is valid
     // modify loginWithToken method in jwtService
-    jwtAuthService.loginWithToken().then(user => {
+    jwtAuthService
+      .loginWithToken()
+      .then(user => {
+        // Valid token
+        // Set user
+        this.props.setUserData(user);
 
-      // Valid token
-      // Set user
-      this.props.setUserData(user);
-
-      // You should redirect user to Dashboard here
-      
-    }).catch(err => {
-      // Invalid token
-      // Ridirect user to sign in page here
-      console.log(err);
-      history.push({
-        pathname: "/session/signin"
+        // You should redirect user to Dashboard here
+      })
+      .catch(err => {
+        // Invalid token
+        // Ridirect user to sign in page here
+        console.log(err);
+        history.push({
+          pathname: '/session/signin'
+        });
       });
-    });
   };
 
   checkFirebaseAuth = () => {
@@ -52,7 +55,7 @@ class Auth extends Component {
         console.log(user.email);
         console.log(user.emailVerified);
       } else {
-        console.log("not logged in");
+        console.log('not logged in');
       }
     });
   };

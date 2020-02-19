@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Icon, IconButton, Hidden } from "@material-ui/core";
-import { classList } from "utils";
+import React, { Component } from 'react';
+import { Icon, IconButton, Hidden } from '@material-ui/core';
+import { classList } from 'utils';
 
 class MatxToolbarMenu extends Component {
   state = {
@@ -17,13 +17,13 @@ class MatxToolbarMenu extends Component {
     return (
       <div
         className={classList({
-          "toolbar-menu-wrap": true,
+          'toolbar-menu-wrap': true,
           open: this.state.open
         })}
       >
         <Hidden mdUp>
           <IconButton onClick={this.handleToggle}>
-            <Icon>{this.state.open ? "close" : "more_vert"}</Icon>
+            <Icon>{this.state.open ? 'close' : 'more_vert'}</Icon>
           </IconButton>
         </Hidden>
 

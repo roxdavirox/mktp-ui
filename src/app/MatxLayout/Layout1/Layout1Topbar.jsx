@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import {
   Icon,
   IconButton,
@@ -7,16 +8,16 @@ import {
   MenuItem,
   withStyles,
   MuiThemeProvider
-} from "@material-ui/core";
-import { connect } from "react-redux";
-import { setLayoutSettings } from "app/redux/actions/LayoutActions";
-import { logoutUser } from "app/redux/actions/UserActions";
-import { PropTypes } from "prop-types";
-import { MatxMenu, MatxSearchBox } from "matx";
-import { isMdScreen } from "utils";
-import NotificationBar from "../SharedCompoents/NotificationBar";
-import { Link } from "react-router-dom";
-import ShoppingCart from "../SharedCompoents/ShoppingCart";
+} from '@material-ui/core';
+import { connect } from 'react-redux';
+import { setLayoutSettings } from 'app/redux/actions/LayoutActions';
+import { logoutUser } from 'app/redux/actions/UserActions';
+import { PropTypes } from 'prop-types';
+import { MatxMenu, MatxSearchBox } from 'matx';
+import { isMdScreen } from 'utils';
+import NotificationBar from '../SharedCompoents/NotificationBar';
+import { Link } from 'react-router-dom';
+import ShoppingCart from '../SharedCompoents/ShoppingCart';
 
 const styles = theme => ({
   root: {
@@ -48,9 +49,9 @@ class Layout1Topbar extends Component {
 
     let mode;
     if (isMdScreen()) {
-      mode = layout1Settings.leftSidebar.mode === "close" ? "mobile" : "close";
+      mode = layout1Settings.leftSidebar.mode === 'close' ? 'mobile' : 'close';
     } else {
-      mode = layout1Settings.leftSidebar.mode === "full" ? "close" : "full";
+      mode = layout1Settings.leftSidebar.mode === 'full' ? 'close' : 'full';
     }
     this.updateSidebarMode({ mode });
   };
@@ -68,11 +69,18 @@ class Layout1Topbar extends Component {
         <div className="topbar">
           <div
             className={`topbar-hold ${className}`}
-            style={Object.assign({}, { backgroundColor: topbarTheme.palette.primary.main }, style)}
+            style={Object.assign(
+              {},
+              { backgroundColor: topbarTheme.palette.primary.main },
+              style
+            )}
           >
             <div className="flex flex-space-between flex-middle h-100">
               <div className="flex">
-                <IconButton onClick={this.handleSidebarToggle} className="hide-on-lg">
+                <IconButton
+                  onClick={this.handleSidebarToggle}
+                  className="hide-on-lg"
+                >
                   <Icon>menu</Icon>
                 </IconButton>
 
@@ -95,7 +103,7 @@ class Layout1Topbar extends Component {
 
                 <NotificationBar />
 
-                <ShoppingCart></ShoppingCart>
+                <ShoppingCart />
 
                 <MatxMenu
                   menuButton={
@@ -160,6 +168,9 @@ const mapStateToProps = state => ({
 
 export default withStyles(styles, { withTheme: true })(
   withRouter(
-    connect(mapStateToProps, { setLayoutSettings, logoutUser })(Layout1Topbar)
+    connect(
+      mapStateToProps,
+      { setLayoutSettings, logoutUser }
+    )(Layout1Topbar)
   )
 );

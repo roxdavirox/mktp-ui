@@ -1,23 +1,23 @@
-import React from "react";
-import { Breadcrumb, SimpleCard } from "matx";
-import SimpleDialogDemo from "./SimpleDialog";
-import AlertDialog from "./SimpleAlerts";
-import AlertDialogSlide from "./DialogTransition";
-import FormDialog from "./FormDialog";
-import CustomizedDialogs from "./CustomizedDialog";
-import FullScreenDialog from "./FullScreenDialog";
-import MaxWidthDialog from "./OptimalSizeDialog";
-import ResponsiveDialog from "./ResponsiveDialog";
-import ConfirmationDialog from "./ConfirmationDialog";
+import React from 'react';
+import { Breadcrumb, SimpleCard } from 'matx';
+import SimpleDialogDemo from './SimpleDialog';
+import AlertDialog from './SimpleAlerts';
+import AlertDialogSlide from './DialogTransition';
+import FormDialog from './FormDialog';
+import CustomizedDialogs from './CustomizedDialog';
+import FullScreenDialog from './FullScreenDialog';
+import MaxWidthDialog from './OptimalSizeDialog';
+import ResponsiveDialog from './ResponsiveDialog';
+import ConfirmationDialog from './ConfirmationDialog';
 
 const AppDialog = () => {
   return (
     <div className="m-sm-30">
-      <div  className="mb-sm-30">
+      <div className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Material", path: "/material" },
-            { name: "Dialog" }
+            { name: 'Material', path: '/material' },
+            { name: 'Dialog' }
           ]}
         />
       </div>

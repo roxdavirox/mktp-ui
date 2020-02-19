@@ -1,19 +1,16 @@
-import React, { Component, Fragment } from "react";
-import {
-  Grid,
-  Card
-} from "@material-ui/core";
+import React, { Component, Fragment } from 'react';
+import { Grid, Card } from '@material-ui/core';
 
-import DoughnutChart from "../charts/echarts/Doughnut";
+import DoughnutChart from '../charts/echarts/Doughnut';
 
-import ModifiedAreaChart from "./shared/ModifiedAreaChart";
-import StatCards from "./shared/StatCards";
-import TableCard from "./shared/TableCard";
-import RowCards from "./shared/RowCards";
-import StatCards2 from "./shared/StatCards2";
-import UpgradeCard from "./shared/UpgradeCard";
-import Campaigns from "./shared/Campaigns";
-import { withStyles } from "@material-ui/styles";
+import ModifiedAreaChart from './shared/ModifiedAreaChart';
+import StatCards from './shared/StatCards';
+import TableCard from './shared/TableCard';
+import RowCards from './shared/RowCards';
+import StatCards2 from './shared/StatCards2';
+import UpgradeCard from './shared/UpgradeCard';
+import Campaigns from './shared/Campaigns';
+import { withStyles } from '@material-ui/styles';
 
 class Dashboard1 extends Component {
   state = {};
@@ -30,43 +27,41 @@ class Dashboard1 extends Component {
               series: [
                 {
                   data: [34, 45, 31, 45, 31, 43, 26, 43, 31, 45, 33, 40],
-                  type: "line"
+                  type: 'line'
                 }
               ],
               xAxis: {
                 data: [
-                  "Jan",
-                  "Feb",
-                  "Mar",
-                  "Apr",
-                  "May",
-                  "Jun",
-                  "Jul",
-                  "Aug",
-                  "Sep",
-                  "Oct",
-                  "Nov",
-                  "Dec"
+                  'Jan',
+                  'Feb',
+                  'Mar',
+                  'Apr',
+                  'May',
+                  'Jun',
+                  'Jul',
+                  'Aug',
+                  'Sep',
+                  'Oct',
+                  'Nov',
+                  'Dec'
                 ]
               }
             }}
-          ></ModifiedAreaChart>
+          />
         </div>
 
         <div className="analytics m-sm-30 mt--72">
           <Grid container spacing={3}>
             <Grid item lg={8} md={8} sm={12} xs={12}>
-
-              <StatCards theme={theme}/>
+              <StatCards theme={theme} />
 
               {/* Top Selling Products */}
-              <TableCard/>
+              <TableCard />
 
-              <StatCards2/>
+              <StatCards2 />
 
               <h4 className="card-title text-muted mb-16">Ongoing Projects</h4>
               <RowCards />
-
             </Grid>
 
             <Grid item lg={4} md={4} sm={12} xs={12}>
@@ -83,10 +78,9 @@ class Dashboard1 extends Component {
                 />
               </Card>
 
-              <UpgradeCard/>
+              <UpgradeCard />
 
-              <Campaigns/>
-
+              <Campaigns />
             </Grid>
           </Grid>
         </div>

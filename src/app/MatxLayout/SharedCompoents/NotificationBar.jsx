@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Icon,
   Badge,
@@ -8,17 +8,17 @@ import {
   IconButton,
   Drawer,
   Fab
-} from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/styles";
-import { getTimeDifference } from "utils.js";
-import { PropTypes } from "prop-types";
-import { connect } from "react-redux";
+} from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/styles';
+import { getTimeDifference } from 'utils.js';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
 import {
   getNotification,
   deleteAllNotification,
   deleteNotification
-} from "../../redux/actions/NotificationActions";
+} from '../../redux/actions/NotificationActions';
 
 function NotificationBar(props) {
   const {
@@ -48,7 +48,7 @@ function NotificationBar(props) {
         onClick={handleDrawerToggle}
         style={{
           color:
-            parentThemePalette.type === "light"
+            parentThemePalette.type === 'light'
               ? parentThemePalette.text.secondary
               : parentThemePalette.text.primary
         }}
@@ -59,10 +59,10 @@ function NotificationBar(props) {
       </IconButton>
 
       <Drawer
-        width={"100px"}
+        width={'100px'}
         container={container}
         variant="temporary"
-        anchor={"right"}
+        anchor={'right'}
         open={panelOpen}
         onClose={handleDrawerToggle}
         ModalProps={{

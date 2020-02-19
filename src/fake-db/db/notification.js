@@ -1,58 +1,58 @@
-import Mock from "../mock";
-import shortId from "shortid";
+import Mock from '../mock';
+import shortId from 'shortid';
 
 const NotificationDB = {
   list: [
     {
       id: shortId.generate(),
-      heading: "Message",
+      heading: 'Message',
       icon: {
-        name: "chat",
-        color: "primary"
+        name: 'chat',
+        color: 'primary'
       },
       timestamp: 1570702802573,
-      title: "New message from Devid",
+      title: 'New message from Devid',
       subtitle: "Hello, Let's chit chat...",
-      path: "chat"
+      path: 'chat'
     },
     {
       id: shortId.generate(),
-      heading: "Alert",
+      heading: 'Alert',
       icon: {
-        name: "notifications",
-        color: "error"
+        name: 'notifications',
+        color: 'error'
       },
       timestamp: 1570702702573,
-      title: "Server overloaded",
-      subtitle: "Traffice reached 2M",
-      path: "page-layouts/user-profile"
+      title: 'Server overloaded',
+      subtitle: 'Traffice reached 2M',
+      path: 'page-layouts/user-profile'
     },
     {
       id: shortId.generate(),
-      heading: "Message",
+      heading: 'Message',
       icon: {
-        name: "chat",
-        color: "primary"
+        name: 'chat',
+        color: 'primary'
       },
       timestamp: 1570502502573,
-      title: "New message from Goustove",
+      title: 'New message from Goustove',
       subtitle: "Hello, Let's chit chat...",
-      path: "chat"
+      path: 'chat'
     }
   ]
 };
 
-Mock.onGet("/api/notification").reply(config => {
+Mock.onGet('/api/notification').reply(config => {
   const response = NotificationDB.list;
   return [200, response];
 });
 
-Mock.onPost("/api/notification/add").reply(config => {
+Mock.onPost('/api/notification/add').reply(config => {
   const response = NotificationDB.list;
   return [200, response];
 });
 
-Mock.onPost("/api/notification/delete").reply(config => {
+Mock.onPost('/api/notification/delete').reply(config => {
   let { id } = JSON.parse(config.data);
   console.log(id);
 
@@ -63,7 +63,7 @@ Mock.onPost("/api/notification/delete").reply(config => {
   return [200, response];
 });
 
-Mock.onPost("/api/notification/delete-all").reply(config => {
+Mock.onPost('/api/notification/delete-all').reply(config => {
   NotificationDB.list = [];
   const response = NotificationDB.list;
   return [200, response];

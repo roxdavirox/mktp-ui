@@ -1,18 +1,18 @@
-import React from "react";
-import { Breadcrumb, SimpleCard } from "matx";
-import SimpleExpansionPanel from "./SimpleExpansionPanel";
-import ControlledExpansionPanels from "./ControlledAccordion";
-import DetailedExpansionPanel from "./DetailedExpansionPanel";
-import CustomizedExpansionPanels from "./CustomizedExpansionPanel";
+import React from 'react';
+import { Breadcrumb, SimpleCard } from 'matx';
+import SimpleExpansionPanel from './SimpleExpansionPanel';
+import ControlledExpansionPanels from './ControlledAccordion';
+import DetailedExpansionPanel from './DetailedExpansionPanel';
+import CustomizedExpansionPanels from './CustomizedExpansionPanel';
 
 const AppExpansionPanel = () => {
   return (
     <div className="m-sm-30">
-      <div  className="mb-sm-30">
+      <div className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Material", path: "/material" },
-            { name: "Expansion Panel" }
+            { name: 'Material', path: '/material' },
+            { name: 'Expansion Panel' }
           ]}
         />
       </div>

@@ -1,7 +1,7 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import Snackbar from "@material-ui/core/Snackbar";
-import Slide from "@material-ui/core/Slide";
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide from '@material-ui/core/Slide';
 
 function TransitionLeft(props) {
   return <Slide {...props} direction="left" />;
@@ -44,7 +44,7 @@ class DirectionSnackbar extends React.Component {
           onClose={this.handleClose}
           TransitionComponent={this.state.Transition}
           ContentProps={{
-            "aria-describedby": "message-id"
+            'aria-describedby': 'message-id'
           }}
           message={<span id="message-id">I love snacks</span>}
         />

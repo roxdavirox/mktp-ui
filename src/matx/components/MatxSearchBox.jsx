@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Icon, IconButton, withStyles } from "@material-ui/core";
+import React, { Component } from 'react';
+import { Icon, IconButton, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   root: {

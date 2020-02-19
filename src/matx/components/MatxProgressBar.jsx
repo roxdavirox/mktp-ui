@@ -1,18 +1,18 @@
-import React from "react";
-import { Grid, LinearProgress, Typography } from "@material-ui/core";
-import { withStyles } from "@material-ui/styles";
+import React from 'react';
+import { Grid, LinearProgress, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 
 const CustomLinearProgress = withStyles(theme => ({
   root: {
     borderRadius: 2,
-    background: "rgba(0, 0, 0, 0.1)"
+    background: 'rgba(0, 0, 0, 0.1)'
   }
 }))(LinearProgress);
 
 const MatxProgressBar = ({
   value = 75,
-  color = "primary",
-  text = "",
+  color = 'primary',
+  text = '',
   spacing = 2,
   coloredText = false,
   className
@@ -24,12 +24,12 @@ const MatxProgressBar = ({
           color={color}
           value={value}
           variant="determinate"
-        ></CustomLinearProgress>
+        />
       </Grid>
-      {text !== "" && (
+      {text !== '' && (
         <Grid item xs={text ? 4 : false}>
           <Typography color={color}>
-            <small className={`${coloredText ? "" : "text-muted"}`}>
+            <small className={`${coloredText ? '' : 'text-muted'}`}>
               {text}
             </small>
           </Typography>

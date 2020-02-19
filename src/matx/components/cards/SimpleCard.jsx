@@ -1,5 +1,5 @@
-import React from "react";
-import { Card } from "@material-ui/core";
+import React from 'react';
+import { Card } from '@material-ui/core';
 
 const SimpleCard = ({ children, title, subtitle, icon }) => {
   return (

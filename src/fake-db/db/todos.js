@@ -1,12 +1,12 @@
-import Mock from "../mock";
-import * as _ from "lodash";
+import Mock from '../mock';
+import * as _ from 'lodash';
 
 const TodoDB = {
   todo: [
     {
       id: 1,
-      title: "API problem",
-      note: "API is malfunctioning. kindly fix it",
+      title: 'API problem',
+      note: 'API is malfunctioning. kindly fix it',
       important: true,
       starred: true,
       done: false,
@@ -19,8 +19,8 @@ const TodoDB = {
     },
     {
       id: 2,
-      title: "Mobile problem",
-      note: "Mobile is malfunctioning. fix it",
+      title: 'Mobile problem',
+      note: 'Mobile is malfunctioning. fix it',
       important: false,
       starred: false,
       done: true,
@@ -33,8 +33,8 @@ const TodoDB = {
     },
     {
       id: 3,
-      title: "API problem",
-      note: "API is malfunctioning. fix it",
+      title: 'API problem',
+      note: 'API is malfunctioning. fix it',
       important: false,
       starred: false,
       done: true,
@@ -47,8 +47,8 @@ const TodoDB = {
     },
     {
       id: 4,
-      title: "API problem",
-      note: "API is malfunctioning. fix it",
+      title: 'API problem',
+      note: 'API is malfunctioning. fix it',
       important: false,
       starred: false,
       done: false,
@@ -61,8 +61,8 @@ const TodoDB = {
     },
     {
       id: 5,
-      title: "API problem",
-      note: "API is malfunctioning. fix it",
+      title: 'API problem',
+      note: 'API is malfunctioning. fix it',
       important: false,
       starred: false,
       done: true,
@@ -78,45 +78,45 @@ const TodoDB = {
   tag: [
     {
       id: 1,
-      name: "frontend"
+      name: 'frontend'
     },
     {
       id: 2,
-      name: "backend"
+      name: 'backend'
     },
     {
       id: 3,
-      name: "API"
+      name: 'API'
     },
     {
       id: 4,
-      name: "issue"
+      name: 'issue'
     },
     {
       id: 5,
-      name: "mobile"
+      name: 'mobile'
     }
   ]
 };
 
-Mock.onGet("/api/todo/all").reply(config => {
+Mock.onGet('/api/todo/all').reply(config => {
   const response = TodoDB.todo;
   return [200, response];
 });
 
-Mock.onGet("/api/todo/tag").reply(config => {
+Mock.onGet('/api/todo/tag').reply(config => {
   const response = TodoDB.tag;
   return [200, response];
 });
 
-Mock.onGet("/api/todo").reply(config => {
+Mock.onGet('/api/todo').reply(config => {
   const id = parseInt(config.data);
 
   const response = TodoDB.todo.find(todo => todo.id === id);
   return [200, response];
 });
 
-Mock.onPost("/api/todo/reorder").reply(config => {
+Mock.onPost('/api/todo/reorder').reply(config => {
   let { todoList } = JSON.parse(config.data);
 
   TodoDB.todo = [...todoList];
@@ -124,42 +124,42 @@ Mock.onPost("/api/todo/reorder").reply(config => {
   return [200, response];
 });
 
-Mock.onPost("/api/todo/add").reply(config => {
+Mock.onPost('/api/todo/add').reply(config => {
   let { todo } = JSON.parse(config.data);
   TodoDB.todo.push({ ...todo });
   let response = TodoDB.todo;
   return [200, response];
 });
 
-Mock.onPost("/api/todo/tag/add").reply(config => {
+Mock.onPost('/api/todo/tag/add').reply(config => {
   let { tag } = JSON.parse(config.data);
   TodoDB.tag.push({ ...tag });
   let response = TodoDB.tag;
   return [200, response];
 });
 
-Mock.onPost("/api/todo/update").reply(config => {
+Mock.onPost('/api/todo/update').reply(config => {
   let { todo } = JSON.parse(config.data);
 
   TodoDB.todo.map((t, index) => {
     if (t.id === todo.id) {
       TodoDB.todo[index] = { ...todo };
     }
-    return "dummy value";
+    return 'dummy value';
   });
 
   let response = TodoDB.todo;
   return [200, response];
 });
 
-Mock.onPost("/api/todo/delete").reply(config => {
+Mock.onPost('/api/todo/delete').reply(config => {
   let { todo } = JSON.parse(config.data);
   _.remove(TodoDB.todo, t => t.id === todo.id);
   let response = TodoDB.todo;
   return [200, response];
 });
 
-Mock.onPost("/api/todo/tag/delete").reply(config => {
+Mock.onPost('/api/todo/tag/delete').reply(config => {
   let { tag } = JSON.parse(config.data);
   _.remove(TodoDB.tag, t => t.id === tag.id);
   let response = TodoDB.tag;

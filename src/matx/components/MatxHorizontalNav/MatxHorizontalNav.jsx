@@ -1,6 +1,6 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { Icon } from "@material-ui/core";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { Icon } from '@material-ui/core';
 
 const MatxHorizontalNav = ({ navigation, max }) => {
   if (!navigation || !navigation.length) {
@@ -9,8 +9,8 @@ const MatxHorizontalNav = ({ navigation, max }) => {
 
   if (max && navigation.length > max) {
     let childItem = {
-      name: "More",
-      icon: "more_vert",
+      name: 'More',
+      icon: 'more_vert',
       children: navigation.slice(max, navigation.length)
     };
     navigation = navigation.slice(0, max);

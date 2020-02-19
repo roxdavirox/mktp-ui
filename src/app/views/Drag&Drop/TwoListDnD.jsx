@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import React, { Component } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 // fake data generator
 const getItems = (count, offset = 0) =>
@@ -38,19 +38,19 @@ const grid = 8;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
-  userSelect: "none",
+  userSelect: 'none',
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
 
   // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
+  background: isDragging ? 'lightgreen' : 'grey',
 
   // styles we need to apply on draggables
   ...draggableStyle
 });
 
 const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
+  background: isDraggingOver ? 'lightblue' : 'lightgrey',
   padding: grid,
   width: 250
 });
@@ -67,8 +67,8 @@ class TwoListDnD extends Component {
    * source arrays stored in the state.
    */
   id2List = {
-    droppable: "items",
-    droppable2: "selected"
+    droppable: 'items',
+    droppable2: 'selected'
   };
 
   getList = id => this.state[this.id2List[id]];
@@ -90,7 +90,7 @@ class TwoListDnD extends Component {
 
       let state = { items };
 
-      if (source.droppableId === "droppable2") {
+      if (source.droppableId === 'droppable2') {
         state = { selected: items };
       }
 

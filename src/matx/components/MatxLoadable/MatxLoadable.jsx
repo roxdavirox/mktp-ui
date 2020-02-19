@@ -1,5 +1,5 @@
-import Loadable from "react-loadable";
-import Loading from "./Loading";
+import Loadable from 'react-loadable';
+import Loading from './Loading';
 
 const MatxLoadable = opts => {
   return Loadable(

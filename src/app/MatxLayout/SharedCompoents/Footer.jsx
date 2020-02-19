@@ -1,8 +1,8 @@
-import React from "react";
-import { withStyles, MuiThemeProvider, Button } from "@material-ui/core";
-import { PropTypes } from "prop-types";
-import { connect } from "react-redux";
-import { Helmet } from "react-helmet";
+import React from 'react';
+import { withStyles, MuiThemeProvider, Button } from '@material-ui/core';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 const Footer = ({ theme, settings }) => {
   const footerTheme = settings.themes[settings.footer.theme] || theme;
@@ -20,7 +20,10 @@ const Footer = ({ theme, settings }) => {
       </Helmet>
       <div className="footer flex flex-middle">
         <div className="flex flex-middle container px-sm-30 w-100">
-          <a href="https://ui-lib.com/downloads/matx-react-material-design-admin-template/" className="mr-8">
+          <a
+            href="https://ui-lib.com/downloads/matx-react-material-design-admin-template/"
+            className="mr-8"
+          >
             <Button variant="contained" color="error">
               Download Matx
             </Button>
@@ -30,7 +33,7 @@ const Footer = ({ theme, settings }) => {
               Get MatX Pro
             </Button>
           </a>
-          <span className="m-auto"></span>
+          <span className="m-auto" />
           <p className="m-0">
             Design and Developed by <a href="http://ui-lib.com">UI Lib</a>
           </p>

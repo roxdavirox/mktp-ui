@@ -1,7 +1,7 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { LinearProgress, CircularProgress } from "@material-ui/core";
-import { Breadcrumb, SimpleCard } from "matx";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { LinearProgress, CircularProgress } from '@material-ui/core';
+import { Breadcrumb, SimpleCard } from 'matx';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,11 +35,11 @@ const AppProgress = () => {
 
   return (
     <div className="m-sm-30">
-      <div  className="mb-sm-30">
+      <div className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Material", path: "/material" },
-            { name: "Prgress" }
+            { name: 'Material', path: '/material' },
+            { name: 'Prgress' }
           ]}
         />
       </div>

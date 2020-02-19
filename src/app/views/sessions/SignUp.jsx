@@ -1,20 +1,20 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Card,
   Checkbox,
   FormControlLabel,
   Grid,
   Button
-} from "@material-ui/core";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { connect } from "react-redux";
+} from '@material-ui/core';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { connect } from 'react-redux';
 
 class SignUp extends Component {
   state = {
-    username: "",
-    email: "",
-    password: "",
-    agreement: ""
+    username: '',
+    email: '',
+    password: '',
+    agreement: ''
   };
 
   handleChange = event => {
@@ -51,8 +51,8 @@ class SignUp extends Component {
                       type="text"
                       name="username"
                       value={username}
-                      validators={["required"]}
-                      errorMessages={["this field is required"]}
+                      validators={['required']}
+                      errorMessages={['this field is required']}
                     />
                     <TextValidator
                       className="mb-24 w-100"
@@ -62,10 +62,10 @@ class SignUp extends Component {
                       type="email"
                       name="email"
                       value={email}
-                      validators={["required", "isEmail"]}
+                      validators={['required', 'isEmail']}
                       errorMessages={[
-                        "this field is required",
-                        "email is not valid"
+                        'this field is required',
+                        'email is not valid'
                       ]}
                     />
                     <TextValidator
@@ -76,8 +76,8 @@ class SignUp extends Component {
                       name="password"
                       type="password"
                       value={password}
-                      validators={["required"]}
-                      errorMessages={["this field is required"]}
+                      validators={['required']}
+                      errorMessages={['this field is required']}
                     />
                     <FormControlLabel
                       className="mb-16"
@@ -99,7 +99,7 @@ class SignUp extends Component {
                       <Button
                         className="capitalize"
                         onClick={() =>
-                          this.props.history.push("/session/signin")
+                          this.props.history.push('/session/signin')
                         }
                       >
                         Sign in

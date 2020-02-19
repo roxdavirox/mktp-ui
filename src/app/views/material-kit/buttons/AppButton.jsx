@@ -1,14 +1,14 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Icon, Button, IconButton, Fab } from "@material-ui/core";
-import { Breadcrumb, SimpleCard } from "matx";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Icon, Button, IconButton, Fab } from '@material-ui/core';
+import { Breadcrumb, SimpleCard } from 'matx';
 
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
   },
   input: {
-    display: "none"
+    display: 'none'
   }
 }));
 
@@ -17,11 +17,11 @@ export default function AppButton() {
 
   return (
     <div className="m-sm-30">
-      <div  className="mb-sm-30">
+      <div className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Material", path: "/material" },
-            { name: "Buttons" }
+            { name: 'Material', path: '/material' },
+            { name: 'Buttons' }
           ]}
         />
       </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const LoaderBounce = () => {
   return (
@@ -6,9 +6,12 @@ const LoaderBounce = () => {
       <div className="spinner">
         <div
           className="double-bounce1 mat-bg-primary"
-          style={{background: '#fcc02e'}}
+          style={{ background: '#fcc02e' }}
         />
-        <div className="double-bounce2 mat-bg-accent" style={{background: '#03a9f4'}} />
+        <div
+          className="double-bounce2 mat-bg-accent"
+          style={{ background: '#03a9f4' }}
+        />
       </div>
     </div>
   );

@@ -1,28 +1,28 @@
-import React from "react";
-import ReactEcharts from "echarts-for-react";
-import { withStyles } from "@material-ui/styles";
+import React from 'react';
+import ReactEcharts from 'echarts-for-react';
+import { withStyles } from '@material-ui/styles';
 
 const LineChart = ({ height, color = [], theme }) => {
   const option = {
     grid: {
-      top: "10%",
-      bottom: "10%",
-      left: "5%",
-      right: "5%"
+      top: '10%',
+      bottom: '10%',
+      left: '5%',
+      right: '5%'
     },
     legend: {
       itemGap: 20,
-      icon: "circle",
+      icon: 'circle',
       textStyle: {
         color: theme.palette.text.secondary,
         fontSize: 13,
-        fontFamily: "roboto"
+        fontFamily: 'roboto'
       }
     },
     tooltip: {},
     xAxis: {
-      type: "category",
-      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       axisLine: {
         show: false
       },
@@ -32,11 +32,11 @@ const LineChart = ({ height, color = [], theme }) => {
       axisLabel: {
         color: theme.palette.text.secondary,
         fontSize: 14,
-        fontFamily: "roboto"
+        fontFamily: 'roboto'
       }
     },
     yAxis: {
-      type: "value",
+      type: 'value',
       axisLine: {
         show: false
       },
@@ -53,15 +53,15 @@ const LineChart = ({ height, color = [], theme }) => {
       axisLabel: {
         color: theme.palette.text.secondary,
         fontSize: 13,
-        fontFamily: "roboto"
+        fontFamily: 'roboto'
       }
     },
     series: [
       {
         data: [30, 40, 20, 50, 40, 80, 90],
-        type: "line",
-        stack: "This month",
-        name: "This month",
+        type: 'line',
+        stack: 'This month',
+        name: 'This month',
         smooth: true,
         symbolSize: 4,
         lineStyle: {
@@ -70,9 +70,9 @@ const LineChart = ({ height, color = [], theme }) => {
       },
       {
         data: [20, 50, 15, 50, 30, 70, 95],
-        type: "line",
-        stack: "Last month",
-        name: "Last month",
+        type: 'line',
+        stack: 'Last month',
+        name: 'Last month',
         smooth: true,
         symbolSize: 4,
         lineStyle: {

@@ -1,22 +1,22 @@
-import React from "react";
-import { Breadcrumb, SimpleCard } from "matx";
-import SimpleSnackbar from "./SimpleSnackbar";
-import CustomizedSnackbars from "./CustomizedSnackbar";
-import PositionedSnackbar from "./PositionedSnackbar";
-import LongTextSnackbar from "./LongLengthSnackbar";
-import ConsecutiveSnackbar from "./ConsecutiveSnackbar";
-import DirectionSnackbar from "./DirectionSnackbar";
-import IntegrationNotistack from "./StackedSnackbar";
-import TransitionsSnackbar from "./TransitionSnackbar";
+import React from 'react';
+import { Breadcrumb, SimpleCard } from 'matx';
+import SimpleSnackbar from './SimpleSnackbar';
+import CustomizedSnackbars from './CustomizedSnackbar';
+import PositionedSnackbar from './PositionedSnackbar';
+import LongTextSnackbar from './LongLengthSnackbar';
+import ConsecutiveSnackbar from './ConsecutiveSnackbar';
+import DirectionSnackbar from './DirectionSnackbar';
+import IntegrationNotistack from './StackedSnackbar';
+import TransitionsSnackbar from './TransitionSnackbar';
 
 const AppSnackbar = () => {
   return (
     <div className="m-sm-30">
-      <div  className="mb-sm-30">
+      <div className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Material", path: "/material" },
-            { name: "Snackbar" }
+            { name: 'Material', path: '/material' },
+            { name: 'Snackbar' }
           ]}
         />
       </div>

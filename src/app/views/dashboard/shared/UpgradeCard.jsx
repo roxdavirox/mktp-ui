@@ -1,8 +1,5 @@
-import React, { Component } from "react";
-import {
-  Card,
-  Button
-} from "@material-ui/core";
+import React, { Component } from 'react';
+import { Card, Button } from '@material-ui/core';
 
 const UpgradeCard = () => {
   return (

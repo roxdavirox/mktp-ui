@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import React, { Component } from 'react';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import {
   Button,
   Icon,
@@ -8,31 +8,31 @@ import {
   RadioGroup,
   FormControlLabel,
   Checkbox
-} from "@material-ui/core";
+} from '@material-ui/core';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
-} from "@material-ui/pickers";
-import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
+} from '@material-ui/pickers';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 
 class SimpleForm extends Component {
   state = {
-    username: "",
-    firstName: "",
-    email: "",
+    username: '',
+    firstName: '',
+    email: '',
     date: new Date(),
-    creditCard: "",
-    mobile: "",
-    password: "",
-    confirmPassword: "",
-    gender: "",
-    agreement: ""
+    creditCard: '',
+    mobile: '',
+    password: '',
+    confirmPassword: '',
+    gender: '',
+    agreement: ''
   };
 
   componentDidMount() {
     // custom rule will have name 'isPasswordMatch'
-    ValidatorForm.addValidationRule("isPasswordMatch", value => {
+    ValidatorForm.addValidationRule('isPasswordMatch', value => {
       if (value !== this.state.password) {
         return false;
       }
@@ -42,11 +42,11 @@ class SimpleForm extends Component {
 
   componentWillUnmount() {
     // remove rule when it is not needed
-    ValidatorForm.removeValidationRule("isPasswordMatch");
+    ValidatorForm.removeValidationRule('isPasswordMatch');
   }
 
   handleSubmit = event => {
-    console.log("submitted");
+    console.log('submitted');
     console.log(event);
   };
 
@@ -90,11 +90,11 @@ class SimpleForm extends Component {
                 name="username"
                 value={username}
                 validators={[
-                  "required",
-                  "minStringLength: 4",
-                  "maxStringLength: 9"
+                  'required',
+                  'minStringLength: 4',
+                  'maxStringLength: 9'
                 ]}
-                errorMessages={["this field is required"]}
+                errorMessages={['this field is required']}
               />
               <TextValidator
                 className="mb-16 w-100"
@@ -103,8 +103,8 @@ class SimpleForm extends Component {
                 type="text"
                 name="firstName"
                 value={firstName}
-                validators={["required"]}
-                errorMessages={["this field is required"]}
+                validators={['required']}
+                errorMessages={['this field is required']}
               />
               <TextValidator
                 className="mb-16 w-100"
@@ -113,8 +113,8 @@ class SimpleForm extends Component {
                 type="email"
                 name="email"
                 value={email}
-                validators={["required", "isEmail"]}
-                errorMessages={["this field is required", "email is not valid"]}
+                validators={['required', 'isEmail']}
+                errorMessages={['this field is required', 'email is not valid']}
               />
 
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -129,7 +129,7 @@ class SimpleForm extends Component {
                   value={date}
                   onChange={this.handleDateChange}
                   KeyboardButtonProps={{
-                    "aria-label": "change date"
+                    'aria-label': 'change date'
                   }}
                 />
               </MuiPickersUtilsProvider>
@@ -141,11 +141,11 @@ class SimpleForm extends Component {
                 name="creditCard"
                 value={creditCard}
                 validators={[
-                  "required",
-                  "minStringLength:16",
-                  "maxStringLength: 16"
+                  'required',
+                  'minStringLength:16',
+                  'maxStringLength: 16'
                 ]}
-                errorMessages={["this field is required"]}
+                errorMessages={['this field is required']}
               />
             </Grid>
 
@@ -157,8 +157,8 @@ class SimpleForm extends Component {
                 type="text"
                 name="mobile"
                 value={mobile}
-                validators={["required"]}
-                errorMessages={["this field is required"]}
+                validators={['required']}
+                errorMessages={['this field is required']}
               />
               <TextValidator
                 className="mb-16 w-100"
@@ -167,8 +167,8 @@ class SimpleForm extends Component {
                 name="password"
                 type="password"
                 value={password}
-                validators={["required"]}
-                errorMessages={["this field is required"]}
+                validators={['required']}
+                errorMessages={['this field is required']}
               />
               <TextValidator
                 className="mb-16 w-100"
@@ -177,9 +177,9 @@ class SimpleForm extends Component {
                 name="confirmPassword"
                 type="password"
                 value={confirmPassword}
-                validators={["required", "isPasswordMatch"]}
+                validators={['required', 'isPasswordMatch']}
                 errorMessages={[
-                  "this field is required",
+                  'this field is required',
                   "password didn't match"
                 ]}
               />

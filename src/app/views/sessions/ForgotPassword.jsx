@@ -1,21 +1,21 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Card,
   Grid,
   Button,
   withStyles,
   CircularProgress
-} from "@material-ui/core";
-import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import { connect } from "react-redux";
-import { PropTypes } from "prop-types";
-import { withRouter } from "react-router-dom";
+} from '@material-ui/core';
+import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-import { resetPassword } from "../../redux/actions/LoginActions";
+import { resetPassword } from '../../redux/actions/LoginActions';
 
 class ForgotPassword extends Component {
   state = {
-    email: "watson@example.com"
+    email: 'watson@example.com'
   };
   handleChange = event => {
     event.persist();
@@ -50,10 +50,10 @@ class ForgotPassword extends Component {
                       type="email"
                       name="email"
                       value={email}
-                      validators={["required", "isEmail"]}
+                      validators={['required', 'isEmail']}
                       errorMessages={[
-                        "this field is required",
-                        "email is not valid"
+                        'this field is required',
+                        'email is not valid'
                       ]}
                     />
                     <div className="flex flex-middle">
@@ -64,7 +64,7 @@ class ForgotPassword extends Component {
                       <Button
                         className="capitalize"
                         onClick={() =>
-                          this.props.history.push("/session/signin")
+                          this.props.history.push('/session/signin')
                         }
                       >
                         Sign in

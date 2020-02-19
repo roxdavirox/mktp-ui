@@ -1,19 +1,19 @@
-import React from "react";
-import ContinuousSlider from "./ContinuousSlider";
-import DiscreteSlider from "./DiscreteSlider";
-import RangeSlider from "./RangeSlider";
-import InputSlider from "./InputSlider";
-import VerticalSlider from "./VerticalSlider";
-import { Breadcrumb, SimpleCard } from "matx";
+import React from 'react';
+import ContinuousSlider from './ContinuousSlider';
+import DiscreteSlider from './DiscreteSlider';
+import RangeSlider from './RangeSlider';
+import InputSlider from './InputSlider';
+import VerticalSlider from './VerticalSlider';
+import { Breadcrumb, SimpleCard } from 'matx';
 
 const AppSlider = () => {
   return (
     <div className="m-sm-30">
-      <div  className="mb-sm-30">
+      <div className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Material", path: "/material" },
-            { name: "Slider" }
+            { name: 'Material', path: '/material' },
+            { name: 'Slider' }
           ]}
         />
       </div>

@@ -1,12 +1,12 @@
-import {MatxLoadable} from "matx";
+import { MatxLoadable } from 'matx';
 
 const AppDragAndDrop = MatxLoadable({
-  loader: () => import("./AppDragAndDrop")
+  loader: () => import('./AppDragAndDrop')
 });
 
 const dragAndDropRoute = [
   {
-    path: "/others/drag-and-drop",
+    path: '/others/drag-and-drop',
     component: AppDragAndDrop
   }
 ];

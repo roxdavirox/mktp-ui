@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { RichTextEditor, Breadcrumb } from "matx";
+import React, { Component } from 'react';
+import { RichTextEditor, Breadcrumb } from 'matx';
 
 class EditorForm extends Component {
   state = {
@@ -15,11 +15,11 @@ class EditorForm extends Component {
   render() {
     return (
       <div className="m-sm-30">
-        <div  className="mb-sm-30">
+        <div className="mb-sm-30">
           <Breadcrumb
             routeSegments={[
-              { name: "Forms", path: "/forms" },
-              { name: "Editor" }
+              { name: 'Forms', path: '/forms' },
+              { name: 'Editor' }
             ]}
           />
         </div>

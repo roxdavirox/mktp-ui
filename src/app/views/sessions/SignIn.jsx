@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Card,
   Checkbox,
@@ -7,23 +7,23 @@ import {
   Button,
   withStyles,
   CircularProgress
-} from "@material-ui/core";
-import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import { connect } from "react-redux";
-import { PropTypes } from "prop-types";
-import { withRouter } from "react-router-dom";
+} from '@material-ui/core';
+import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-import { loginWithEmailAndPassword } from "../../redux/actions/LoginActions";
+import { loginWithEmailAndPassword } from '../../redux/actions/LoginActions';
 
 const styles = theme => ({
   wrapper: {
-    position: "relative"
+    position: 'relative'
   },
 
   buttonProgress: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
     marginTop: -12,
     marginLeft: -12
   }
@@ -31,9 +31,9 @@ const styles = theme => ({
 
 class SignIn extends Component {
   state = {
-    email: "watson@example.com",
-    password: "testpass",
-    agreement: ""
+    email: 'watson@example.com',
+    password: 'testpass',
+    agreement: ''
   };
   handleChange = event => {
     event.persist();
@@ -68,10 +68,10 @@ class SignIn extends Component {
                       type="email"
                       name="email"
                       value={email}
-                      validators={["required", "isEmail"]}
+                      validators={['required', 'isEmail']}
                       errorMessages={[
-                        "this field is required",
-                        "email is not valid"
+                        'this field is required',
+                        'email is not valid'
                       ]}
                     />
                     <TextValidator
@@ -82,8 +82,8 @@ class SignIn extends Component {
                       name="password"
                       type="password"
                       value={password}
-                      validators={["required"]}
-                      errorMessages={["this field is required"]}
+                      validators={['required']}
+                      errorMessages={['this field is required']}
                     />
                     <FormControlLabel
                       className="mb-8"
@@ -113,7 +113,7 @@ class SignIn extends Component {
                       <Button
                         className="capitalize"
                         onClick={() =>
-                          this.props.history.push("/session/signup")
+                          this.props.history.push('/session/signup')
                         }
                       >
                         Sign up
@@ -122,7 +122,7 @@ class SignIn extends Component {
                     <Button
                       className="text-primary"
                       onClick={() =>
-                        this.props.history.push("/session/forgot-password")
+                        this.props.history.push('/session/forgot-password')
                       }
                     >
                       Forgot password?

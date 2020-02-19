@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import { withStyles, Icon } from "@material-ui/core";
-import TouchRipple from "@material-ui/core/ButtonBase";
-import { withRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import { withStyles, Icon } from '@material-ui/core';
+import TouchRipple from '@material-ui/core/ButtonBase';
+import { withRouter } from 'react-router-dom';
 import { classList } from 'utils';
 
 const styles = theme => {
   return {
     expandIcon: {
-      transition: "transform 0.3s cubic-bezier(0, 0, 0.2, 1) 0ms",
-      transform: "rotate(90deg)"
+      transition: 'transform 0.3s cubic-bezier(0, 0, 0.2, 1) 0ms',
+      transform: 'rotate(90deg)'
       // marginRight: "16px"
     },
     collapseIcon: {
-      transition: "transform 0.3s cubic-bezier(0, 0, 0.2, 1) 0ms",
-      transform: "rotate(0deg)"
+      transition: 'transform 0.3s cubic-bezier(0, 0, 0.2, 1) 0ms',
+      transform: 'rotate(0deg)'
       // marginRight: "16px"
     },
-    "expansion-panel": {
-      overflow: "hidden",
-      transition: "max-height 0.3s cubic-bezier(0, 0, 0.2, 1)"
+    'expansion-panel': {
+      overflow: 'hidden',
+      transition: 'max-height 0.3s cubic-bezier(0, 0, 0.2, 1)'
     },
     highlight: {
       background: theme.palette.primary.main
@@ -39,7 +39,7 @@ class MatxVerticalNavExpansionPanel extends Component {
   };
 
   calcaulateHeight(node) {
-    if (node.name !== "child") {
+    if (node.name !== 'child') {
       for (let child of node.children) {
         this.calcaulateHeight(child);
       }
@@ -53,7 +53,7 @@ class MatxVerticalNavExpansionPanel extends Component {
 
     // OPEN DROPDOWN IF CHILD IS ACTIVE
     for (let child of this.elementRef.children) {
-      if (child.getAttribute("href") === location.pathname) {
+      if (child.getAttribute('href') === location.pathname) {
         this.setState({ collapsed: false });
       }
     }
@@ -66,8 +66,8 @@ class MatxVerticalNavExpansionPanel extends Component {
       <div>
         <TouchRipple
           className={classList({
-            "nav-item flex-middle h-48 w-100 has-submenu": true,
-            "open": !collapsed
+            'nav-item flex-middle h-48 w-100 has-submenu': true,
+            open: !collapsed
           })}
           onClick={this.handleClick}
         >
@@ -81,8 +81,8 @@ class MatxVerticalNavExpansionPanel extends Component {
           <div
             className={
               collapsed
-                ? classes.collapseIcon + " item-arrow"
-                : classes.expandIcon + " item-arrow"
+                ? classes.collapseIcon + ' item-arrow'
+                : classes.expandIcon + ' item-arrow'
             }
           >
             <Icon className="text-middle">chevron_right</Icon>
@@ -91,11 +91,11 @@ class MatxVerticalNavExpansionPanel extends Component {
 
         <div
           ref={el => (this.elementRef = el)}
-          className={classes["expansion-panel"] + " submenu"}
+          className={classes['expansion-panel'] + ' submenu'}
           style={
             collapsed
-              ? { maxHeight: "0px" }
-              : { maxHeight: this.componentHeight + "px" }
+              ? { maxHeight: '0px' }
+              : { maxHeight: this.componentHeight + 'px' }
           }
         >
           {children}

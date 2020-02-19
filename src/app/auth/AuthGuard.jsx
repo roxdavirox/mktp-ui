@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import AppContext from "app/appContext";
+/* eslint-disable react/prop-types */
+import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import AppContext from 'app/appContext';
 
 class AuthGuard extends Component {
   constructor(props, context) {
@@ -30,7 +31,7 @@ class AuthGuard extends Component {
     return nextState.authenticated !== this.state.authenticated;
   }
 
-  static getDerivedStateFromProps(props, state) {    
+  static getDerivedStateFromProps(props, state) {
     const { location, user } = props;
     const { pathname } = location;
     const matched = state.routes.find(r => r.path === pathname);
@@ -49,7 +50,7 @@ class AuthGuard extends Component {
     const { pathname } = location;
 
     history.push({
-      pathname: "/session/signin",
+      pathname: '/session/signin',
       state: { redirectUrl: pathname }
     });
   }

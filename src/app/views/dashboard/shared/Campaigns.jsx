@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import { SimpleCard, MatxProgressBar } from "matx";
+import { SimpleCard, MatxProgressBar } from 'matx';
 
 const Campaigns = () => {
   return (

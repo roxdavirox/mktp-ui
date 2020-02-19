@@ -1,12 +1,12 @@
-import React from "react";
-import { IconButton, Icon, Snackbar } from "@material-ui/core";
+import React from 'react';
+import { IconButton, Icon, Snackbar } from '@material-ui/core';
 
 const MatxSnackbar = ({
   open,
   message,
   duration = 6000,
-  horizontal = "center",
-  vertical = "bottom",
+  horizontal = 'center',
+  vertical = 'bottom',
   handleClose
 }) => {
   return (
@@ -19,7 +19,7 @@ const MatxSnackbar = ({
       autoHideDuration={duration}
       onClose={handleClose}
       ContentProps={{
-        "aria-describedby": "message-id"
+        'aria-describedby': 'message-id'
       }}
       message={<span id="message-id">{message}</span>}
       action={[

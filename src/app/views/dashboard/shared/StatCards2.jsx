@@ -1,10 +1,5 @@
-import React, { Component } from "react";
-import {
-  Grid,
-  Card,
-  Icon,
-  Fab,
-} from "@material-ui/core";
+import React, { Component } from 'react';
+import { Grid, Card, Icon, Fab } from '@material-ui/core';
 
 const StatCards2 = () => {
   return (

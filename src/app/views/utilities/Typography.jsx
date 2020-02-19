@@ -1,20 +1,20 @@
-import React from "react";
-import { Breadcrumb, SimpleCard } from "matx";
-import Highlight from "react-highlight";
+import React from 'react';
+import { Breadcrumb, SimpleCard } from 'matx';
+import Highlight from 'react-highlight';
 
 const Typography = () => {
   return (
     <div className="m-sm-30">
-      <div  className="mb-sm-30">
+      <div className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Utilities", path: "/utilities" },
-            { name: "Typography" }
+            { name: 'Utilities', path: '/utilities' },
+            { name: 'Typography' }
           ]}
         />
       </div>
       <SimpleCard title="typography">
-        <div className="py-8"></div>
+        <div className="py-8" />
         <div className="flex flex-middle flex-wrap flex-space-between">
           <code>.capitalize</code>
           <div className="highlight-js">

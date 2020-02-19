@@ -1,9 +1,9 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import Snackbar from "@material-ui/core/Snackbar";
-import Fade from "@material-ui/core/Fade";
-import Slide from "@material-ui/core/Slide";
-import Grow from "@material-ui/core/Grow";
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import Fade from '@material-ui/core/Fade';
+import Slide from '@material-ui/core/Slide';
+import Grow from '@material-ui/core/Grow';
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
@@ -43,7 +43,7 @@ export default function TransitionsSnackbar() {
         onClose={handleClose}
         TransitionComponent={state.Transition}
         ContentProps={{
-          "aria-describedby": "message-id"
+          'aria-describedby': 'message-id'
         }}
         message={<span id="message-id">I love snacks</span>}
       />
