@@ -7,7 +7,7 @@ const Options = MatxLoadable({
 
 const optionRoutes = [
   {
-    path: '/option/',
+    path: '/options',
     component: Options,
     auth: authRoles.admin
   }
