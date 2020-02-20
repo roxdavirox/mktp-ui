@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { normalize } from 'normalizr';
-import { priceSchema } from 'store/schemas';
-import { addEntities } from 'store/actions';
+import { priceSchema } from '../schemas';
+import { addEntities } from '../actions';
 import {
   getEndpoint,
   createPostRequest,

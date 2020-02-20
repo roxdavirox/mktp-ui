@@ -8,8 +8,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import { editPrice } from 'store/ducks/price';
 import ReactNumberFormat from 'react-number-format';
+import { editPrice } from 'app/redux/actions/Price.actions';
 
 const useStyles = makeStyles(theme => ({
   container: {

@@ -4,20 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MuiDatatable from 'components/common/tables/MuiDatatable';
-import BraziliaPriceFormat from 'components/common/format/NumberFormat/BraziliaPriceFormat';
-import PriceFormat from 'components/common/format/NumberFormat/PriceFormat';
-import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
+import MuiDatatable from 'app/components/common/tables/MuiDatatable';
+import BraziliaPriceFormat from 'app/components/common/format/NumberFormat/BraziliaPriceFormat';
+import PriceFormat from 'app/components/common/format/NumberFormat/PriceFormat';
+import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
 import {
   AddToolbar,
   ViewListToolbar,
   MoreToolbar
-} from 'components/common/tables/Toolbar.jsx';
+} from 'app/components/common/tables/Toolbar.jsx';
 import DialogMenu from './DialogMenu';
 
 import Loading from './Loading';
-import { deletePrices } from 'store/ducks/price';
-import { getPriceTableById } from 'store/ducks/priceTable';
+import { deletePrices } from 'app/redux/actions/Price.actions';
+import { getPriceTableById } from 'app/redux/selectors/PriceTable.selectors';
 
 const styles = {
   EditCell: { textAlign: 'right' },

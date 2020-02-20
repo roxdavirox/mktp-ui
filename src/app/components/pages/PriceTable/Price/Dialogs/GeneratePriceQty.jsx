@@ -10,8 +10,8 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import ReactNumberFormat from 'react-number-format';
 import { generatePriceRange } from './GeneratePriceQty.js';
-import { addPriceRange } from 'store/ducks/price';
-import { getPriceTableById } from 'store/ducks/priceTable';
+import { addPriceRange } from 'app/redux/actions/Price.actions';
+import { getPriceTableById } from 'app/redux/selectors/PriceTable.selectors';
 
 const useStyles = makeStyles(theme => ({
   container: {

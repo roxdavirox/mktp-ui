@@ -11,7 +11,8 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import ReactNumberFormat from 'react-number-format';
 //redux
-import { addPrice, getPrices, addLastPrice } from 'store/ducks/price';
+import { addPrice, addLastPrice } from 'app/redux/actions/Price.actions';
+import { getPrices } from 'app/redux/selectors/Price.selectors';
 
 const useStyles = makeStyles(theme => ({
   container: {

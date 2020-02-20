@@ -4,10 +4,15 @@ import Container from '@material-ui/core/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
+import { Breadcrumb } from 'matx';
 import Datatable from './Datatable';
 import DialogContainer from './Dialogs';
-import { fetchPrices, getPrices, getPricesQuantity } from 'store/ducks/price';
-import { getPriceTableById } from 'store/ducks/priceTable';
+import {
+  getPrices,
+  getPricesQuantity
+} from 'app/redux/selectors/Price.selectors';
+import { fetchPrices } from 'app/redux/actions/Price.actions';
+import { getPriceTableById } from 'app/redux/selectors/PriceTable.selectors';
 
 const PricePage = props => {
   const [open, setOpen] = useState(false);
@@ -49,7 +54,15 @@ const PricePage = props => {
 
   return (
     <>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" className="m-sm-30">
+        <div className="mb-sm-30">
+          <Breadcrumb
+            routeSegments={[
+              { name: 'Tabelas de preço', path: '/price-tables' },
+              { name: 'Preços' }
+            ]}
+          />
+        </div>
         {open && (
           <DialogContainer
             price={price}

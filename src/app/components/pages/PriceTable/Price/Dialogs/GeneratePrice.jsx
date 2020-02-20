@@ -9,10 +9,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import { addPriceRange } from 'store/ducks/price';
-import { getPriceTableUnitById } from 'store/ducks/priceTable';
 import ReactNumberFormat from 'react-number-format';
 import { getPriceRange } from './GeneratePrice';
+import { addPriceRange } from 'app/redux/actions/Price.actions';
+import { getPriceTableUnitById } from 'app/redux/selectors/PriceTable.selectors';
 
 const styles = theme => ({
   container: {
