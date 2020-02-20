@@ -10,14 +10,14 @@ import priceRoutes from './components/pages/PriceTable/Price/PriceRoutes';
 import categoryRoutes from './components/pages/Category/CategoryRoutes';
 
 import dashboardRoutes from './views/dashboard/DashboardRoutes';
-import utilitiesRoutes from './views/utilities/UtilitiesRoutes';
 import sessionRoutes from './views/sessions/SessionRoutes';
+// import utilitiesRoutes from './views/utilities/UtilitiesRoutes';
 
-import materialRoutes from './views/material-kit/MaterialRoutes';
-import dragAndDropRoute from './views/Drag&Drop/DragAndDropRoute';
+// import materialRoutes from './views/material-kit/MaterialRoutes';
+// import dragAndDropRoute from './views/Drag&Drop/DragAndDropRoute';
 
-import formsRoutes from './views/forms/FormsRoutes';
-import mapRoutes from './views/map/MapRoutes';
+// import formsRoutes from './views/forms/FormsRoutes';
+// import mapRoutes from './views/map/MapRoutes';
 
 const redirectRoute = [
   {
@@ -34,20 +34,23 @@ const errorRoute = [
 ];
 
 const routes = [
+  // core routes
   ...optionsRoutes,
   ...itemsRoutes,
   ...priceTableRoutes,
   ...priceRoutes,
   ...categoryRoutes,
-  ...sessionRoutes,
+  // theme routes
   ...dashboardRoutes,
-  ...materialRoutes,
-  ...utilitiesRoutes,
-  ...dragAndDropRoute,
-  ...formsRoutes,
-  ...mapRoutes,
+  ...sessionRoutes,
   ...redirectRoute,
   ...errorRoute
+  // examples
+  // ...materialRoutes,
+  // ...utilitiesRoutes,
+  // ...dragAndDropRoute,
+  // ...formsRoutes,
+  // ...mapRoutes
 ];
 
 export default routes;
