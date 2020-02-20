@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
+import { Breadcrumb } from 'matx';
 import { getEndpoint, createDeleteRequest } from 'helpers/api';
 import ProductDatatable from './ProductDatatable';
 import { withSnackbar } from 'notistack';
@@ -58,7 +60,12 @@ const ProductPage = ({ enqueueSnackbar: snack }) => {
   };
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" className="m-sm-30">
+      <div className="mb-sm-30">
+        <Breadcrumb
+          routeSegments={[{ name: 'Categorias', path: '/categories' }]}
+        />
+      </div>
       <ProductDatatable
         products={productNames}
         onRowsDelete={handleRowsDelete}

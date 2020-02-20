@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import MuiDatatable from 'components/common/tables/MuiDatatable';
 import { Link } from 'react-router-dom';
-import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
+import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
+import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 import Loading from './LoadingSkeleton';
 
 const useStyles = makeStyles({ EditCell: { textAlign: 'right' } });
