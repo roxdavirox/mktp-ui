@@ -35,7 +35,10 @@ const SubCategoryPage = props => {
       <Container maxWidth="xl" className="m-sm-30">
         <div className="mb-sm-30">
           <Breadcrumb
-            routeSegments={[{ name: 'Categorias', path: '/categories' }]}
+            routeSegments={[
+              { name: 'Categorias', path: '/categories' },
+              { name: 'Subcategorias' }
+            ]}
           />
         </div>
         {open && (

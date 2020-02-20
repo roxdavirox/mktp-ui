@@ -7,7 +7,7 @@ const SubCategories = MatxLoadable({
 
 const subCategoryRoutes = [
   {
-    path: '/sub-categories',
+    path: '/subcategories',
     component: SubCategories,
     auth: authRoles.admin
   }

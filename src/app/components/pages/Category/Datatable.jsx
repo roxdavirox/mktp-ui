@@ -70,7 +70,7 @@ const Datatable = ({ data, classes, onOpen, enqueueSnackbar: snack }) => {
         customBodyRender: (value, tableMeta) => (
           <Link
             to={{
-              pathname: '/admin/config/sub-categories',
+              pathname: '/subcategories',
               state: {
                 fromRedirect: true,
                 categoryId: value
