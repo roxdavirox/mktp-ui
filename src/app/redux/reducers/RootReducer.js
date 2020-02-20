@@ -8,11 +8,13 @@ import EcommerceReducer from './EcommerceReducer';
 import options from './Option.reducer';
 import items from './Item.reducer';
 import priceTables from './PriceTable.reducer';
+import prices from './Price.reducer';
 
 const RootReducer = combineReducers({
   options,
   items,
   priceTables,
+  prices,
   login: LoginReducer,
   user: UserReducer,
   layout: LayoutReducer,

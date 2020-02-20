@@ -58,7 +58,7 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
           return (
             <Link
               to={{
-                pathname: '/admin/config/price',
+                pathname: '/prices',
                 state: {
                   fromRedirect: true,
                   priceTableId: value
