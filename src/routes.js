@@ -9,6 +9,7 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import BuildIcon from '@material-ui/icons/Build';
 //pages
 import ProductCreate from 'components/pages/Product/CreateProductWizard';
+import CreateProduct from 'components/pages/Product/CreateProduct';
 import ProductEditPage from 'components/pages/Product/EditProductWizard';
 import ProductListPage from 'components/pages/Product/List/ProductPage';
 import Templates from 'components/pages/Product/Template';
@@ -42,6 +43,13 @@ var dashRoutes = [
             icon: AddCircleOutlineIcon,
             name: 'Produto',
             component: ProductCreate,
+            layout: '/admin'
+          },
+          {
+            path: '/products/create',
+            icon: AddCircleOutlineIcon,
+            name: 'Produto',
+            component: CreateProduct,
             layout: '/admin'
           },
           {
