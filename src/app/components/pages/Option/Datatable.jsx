@@ -41,7 +41,7 @@ const DataTable = ({ enqueueSnackbar: snack, classes, onOpen, data }) => {
   const columns = [
     {
       name: 'name',
-      label: 'Name',
+      label: 'Nome',
       options: {
         filter: true,
         sort: true,

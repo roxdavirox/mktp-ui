@@ -24,7 +24,7 @@ const OptionPage = props => {
   const handleClose = () => setOpen(false);
   return (
     <>
-      <Container maxWidth="xl" style={{ padding: '1em' }}>
+      <Container maxWidth="xl" className="m-sm-30">
         <div className="mb-sm-30">
           <Breadcrumb routeSegments={[{ name: 'Opções', path: '/options' }]} />
         </div>

@@ -93,7 +93,7 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
   const items = useSelector(store => getOptionsItems(optionId, store));
   return (
     <>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" className="m-sm-30">
         <div className="mb-sm-30">
           <Breadcrumb
             routeSegments={[
