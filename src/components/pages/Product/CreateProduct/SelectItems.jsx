@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Container from '@material-ui/core/Container';
 import { getEndpoint } from 'helpers/api';
 import Datatable from './Datatable';
+import { ProductConsumer } from './ProductContext';
 
 const mapItemsWithOptionname = ({ options }) =>
   options.map(o =>
@@ -15,8 +16,8 @@ const mapOptionsItems = options =>
 const mapAllItemsWithCheckedProp = items =>
   items.map(item => ({ ...item, isChecked: false }));
 
-const SelectItems = props => {
-  const [items, setItems] = useState([]);
+const SelectItems = () => {
+  const { items, setItems } = useContext(ProductConsumer);
   useEffect(() => {
     const optionsEndpoint = getEndpoint('/options');
 
@@ -25,48 +26,15 @@ const SelectItems = props => {
       .then(mapItemsWithOptionname)
       .then(mapOptionsItems)
       .then(mapAllItemsWithCheckedProp)
-      // .then(async prevItems => {
-      //   const { allStates } = this.props;
-      //   if (!allStates.locationState) return prevItems;
-      //   const { pathname } = allStates.locationState;
-      //   if (pathname === '/admin/config/products/edit') {
-      //     const { productId } = allStates.locationState.state;
-      //     const itemsEndpoint = getEndpoint(`/products/${productId}/items`);
-      //     const result = await fetch(itemsEndpoint);
-      //     const data = await result.json();
-
-      //     const { product } = data;
-      //     const { productOptions } = product;
-      //     const itemsIds = productOptions.map(po => po.item);
-      //     const checkedItems = prevItems.map(item =>
-      //       itemsIds.indexOf(item._id) !== -1
-      //         ? { ...item, isChecked: !item.isChecked }
-      //         : item
-      //     );
-      //     return checkedItems;
-      //   }
-      //   return prevItems;
-      // })
-      .then(items => this.setState({ items }));
+      .then(items => setItems({ items }));
   }, []);
 
-  //envia o estado para o wizard
-  // sendState() {
-  //   return {
-  //     selectedItems: this.state.items
-  //       .filter(item => item.isChecked)
-  //       // eslint-disable-next-line no-unused-vars
-  //       .map(({ isChecked, ...rest }) => ({ ...rest }))
-  //   };
-  // }
-
   const handleCheckItem = index => {
-    // this.props.enableFinishButton();
-    setItems({
-      items: this.state.items.map((item, i) =>
+    setItems(
+      items.map((item, i) =>
         i === index ? { ...item, isChecked: !item.isChecked } : item
       )
-    });
+    );
   };
 
   return (
