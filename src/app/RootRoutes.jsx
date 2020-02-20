@@ -7,6 +7,8 @@ import optionsRoutes from './components/pages/Option/OptionRoutes';
 import itemsRoutes from './components/pages/Option/Item/ItemRoutes';
 import priceTableRoutes from './components/pages/PriceTable/PriceTableRoutes';
 import priceRoutes from './components/pages/PriceTable/Price/PriceRoutes';
+import categoryRoutes from './components/pages/Category/CategoryRoutes';
+
 import dashboardRoutes from './views/dashboard/DashboardRoutes';
 import utilitiesRoutes from './views/utilities/UtilitiesRoutes';
 import sessionRoutes from './views/sessions/SessionRoutes';
@@ -36,6 +38,7 @@ const routes = [
   ...itemsRoutes,
   ...priceTableRoutes,
   ...priceRoutes,
+  ...categoryRoutes,
   ...sessionRoutes,
   ...dashboardRoutes,
   ...materialRoutes,

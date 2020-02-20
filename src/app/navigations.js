@@ -2,12 +2,18 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import Dashboard from '@material-ui/icons/Dashboard';
 import AccountTreeSharpIcon from '@material-ui/icons/AccountTreeSharp';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import CategoryIcon from '@material-ui/icons/Category';
 
 export const navigations = [
   {
     name: 'Dashboard',
     path: '/dashboard/analytics',
     icon: Dashboard
+  },
+  {
+    name: 'Categorias',
+    path: '/categories',
+    icon: CategoryIcon
   },
   {
     name: 'Opções',

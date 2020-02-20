@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
-import Container from '@material-ui/core/Container';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategories, getCategories } from 'store/ducks/category';
+import Container from '@material-ui/core/Container';
+import { withSnackbar } from 'notistack';
 import Datatable from './Datatable';
 import Dialog from './Dialog';
-import { withSnackbar } from 'notistack';
+import { fetchCategories } from 'app/redux/actions/Category.actions';
+import { getCategories } from 'app/redux/selectors/Category.selectors';
 
 const CategoryPage = props => {
   const data = useSelector(state => getCategories(state));

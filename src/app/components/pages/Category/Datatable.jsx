@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import MuiDatatable from 'components/common/tables/MuiDatatable';
-import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
-import { AddToolbar } from 'components/common/tables/Toolbar.jsx';
-import { deleteCategories } from 'store/ducks/category';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import MuiDatatable from 'app/components/common/tables/MuiDatatable';
+import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
+import { AddToolbar } from 'app/components/common/tables/Toolbar.jsx';
+import { deleteCategories } from 'app/redux/actions/Category.actions';
 
 const styles = {
   EditCell: { textAlign: 'right' },

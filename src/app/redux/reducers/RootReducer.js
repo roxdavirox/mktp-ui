@@ -9,12 +9,14 @@ import options from './Option.reducer';
 import items from './Item.reducer';
 import priceTables from './PriceTable.reducer';
 import prices from './Price.reducer';
+import categories from './Category.reducer';
 
 const RootReducer = combineReducers({
   options,
   items,
   priceTables,
   prices,
+  categories,
   login: LoginReducer,
   user: UserReducer,
   layout: LayoutReducer,
