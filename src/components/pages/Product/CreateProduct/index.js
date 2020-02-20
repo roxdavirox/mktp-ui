@@ -45,12 +45,13 @@ function getStepContent(stepIndex) {
 
 // eslint-disable-next-line no-unused-vars
 const CreateProductPage = props => {
-  const [items, setItems] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [avatar, setAvatar] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
   const [imageNotChanged, setImageChange] = useState(true);
   const [imageRemoved, setImageRemoved] = useState(false);
+  const [items, setItems] = useState([]);
 
   const state = {
     items,
