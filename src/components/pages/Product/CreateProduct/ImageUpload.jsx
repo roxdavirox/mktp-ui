@@ -47,11 +47,7 @@ const ImageUpload = () => {
           />
           <div className={'thumbnail' + (avatar ? ' img-circle' : '')}>
             <img
-              src={
-                imagePreviewUrl && imageNotChanged
-                  ? imagePreviewUrl
-                  : imagePreviewUrl
-              }
+              src={imagePreviewUrl && imageNotChanged ? imagePreviewUrl : null}
               alt="..."
             />
           </div>
