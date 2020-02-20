@@ -225,6 +225,7 @@ const EditPrice = ({
 
 EditPrice.propTypes = {
   onClose: PropTypes.func.isRequired,
+  onSetPrice: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   price: PropTypes.object.isRequired,
   priceTableId: PropTypes.string.isRequired,
