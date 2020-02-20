@@ -56,8 +56,8 @@ const themeOptions = {
       root: {
         fontSize: '14px',
         whiteSpace: 'pre-wrap',
-        padding: '1px 1px 1px 10px'
-        // padding: '8px 0px'
+        // padding: '1px 1px 1px 10px'
+        padding: '8px 0px'
       }
     },
 
@@ -98,29 +98,29 @@ const themeOptions = {
       }
     },
     // new theme styles
-    MuiModal: {
-      root: {
-        overflowY: 'auto'
-      }
-    },
-    MuiDialog: {
-      container: { height: 'auto' }
-    },
+    // MuiModal: {
+    //   root: {
+    //     overflowY: 'auto'
+    //   }
+    // },
+    // MuiDialog: {
+    //   container: { height: 'auto' }
+    // },
     MUIDataTableHeadCell: {
       fixedHeaderCommon: {
-        position: 'inherit'
+        position: 'initial'
       }
     },
     MUIDataTableSelectCell: {
-      root: { width: '10px' },
-      fixedHeader: {
-        position: 'inherit'
-      },
-      headerCell: {
-        position: 'inherit'
-      },
+      // root: { width: '10px' },
+      // fixedHeader: {
+      //   position: 'initial'
+      // },
+      // headerCell: {
+      //   position: 'initial'
+      // },
       fixedHeaderCommon: {
-        position: 'inherit'
+        position: 'initial'
       }
     }
   }
