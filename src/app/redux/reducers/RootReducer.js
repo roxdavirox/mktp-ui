@@ -6,9 +6,13 @@ import ScrumBoardReducer from './ScrumBoardReducer';
 import NotificationReducer from './NotificationReducer';
 import EcommerceReducer from './EcommerceReducer';
 import options from './Option.reducer';
+import items from './Item.reducer';
+import priceTables from './PriceTable.reducer';
 
 const RootReducer = combineReducers({
   options,
+  items,
+  priceTables,
   login: LoginReducer,
   user: UserReducer,
   layout: LayoutReducer,

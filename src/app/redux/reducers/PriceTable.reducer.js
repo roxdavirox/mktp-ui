@@ -1,5 +1,9 @@
 import { ADD_ENTITIES } from '../actions';
-
+import {
+  FETCH_PRICE_TABLES,
+  ADD_PRICE_TABLE_SUCCESS,
+  DELETE_PRICE_TABLES_SUCCESS
+} from '../actions/PriceTable.actions';
 //reducers
 const initialState = {
   byId: {},
@@ -9,13 +13,6 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case types.FETCH_PRICE_TABLES: {
-      return {
-        ...state,
-        isLoading: true
-      };
-    }
-
     case ADD_ENTITIES: {
       const {
         entities: { priceTables }
@@ -33,7 +30,14 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    case types.ADD_PRICE_TABLE_SUCCESS: {
+    case FETCH_PRICE_TABLES: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    case ADD_PRICE_TABLE_SUCCESS: {
       const { priceTable } = action.payload;
 
       return {
@@ -46,7 +50,7 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    case types.DELETE_PRICE_TABLES_SUCCESS: {
+    case DELETE_PRICE_TABLES_SUCCESS: {
       const { priceTableIds } = action.payload;
 
       const allIds = state.allIds.filter(
