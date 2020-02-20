@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 
@@ -21,7 +22,7 @@ class NotFound extends Component {
             color="primary"
             onClick={() => this.props.history.push('/')}
           >
-            Back to Dashboard
+            Voltar para o Dashboard
           </Button>
         </div>
       </div>
