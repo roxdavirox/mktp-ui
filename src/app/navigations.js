@@ -1,4 +1,5 @@
 import ViewListIcon from '@material-ui/icons/ViewList';
+import Dashboard from '@material-ui/icons/Dashboard';
 import AccountTreeSharpIcon from '@material-ui/icons/AccountTreeSharp';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
@@ -6,7 +7,7 @@ export const navigations = [
   {
     name: 'Dashboard',
     path: '/dashboard/analytics',
-    icon: 'dashboard'
+    icon: Dashboard
   },
   {
     name: 'Opções',
