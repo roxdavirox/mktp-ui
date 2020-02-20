@@ -26,7 +26,7 @@ const SelectItems = () => {
       .then(mapItemsWithOptionname)
       .then(mapOptionsItems)
       .then(mapAllItemsWithCheckedProp)
-      .then(items => setItems({ items }));
+      .then(_items => setItems(_items));
   }, []);
 
   const handleCheckItem = index => {
