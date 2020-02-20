@@ -62,7 +62,7 @@ const DataTable = ({ enqueueSnackbar: snack, classes, onOpen, data }) => {
         customBodyRender: (value, tableMeta) => (
           <Link
             to={{
-              pathname: '/admin/config/option/items',
+              pathname: '/items',
               state: {
                 fromRedirect: true,
                 optionId: value

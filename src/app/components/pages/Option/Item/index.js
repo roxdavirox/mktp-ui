@@ -3,17 +3,18 @@ import React, { useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { Breadcrumb } from 'matx';
 import { withSnackbar } from 'notistack';
 import DialogContainer from './Dialogs';
 import Datatable from './Datatable';
 import { fetchOptions } from 'app/redux/actions/Option.actions';
 import {
-  addOptionItem,
   deleteOptionItems,
   fetchItems,
   editItem,
-  getOptionsItems
+  addOptionItem
 } from 'app/redux/actions/Item.actions';
+import { getOptionsItems } from 'app/redux/selectors/Item.selectors';
 
 const getOptionId = location => {
   const { state } = location;
@@ -93,6 +94,9 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
   return (
     <>
       <Container maxWidth="xl">
+        <div className="mb-sm-30">
+          <Breadcrumb routeSegments={[{ name: 'Opções', path: '/options' }]} />
+        </div>
         {open && (
           <DialogContainer
             open={open}

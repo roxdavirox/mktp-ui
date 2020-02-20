@@ -6,11 +6,12 @@ import { withSnackbar } from 'notistack';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import MuiDatatable from 'components/common/tables/MuiDatatable';
-import { AddToolbar } from 'components/common/tables/Toolbar';
-import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
+import MuiDatatable from 'app/components/common/tables/MuiDatatable';
+import { AddToolbar } from 'app/components/common/tables/Toolbar';
+import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import LabelIcon from '@material-ui/icons/Label';
+
 const styles = {
   EditCell: { textAlign: 'right' },
   NameCell: { fontWeight: 500 }
