@@ -2,8 +2,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
+// core
 import optionsRoutes from './components/pages/Option/OptionRoutes';
 import itemsRoutes from './components/pages/Option/Item/ItemRoutes';
+import priceTableRoutes from './components/pages/PriceTable/PriceTableRoutes';
 
 import dashboardRoutes from './views/dashboard/DashboardRoutes';
 import utilitiesRoutes from './views/utilities/UtilitiesRoutes';
@@ -32,6 +34,7 @@ const errorRoute = [
 const routes = [
   ...optionsRoutes,
   ...itemsRoutes,
+  ...priceTableRoutes,
   ...sessionRoutes,
   ...dashboardRoutes,
   ...materialRoutes,

@@ -1,5 +1,6 @@
 import ViewListIcon from '@material-ui/icons/ViewList';
 import AccountTreeSharpIcon from '@material-ui/icons/AccountTreeSharp';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 export const navigations = [
   {
@@ -11,6 +12,11 @@ export const navigations = [
     name: 'Opções',
     path: '/options',
     icon: AccountTreeSharpIcon
+  },
+  {
+    name: 'Tabelas de preço',
+    path: '/price-tables',
+    icon: MonetizationOnIcon
   },
   {
     name: 'Forms',

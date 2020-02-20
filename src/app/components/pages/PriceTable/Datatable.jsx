@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import MuiDatatable from 'components/common/tables/MuiDatatable';
-import MoreHorizIcon from 'components/common/icons/MoreHorizIcon.jsx';
-import { AddToolbar } from 'components/common/tables/Toolbar.jsx';
+import MuiDatatable from 'app/components/common/tables/MuiDatatable';
+import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
+import { AddToolbar } from 'app/components/common/tables/Toolbar.jsx';
 import Loading from './LoadingSkeleton';
-import { deletePriceTables } from 'store/ducks/priceTable';
+import { deletePriceTables } from 'app/redux/actions/PriceTable.actions';
 
 const styles = {
   EditCell: { textAlign: 'right' },
