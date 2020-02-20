@@ -73,7 +73,7 @@ const Datatable = ({ data, onOpen, enqueueSnackbar: snack, categoryId }) => {
           return (
             <Link
               to={{
-                pathname: '/admin/config/sub-categories',
+                pathname: '/sub-categories',
                 state: {
                   fromRedirect: true,
                   categoryId: value
