@@ -98,7 +98,7 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
           <Breadcrumb
             routeSegments={[
               { name: 'Opções', path: '/options' },
-              { name: 'items' }
+              { name: 'Itens' }
             ]}
           />
         </div>
