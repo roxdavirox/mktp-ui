@@ -8,9 +8,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-
+import { ProductProvider } from './ProductContext';
 import SelectItems from './SelectItems';
 import Form from './Form';
+
+import defaultImage from 'assets/img/image_placeholder.jpg';
+import defaultAvatar from 'assets/img/placeholder.jpg';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,6 +45,20 @@ function getStepContent(stepIndex) {
 
 // eslint-disable-next-line no-unused-vars
 const CreateProductPage = props => {
+  const [avatar, setAvatar] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const [imageNotChanged, setImageChange] = useState(true);
+  const [imageRemoved, setImageRemoved] = useState(false);
+
+  const state = {
+    avatar,
+    imageFile,
+    imagePreviewUrl,
+    imageNotChanged,
+    imageRemoved
+  };
+
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
   const classes = useStyles();
@@ -56,6 +73,24 @@ const CreateProductPage = props => {
 
   const handleReset = () => {
     setActiveStep(0);
+  };
+
+  useEffect(() => {
+    const previewImage = avatar ? defaultAvatar : defaultImage;
+    setImagePreviewUrl(previewImage);
+  }, []);
+
+  const handleImageChange = imageFile => {
+    setImageChange(true);
+    setImageRemoved(false);
+    setImageFile(imageFile);
+  };
+
+  const handleRemove = () => {
+    setImageFile(null);
+    setImagePreviewUrl(defaultImage);
+    setImageChange(false);
+    setImageRemoved(true);
   };
 
   return (
@@ -81,7 +116,16 @@ const CreateProductPage = props => {
             ) : (
               <div>
                 <Typography className={classes.instructions}>
-                  {getStepContent(activeStep)}
+                  <ProductProvider
+                    value={{
+                      ...state,
+                      handleImageChange,
+                      handleRemove,
+                      setImagePreviewUrl
+                    }}
+                  >
+                    {getStepContent(activeStep)}
+                  </ProductProvider>
                 </Typography>
                 <div>
                   <Button

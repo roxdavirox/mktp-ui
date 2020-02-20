@@ -32,19 +32,12 @@ const useStyles = makeStyles({
   }
 });
 
-const ProductForm = props => {
+const ProductForm = () => {
   const [categories, setCategories] = useState([]);
   const [productName, setProductName] = useState('');
-  const [isImageChanged, setImageChange] = useState(false);
-  const [isImageDeleted, setImageDeleted] = useState(false);
-  const [imageFile, setImageFile] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
   const [categoryId, setCategoryId] = useState('');
 
   const classes = useStyles();
-  const [state, setState] = useState({
-    productId: null
-  });
 
   useEffect(() => {
     const categoriesEndpoint = getEndpoint('/categories');
@@ -57,20 +50,6 @@ const ProductForm = props => {
     const { value: name } = e.target;
 
     setProductName(name);
-    props.enableFinishButton();
-  };
-
-  const handleImageChange = imageFile => {
-    setImageChange(true);
-    setImageDeleted(false);
-    setImageFile(imageFile);
-    this.props.enableFinishButton();
-  };
-
-  const handleDeleteImage = () => {
-    setImageDeleted(true);
-    setImageChange(false);
-    this.props.enableFinishButton();
   };
 
   const handleCategorySelect = e => setCategoryId(e.target.value);
@@ -83,11 +62,7 @@ const ProductForm = props => {
         </Grid>
         <Container style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Grid xs={12} sm={4}>
-            <ImageUpload
-              imagePreviewUrl={imageUrl}
-              onImageChange={handleImageChange}
-              onDeleteImage={handleDeleteImage}
-            />
+            <ImageUpload />
           </Grid>
           <Grid xs={12} sm={6}>
             <InputLabel htmlFor="product-name">Nome do produto</InputLabel>
