@@ -95,7 +95,12 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
     <>
       <Container maxWidth="xl">
         <div className="mb-sm-30">
-          <Breadcrumb routeSegments={[{ name: 'Opções', path: '/options' }]} />
+          <Breadcrumb
+            routeSegments={[
+              { name: 'Opções', path: '/options' },
+              { name: 'items' }
+            ]}
+          />
         </div>
         {open && (
           <DialogContainer
