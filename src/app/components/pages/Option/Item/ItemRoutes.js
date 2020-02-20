@@ -5,7 +5,7 @@ const Items = MatxLoadable({
   loader: () => import('./index')
 });
 
-const optionRoutes = [
+const itemRoutes = [
   {
     path: '/items',
     component: Items,
@@ -13,4 +13,4 @@ const optionRoutes = [
   }
 ];
 
-export default optionRoutes;
+export default itemRoutes;
