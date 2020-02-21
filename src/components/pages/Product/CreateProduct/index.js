@@ -13,7 +13,6 @@ import SelectItems from './SelectItems';
 import Form from './Form';
 
 import defaultImage from 'assets/img/image_placeholder.jpg';
-import defaultAvatar from 'assets/img/placeholder.jpg';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,19 +45,17 @@ function getStepContent(stepIndex) {
 // eslint-disable-next-line no-unused-vars
 const CreateProductPage = props => {
   // eslint-disable-next-line no-unused-vars
-  const [avatar, setAvatar] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
-  const [imageNotChanged, setImageChange] = useState(true);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(defaultImage);
+  const [imageChanged, setImageChange] = useState(true);
   const [imageRemoved, setImageRemoved] = useState(false);
   const [items, setItems] = useState([]);
 
   const state = {
     items,
-    avatar,
     imageFile,
     imagePreviewUrl,
-    imageNotChanged,
+    imageChanged,
     imageRemoved
   };
 
@@ -76,17 +73,6 @@ const CreateProductPage = props => {
 
   const handleReset = () => {
     setActiveStep(0);
-  };
-
-  useEffect(() => {
-    const previewImage = avatar ? defaultAvatar : defaultImage;
-    setImagePreviewUrl(previewImage);
-  }, []);
-
-  const handleImageChange = imageFile => {
-    setImageChange(true);
-    setImageRemoved(false);
-    setImageFile(imageFile);
   };
 
   const handleRemove = () => {
@@ -122,9 +108,11 @@ const CreateProductPage = props => {
                   <ProductProvider
                     value={{
                       ...state,
-                      handleImageChange,
                       handleRemove,
+                      setImageFile,
+                      setImageRemoved,
                       setImagePreviewUrl,
+                      setImageChange,
                       setItems
                     }}
                   >

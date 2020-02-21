@@ -8,6 +8,7 @@ const ImageUpload = () => {
   const [inputRef, setInputRef] = useState({});
 
   const handleClick = () => {
+    inputRef.value = null;
     inputRef.click();
   };
 
@@ -19,26 +20,22 @@ const ImageUpload = () => {
     let [file] = e.target.files;
 
     reader.onloadend = () => {
-      fn.handleImageChange(file);
+      fn.setImageFile(file);
       fn.setImagePreviewUrl(reader.result);
+      fn.setImageChange(true);
+      fn.setImageRemoved(false);
     };
     reader.readAsDataURL(file);
   };
 
   const handleRemove = () => {
     fn.handleRemove();
-    setInputRef(null);
+    // setInputRef(null);
   };
 
   return (
     <ProductConsumer>
-      {({
-        avatar,
-        imageFile,
-        imagePreviewUrl,
-        imageNotChanged,
-        imageRemoved
-      }) => (
+      {({ avatar, imageFile, imagePreviewUrl, imageRemoved }) => (
         <div className="fileinput text-center">
           <input
             type="file"
@@ -46,10 +43,7 @@ const ImageUpload = () => {
             ref={thisRef => setInputRef(thisRef)}
           />
           <div className={'thumbnail' + (avatar ? ' img-circle' : '')}>
-            <img
-              src={imagePreviewUrl && imageNotChanged ? imagePreviewUrl : null}
-              alt="..."
-            />
+            <img src={imagePreviewUrl} alt="..." />
           </div>
           <div>
             {(imageFile === null && imagePreviewUrl) || imageRemoved ? (
