@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
+import { Breadcrumb } from 'matx';
 import { ProductProvider } from './ProductContext';
 import SelectItems from './SelectItems';
 import Form from './Form';
@@ -108,7 +109,7 @@ const CreateProductPage = props => {
           variant: 'success',
           autoHideDuration: 2000
         });
-        history.push('/admin/config/products/list');
+        history.push('/products');
       });
     handleReset();
   };
@@ -142,7 +143,15 @@ const CreateProductPage = props => {
   };
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" className="m-sm-30">
+      <div className="mb-sm-30">
+        <Breadcrumb
+          routeSegments={[
+            { name: 'Produtos', path: '/products' },
+            { name: 'Novo' }
+          ]}
+        />
+      </div>
       <div className={classes.root}>
         <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map(label => (

@@ -7,6 +7,7 @@ const Products = MatxLoadable({
 
 const productListRoutes = [
   {
+    exact: true,
     path: '/products',
     component: Products,
     auth: authRoles.admin

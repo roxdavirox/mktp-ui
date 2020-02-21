@@ -8,7 +8,7 @@ import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 
 const useStyles = makeStyles({
   EditCell: { textAlign: 'right' },
-  NameCell: { fontWeight: 500 }
+  NameCell: { fontWeight: 500, padding: '0 0 0 2em' }
 });
 
 const Datatable = ({ data, onCheckItem }) => {
@@ -44,12 +44,19 @@ const Datatable = ({ data, onCheckItem }) => {
       label: 'Opção',
       options: {
         filter: true,
-        sort: true
-        // setCellProps: () => {
-        //   return {
-        //     className: classNames({ [classes.NameCell]: true })
-        //   };
-        // }
+        sort: true,
+        setCellProps: () => {
+          return {
+            className: classNames({ [classes.NameCell]: true })
+          };
+        },
+        setCellHeaderProps: () => {
+          return {
+            className: classNames({
+              [classes.NameCell]: true
+            })
+          };
+        }
       }
     },
     {

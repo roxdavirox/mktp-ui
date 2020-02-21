@@ -53,6 +53,9 @@ const themeOptions = {
         fontSize: '13px',
         padding: '12px 0px'
       },
+      body: {
+        // padding: '0 0 0 2em'
+      },
       root: {
         fontSize: '14px',
         whiteSpace: 'pre-wrap',
@@ -108,7 +111,8 @@ const themeOptions = {
     // },
     MUIDataTableHeadCell: {
       fixedHeaderCommon: {
-        position: 'initial'
+        position: 'initial',
+        // padding: '0 0 0 1em'
       }
     },
     MUIDataTableSelectCell: {

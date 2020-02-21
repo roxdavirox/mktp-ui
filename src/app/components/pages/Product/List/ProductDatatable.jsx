@@ -2,10 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import { AddToolbar } from 'app/components/common/tables/Toolbar.jsx';
 import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
 import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 import Loading from './LoadingSkeleton';
-
+import history from 'history.js';
 const useStyles = makeStyles({ EditCell: { textAlign: 'right' } });
 
 // eslint-disable-next-line react/prop-types
@@ -24,6 +25,14 @@ const ProductDatatable = ({ products, onRowsDelete, isLoading }) => {
       body: {
         noMatch: <Loading isLoading={isLoading} />
       }
+    },
+    customToolbar: function add() {
+      return (
+        <AddToolbar
+          title="Criar novo produto"
+          onClick={() => history.push('/products/create')}
+        />
+      );
     }
   };
   const columns = [
