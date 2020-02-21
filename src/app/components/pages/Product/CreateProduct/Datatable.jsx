@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import MuiDatatable from 'components/common/tables/MuiDatatable';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import classNames from 'classnames';
+import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 
 const useStyles = makeStyles({
   EditCell: { textAlign: 'right' },

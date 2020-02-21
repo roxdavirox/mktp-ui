@@ -14,8 +14,8 @@ import { ProductProvider } from './ProductContext';
 import SelectItems from './SelectItems';
 import Form from './Form';
 import { getEndpoint } from 'helpers/api';
-import history from 'providers/history';
-import defaultImage from 'assets/img/image_placeholder.jpg';
+import history from 'history.js';
+import defaultImage from './defaultImage.jpg';
 
 const useStyles = makeStyles(theme => ({
   root: {
