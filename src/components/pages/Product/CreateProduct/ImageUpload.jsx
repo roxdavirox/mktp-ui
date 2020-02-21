@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { ProductConsumer } from './ProductContext';
+import ProductContext, { ProductConsumer } from './ProductContext';
 
 const ImageUpload = () => {
   const [inputRef, setInputRef] = useState({});
@@ -12,7 +12,7 @@ const ImageUpload = () => {
     inputRef.click();
   };
 
-  const fn = useContext(ProductConsumer);
+  const fn = useContext(ProductContext);
 
   const handleImageChange = e => {
     e.preventDefault();
@@ -30,7 +30,7 @@ const ImageUpload = () => {
 
   const handleRemove = () => {
     fn.handleRemove();
-    // setInputRef(null);
+    setInputRef(null);
   };
 
   return (

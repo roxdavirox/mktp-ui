@@ -12,7 +12,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { getEndpoint } from 'helpers/api';
-import { ProductConsumer } from './ProductContext';
+import ProductContext, { ProductConsumer } from './ProductContext';
 
 const useStyles = makeStyles({
   infoText: {
@@ -35,9 +35,9 @@ const useStyles = makeStyles({
 
 const ProductForm = () => {
   const [categories, setCategories] = useState([]);
+  const fn = useContext(ProductContext);
 
   const classes = useStyles();
-  const fn = useContext(ProductConsumer);
 
   useEffect(() => {
     const categoriesEndpoint = getEndpoint('/categories');
@@ -55,59 +55,57 @@ const ProductForm = () => {
   const handleCategorySelect = e => fn.setCategoryId(e.target.value);
 
   return (
-    <>
-      <ProductConsumer>
-        {({ productName, categoryId }) => (
-          <Container justify="center">
-            <Grid xs={12} sm={12}>
-              <h4 className={classes.infoText}>Digite o nome do produto</h4>
+    <ProductConsumer>
+      {({ productName, categoryId }) => (
+        <Container justify="center">
+          <Grid item xs={12} sm={12}>
+            <h4 className={classes.infoText}>Digite o nome do produto</h4>
+          </Grid>
+          <Container
+            style={{ display: 'flex', justifyContent: 'space-between' }}
+          >
+            <Grid item xs={12} sm={4}>
+              <ImageUpload />
             </Grid>
-            <Container
-              style={{ display: 'flex', justifyContent: 'space-between' }}
-            >
-              <Grid xs={12} sm={4}>
-                <ImageUpload />
-              </Grid>
-              <Grid xs={12} sm={6}>
-                <InputLabel htmlFor="product-name">Nome do produto</InputLabel>
-                <Input
-                  style={{ width: '100%' }}
-                  onChange={handleNameChange}
-                  value={productName}
-                  id="product-name"
-                />
-                <Container
-                  style={{
-                    display: 'flex',
-                    padding: 'inherit',
-                    justifyContent: 'space-between'
-                  }}
-                >
-                  <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="category-input">Categoria</InputLabel>
-                    <Select
-                      className={classes.select}
-                      value={categoryId}
-                      onChange={handleCategorySelect}
-                      input={<Input id="category-input" />}
-                    >
-                      <MenuItem value="">
-                        <em>Nenhum</em>
+            <Grid item xs={12} sm={6}>
+              <InputLabel htmlFor="product-name">Nome do produto</InputLabel>
+              <Input
+                style={{ width: '100%' }}
+                onChange={handleNameChange}
+                value={productName}
+                id="product-name"
+              />
+              <Container
+                style={{
+                  display: 'flex',
+                  padding: 'inherit',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <FormControl className={classes.formControl}>
+                  <InputLabel htmlFor="category-input">Categoria</InputLabel>
+                  <Select
+                    className={classes.select}
+                    value={categoryId}
+                    onChange={handleCategorySelect}
+                    input={<Input id="category-input" />}
+                  >
+                    <MenuItem value="">
+                      <em>Nenhum</em>
+                    </MenuItem>
+                    {categories.map(c => (
+                      <MenuItem key={c._id} value={c._id}>
+                        {c.name}
                       </MenuItem>
-                      {categories.map(c => (
-                        <MenuItem key={c._id} value={c._id}>
-                          {c.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Container>
-              </Grid>
-            </Container>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Container>
+            </Grid>
           </Container>
-        )}
-      </ProductConsumer>
-    </>
+        </Container>
+      )}
+    </ProductConsumer>
   );
 };
 
