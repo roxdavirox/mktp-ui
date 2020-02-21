@@ -26,7 +26,6 @@ const Datatable = ({
   onDuplicateItem,
   onCheckItem,
   onCalculateTotal,
-  enqueueSnackbar,
   onChangeQuantity,
   title,
   onChangeSizeX,
@@ -241,6 +240,5 @@ Datatable.propTypes = {
 };
 
 const MemoizedDatatable = memo(Datatable);
-const NotificationDatatable = withSnackbar(MemoizedDatatable);
 
-export default NotificationDatatable;
+export default MemoizedDatatable;

@@ -198,7 +198,7 @@ const TemplateItemPage = ({ location }) => {
           />
         </Container>
         <Datatable
-          // title={}
+          title={<strong>Templates</strong>}
           data={templateItems}
           onDeleteTemplateItems={handleDeleteTemplateItems}
           onDuplicateItem={handleDuplicateItem}
