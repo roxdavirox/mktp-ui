@@ -38,13 +38,13 @@ var dashRoutes = [
         icon: CreateIcon,
         mini: 'A',
         views: [
-          {
-            path: '/config/products/create',
-            icon: AddCircleOutlineIcon,
-            name: 'Produto',
-            component: ProductCreate,
-            layout: '/admin'
-          },
+          // {
+          //   path: '/config/products/create',
+          //   icon: AddCircleOutlineIcon,
+          //   name: 'Produto',
+          //   component: ProductCreate,
+          //   layout: '/admin'
+          // },
           {
             path: '/products/create',
             icon: AddCircleOutlineIcon,
