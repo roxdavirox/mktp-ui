@@ -62,9 +62,7 @@ const ProductPage = ({ enqueueSnackbar: snack }) => {
   return (
     <Container maxWidth="xl" className="m-sm-30">
       <div className="mb-sm-30">
-        <Breadcrumb
-          routeSegments={[{ name: 'Categorias', path: '/categories' }]}
-        />
+        <Breadcrumb routeSegments={[{ name: 'Produtos', path: '/products' }]} />
       </div>
       <ProductDatatable
         products={productNames}
