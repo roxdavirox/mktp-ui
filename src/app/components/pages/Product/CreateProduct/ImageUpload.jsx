@@ -8,7 +8,6 @@ const ImageUpload = () => {
   const [inputRef, setInputRef] = useState({});
 
   const handleClick = () => {
-    inputRef.value = null;
     inputRef.click();
   };
 
@@ -31,6 +30,7 @@ const ImageUpload = () => {
   const handleRemove = () => {
     fn.handleRemove();
     setInputRef(null);
+    inputRef.value = null;
   };
 
   return (
@@ -38,6 +38,7 @@ const ImageUpload = () => {
       {({ avatar, imageFile, imagePreviewUrl, imageRemoved }) => (
         <div className="fileinput text-center">
           <input
+            hidden
             type="file"
             onChange={handleImageChange}
             ref={thisRef => setInputRef(thisRef)}
