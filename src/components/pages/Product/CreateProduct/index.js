@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Icon from '@material-ui/core/Icon';
+import ArrowForward from '@material-ui/icons/ArrowForward';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -50,8 +52,10 @@ const CreateProductPage = props => {
   const [imageChanged, setImageChange] = useState(true);
   const [imageRemoved, setImageRemoved] = useState(false);
   const [items, setItems] = useState([]);
+  const [productName, setProductName] = useState('');
 
   const state = {
+    productName,
     items,
     imageFile,
     imagePreviewUrl,
@@ -73,6 +77,11 @@ const CreateProductPage = props => {
 
   const handleReset = () => {
     setActiveStep(0);
+    handleRemove();
+  };
+
+  const handleFinish = () => {
+    handleReset();
   };
 
   const handleRemove = () => {
@@ -113,30 +122,45 @@ const CreateProductPage = props => {
                       setImageRemoved,
                       setImagePreviewUrl,
                       setImageChange,
-                      setItems
+                      setItems,
+                      setProductName
                     }}
                   >
                     {getStepContent(activeStep)}
                   </ProductProvider>
                 </Typography>
-                <div>
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={classes.backButton}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                  >
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                  </Button>
-                </div>
               </div>
             )}
+            <Container maxWidth="xl" style={{ paddingTop: '50px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  className={classes.backButton}
+                >
+                  Voltar
+                </Button>
+                {activeStep === steps.length - 1 ? (
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={handleFinish}
+                    endIcon={<Icon>send</Icon>}
+                  >
+                    Cadastrar{' '}
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={handleNext}
+                    endIcon={<ArrowForward />}
+                  >
+                    Próximo{' '}
+                  </Button>
+                )}
+              </div>
+            </Container>
           </div>
         </div>
       </Container>

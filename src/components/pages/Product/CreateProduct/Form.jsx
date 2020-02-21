@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 // core components
 import Container from '@material-ui/core/Container';
@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { getEndpoint } from 'helpers/api';
+import { ProductConsumer } from './ProductContext';
 
 const useStyles = makeStyles({
   infoText: {
@@ -34,10 +35,10 @@ const useStyles = makeStyles({
 
 const ProductForm = () => {
   const [categories, setCategories] = useState([]);
-  const [productName, setProductName] = useState('');
   const [categoryId, setCategoryId] = useState('');
 
   const classes = useStyles();
+  const fn = useContext(ProductConsumer);
 
   useEffect(() => {
     const categoriesEndpoint = getEndpoint('/categories');
@@ -49,57 +50,64 @@ const ProductForm = () => {
   const handleNameChange = e => {
     const { value: name } = e.target;
 
-    setProductName(name);
+    fn.setProductName(name);
   };
 
   const handleCategorySelect = e => setCategoryId(e.target.value);
 
   return (
     <>
-      <Container justify="center">
-        <Grid xs={12} sm={12}>
-          <h4 className={classes.infoText}>Digite o nome do produto</h4>
-        </Grid>
-        <Container style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Grid xs={12} sm={4}>
-            <ImageUpload />
-          </Grid>
-          <Grid xs={12} sm={6}>
-            <InputLabel htmlFor="product-name">Nome do produto</InputLabel>
-            <Input
-              onChange={handleNameChange}
-              value={productName}
-              id="product-name"
-            />
+      <ProductConsumer>
+        {({ productName }) => (
+          <Container justify="center">
+            <Grid xs={12} sm={12}>
+              <h4 className={classes.infoText}>Digite o nome do produto</h4>
+            </Grid>
             <Container
-              style={{
-                display: 'flex',
-                padding: 'inherit',
-                justifyContent: 'space-between'
-              }}
+              style={{ display: 'flex', justifyContent: 'space-between' }}
             >
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="category-input">Categoria</InputLabel>
-                <Select
-                  className={classes.select}
-                  value={categoryId}
-                  onChange={handleCategorySelect}
-                  input={<Input id="category-input" />}
+              <Grid xs={12} sm={4}>
+                <ImageUpload />
+              </Grid>
+              <Grid xs={12} sm={6}>
+                <InputLabel htmlFor="product-name">Nome do produto</InputLabel>
+                <Input
+                  style={{ width: '100%' }}
+                  onChange={handleNameChange}
+                  value={productName}
+                  id="product-name"
+                />
+                <Container
+                  style={{
+                    display: 'flex',
+                    padding: 'inherit',
+                    justifyContent: 'space-between'
+                  }}
                 >
-                  <MenuItem value="">
-                    <em>Nenhum</em>
-                  </MenuItem>
-                  {categories.map(c => (
-                    <MenuItem key={c._id} value={c._id}>
-                      {c.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="category-input">Categoria</InputLabel>
+                    <Select
+                      className={classes.select}
+                      value={categoryId}
+                      onChange={handleCategorySelect}
+                      input={<Input id="category-input" />}
+                    >
+                      <MenuItem value="">
+                        <em>Nenhum</em>
+                      </MenuItem>
+                      {categories.map(c => (
+                        <MenuItem key={c._id} value={c._id}>
+                          {c.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Container>
+              </Grid>
             </Container>
-          </Grid>
-        </Container>
-      </Container>
+          </Container>
+        )}
+      </ProductConsumer>
     </>
   );
 };

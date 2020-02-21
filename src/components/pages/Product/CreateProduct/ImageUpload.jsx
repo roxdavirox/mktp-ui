@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
-
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { ProductConsumer } from './ProductContext';
 
 const ImageUpload = () => {
@@ -47,22 +47,30 @@ const ImageUpload = () => {
           </div>
           <div>
             {(imageFile === null && imagePreviewUrl) || imageRemoved ? (
-              <Button color="primary" variant="contained" onClick={handleClick}>
-                {avatar ? 'Add Photo' : 'Selecione uma imagem'}
+              <Button
+                color="primary"
+                variant="outlined"
+                size="large"
+                onClick={handleClick}
+                startIcon={<CloudUploadIcon />}
+              >
+                Selecione uma imagem
               </Button>
             ) : (
               <span>
                 <Button
-                  variant="contained"
                   color="primary"
+                  variant="outlined"
+                  size="large"
                   onClick={handleClick}
                 >
                   Alterar
                 </Button>
                 {avatar ? <br /> : null}
                 <Button
-                  variant="contained"
-                  color="primary"
+                  color="default"
+                  variant="outlined"
+                  size="large"
                   onClick={handleRemove}
                 >
                   <i className="fas fa-times" /> Excluir
