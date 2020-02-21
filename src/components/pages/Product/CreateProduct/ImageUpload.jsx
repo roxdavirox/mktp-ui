@@ -57,7 +57,7 @@ const ImageUpload = () => {
                 Selecione uma imagem
               </Button>
             ) : (
-              <span>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button
                   color="primary"
                   variant="outlined"
@@ -75,7 +75,7 @@ const ImageUpload = () => {
                 >
                   <i className="fas fa-times" /> Excluir
                 </Button>
-              </span>
+              </div>
             )}
           </div>
         </div>

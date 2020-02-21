@@ -35,7 +35,6 @@ const useStyles = makeStyles({
 
 const ProductForm = () => {
   const [categories, setCategories] = useState([]);
-  const [categoryId, setCategoryId] = useState('');
 
   const classes = useStyles();
   const fn = useContext(ProductConsumer);
@@ -53,12 +52,12 @@ const ProductForm = () => {
     fn.setProductName(name);
   };
 
-  const handleCategorySelect = e => setCategoryId(e.target.value);
+  const handleCategorySelect = e => fn.setCategoryId(e.target.value);
 
   return (
     <>
       <ProductConsumer>
-        {({ productName }) => (
+        {({ productName, categoryId }) => (
           <Container justify="center">
             <Grid xs={12} sm={12}>
               <h4 className={classes.infoText}>Digite o nome do produto</h4>

@@ -53,16 +53,7 @@ const CreateProductPage = props => {
   const [imageRemoved, setImageRemoved] = useState(false);
   const [items, setItems] = useState([]);
   const [productName, setProductName] = useState('');
-
-  const state = {
-    productName,
-    items,
-    imageFile,
-    imagePreviewUrl,
-    imageChanged,
-    imageRemoved
-  };
-
+  const [categoryId, setCategoryId] = useState('');
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
   const classes = useStyles();
@@ -91,6 +82,27 @@ const CreateProductPage = props => {
     setImageRemoved(true);
   };
 
+  const state = {
+    productName,
+    categoryId,
+    items,
+    imageFile,
+    imagePreviewUrl,
+    imageChanged,
+    imageRemoved
+  };
+  const contextProps = {
+    ...state,
+    handleRemove,
+    setImageFile,
+    setImageRemoved,
+    setImagePreviewUrl,
+    setImageChange,
+    setItems,
+    setProductName,
+    setCategoryId
+  };
+
   return (
     <>
       <Container maxWidth="xl">
@@ -114,18 +126,7 @@ const CreateProductPage = props => {
             ) : (
               <div>
                 <Typography className={classes.instructions}>
-                  <ProductProvider
-                    value={{
-                      ...state,
-                      handleRemove,
-                      setImageFile,
-                      setImageRemoved,
-                      setImagePreviewUrl,
-                      setImageChange,
-                      setItems,
-                      setProductName
-                    }}
-                  >
+                  <ProductProvider value={contextProps}>
                     {getStepContent(activeStep)}
                   </ProductProvider>
                 </Typography>
