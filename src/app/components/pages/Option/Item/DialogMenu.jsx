@@ -13,15 +13,18 @@ const DialogMenu = ({ anchorEl, optionId, onCreateItemClick, onClose }) => {
         open={Boolean(anchorEl)}
         onClose={onClose}
       >
-        <Link
-          to={{
-            pathname: '/templates/create',
-            state: {
-              fromRedirect: true,
-              optionId
-            }
-          }}
-        />
+        <MenuItem>
+          <Link
+            to={{
+              pathname: '/templates/create',
+              state: {
+                fromRedirect: true,
+                optionId
+              }
+            }}
+          />
+          Adicionar template
+        </MenuItem>
         <MenuItem onClick={onCreateItemClick}>Adicionar item</MenuItem>
       </Menu>
     </div>

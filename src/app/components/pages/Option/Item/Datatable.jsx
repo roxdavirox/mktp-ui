@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 /* eslint-disable react/display-name */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import DialogMenu from './DialogMenu';
 import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 import { AddToolbar } from 'app/components/common/tables/Toolbar';
 import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
@@ -24,6 +25,8 @@ const Datatable = ({
   onRowsDelete,
   data
 }) => {
+  const [anchorElement, setAnchor] = useState(null);
+
   const handleOpenEditItem = (itemId, tableMeta) => {
     const [name, itemType, priceTable] = tableMeta.rowData;
     const item = {
@@ -34,6 +37,12 @@ const Datatable = ({
     };
     setEditedItem(item);
   };
+
+  const handleCreateItem = () => {
+    onOpen('ADD_ITEM');
+  };
+  const handleMenuClick = e => setAnchor(e.currentTarget);
+  const handleCloseMenu = () => setAnchor(null);
 
   const options = {
     filterType: 'checkbox',
@@ -54,8 +63,8 @@ const Datatable = ({
       return (
         <>
           <AddToolbar
-            title="Adicionar Item"
-            onClick={() => onOpen('ADD_ITEM')}
+            title="Adicionar"
+            onClick={handleMenuClick}
             aria-owns="add-menu"
             aria-haspopup="true"
           />
@@ -131,14 +140,20 @@ const Datatable = ({
     }
   ];
   return (
-    <div>
+    <>
+      <DialogMenu
+        anchorEl={anchorElement}
+        onSetAnchor={setAnchor}
+        onClose={handleCloseMenu}
+        onCreateItemClick={handleCreateItem}
+      />
       <MuiDatatable
         title="Itens"
         data={data}
         options={options}
         columns={columns}
       />{' '}
-    </div>
+    </>
   );
 };
 
