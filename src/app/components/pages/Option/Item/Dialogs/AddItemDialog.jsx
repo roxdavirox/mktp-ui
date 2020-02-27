@@ -39,9 +39,22 @@ const AddItemDialog = ({ onAddOptionItem, onClose }) => {
     dispatch(fetchPriceTables());
   }, []);
 
-  const handleNameChange = e => setItemName(e.target.value);
+  const handleNameChange = e => {
+    e.preventDefault();
+    setItemName(e.target.value);
+  };
 
-  const handlePriceTableChange = e => setPriceTable(e.target.value);
+  const handleEnterKey = e => {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
+  const handlePriceTableChange = e => {
+    e.preventDefault();
+    setPriceTable(e.target.value);
+  };
 
   const handleSubmit = () => {
     const item = { name: itemName, priceTable };
@@ -64,6 +77,7 @@ const AddItemDialog = ({ onAddOptionItem, onClose }) => {
               label="Nome"
               fullWidth
               onChange={handleNameChange}
+              onKeyDown={handleEnterKey}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
