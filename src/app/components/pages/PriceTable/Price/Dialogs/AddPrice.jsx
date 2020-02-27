@@ -123,7 +123,7 @@ const AddPrice = ({
         <form className={classes.container}>
           <FormControl className={classes.formControl}>
             <ReactNumberFormat
-              // autoFocus
+              autoFocus
               margin="dense"
               id="start"
               name="start"
@@ -143,7 +143,6 @@ const AddPrice = ({
           </FormControl>
           <FormControl className={classes.formControl}>
             <ReactNumberFormat
-              autoFocus
               margin="dense"
               id="end"
               name="end"

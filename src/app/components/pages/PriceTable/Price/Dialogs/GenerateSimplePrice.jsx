@@ -78,6 +78,7 @@ const GenerateSimplePrice = ({ onClose, enqueueSnackbar, priceTableId }) => {
         <form className={classes.container}>
           <FormControl className={classes.formControl}>
             <ReactNumberFormat
+              autoFocus
               margin="dense"
               name="cost"
               id="cost"

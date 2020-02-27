@@ -55,11 +55,13 @@ const InfoItem = ({
           <FormControl className={classes.formControl} sm={3}>
             {templateName !== '' ? (
               <TextField
+                autoFocus
                 placeholder="Nome do template"
                 onBlur={e => onNameChange(e.target.value)}
               />
             ) : (
               <TextField
+                autoFocus
                 placeholder="Nome do template"
                 value={templateName}
                 onChange={e => onNameChange(e.target.value)}

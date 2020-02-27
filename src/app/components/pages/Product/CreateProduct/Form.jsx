@@ -70,6 +70,7 @@ const ProductForm = () => {
             <Grid item xs={12} sm={6}>
               <InputLabel htmlFor="product-name">Nome do produto</InputLabel>
               <Input
+                autoFocus
                 style={{ width: '100%' }}
                 onChange={handleNameChange}
                 value={productName}
