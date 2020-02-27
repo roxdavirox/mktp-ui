@@ -38,6 +38,8 @@ const DataTable = ({ enqueueSnackbar: snack, classes, onOpen, data }) => {
     dispatch(deleteOptions(deletedOptionsIds, snack));
   };
 
+  const handle
+
   const columns = [
     {
       name: 'name',
@@ -99,12 +101,14 @@ const DataTable = ({ enqueueSnackbar: snack, classes, onOpen, data }) => {
   };
 
   return (
-    <MuiDatatable
-      title={'Opções'}
-      data={data}
-      columns={columns}
-      options={options}
-    />
+    <>
+      <MuiDatatable
+        title={'Opções'}
+        data={data}
+        columns={columns}
+        options={options}
+      />
+    </>
   );
 };
 
