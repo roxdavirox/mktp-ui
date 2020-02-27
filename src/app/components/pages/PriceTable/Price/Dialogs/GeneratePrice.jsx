@@ -122,7 +122,7 @@ const GeneratePrice = ({
               margin="dense"
               name="kgPrice"
               id="kgPrice"
-              label="Preço do Kg"
+              label="Preço do Kg/m³"
               fullWidth
               // format
               customInput={TextField}
