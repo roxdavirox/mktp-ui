@@ -13,7 +13,7 @@ const mapProductNames = products => products.map(mapProduct);
 
 const ProductPage = ({ enqueueSnackbar: snack }) => {
   const [productNames, setProductNames] = useState([]);
-  const [isLoading, setLoadingState] = useState(true);
+  const [isLoading, setLoadingState] = useState(false);
 
   useEffect(() => {
     const endpoint = getEndpoint('/products');
