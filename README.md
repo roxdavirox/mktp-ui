@@ -1,1 +1,3 @@
-Material UI template base for e-Commerce with Marketplace using React
+Marketplace e-Commerce using React & Material UI
+
+- Tasks: https://trello.com/b/KEipXeWP/marketplace
