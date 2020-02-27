@@ -12,7 +12,7 @@ import { Store } from './redux/Store';
 import Auth from './auth/Auth';
 import MatxLayout from './MatxLayout/MatxLayout';
 import AuthGuard from './auth/AuthGuard';
-import { SnackbarProvider } from 'notistack';
+import SnackbarProvider from './SnackbarProvider';
 
 const App = () => {
   return (
@@ -22,13 +22,7 @@ const App = () => {
           <Auth>
             <Router history={history}>
               <AuthGuard>
-                <SnackbarProvider
-                  maxSnack={2}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right'
-                  }}
-                >
+                <SnackbarProvider>
                   <MatxLayout />
                 </SnackbarProvider>
               </AuthGuard>

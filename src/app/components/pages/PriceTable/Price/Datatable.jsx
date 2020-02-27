@@ -242,7 +242,7 @@ const Datatable = ({
         onClose={handleCloseMenu}
       />
       <MuiDatatable
-        title={<h2>Tabela de preço: {priceTable.name}</h2>}
+        title={priceTable.name}
         data={data}
         columns={columns}
         options={options}
