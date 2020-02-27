@@ -11,6 +11,7 @@ import categoryRoutes from './components/pages/Category/CategoryRoutes';
 import subCategoryRoutes from './components/pages/Category/SubCategory/SubCategoryRoutes';
 import productRoutes from './components/pages/Product/List/ProductListRoutes';
 import createProductRoutes from './components/pages/Product/CreateProduct/CreateProductRoutes';
+import createTemplateRoutes from './components/pages/Option/CreateTemplateItem/CreateTemplateRoutes';
 import dashboardRoutes from './views/dashboard/DashboardRoutes';
 import sessionRoutes from './views/sessions/SessionRoutes';
 // import utilitiesRoutes from './views/utilities/UtilitiesRoutes';
@@ -45,6 +46,7 @@ const routes = [
   ...subCategoryRoutes,
   ...productRoutes,
   ...createProductRoutes,
+  ...createTemplateRoutes,
   // theme routes
   ...dashboardRoutes,
   ...sessionRoutes,

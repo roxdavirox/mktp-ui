@@ -7,11 +7,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 //Common components
-import MuiDatatable from 'components/common/tables/MuiDatatable';
+import MuiDatatable from 'app/components/common/tables/MuiDatatable';
+import DuplicateIcon from 'app/components/common/icons/DuplicateIcon';
 //core
 import Size from './Size';
 import Quantity from './Quantity';
-import DuplicateIcon from 'components/common/icons/DuplicateIcon';
 import Loading from './LoadingSkeleton';
 
 const useStyle = makeStyles({
