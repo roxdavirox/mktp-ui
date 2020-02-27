@@ -40,6 +40,7 @@ const Datatable = ({
 
   const handleCreateItem = () => {
     onOpen('ADD_ITEM');
+    handleCloseMenu();
   };
   const handleMenuClick = e => setAnchor(e.currentTarget);
   const handleCloseMenu = () => setAnchor(null);
