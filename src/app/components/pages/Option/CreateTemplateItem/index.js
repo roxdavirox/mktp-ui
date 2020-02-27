@@ -75,7 +75,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
       );
       return;
     }
-
+    if (!priceTable) return;
     const { _id: priceTableId } = priceTable;
     const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
 
