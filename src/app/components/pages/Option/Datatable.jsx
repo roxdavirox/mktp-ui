@@ -38,8 +38,6 @@ const DataTable = ({ enqueueSnackbar: snack, classes, onOpen, data }) => {
     dispatch(deleteOptions(deletedOptionsIds, snack));
   };
 
-  const handle
-
   const columns = [
     {
       name: 'name',

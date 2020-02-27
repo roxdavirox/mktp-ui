@@ -2,13 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Link } from 'react-router-dom';
 
-const DialogMenu = ({
-  anchorEl,
-  onCrateTemplateClick,
-  onCreateItemClick,
-  onClose
-}) => {
+const DialogMenu = ({ anchorEl, optionId, onCreateItemClick, onClose }) => {
   return (
     <div>
       <Menu
@@ -17,7 +13,15 @@ const DialogMenu = ({
         open={Boolean(anchorEl)}
         onClose={onClose}
       >
-        <MenuItem onClick={onCrateTemplateClick}>Adicionar template</MenuItem>
+        <Link
+          to={{
+            pathname: '/templates/create',
+            state: {
+              fromRedirect: true,
+              optionId
+            }
+          }}
+        />
         <MenuItem onClick={onCreateItemClick}>Adicionar item</MenuItem>
       </Menu>
     </div>
@@ -26,7 +30,7 @@ const DialogMenu = ({
 
 DialogMenu.propTypes = {
   anchorEl: PropTypes.object,
-  onCrateTemplateClick: PropTypes.func,
+  optionId: PropTypes.string,
   onCreateItemClick: PropTypes.func,
   onClose: PropTypes.func
 };
