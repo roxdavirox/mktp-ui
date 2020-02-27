@@ -74,7 +74,7 @@ const GenerateSimplePrice = ({ onClose, enqueueSnackbar, priceTableId }) => {
               margin="dense"
               name="cost"
               id="cost"
-              label="Preço de Custo"
+              label="Custo do m²"
               fullWidth
               // format
               customInput={TextField}
