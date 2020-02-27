@@ -49,6 +49,13 @@ const GeneratePrice = ({
 
   const handleClose = () => onClose();
 
+  const handleEnterKey = e => {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   const handleSubmit = () => {
     const espessura = thickness.floatValue;
     const pesoEspecifico = specificWeigth.floatValue;
@@ -149,6 +156,7 @@ const GeneratePrice = ({
               id="lowerSale"
               label="Menor margem de venda"
               fullWidth
+              onKeyDown={handleEnterKey}
               // format
               customInput={TextField}
               value={lowerSalesMargin.formattedValue}

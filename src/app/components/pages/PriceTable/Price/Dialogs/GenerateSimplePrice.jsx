@@ -45,6 +45,13 @@ const GenerateSimplePrice = ({ onClose, enqueueSnackbar, priceTableId }) => {
 
   const handleClose = () => onClose();
 
+  const handleEnterKey = e => {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   const handleSubmit = () => {
     const { unit } = priceTable;
     enqueueSnackbar('Adicionando intervalo de preços...', {
@@ -108,6 +115,7 @@ const GenerateSimplePrice = ({ onClose, enqueueSnackbar, priceTableId }) => {
               id="lowerSale"
               label="Menor margem de venda"
               fullWidth
+              onKeyDown={handleEnterKey}
               // format
               customInput={TextField}
               value={menorMargemVenda.formattedValue}

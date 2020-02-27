@@ -32,10 +32,20 @@ const GeneratePriceQty = ({ onClose, enqueueSnackbar, priceTableId }) => {
   const [maiorMargemVenda, setMaiorMargemVenda] = useState('');
   const [menorMargemVenda, setMenorMargemVenda] = useState('');
   const dispatch = useDispatch();
+
   const priceTable = useSelector(store =>
     getPriceTableById(priceTableId, store)
   );
+
   const handleClose = () => onClose();
+
+  const handleEnterKey = e => {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   const handleSubmit = () => {
     const prices = generatePriceRange(
       cost.floatValue,
@@ -93,6 +103,7 @@ const GeneratePriceQty = ({ onClose, enqueueSnackbar, priceTableId }) => {
               id="lowerSale"
               label="Menor margem de venda"
               fullWidth
+              onKeyDown={handleEnterKey}
               // format
               customInput={TextField}
               value={menorMargemVenda.formattedValue}
