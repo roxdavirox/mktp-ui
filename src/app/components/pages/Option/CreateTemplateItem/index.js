@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
+import { Breadcrumb } from 'matx';
 import TemplateDatatable from './Datatable';
 import InfoItem from './InfoItem';
 import { getEndpoint, createPostRequest } from 'helpers/api';
@@ -190,7 +191,15 @@ const TemplateItems = ({ enqueueSnackbar }) => {
 
   return (
     <>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" className="m-sm-30">
+        <div className="mb-sm-30">
+          <Breadcrumb
+            routeSegments={[
+              { name: 'Opções', path: '/options' },
+              { name: 'Templates' }
+            ]}
+          />
+        </div>
         <p>Total: {total}</p>
         <TemplateDatatable
           title={
