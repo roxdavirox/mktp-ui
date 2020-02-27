@@ -22,8 +22,9 @@ const DialogMenu = ({ anchorEl, optionId, onCreateItemClick, onClose }) => {
                 optionId
               }
             }}
-          />
-          Adicionar template
+          >
+            Adicionar template
+          </Link>
         </MenuItem>
         <MenuItem onClick={onCreateItemClick}>Adicionar item</MenuItem>
       </Menu>

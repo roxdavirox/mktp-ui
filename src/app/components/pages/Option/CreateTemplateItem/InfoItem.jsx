@@ -8,8 +8,8 @@ import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 // theme components
-import GridContainer from 'components/theme/Grid/GridContainer.jsx';
-import GridItem from 'components/theme/Grid/GridItem.jsx';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
 import { TextField } from '@material-ui/core';
 
@@ -50,8 +50,8 @@ const InfoItem = ({
 
   return (
     <>
-      <GridContainer className={classes.container}>
-        <GridItem xs={12} sm={6}>
+      <Container className={classes.container}>
+        <Grid item xs={12} sm={6}>
           <FormControl className={classes.formControl} sm={3}>
             {templateName !== '' ? (
               <TextField
@@ -66,8 +66,8 @@ const InfoItem = ({
               />
             )}
           </FormControl>
-        </GridItem>
-        <GridItem xs={12} sm={6}>
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="option-input">Opção</InputLabel>
             <Select
@@ -87,8 +87,8 @@ const InfoItem = ({
                 ))}
             </Select>
           </FormControl>
-        </GridItem>
-      </GridContainer>
+        </Grid>
+      </Container>
     </>
   );
 };
