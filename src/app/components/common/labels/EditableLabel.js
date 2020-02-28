@@ -98,9 +98,11 @@ export default class EditableLabel extends React.Component {
             style={{
               width: this.props.inputWidth,
               height: this.props.inputHeight,
-              fontSize: this.props.inputFontSize,
-              fontWeight: this.props.inputFontWeight,
-              borderWidth: this.props.inputBorderWidth
+              fontSize: '1.5rem',
+              fontWeight: '500',
+              borderWidth: this.props.inputBorderWidth,
+              lineHeight: this.props.lineHeight,
+              fontFamily: 'Roboto, "Helvetica Neue", sans-serif'
             }}
             maxLength={this.props.inputMaxLength}
             placeholder={this.props.inputPlaceHolder}
