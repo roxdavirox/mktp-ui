@@ -18,6 +18,7 @@ import DialogMenu from './DialogMenu';
 import Loading from './Loading';
 import { deletePrices } from 'app/redux/actions/Price.actions';
 import { getPriceTableById } from 'app/redux/selectors/PriceTable.selectors';
+import EditableLabel from 'app/components/common/labels/EditableLabel';
 
 const styles = {
   EditCell: { textAlign: 'right' },
@@ -242,7 +243,7 @@ const Datatable = ({
         onClose={handleCloseMenu}
       />
       <MuiDatatable
-        title={priceTable.name}
+        title={<EditableLabel text={priceTable.name} />}
         data={data}
         columns={columns}
         options={options}
