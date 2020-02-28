@@ -122,7 +122,8 @@ export default class EditableLabel extends React.Component {
             onClick={this.handleFocus}
             style={{
               fontSize: this.props.labelFontSize,
-              fontWeight: this.props.labelFontWeight
+              fontWeight: this.props.labelFontWeight,
+              cursor: 'text'
             }}
           >
             {labelText}
