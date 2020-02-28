@@ -3,7 +3,7 @@ import {
   FETCH_PRICE_TABLES,
   ADD_PRICE_TABLE_SUCCESS,
   DELETE_PRICE_TABLES_SUCCESS,
-  UPDATED_PRICE_TABLE,
+  UPDATED_PRICE_TABLE
 } from '../actions/PriceTable.actions';
 //reducers
 const initialState = {
