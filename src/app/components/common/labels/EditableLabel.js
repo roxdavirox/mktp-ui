@@ -66,6 +66,7 @@ export default class EditableLabel extends React.Component {
     this.setState({
       text: this.textInput.value
     });
+    if (!this.props.onTextChange) return;
     this.props.onTextChange(this.textInput.value);
   };
 

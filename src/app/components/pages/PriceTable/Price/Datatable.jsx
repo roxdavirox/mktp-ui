@@ -14,9 +14,9 @@ import {
   MoreToolbar
 } from 'app/components/common/tables/Toolbar.jsx';
 import DialogMenu from './DialogMenu';
-
 import Loading from './Loading';
 import { deletePrices } from 'app/redux/actions/Price.actions';
+import { updatePriceTable } from 'app/redux/actions/PriceTable.actions';
 import { getPriceTableById } from 'app/redux/selectors/PriceTable.selectors';
 import EditableLabel from 'app/components/common/labels/EditableLabel';
 
@@ -233,6 +233,11 @@ const Datatable = ({
     handleCloseMenu();
   };
 
+  const handleUpdateName = name => {
+    if (name == priceTable.name) return;
+    dispatch(updatePriceTable(priceTableId, name, snack));
+  };
+
   return (
     <>
       <DialogMenu
@@ -243,7 +248,9 @@ const Datatable = ({
         onClose={handleCloseMenu}
       />
       <MuiDatatable
-        title={<EditableLabel text={priceTable.name} />}
+        title={
+          <EditableLabel text={priceTable.name} onFocusOut={handleUpdateName} />
+        }
         data={data}
         columns={columns}
         options={options}

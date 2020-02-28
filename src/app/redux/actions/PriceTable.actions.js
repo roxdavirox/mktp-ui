@@ -5,7 +5,8 @@ import { normalize } from 'normalizr';
 import {
   getEndpoint,
   createPostRequest,
-  createDeleteRequest
+  createDeleteRequest,
+  createPutRequest
 } from 'helpers/api';
 
 export const FETCH_PRICE_TABLES = 'FETCH_PRICE_TABLES';
@@ -13,6 +14,7 @@ export const ADD_PRICE_TABLE = 'ADD_PRICE_TABLE';
 export const ADD_PRICE_TABLE_SUCCESS = 'ADD_PRICE_TABLE_SUCCESS';
 export const DELETE_PRICE_TABLES = 'DELETE_PRICE_TABLES';
 export const DELETE_PRICE_TABLES_SUCCESS = 'DELETE_PRICE_TABLES_SUCCESS';
+export const UPDATED_PRICE_TABLE = 'UPDATED_PRICE_TABLE';
 
 export const addPriceTableSuccess = priceTable => ({
   type: ADD_PRICE_TABLE_SUCCESS,
@@ -22,6 +24,11 @@ export const addPriceTableSuccess = priceTable => ({
 export const deletePriceTablesSuccess = priceTableIds => ({
   type: DELETE_PRICE_TABLES_SUCCESS,
   payload: { priceTableIds }
+});
+
+export const updatedPriceTable = priceTable => ({
+  type: UPDATED_PRICE_TABLE,
+  payload: { priceTable }
 });
 
 // middlewares
@@ -47,6 +54,21 @@ export const addPriceTable = (name, unit, snack) => dispatch => {
         autoHideDuration: 2000
       });
       dispatch(addPriceTableSuccess(priceTable));
+    })
+    .catch(console.error);
+};
+
+export const updatePriceTable = (id, newName, snack) => dispatch => {
+  const endpoint = getEndpoint(`/price-tables/${id}/name`);
+  const request = createPutRequest({ name: newName });
+  fetch(endpoint, request)
+    .then(res => res.json())
+    .then(({ priceTable }) => {
+      dispatch(updatedPriceTable(priceTable));
+      snack('Nome da tabela atualizado com sucesso!', {
+        variant: 'success',
+        autoHideDuration: 2000
+      });
     })
     .catch(console.error);
 };
