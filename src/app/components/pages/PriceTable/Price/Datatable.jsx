@@ -249,7 +249,10 @@ const Datatable = ({
       />
       <MuiDatatable
         title={
-          <EditableLabel text={priceTable.name} onFocusOut={handleUpdateName} />
+          <EditableLabel
+            value={priceTable.name}
+            onFocusOut={handleUpdateName}
+          />
         }
         data={data}
         columns={columns}
