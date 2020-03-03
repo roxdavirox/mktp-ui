@@ -8018,10 +8018,10 @@ mui-datatables@^2.0.0-beta.59:
     prop-types "^15.6.0"
     react-to-print "^2.0.0-alpha.7"
 
-mui-editable-label@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/mui-editable-label/-/mui-editable-label-1.0.1.tgz#8b0ce8d20f236ee2edf3df9ffef7fdf154ea4508"
-  integrity sha512-pKUllmrsw8+9FvLW6+hNlvSA4BUAA7UVf0oVMEfmMsDSO3Y3KwdzkF0C4PsEMQAByljztMDjat06CRhRApvqNA==
+mui-editable-label@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/mui-editable-label/-/mui-editable-label-1.0.2.tgz#6e3cde8b207246657b7750eee1a722e9eab04650"
+  integrity sha512-02u0bI6GzChcGelq2iEnyIfRjE5yptGnL6nWvJq/O3vpp5UOvtmKYvi/TrfXc5n4pFkuv9PgMr5N4ayBiMjvQg==
   dependencies:
     "@material-ui/core" "^4.9.5"
     prop-types "^15.7.2"

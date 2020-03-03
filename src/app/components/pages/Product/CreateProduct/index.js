@@ -46,6 +46,7 @@ function getStepContent(stepIndex) {
   }
 }
 
+// TODO: Encapsular componente stepper
 // eslint-disable-next-line no-unused-vars
 const CreateProductPage = props => {
   // eslint-disable-next-line no-unused-vars

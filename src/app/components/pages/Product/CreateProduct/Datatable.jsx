@@ -101,7 +101,8 @@ const Datatable = ({ data, onCheckItem }) => {
               }
               onChange={event => {
                 const isChecked = event.target.value === 'Yes' ? false : true;
-                onCheckItem(tableMeta.rowIndex);
+                const [itemId] = tableMeta.rowData;
+                onCheckItem(itemId);
                 updateValue(isChecked);
               }}
             />
