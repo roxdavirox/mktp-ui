@@ -12,9 +12,9 @@ const mapItemsWithOptionName = ({ options }) =>
 
 const converItemsArrayToObject = items =>
   items.reduce(
-    (obj, item) => ({
+    (obj, item, index) => ({
       ...obj,
-      [item._id]: { ...item, isChecked: false }
+      [item._id]: { ...item, index, isChecked: false }
     }),
     {}
   );
@@ -42,11 +42,45 @@ const SelectItems = () => {
     }));
   };
 
-  const dataItems = Object.values(items);
+  const handleSort = direction => {
+    if (direction === 'descending') {
+      const _items = Object.values(items);
+      let itemsLength = _items.length;
+
+      const descItems = _items.reduce(
+        (obj, item, index) => ({
+          ...obj,
+          item: { ...item, index: itemsLength - index - 1 }
+        }),
+        {}
+      );
+      console.table(descItems);
+      setItems(descItems);
+      return;
+    }
+
+    const _items = Object.values(items);
+
+    const ascItems = _items.reduce(
+      (obj, item, index) => ({
+        ...obj,
+        item: { ...item, index }
+      }),
+      {}
+    );
+    setItems(ascItems);
+  };
+
+  const dataItems = Object.values(items).sort((a, b) => a.index - b.index);
+  console.table(dataItems);
   return (
     <>
       <Container maxWidth="xl">
-        <Datatable data={dataItems} onCheckItem={handleCheckItem} />
+        <Datatable
+          data={dataItems}
+          onCheckItem={handleCheckItem}
+          onSortData={handleSort}
+        />
       </Container>
     </>
   );

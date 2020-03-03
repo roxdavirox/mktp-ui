@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   NameCell: { fontWeight: 500, padding: '0 0 0 2em' }
 });
 
-const Datatable = ({ data, onCheckItem }) => {
+const Datatable = ({ data, onCheckItem, onSortData }) => {
   const classes = useStyles();
   const options = {
     filterType: 'checkbox',
@@ -27,6 +27,11 @@ const Datatable = ({ data, onCheckItem }) => {
       }
     },
     selectableRows: 'none',
+    onColumnSortChange: function(changedColumn, direction) {
+      onSortData(direction);
+      console.log('changedColumn', changedColumn);
+      console.log('direction', direction);
+    },
     customToolbarSelect: () => {} // apaga botão de delete
   };
   const columns = [
@@ -116,7 +121,8 @@ const Datatable = ({ data, onCheckItem }) => {
 
 Datatable.propTypes = {
   data: PropTypes.array,
-  onCheckItem: PropTypes.func
+  onCheckItem: PropTypes.func,
+  onSortData: PropTypes.func
 };
 
 export default Datatable;
