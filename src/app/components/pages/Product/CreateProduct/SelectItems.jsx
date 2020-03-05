@@ -50,7 +50,7 @@ const SelectItems = () => {
       const descItems = _items.reduce(
         (obj, item, index) => ({
           ...obj,
-          item: { ...item, index: itemsLength - index - 1 }
+          [item._id]: { ...item, index: itemsLength - index - 1 }
         }),
         {}
       );
@@ -64,7 +64,7 @@ const SelectItems = () => {
     const ascItems = _items.reduce(
       (obj, item, index) => ({
         ...obj,
-        item: { ...item, index }
+        [item._id]: { ...item, index }
       }),
       {}
     );
