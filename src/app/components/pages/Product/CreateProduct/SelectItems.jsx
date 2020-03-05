@@ -43,36 +43,21 @@ const SelectItems = () => {
   };
 
   const handleSort = direction => {
-    if (direction === 'descending') {
-      const _items = Object.values(items);
-      let itemsLength = _items.length;
+    const reverseItems = Object.values(items).reverse();
 
-      const descItems = _items.reduce(
-        (obj, item, index) => ({
-          ...obj,
-          [item._id]: { ...item, index: itemsLength - index - 1 }
-        }),
-        {}
-      );
-      console.table(descItems);
-      setItems(descItems);
-      return;
-    }
-
-    const _items = Object.values(items);
-
-    const ascItems = _items.reduce(
+    const _items = reverseItems.reduce(
       (obj, item, index) => ({
         ...obj,
-        [item._id]: { ...item, index }
+        [item._id]: item
       }),
       {}
     );
-    setItems(ascItems);
+
+    setItems(_items);
   };
 
-  const dataItems = Object.values(items).sort((a, b) => a.index - b.index);
-  console.table(dataItems);
+  const dataItems = Object.values(items);
+  console.log('dataItems', dataItems);
   return (
     <>
       <Container maxWidth="xl">
