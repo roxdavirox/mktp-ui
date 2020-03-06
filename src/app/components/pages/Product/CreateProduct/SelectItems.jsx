@@ -48,7 +48,7 @@ const SelectItems = () => {
   };
 
   const handleSort = column => {
-    const reverseItems = Object.values(items).sort(
+    const sortedItems = Object.values(items).sort(
       compareValues(column, sortDirection[column])
     );
 
@@ -57,7 +57,7 @@ const SelectItems = () => {
       [column]: prev[column] === 'descending' ? 'asc' : 'descending'
     }));
 
-    const _items = reverseItems.reduce(
+    const _items = sortedItems.reduce(
       (items, item) => ({
         ...items,
         [item._id]: item

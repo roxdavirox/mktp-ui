@@ -2,7 +2,7 @@ import { MatxLoadable } from 'matx';
 import { authRoles } from 'app/auth/authRoles';
 
 const Products = MatxLoadable({
-  loader: () => import('./ProductPage')
+  loader: () => import('./index')
 });
 
 const productListRoutes = [
