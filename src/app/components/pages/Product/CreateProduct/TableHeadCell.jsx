@@ -9,7 +9,7 @@ const useStyles = makeStyles({
 
 const CustomTableHeadCell = props => {
   const classes = useStyles();
-  return <TableCell classNames={classes.TableCell} {...props} />;
+  return <TableCell className={classes.TableCell} {...props} />;
 };
 
 export default CustomTableHeadCell;
