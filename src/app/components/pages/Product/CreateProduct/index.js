@@ -70,6 +70,8 @@ const CreateProductPage = props => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
+  const handleFirstStep = () => setActiveStep(0);
+
   const handleReset = () => {
     setActiveStep(0);
     handleRemove();
@@ -79,8 +81,9 @@ const CreateProductPage = props => {
     if (!imageFile) {
       props.enqueueSnackbar('Por favor, adicione uma imagem!', {
         variant: 'warning',
-        autoHideDuration: 2000
+        autoHideDuration: 3000
       });
+      handleFirstStep();
       return;
     }
     const productOptions = selectedItems
@@ -147,7 +150,8 @@ const CreateProductPage = props => {
     setImageChange,
     setItems,
     setProductName,
-    setCategoryId
+    setCategoryId,
+    handleFirstStep
   };
   return (
     <Container maxWidth="xl" className="m-sm-30">
