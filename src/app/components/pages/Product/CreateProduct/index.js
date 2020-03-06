@@ -142,7 +142,7 @@ const CreateProductPage = props => {
     setProductName,
     setCategoryId
   };
-
+  console.log('items index', items);
   return (
     <Container maxWidth="xl" className="m-sm-30">
       <div className="mb-sm-30">

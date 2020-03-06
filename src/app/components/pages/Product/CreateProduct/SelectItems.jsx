@@ -47,8 +47,9 @@ const SelectItems = () => {
   });
 
   useEffect(() => {
+    if (Object.keys(items).length) return;
     const optionsEndpoint = getEndpoint('/options');
-
+    console.log('effect');
     fetch(optionsEndpoint)
       .then(res => res.json())
       .then(mapItemsWithOptionName)
@@ -66,7 +67,7 @@ const SelectItems = () => {
     }));
   };
 
-  const handleSort = (direction, column) => {
+  const handleSort = column => {
     const reverseItems = Object.values(items).sort(
       compareValues(column, sortDirection[column])
     );
@@ -88,7 +89,6 @@ const SelectItems = () => {
   };
 
   const dataItems = Object.values(items);
-  console.log('dataItems', dataItems);
   return (
     <>
       <Container maxWidth="xl">
