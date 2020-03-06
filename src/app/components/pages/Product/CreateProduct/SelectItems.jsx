@@ -49,7 +49,6 @@ const SelectItems = () => {
   useEffect(() => {
     if (Object.keys(items).length) return;
     const optionsEndpoint = getEndpoint('/options');
-    console.log('effect');
     fetch(optionsEndpoint)
       .then(res => res.json())
       .then(mapItemsWithOptionName)
