@@ -46,17 +46,6 @@ function getStepContent(stepIndex) {
   }
 }
 
-const mapItemsWithOptionName = ({ options }) =>
-  options.map(o =>
-    o.items.map(i => ({ optionId: o._id, optionName: o.name, ...i }))
-  );
-
-const mapOptionsItems = options =>
-  options.reduce((all, item) => [...all, ...item], []);
-
-const mapAllItemsWithCheckedProp = items =>
-  items.map(item => ({ ...item, isChecked: false }));
-
 // TODO: Encapsular componente stepper
 // eslint-disable-next-line no-unused-vars
 const EditProductPage = props => {
@@ -74,36 +63,6 @@ const EditProductPage = props => {
   const classes = useStyles();
   // eslint-disable-next-line react/prop-types
   const { productId } = props.location.state;
-  console.log('productID', productId);
-  useEffect(() => {
-    async function getProductItems() {
-      const optionsEndpoint = getEndpoint('/options');
-
-      fetch(optionsEndpoint)
-        .then(res => res.json())
-        .then(mapItemsWithOptionName)
-        .then(mapOptionsItems)
-        .then(mapAllItemsWithCheckedProp)
-        .then(async prevItems => {
-          const itemsEndpoint = getEndpoint(`/products/${productId}/items`);
-          const result = await fetch(itemsEndpoint);
-          const data = await result.json();
-
-          const { product } = data;
-          const { productOptions } = product;
-          const itemsIds = productOptions.map(po => po.item);
-          const checkedItems = prevItems.map(item =>
-            itemsIds.indexOf(item._id) !== -1
-              ? { ...item, isChecked: !item.isChecked }
-              : item
-          );
-          return checkedItems;
-        })
-        .then(setItems);
-    }
-
-    getProductItems();
-  }, []);
 
   useEffect(() => {
     async function getProductCategories() {
@@ -144,7 +103,7 @@ const EditProductPage = props => {
   };
 
   const handleFinish = () => {
-    if (!imageFile) {
+    if (!imageFile && !imagePreviewUrl) {
       props.enqueueSnackbar('Por favor, adicione uma imagem!', {
         variant: 'warning',
         autoHideDuration: 3000
@@ -208,7 +167,8 @@ const EditProductPage = props => {
     imagePreviewUrl,
     imageChanged,
     imageRemoved,
-    categories
+    categories,
+    productId
   };
   const contextProps = {
     ...state,
@@ -272,7 +232,7 @@ const EditProductPage = props => {
                   onClick={handleFinish}
                   endIcon={<Icon>send</Icon>}
                 >
-                  Cadastrar{' '}
+                  Editar{' '}
                 </Button>
               ) : (
                 <Button

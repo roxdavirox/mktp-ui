@@ -21,20 +21,49 @@ const converItemsArrayToObject = items =>
   );
 
 const SelectItems = () => {
-  const { items, setItems } = useContext(ProductConsumer);
+  const { items, setItems, productId } = useContext(ProductConsumer);
   const [sortDirection, setSortDirection] = useState({
     optionName: 'descending',
     name: 'descending'
   });
-
+  console.log('productid', productId);
   useEffect(() => {
     if (Object.keys(items).length) return;
-    const optionsEndpoint = getEndpoint('/options');
-    fetch(optionsEndpoint)
-      .then(res => res.json())
-      .then(mapItemsWithOptionName)
-      .then(converItemsArrayToObject)
-      .then(_items => setItems(_items));
+
+    async function getProductItems() {
+      const optionsEndpoint = getEndpoint('/options');
+
+      fetch(optionsEndpoint)
+        .then(res => res.json())
+        .then(mapItemsWithOptionName)
+        .then(converItemsArrayToObject)
+        .then(async prevItems => {
+          const itemsEndpoint = getEndpoint(`/products/${productId}/items`);
+          const result = await fetch(itemsEndpoint);
+          const data = await result.json();
+
+          const { product } = data;
+          const { productOptions } = product;
+          const itemsIds = productOptions.map(po => po.item);
+          console.log('itemsIds', itemsIds);
+          console.log('prevItems', prevItems);
+          const checkedItems = Object.values(prevItems).reduce(
+            (obj, item) => ({
+              ...obj,
+              [item._id]: {
+                ...item,
+                isChecked: itemsIds.indexOf(item._id) !== -1
+              }
+            }),
+            {}
+          );
+          console.log('checked items', checkedItems);
+          return checkedItems;
+        })
+        .then(setItems);
+    }
+
+    getProductItems();
   }, []);
 
   const handleCheckItem = itemId => {

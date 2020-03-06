@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
-import { getEndpoint } from 'helpers/api';
 import { compareValues } from 'helpers/array';
 import Datatable from './Datatable';
+import { getEndpoint } from 'helpers/api';
 import { ProductConsumer } from './ProductContext';
 
 const mapItemsWithOptionName = ({ options }) =>
