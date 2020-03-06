@@ -28,8 +28,8 @@ const Datatable = ({ data, onCheckItem, onSortData }) => {
     },
     selectableRows: 'none',
     onColumnSortChange: function(changedColumn, direction) {
-      onSortData(direction);
-      console.log('changedColumn', changedColumn);
+      onSortData(direction, changedColumn);
+      console.log('changedColumn: ', changedColumn);
       console.log('direction', direction);
     },
     customToolbarSelect: () => {} // apaga botão de delete
