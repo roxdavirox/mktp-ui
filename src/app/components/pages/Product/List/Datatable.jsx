@@ -6,7 +6,6 @@ import { AddToolbar } from 'app/components/common/tables/Toolbar.jsx';
 import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
 import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 import Loading from './LoadingSkeleton';
-import history from 'history.js';
 const useStyles = makeStyles({ EditCell: { textAlign: 'right' } });
 
 // eslint-disable-next-line react/prop-types
@@ -28,10 +27,13 @@ const ProductDatatable = ({ products, onRowsDelete, isLoading }) => {
     },
     customToolbar: function add() {
       return (
-        <AddToolbar
-          title="Criar novo produto"
-          onClick={() => history.push('/products/create')}
-        />
+        <Link
+          to={{
+            pathname: '/products/create'
+          }}
+        >
+          <AddToolbar title="Criar novo produto" />
+        </Link>
       );
     }
   };
@@ -51,12 +53,12 @@ const ProductDatatable = ({ products, onRowsDelete, isLoading }) => {
         sort: false,
         filter: false,
         // eslint-disable-next-line react/display-name
-        customBodyRender: (value, tableMeta) => (
+        customBodyRender: (productId, tableMeta) => (
           <Link
             to={{
-              pathname: '/admin/config/products/edit',
+              pathname: '/products/edit',
               state: {
-                productId: value
+                productId
               }
             }}
           >

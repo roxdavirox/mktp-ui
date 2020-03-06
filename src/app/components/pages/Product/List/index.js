@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
 import { Breadcrumb } from 'matx';
 import { getEndpoint, createDeleteRequest } from 'helpers/api';
-import ProductDatatable from './ProductDatatable';
+import ProductDatatable from './Datatable';
 import { withSnackbar } from 'notistack';
 
 const mapProduct = ({ _id, name }) => ({ _id, name });

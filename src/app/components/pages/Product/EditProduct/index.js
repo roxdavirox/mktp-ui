@@ -50,7 +50,6 @@ function getStepContent(stepIndex) {
 // eslint-disable-next-line no-unused-vars
 const EditProductPage = props => {
   // eslint-disable-next-line no-unused-vars
-  const [selectedItems, setSelectedItems] = useState([]);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(defaultImage);
   const [imageChanged, setImageChange] = useState(true);
@@ -61,6 +60,8 @@ const EditProductPage = props => {
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
   const classes = useStyles();
+  // eslint-disable-next-line react/prop-types
+  const { productId } = props.location.state;
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -95,7 +96,7 @@ const EditProductPage = props => {
         item: item._id
       }));
 
-    props.enqueueSnackbar('Criando produto...', {
+    props.enqueueSnackbar('Editando produto...', {
       variant: 'info',
       autoHideDuration: 2000
     });
@@ -104,19 +105,21 @@ const EditProductPage = props => {
     data.append('name', productName);
     data.append('categoryId', categoryId);
     data.append('productOptions', JSON.stringify(productOptions));
+    data.append('isImageChanged', imageChanged);
+    data.append('isImageDeleted', imageRemoved);
     data.append('image', imageFile);
 
     const request = {
-      method: 'POST',
+      method: 'PUT',
       body: data
     };
 
-    const endpoint = getEndpoint('/products');
+    const endpoint = getEndpoint(`/products/${productId}`);
     fetch(endpoint, request)
       .then(res => res.json())
       // eslint-disable-next-line no-unused-vars
-      .then(product => {
-        props.enqueueSnackbar('Produto criado com sucesso!', {
+      .then(({ product }) => {
+        props.enqueueSnackbar('Produto editado com sucesso!', {
           variant: 'success',
           autoHideDuration: 2000
         });
@@ -159,7 +162,7 @@ const EditProductPage = props => {
         <Breadcrumb
           routeSegments={[
             { name: 'Produtos', path: '/products' },
-            { name: 'Novo' }
+            { name: 'Editar' }
           ]}
         />
       </div>

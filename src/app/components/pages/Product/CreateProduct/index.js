@@ -94,8 +94,6 @@ const CreateProductPage = props => {
         item: item._id
       }));
 
-    console.log('product options', productOptions);
-
     props.enqueueSnackbar('Criando produto...', {
       variant: 'info',
       autoHideDuration: 2000
