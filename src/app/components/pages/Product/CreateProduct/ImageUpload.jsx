@@ -3,9 +3,19 @@ import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ProductContext, { ProductConsumer } from './ProductContext';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  button: {
+    minWidth: '50%'
+  }
+});
 
 const ImageUpload = () => {
   const [inputRef, setInputRef] = useState({});
+  const classes = useStyles();
 
   const handleClick = () => {
     inputRef.click();
@@ -64,8 +74,9 @@ const ImageUpload = () => {
                   variant="outlined"
                   size="large"
                   onClick={handleClick}
+                  className={classes.button}
                 >
-                  Alterar
+                  <EditIcon /> Alterar
                 </Button>
                 {avatar ? <br /> : null}
                 <Button
@@ -73,8 +84,9 @@ const ImageUpload = () => {
                   variant="outlined"
                   size="large"
                   onClick={handleRemove}
+                  className={classes.button}
                 >
-                  <i className="fas fa-times" /> Excluir
+                  <DeleteIcon /> Excluir
                 </Button>
               </div>
             )}
