@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon from '@material-ui/core/Icon';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import Container from '@material-ui/core/Container';
@@ -46,6 +46,17 @@ function getStepContent(stepIndex) {
   }
 }
 
+const mapItemsWithOptionname = ({ options }) =>
+  options.map(o =>
+    o.items.map(i => ({ optionId: o._id, optionName: o.name, ...i }))
+  );
+
+const mapOptionsItems = options =>
+  options.reduce((all, item) => [...all, ...item], []);
+
+const mapAllItemsWithCheckedProp = items =>
+  items.map(item => ({ ...item, isChecked: false }));
+
 // TODO: Encapsular componente stepper
 // eslint-disable-next-line no-unused-vars
 const EditProductPage = props => {
@@ -62,6 +73,36 @@ const EditProductPage = props => {
   const classes = useStyles();
   // eslint-disable-next-line react/prop-types
   const { productId } = props.location.state;
+
+  useEffect(() => {
+    async function getProductItems() {
+      const optionsEndpoint = getEndpoint('/options');
+
+      fetch(optionsEndpoint)
+        .then(res => res.json())
+        .then(mapItemsWithOptionname)
+        .then(mapOptionsItems)
+        .then(mapAllItemsWithCheckedProp)
+        .then(async prevItems => {
+          const itemsEndpoint = getEndpoint(`/products/${productId}/items`);
+          const result = await fetch(itemsEndpoint);
+          const data = await result.json();
+
+          const { product } = data;
+          const { productOptions } = product;
+          const itemsIds = productOptions.map(po => po.item);
+          const checkedItems = prevItems.map(item =>
+            itemsIds.indexOf(item._id) !== -1
+              ? { ...item, isChecked: !item.isChecked }
+              : item
+          );
+          return checkedItems;
+        })
+        .then(setItems);
+    }
+
+    getProductItems();
+  }, []);
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
