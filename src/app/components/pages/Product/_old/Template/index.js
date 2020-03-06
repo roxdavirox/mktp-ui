@@ -8,7 +8,7 @@ import CardHeader from 'components/theme/Card/CardHeader.jsx';
 import CardFooter from 'components/theme/Card/CardFooter.jsx';
 
 // feature
-import ProductCategory from './ProductCategory.jsx';
+import ProductCategory from './ProductCategory.jsx.js';
 import { getEndpoint } from 'helpers/api';
 import history from 'providers/history';
 
