@@ -77,7 +77,7 @@ const Datatable = ({ data, onCheckItem, onSortData }) => {
     },
     {
       name: 'isChecked',
-      label: 'Selecionar',
+      label: ' ',
       options: {
         sort: true,
         filter: true,
