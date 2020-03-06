@@ -28,7 +28,9 @@ const Datatable = ({ data, onCheckItem, onSortData }) => {
       }
     },
     selectableRows: 'none',
-    onColumnSortChange: function(changedColumn) {
+    onColumnSortChange: function(changedColumn, d) {
+      console.log('changedColumn ', changedColumn);
+      console.log('d', d);
       onSortData(changedColumn);
     },
     customToolbarSelect: () => {} // apaga botão de delete
@@ -67,7 +69,7 @@ const Datatable = ({ data, onCheckItem, onSortData }) => {
           console.log('columnMeta', columnMeta);
 
           return (
-            <TableHeadCell onClick={() => handleToggleColumn(0)}>
+            <TableHeadCell onClick={() => handleToggleColumn(1)}>
               {columnMeta.label}
             </TableHeadCell>
           );
