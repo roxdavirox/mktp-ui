@@ -57,7 +57,7 @@ const ImageUpload = () => {
             <img src={imagePreviewUrl} alt="..." />
           </div>
           <div>
-            {(imageFile === null && imagePreviewUrl) || imageRemoved ? (
+            {(imageFile === null && !imagePreviewUrl) || imageRemoved ? (
               <Button
                 color="primary"
                 variant="outlined"

@@ -46,7 +46,7 @@ function getStepContent(stepIndex) {
   }
 }
 
-const mapItemsWithOptionname = ({ options }) =>
+const mapItemsWithOptionName = ({ options }) =>
   options.map(o =>
     o.items.map(i => ({ optionId: o._id, optionName: o.name, ...i }))
   );
@@ -67,20 +67,21 @@ const EditProductPage = props => {
   const [imageRemoved, setImageRemoved] = useState(false);
   const [items, setItems] = useState([]);
   const [productName, setProductName] = useState('');
+  const [categories, setCategories] = useState([]);
   const [categoryId, setCategoryId] = useState('');
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
   const classes = useStyles();
   // eslint-disable-next-line react/prop-types
   const { productId } = props.location.state;
-
+  console.log('productID', productId);
   useEffect(() => {
     async function getProductItems() {
       const optionsEndpoint = getEndpoint('/options');
 
       fetch(optionsEndpoint)
         .then(res => res.json())
-        .then(mapItemsWithOptionname)
+        .then(mapItemsWithOptionName)
         .then(mapOptionsItems)
         .then(mapAllItemsWithCheckedProp)
         .then(async prevItems => {
@@ -102,6 +103,29 @@ const EditProductPage = props => {
     }
 
     getProductItems();
+  }, []);
+
+  useEffect(() => {
+    async function getProductCategories() {
+      const categoriesEndpoint = getEndpoint('/categories');
+      const res = await fetch(categoriesEndpoint);
+      const { categories } = await res.json();
+      setCategories(categories);
+    }
+
+    getProductCategories();
+  }, []);
+
+  useEffect(() => {
+    async function getProductById() {
+      const productEndpoint = getEndpoint(`/products/${productId}`);
+      const res = await fetch(productEndpoint);
+      const { name, category, imageUrl } = await res.json();
+      setProductName(name);
+      setCategoryId(category);
+      setImagePreviewUrl(imageUrl);
+    }
+    getProductById();
   }, []);
 
   const handleNext = () => {
@@ -183,7 +207,8 @@ const EditProductPage = props => {
     imageFile,
     imagePreviewUrl,
     imageChanged,
-    imageRemoved
+    imageRemoved,
+    categories
   };
   const contextProps = {
     ...state,
