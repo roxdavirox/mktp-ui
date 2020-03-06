@@ -50,7 +50,6 @@ function getStepContent(stepIndex) {
 // eslint-disable-next-line no-unused-vars
 const CreateProductPage = props => {
   // eslint-disable-next-line no-unused-vars
-  const [selectedItems, setSelectedItems] = useState([]);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(defaultImage);
   const [imageChanged, setImageChange] = useState(true);
@@ -86,7 +85,7 @@ const CreateProductPage = props => {
       handleFirstStep();
       return;
     }
-    const productOptions = selectedItems
+    const productOptions = Object.values(items)
       .filter(item => item.isChecked)
       // eslint-disable-next-line no-unused-vars
       .map(({ isChecked, ...rest }) => ({ ...rest }))
@@ -94,6 +93,8 @@ const CreateProductPage = props => {
         option: item.optionId,
         item: item._id
       }));
+
+    console.log('product options', productOptions);
 
     props.enqueueSnackbar('Criando produto...', {
       variant: 'info',
