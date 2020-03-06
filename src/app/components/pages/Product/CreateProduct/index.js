@@ -76,6 +76,13 @@ const CreateProductPage = props => {
   };
 
   const handleFinish = () => {
+    if (!imageFile) {
+      props.enqueueSnackbar('Por favor, adicione uma imagem!', {
+        variant: 'warning',
+        autoHideDuration: 2000
+      });
+      return;
+    }
     const productOptions = selectedItems
       .filter(item => item.isChecked)
       // eslint-disable-next-line no-unused-vars
