@@ -5,6 +5,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import classNames from 'classnames';
 import MuiDatatable from 'app/components/common/tables/MuiDatatable';
+import TableHeadCell from './TableHeadCell';
 
 const useStyles = makeStyles({
   EditCell: { textAlign: 'right' },
@@ -59,6 +60,17 @@ const Datatable = ({ data, onCheckItem, onSortData }) => {
               [classes.NameCell]: true
             })
           };
+        },
+        // eslint-disable-next-line react/display-name
+        customHeadRender: (columnMeta, handleToggleColumn) => {
+          // eslint-disable-next-line no-console
+          console.log('columnMeta', columnMeta);
+
+          return (
+            <TableHeadCell onClick={() => handleToggleColumn(0)}>
+              {columnMeta.label}
+            </TableHeadCell>
+          );
         }
       }
     },
