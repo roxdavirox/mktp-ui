@@ -69,7 +69,7 @@ const Datatable = ({ data, onCheckItem, onSortData }) => {
           console.log('columnMeta', columnMeta);
 
           return (
-            <TableHeadCell onClick={() => handleToggleColumn(1)}>
+            <TableHeadCell onClick={handleToggleColumn}>
               {columnMeta.label}
             </TableHeadCell>
           );
