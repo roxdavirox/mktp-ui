@@ -33,7 +33,6 @@ const CustomTableHeadCell = props => {
       className={classes.TableCell}
       onClick={handleActive}
       onBlur={handleOnBlur}
-      {...props}
     >
       <Tooltip title={props.children} placement="bottom">
         <span>

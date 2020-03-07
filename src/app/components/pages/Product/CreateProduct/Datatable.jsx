@@ -81,7 +81,18 @@ const Datatable = ({ data, onCheckItem, onSortData }) => {
       label: 'Item',
       options: {
         filter: true,
-        sort: true
+        sort: true,
+        // eslint-disable-next-line react/display-name
+        customHeadRender: (columnMeta, handleToggleColumn) => {
+          // eslint-disable-next-line no-console
+          console.log('columnMeta', columnMeta);
+
+          return (
+            <TableHeadCell onClick={handleToggleColumn}>
+              {columnMeta.label}
+            </TableHeadCell>
+          );
+        }
         // setCellProps: () => {
         //   return {
         //     className: classNames({ [classes.NameCell]: true })
