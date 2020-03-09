@@ -203,6 +203,7 @@ const Datatable = ({
           />
           {priceTable.unit === 'quantidade' ? (
             <ViewListToolbar
+              title="Gerar intervalos"
               onClick={() => openDialogType('GENERATE_PRICE_QTY')}
             />
           ) : (
