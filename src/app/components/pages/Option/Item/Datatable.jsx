@@ -110,7 +110,6 @@ const Datatable = ({
         filter: false,
         customBodyRender: (itemId, tableMeta) => {
           const [, itemType] = tableMeta.rowData;
-          console.log('type', itemType);
           return itemType === 'item' ? (
             <MoreHorizIcon
               key={tableMeta.columnIndex}

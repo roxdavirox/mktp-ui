@@ -162,6 +162,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     const postRequest = createPostRequest({ name: templateName, templates });
     fetch(endpoint, postRequest)
       .then(res => res.json())
+      .then(({ error, ...rest }) => (error ? null : rest))
       .then(({ templateItem }) => {
         enqueueSnackbar('Template criado com sucesso!', {
           variant: 'success',
@@ -179,6 +180,22 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         setTemplateName('');
         setOptionSelected('0');
         console.log('create template item response:', templateItem);
+        setTimeout(() => {
+          history.push({
+            pathname: '/items',
+            state: {
+              fromRedirect: true,
+              optionId
+            }
+          });
+        }, 1000);
+      })
+      .catch(e => {
+        console.error(e.Message);
+        enqueueSnackbar('Erro ao criar template :(', {
+          variant: 'warning',
+          autoHideDuration: 2000
+        });
         setTimeout(() => {
           history.push({
             pathname: '/items',
@@ -216,7 +233,12 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
             <MoneyCard value={total} />
           </Grid>
           <Grid item>
-            <SaveButton onClick={handleSubmit}>Criar template</SaveButton>
+            <SaveButton
+              initialTitle="Criar template"
+              loadingTitle="criando template..."
+              sucessTitle="criado com sucesso!"
+              onClick={handleSubmit}
+            />
           </Grid>
         </Container>
         <Container maxWidth="xl">
