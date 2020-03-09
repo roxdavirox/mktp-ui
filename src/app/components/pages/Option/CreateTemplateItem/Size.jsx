@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -47,4 +47,4 @@ Size.propTypes = {
   rowIndex: PropTypes.number
 };
 
-export default Size;
+export default memo(Size);

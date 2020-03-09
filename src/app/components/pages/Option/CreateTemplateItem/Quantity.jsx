@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { memo } from 'react';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -37,4 +37,4 @@ Quantity.propTypes = {
   onChangeQuantity: PropTypes.func.isRequired
 };
 
-export default Quantity;
+export default memo(Quantity);

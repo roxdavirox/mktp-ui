@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withSnackbar } from 'notistack';
@@ -174,7 +174,7 @@ const DataTable = ({
     filter: true,
     viewColumns: true,
     rowHover: false,
-    rowsPerPage: 50,
+    rowsPerPage: 10,
     rowsPerPageOptions: [10, 25, 50, 100],
     // selectableRows: 'none',
     textLabels: {
@@ -215,4 +215,4 @@ DataTable.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default withSnackbar(DataTable);
+export default withSnackbar(memo(DataTable));

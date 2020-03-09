@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React from 'react';
+import React, { memo } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import PropTypes from 'prop-types';
 
@@ -16,4 +16,4 @@ CustomLoadingSkeleton.propTypes = {
   isLoading: PropTypes.any.isRequired
 };
 
-export default CustomLoadingSkeleton;
+export default memo(CustomLoadingSkeleton);

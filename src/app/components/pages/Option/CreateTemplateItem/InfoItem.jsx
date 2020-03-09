@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 // core components
@@ -38,6 +38,8 @@ const useStyles = makeStyles(theme => ({
 const InfoItem = ({ templateName, onNameChange }) => {
   const classes = useStyles();
 
+  const handleNameChange = e => onNameChange(e.target.value);
+
   return (
     <>
       <Container className={classes.container}>
@@ -47,14 +49,14 @@ const InfoItem = ({ templateName, onNameChange }) => {
               <TextField
                 autoFocus
                 placeholder="Nome do template"
-                onBlur={e => onNameChange(e.target.value)}
+                onBlur={handleNameChange}
               />
             ) : (
               <TextField
                 autoFocus
                 placeholder="Nome do template"
                 value={templateName}
-                onChange={e => onNameChange(e.target.value)}
+                onChange={handleNameChange}
               />
             )}
           </FormControl>
@@ -72,4 +74,4 @@ InfoItem.propTypes = {
   selectedOption: PropTypes.object
 };
 
-export default InfoItem;
+export default memo(InfoItem);
