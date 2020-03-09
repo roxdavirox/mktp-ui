@@ -4,27 +4,22 @@ import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
+import history from 'history.js';
+
 import { Breadcrumb } from 'matx';
 import TemplateDatatable from './Datatable';
 import InfoItem from './InfoItem';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 import MoneyCard from 'app/components/common/cards/MoneyCard';
+import SaveButton from 'app/components/common/buttons/SaveButton';
 
-const TemplateItems = ({ enqueueSnackbar }) => {
+const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const [isLoading, setLoadingState] = useState(true);
   const [templateItems, setTemplateItems] = useState([]);
-  const [options, setOptions] = useState([]);
   const [templateName, setTemplateName] = useState('');
   const [selectedOption, setOptionSelected] = useState('0');
-
-  useEffect(() => {
-    const endpoint = getEndpoint('/options');
-    fetch(endpoint)
-      .then(res => res.json())
-      .then(({ options }) => setOptions(options))
-      .catch(e => console.log(e));
-  }, []);
+  // eslint-disable-next-line react/prop-types
+  const { optionId } = props.location.state;
 
   useEffect(() => {
     async function AsyncGetTemplateItems() {
@@ -153,7 +148,6 @@ const TemplateItems = ({ enqueueSnackbar }) => {
       variant: 'info',
       autoHideDuration: 2000
     });
-    const optionId = selectedOption._id;
     const templates = templateItems
       .filter(item => item.isChecked)
       .map(item => ({
@@ -185,12 +179,21 @@ const TemplateItems = ({ enqueueSnackbar }) => {
         setTemplateName('');
         setOptionSelected('0');
         console.log('create template item response:', templateItem);
+        setTimeout(() => {
+          history.push({
+            pathname: '/items',
+            state: {
+              fromRedirect: true,
+              optionId
+            }
+          });
+        }, 1000);
       });
   };
-  console.log('options', options);
-  const total = reduceTotalPrice();
-  console.log('total', total);
 
+  const total = reduceTotalPrice();
+
+  console.log('total', total);
   return (
     <>
       <Container maxWidth="xl" className="m-sm-30">
@@ -213,14 +216,7 @@ const TemplateItems = ({ enqueueSnackbar }) => {
             <MoneyCard value={total} />
           </Grid>
           <Grid item>
-            <Button
-              onClick={handleSubmit}
-              variant="contained"
-              color="primary"
-              style={{ maxWidth: '150px' }}
-            >
-              Criar template
-            </Button>
+            <SaveButton onClick={handleSubmit}>Criar template</SaveButton>
           </Grid>
         </Container>
         <Container maxWidth="xl">
@@ -228,7 +224,6 @@ const TemplateItems = ({ enqueueSnackbar }) => {
           <TemplateDatatable
             title={
               <InfoItem
-                options={options}
                 total={total}
                 templateName={templateName}
                 selectedOption={selectedOption}

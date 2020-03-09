@@ -113,6 +113,7 @@ const OptionItemPage = ({ enqueueSnackbar: snack, location }) => {
           />
         )}
         <Datatable
+          optionId={optionId}
           data={items}
           onUpdate={handleUpdate}
           onOpen={handleOpen}

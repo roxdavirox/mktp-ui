@@ -59,13 +59,13 @@ const DataTable = ({ enqueueSnackbar: snack, classes, onOpen, data }) => {
         sort: false,
         filter: false,
         // eslint-disable-next-line react/display-name
-        customBodyRender: (value, tableMeta) => (
+        customBodyRender: (optionId, tableMeta) => (
           <Link
             to={{
               pathname: '/items',
               state: {
                 fromRedirect: true,
-                optionId: value
+                optionId
               }
             }}
           >

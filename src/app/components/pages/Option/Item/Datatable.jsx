@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 /* eslint-disable react/display-name */
 import React, { useState } from 'react';
@@ -23,10 +24,10 @@ const Datatable = ({
   onUpdate: setEditedItem,
   onOpen,
   onRowsDelete,
-  data
+  data,
+  optionId
 }) => {
   const [anchorElement, setAnchor] = useState(null);
-
   const handleOpenEditItem = (itemId, tableMeta) => {
     const [name, itemType, priceTable] = tableMeta.rowData;
     const item = {
@@ -144,6 +145,7 @@ const Datatable = ({
     <>
       <DialogMenu
         anchorEl={anchorElement}
+        optionId={optionId}
         onSetAnchor={setAnchor}
         onClose={handleCloseMenu}
         onCreateItemClick={handleCreateItem}
