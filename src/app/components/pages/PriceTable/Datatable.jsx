@@ -84,6 +84,8 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
     filter: false,
     viewColumns: false,
     rowHover: false,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 25, 50, 100],
     textLabels: {
       body: {
         noMatch: <Loading />
