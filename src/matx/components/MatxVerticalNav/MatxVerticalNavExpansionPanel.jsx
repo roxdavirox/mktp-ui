@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* eslint-disable react/prop-types */
+import React, { Component, memo } from 'react';
 import { withStyles, Icon } from '@material-ui/core';
 import TouchRipple from '@material-ui/core/ButtonBase';
 import { withRouter } from 'react-router-dom';
@@ -105,4 +106,6 @@ class MatxVerticalNavExpansionPanel extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(MatxVerticalNavExpansionPanel));
+export default withRouter(
+  withStyles(styles)(memo(MatxVerticalNavExpansionPanel))
+);

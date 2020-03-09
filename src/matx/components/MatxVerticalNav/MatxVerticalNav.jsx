@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Icon } from '@material-ui/core';
 import TouchRipple from '@material-ui/core/ButtonBase';
@@ -70,4 +70,4 @@ class MatxVerticalNav extends Component {
   }
 }
 
-export default withStyles(styles)(MatxVerticalNav);
+export default withStyles(styles)(memo(MatxVerticalNav));

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { memo } from 'react';
 import { SnackbarProvider } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -25,4 +25,4 @@ const SnackbarProviderWrapped = props => {
   );
 };
 
-export default SnackbarProviderWrapped;
+export default memo(SnackbarProviderWrapped);

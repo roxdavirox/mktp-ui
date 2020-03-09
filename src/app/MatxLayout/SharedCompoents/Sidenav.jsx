@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, memo } from 'react';
 import Scrollbar from 'react-perfect-scrollbar';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -36,6 +36,7 @@ class Sidenav extends Component {
     />
   );
   render() {
+    console.log('Sidenav.jsx render');
     return (
       <Fragment>
         <Scrollbar
@@ -64,5 +65,5 @@ export default withRouter(
     {
       setLayoutSettings
     }
-  )(Sidenav)
+  )(memo(Sidenav))
 );

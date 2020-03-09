@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
 import Grid from '@material-ui/core/Grid';
@@ -250,4 +250,4 @@ TemplateItems.propTypes = {
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
-export default withSnackbar(TemplateItems);
+export default memo(withSnackbar(TemplateItems));
