@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useContext, memo, useRef } from 'react';
+import React, { useContext, memo, useRef } from 'react';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ProductContext, { ProductConsumer } from './ProductContext';

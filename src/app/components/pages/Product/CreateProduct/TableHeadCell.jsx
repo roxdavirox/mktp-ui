@@ -27,7 +27,7 @@ const CustomTableHeadCell = props => {
   const handleOnBlur = () => {
     setActive(false);
   };
-  console.log('render tabel head');
+
   return (
     <TableCell
       className={classes.TableCell}

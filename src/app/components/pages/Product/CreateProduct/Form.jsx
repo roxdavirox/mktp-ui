@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 // core components
 import Container from '@material-ui/core/Container';
@@ -53,7 +53,6 @@ const ProductForm = () => {
   };
 
   const handleCategorySelect = e => fn.setCategoryId(e.target.value);
-  console.log('renderizando form');
   return (
     <ProductConsumer>
       {({ productName, categoryId }) => (
@@ -110,4 +109,4 @@ const ProductForm = () => {
   );
 };
 
-export default ProductForm;
+export default memo(ProductForm);

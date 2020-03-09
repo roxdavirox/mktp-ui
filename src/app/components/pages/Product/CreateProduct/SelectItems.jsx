@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, memo } from 'react';
 import Container from '@material-ui/core/Container';
 import { compareValues } from 'helpers/array';
 import Datatable from './Datatable';
@@ -82,4 +82,4 @@ const SelectItems = () => {
   );
 };
 
-export default SelectItems;
+export default memo(SelectItems);
