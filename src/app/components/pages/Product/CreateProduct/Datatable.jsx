@@ -28,9 +28,7 @@ const Datatable = ({ data, onCheckItem, onSortData }) => {
       }
     },
     selectableRows: 'none',
-    onColumnSortChange: function(changedColumn, d) {
-      console.log('changedColumn ', changedColumn);
-      console.log('d', d);
+    onColumnSortChange: function(changedColumn) {
       onSortData(changedColumn);
     },
     customToolbarSelect: () => {} // apaga botão de delete
@@ -65,9 +63,6 @@ const Datatable = ({ data, onCheckItem, onSortData }) => {
         },
         // eslint-disable-next-line react/display-name
         customHeadRender: (columnMeta, handleToggleColumn) => {
-          // eslint-disable-next-line no-console
-          console.log('columnMeta', columnMeta);
-
           return (
             <TableHeadCell onClick={handleToggleColumn}>
               {columnMeta.label}
@@ -84,9 +79,6 @@ const Datatable = ({ data, onCheckItem, onSortData }) => {
         sort: true,
         // eslint-disable-next-line react/display-name
         customHeadRender: (columnMeta, handleToggleColumn) => {
-          // eslint-disable-next-line no-console
-          console.log('columnMeta', columnMeta);
-
           return (
             <TableHeadCell onClick={handleToggleColumn}>
               {columnMeta.label}
