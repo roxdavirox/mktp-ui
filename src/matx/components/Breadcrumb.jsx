@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+/* eslint-disable react/prop-types */
+import React, { Fragment, memo } from 'react';
 import { Icon } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 
@@ -36,4 +37,4 @@ const Breadcrumb = ({ routeSegments }) => {
   );
 };
 
-export default Breadcrumb;
+export default memo(Breadcrumb);

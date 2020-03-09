@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 import TableHeadCell from './TableHeadCell';
 
+const SwticMemoized = memo(Switch);
+
 const useStyles = makeStyles({
   EditCell: { textAlign: 'right' },
   NameCell: { fontWeight: 500, padding: '0 0 0 2em' }
@@ -110,10 +112,9 @@ const Datatable = ({ data, onCheckItem, onSortData }) => {
         ) {
           return (
             <FormControlLabel
-              // label={value ? 'Yes' : 'No'}
               value={value ? 'Yes' : 'No'}
               control={
-                <Switch
+                <SwticMemoized
                   color="primary"
                   checked={value}
                   value={value ? 'Yes' : 'No'}
