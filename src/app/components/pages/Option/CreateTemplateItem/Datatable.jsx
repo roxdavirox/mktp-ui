@@ -174,6 +174,8 @@ const DataTable = ({
     filter: true,
     viewColumns: true,
     rowHover: false,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 25, 50, 100],
     // selectableRows: 'none',
     textLabels: {
       body: {
