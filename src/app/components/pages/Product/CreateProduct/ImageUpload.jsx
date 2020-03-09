@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, memo, useRef } from 'react';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ProductContext, { ProductConsumer } from './ProductContext';
@@ -14,11 +14,11 @@ const useStyles = makeStyles({
 });
 
 const ImageUpload = () => {
-  const [inputRef, setInputRef] = useState({});
+  const inputRef = useRef();
   const classes = useStyles();
 
   const handleClick = () => {
-    inputRef.click();
+    inputRef.current.click();
   };
 
   const fn = useContext(ProductContext);
@@ -39,8 +39,7 @@ const ImageUpload = () => {
 
   const handleRemove = () => {
     fn.handleRemove();
-    setInputRef(null);
-    inputRef.value = null;
+    inputRef.current.value = null;
   };
 
   return (
@@ -51,7 +50,7 @@ const ImageUpload = () => {
             hidden
             type="file"
             onChange={handleImageChange}
-            ref={thisRef => setInputRef(thisRef)}
+            ref={inputRef}
           />
           <div className={'thumbnail' + (avatar ? ' img-circle' : '')}>
             <img src={imagePreviewUrl} alt="..." />
@@ -97,4 +96,4 @@ const ImageUpload = () => {
   );
 };
 
-export default ImageUpload;
+export default memo(ImageUpload);

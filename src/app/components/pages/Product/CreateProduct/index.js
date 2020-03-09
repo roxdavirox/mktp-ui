@@ -53,7 +53,7 @@ const CreateProductPage = props => {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(defaultImage);
   const [imageChanged, setImageChange] = useState(true);
-  const [imageRemoved, setImageRemoved] = useState(false);
+  const [imageRemoved, setImageRemoved] = useState(true);
   const [items, setItems] = useState([]);
   const [productName, setProductName] = useState('');
   const [categoryId, setCategoryId] = useState('');

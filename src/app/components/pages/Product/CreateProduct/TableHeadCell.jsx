@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -27,7 +27,7 @@ const CustomTableHeadCell = props => {
   const handleOnBlur = () => {
     setActive(false);
   };
-
+  console.log('render tabel head');
   return (
     <TableCell
       className={classes.TableCell}
@@ -50,4 +50,4 @@ const CustomTableHeadCell = props => {
   );
 };
 
-export default CustomTableHeadCell;
+export default memo(CustomTableHeadCell);

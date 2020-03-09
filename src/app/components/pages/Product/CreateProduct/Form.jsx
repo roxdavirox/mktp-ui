@@ -53,7 +53,7 @@ const ProductForm = () => {
   };
 
   const handleCategorySelect = e => fn.setCategoryId(e.target.value);
-
+  console.log('renderizando form');
   return (
     <ProductConsumer>
       {({ productName, categoryId }) => (
