@@ -272,4 +272,4 @@ TemplateItems.propTypes = {
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
-export default memo(withSnackbar(TemplateItems));
+export default withSnackbar(memo(TemplateItems));
