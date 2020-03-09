@@ -65,6 +65,7 @@ export default function SaveButton(props) {
       timer.current = setTimeout(() => {
         setSuccess(true);
         setLoading(false);
+        props.onSave();
       }, 2000);
     }
   };

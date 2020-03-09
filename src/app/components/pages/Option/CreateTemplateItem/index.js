@@ -17,7 +17,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const [isLoading, setLoadingState] = useState(true);
   const [templateItems, setTemplateItems] = useState([]);
   const [templateName, setTemplateName] = useState('');
-  const [selectedOption, setOptionSelected] = useState('0');
   // eslint-disable-next-line react/prop-types
   const { optionId } = props.location.state;
 
@@ -178,17 +177,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
           { ...templateItem, isChecked: false, price: 0, quantity: 1 }
         ]);
         setTemplateName('');
-        setOptionSelected('0');
         console.log('create template item response:', templateItem);
-        setTimeout(() => {
-          history.push({
-            pathname: '/items',
-            state: {
-              fromRedirect: true,
-              optionId
-            }
-          });
-        }, 1000);
       })
       .catch(e => {
         console.error(e.Message);
@@ -206,6 +195,18 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
           });
         }, 1000);
       });
+  };
+
+  const handleSave = () => {
+    setTimeout(() => {
+      history.push({
+        pathname: '/items',
+        state: {
+          fromRedirect: true,
+          optionId
+        }
+      });
+    }, 1000);
   };
 
   const total = reduceTotalPrice();
@@ -238,6 +239,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
               loadingTitle="criando template..."
               sucessTitle="criado com sucesso!"
               onClick={handleSubmit}
+              onSave={handleSave}
             />
           </Grid>
         </Container>
@@ -246,11 +248,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
           <TemplateDatatable
             title={
               <InfoItem
-                total={total}
                 templateName={templateName}
-                selectedOption={selectedOption}
                 onNameChange={handleNameChange}
-                onSelectOption={setOptionSelected}
               />
             }
             templateItems={templateItems}
