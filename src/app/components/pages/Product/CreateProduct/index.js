@@ -55,6 +55,7 @@ const CreateProductPage = props => {
   const [imageChanged, setImageChange] = useState(true);
   const [imageRemoved, setImageRemoved] = useState(true);
   const [items, setItems] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [productName, setProductName] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [activeStep, setActiveStep] = useState(0);
@@ -134,6 +135,7 @@ const CreateProductPage = props => {
   const state = {
     productName,
     categoryId,
+    categories,
     items,
     imageFile,
     imagePreviewUrl,
@@ -150,7 +152,8 @@ const CreateProductPage = props => {
     setItems,
     setProductName,
     setCategoryId,
-    handleFirstStep
+    handleFirstStep,
+    setCategories
   };
   return (
     <Container maxWidth="xl" className="m-sm-30">

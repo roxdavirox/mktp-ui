@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useContext, useState, useEffect, memo } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
 import { compareValues } from 'helpers/array';
 import Datatable from './Datatable';
@@ -28,7 +28,7 @@ const SelectItems = () => {
   });
 
   useEffect(() => {
-    if (Object.keys(items).length) return;
+    if (Object.values(items).length) return;
     const optionsEndpoint = getEndpoint('/options');
     fetch(optionsEndpoint)
       .then(res => res.json())
@@ -82,4 +82,4 @@ const SelectItems = () => {
   );
 };
 
-export default memo(SelectItems);
+export default SelectItems;

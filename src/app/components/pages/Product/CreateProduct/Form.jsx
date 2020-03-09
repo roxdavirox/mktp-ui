@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
-import React, { useEffect, useState, useContext, memo } from 'react';
+import React, { useEffect, useContext, memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 // core components
 import Container from '@material-ui/core/Container';
@@ -30,16 +30,23 @@ const useStyles = makeStyles({
   formControl: {
     // margin: theme.spacing.unit,
     minWidth: 220
+  },
+  container: {
+    display: 'flex',
+    padding: 'inherit',
+    justifyContent: 'space-between'
   }
 });
 
 const ProductForm = () => {
-  const [categories, setCategories] = useState([]);
+  const { categories, setCategories } = useContext(ProductConsumer);
+
   const fn = useContext(ProductContext);
 
   const classes = useStyles();
 
   useEffect(() => {
+    if (categories.length) return;
     const categoriesEndpoint = getEndpoint('/categories');
     fetch(categoriesEndpoint)
       .then(res => res.json())
@@ -60,9 +67,7 @@ const ProductForm = () => {
           <Grid item xs={12} sm={12}>
             <h4 className={classes.infoText}>Digite o nome do produto</h4>
           </Grid>
-          <Container
-            style={{ display: 'flex', justifyContent: 'space-between' }}
-          >
+          <Container className={classes.container}>
             <Grid item xs={12} sm={4}>
               <ImageUpload />
             </Grid>
@@ -75,13 +80,7 @@ const ProductForm = () => {
                 value={productName}
                 id="product-name"
               />
-              <Container
-                style={{
-                  display: 'flex',
-                  padding: 'inherit',
-                  justifyContent: 'space-between'
-                }}
-              >
+              <Container className={classes.container}>
                 <FormControl className={classes.formControl}>
                   <InputLabel htmlFor="category-input">Categoria</InputLabel>
                   <Select
