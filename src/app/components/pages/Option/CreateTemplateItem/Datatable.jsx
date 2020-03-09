@@ -31,6 +31,13 @@ const DataTable = ({
   isLoading
 }) => {
   const classes = useStyle();
+
+  const handleDuplicate = index => {
+    if (window.confirm('Deseja duplicar este item?')) {
+      onDuplicateItem(index);
+    }
+  };
+
   const columns = [
     {
       name: '_id',
@@ -155,11 +162,8 @@ const DataTable = ({
         customBodyRender: function renderDuplicateItem(value, tableMeta) {
           return (
             <DuplicateIcon
-              onClick={() => {
-                if (window.confirm('Deseja duplicar este item?')) {
-                  onDuplicateItem(tableMeta.rowIndex);
-                }
-              }}
+              index={tableMeta.rowIndex}
+              onClick={handleDuplicate}
             />
           );
         }
