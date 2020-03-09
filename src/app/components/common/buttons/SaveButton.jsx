@@ -92,7 +92,11 @@ export default function SaveButton(props) {
           disabled={loading}
           onClick={handleButtonClick}
         >
-          {props.children}
+          {loading
+            ? props.loadingTitle
+            : success
+            ? props.sucessTitle
+            : props.initialTitle}
         </Button>
         {loading && (
           <CircularProgress size={24} className={classes.buttonProgress} />
