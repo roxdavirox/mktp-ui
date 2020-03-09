@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,19 +11,25 @@ const useStyles = makeStyles({
   }
 });
 
+// TODO: mudar para uncontrolled component para melhorar a performance - onBlur
 // eslint-disable-next-line react/prop-types
-const Quantity = ({ rowIndex, templateItem, onChangeQuantity }) => {
+const Quantity = ({ rowIndex, quantity, onChangeQuantity }) => {
+  const [value, setValue] = useState(quantity);
   const classes = useStyles();
 
-  const handleChangeQuantity = e => onChangeQuantity(rowIndex, e.target.value);
+  const handleChangeQuantity = e => setValue(e.target.value);
 
-  const { quantity } = templateItem;
+  const handleBlur = () => {
+    onChangeQuantity(rowIndex, value);
+  };
+
   return (
     <>
       <TextField
         type="number"
         onChange={handleChangeQuantity}
-        value={quantity <= 0 ? 1 : quantity || 1}
+        onBlur={handleBlur}
+        value={value <= 0 ? 1 : value || 1}
         placeholder={'1'}
         className={classes.TextField}
       />
