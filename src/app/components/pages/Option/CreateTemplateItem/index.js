@@ -2,12 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withSnackbar } from 'notistack';
+import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import { Breadcrumb } from 'matx';
 import TemplateDatatable from './Datatable';
 import InfoItem from './InfoItem';
 import { getEndpoint, createPostRequest } from 'helpers/api';
+import MoneyCard from 'app/components/common/cards/MoneyCard';
 
 const TemplateItems = ({ enqueueSnackbar }) => {
   const [isLoading, setLoadingState] = useState(true);
@@ -200,37 +202,50 @@ const TemplateItems = ({ enqueueSnackbar }) => {
             ]}
           />
         </div>
-        <p>Total: {total}</p>
-        <TemplateDatatable
-          title={
-            <InfoItem
-              options={options}
-              templateName={templateName}
-              selectedOption={selectedOption}
-              onNameChange={handleNameChange}
-              onSelectOption={setOptionSelected}
-            />
-          }
-          templateItems={templateItems}
-          onChangeValueX={handleChangeSizeX}
-          onChangeValueY={handleChangeSizeY}
-          onDuplicateItem={handleDuplicate}
-          onCheckItem={handleCheck}
-          onChangeQuantity={handleChangeQuantity}
-          onDeleteTemplateItems={handleDeleteTemplateItems}
-          isLoading={isLoading}
-        />
-      </Container>
-      <br />
-      <Container maxWidth="xl">
-        <Button
-          onClick={handleSubmit}
-          variant="contained"
-          style={{ float: 'right' }}
-          color="primary"
+        <Container
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end'
+          }}
         >
-          Criar template
-        </Button>
+          <Grid item>
+            <MoneyCard value={total} />
+          </Grid>
+          <Grid item>
+            <Button
+              onClick={handleSubmit}
+              variant="contained"
+              color="primary"
+              style={{ maxWidth: '150px' }}
+            >
+              Criar template
+            </Button>
+          </Grid>
+        </Container>
+        <Container maxWidth="xl">
+          <br />
+          <TemplateDatatable
+            title={
+              <InfoItem
+                options={options}
+                total={total}
+                templateName={templateName}
+                selectedOption={selectedOption}
+                onNameChange={handleNameChange}
+                onSelectOption={setOptionSelected}
+              />
+            }
+            templateItems={templateItems}
+            onChangeValueX={handleChangeSizeX}
+            onChangeValueY={handleChangeSizeY}
+            onDuplicateItem={handleDuplicate}
+            onCheckItem={handleCheck}
+            onChangeQuantity={handleChangeQuantity}
+            onDeleteTemplateItems={handleDeleteTemplateItems}
+            isLoading={isLoading}
+          />
+        </Container>
       </Container>
     </>
   );
