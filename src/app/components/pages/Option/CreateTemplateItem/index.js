@@ -14,6 +14,7 @@ import MoneyCard from 'app/components/common/cards/MoneyCard';
 import SaveButton from 'app/components/common/buttons/SaveButton';
 
 const TemplateItems = ({ enqueueSnackbar, ...props }) => {
+  const [total, setTotal] = useState(0);
   const [isLoading, setLoadingState] = useState(true);
   const [templateItems, setTemplateItems] = useState([]);
   const [templateName, setTemplateName] = useState('');
@@ -69,6 +70,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         templateItem.templatePrice * quantity,
         templateItem
       );
+      handleTotalPriceCalculate();
       return;
     }
     if (!priceTable) return;
@@ -84,7 +86,10 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
     fetch(endpoint, request)
       .then(res => res.json())
-      .then(({ total }) => handleChangeItemPrice(index, total, templateItem))
+      .then(({ total }) => {
+        handleChangeItemPrice(index, total, templateItem);
+        handleTotalPriceCalculate();
+      })
       .catch(error => {
         console.log(`Error on get total value ${error}`);
       });
@@ -121,10 +126,12 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     handleCalculateItemPrice(index, templateItem);
   };
 
-  const reduceTotalPrice = () =>
-    templateItems
+  const handleTotalPriceCalculate = () => {
+    const _total = templateItems
       .filter(item => item.isChecked)
       .reduce((total, item) => total + item.price, 0);
+    setTotal(_total);
+  };
 
   const handleNameChange = newName => setTemplateName(newName);
 
@@ -209,8 +216,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     }, 1000);
   };
 
-  const total = reduceTotalPrice();
-
   console.log('total', total);
   return (
     <>
@@ -237,8 +242,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
           <Grid item>
             <SaveButton
               initialTitle="Criar template"
-              loadingTitle="criando template..."
-              sucessTitle="criado com sucesso!"
+              loadingTitle="Criando template..."
+              sucessTitle="Criado com sucesso!"
               onClick={handleSubmit}
               onSave={handleSave}
             />
