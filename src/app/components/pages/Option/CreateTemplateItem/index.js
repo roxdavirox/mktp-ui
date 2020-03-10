@@ -227,7 +227,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'flex-end'
+            alignItems: 'flex-end',
+            maxWidth: '100%'
           }}
         >
           <Grid item>
