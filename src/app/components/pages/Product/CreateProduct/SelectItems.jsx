@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useContext, useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
-import { compareValues } from 'helpers/array';
+import { compareValues, convertToObjectWithKeys } from 'helpers/array';
 import Datatable from './Datatable';
 import { getEndpoint } from 'helpers/api';
 import { ProductConsumer } from './ProductContext';
@@ -11,14 +11,8 @@ const mapItemsWithOptionName = ({ options }) =>
     .map(o => o.items.map(i => ({ optionId: o._id, optionName: o.name, ...i })))
     .reduce((allItems, items) => [...allItems, ...items], []);
 
-const converItemsArrayToObject = items =>
-  items.reduce(
-    (obj, item) => ({
-      ...obj,
-      [item._id]: { ...item, isChecked: false }
-    }),
-    {}
-  );
+const normalizeItems = items =>
+  convertToObjectWithKeys(items)('_id')({ isChecked: false });
 
 const SelectItems = () => {
   const { items, setItems } = useContext(ProductConsumer);
@@ -33,7 +27,7 @@ const SelectItems = () => {
     fetch(optionsEndpoint)
       .then(res => res.json())
       .then(mapItemsWithOptionName)
-      .then(converItemsArrayToObject)
+      .then(normalizeItems)
       .then(_items => setItems(_items));
   }, []);
 

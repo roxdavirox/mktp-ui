@@ -5,6 +5,7 @@ import { withSnackbar } from 'notistack';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import history from 'history.js';
+import { convertToObjectWithKeys, addNewPropsWhen } from 'helpers/array';
 
 import { Breadcrumb } from 'matx';
 import TemplateDatatable from './Datatable';
@@ -12,6 +13,25 @@ import InfoItem from './InfoItem';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 import MoneyCard from 'app/components/common/cards/MoneyCard';
 import SaveButton from 'app/components/common/buttons/SaveButton';
+
+const defaulItemProps = {
+  price: 0,
+  quantity: 1,
+  isChecked: false
+};
+
+const itemNotHasQuantity = item =>
+  !(item.priceTable && item.priceTable.unit === 'quantidade');
+
+const mapDefaultItemPropsToObject = items => {
+  const itemsWithSize = addNewPropsWhen(itemNotHasQuantity)({
+    size: { x: 1, y: 1 }
+  })(items);
+
+  return convertToObjectWithKeys(itemsWithSize)('_id')(defaulItemProps);
+};
+
+const convertObjectToArray = obj => Object.values(obj);
 
 const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const [total, setTotal] = useState(0);
@@ -28,21 +48,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       fetch(endpoint)
         .then(res => res.json())
         .then(({ items }) => {
-          const _items = items
-            .map(item => {
-              if (item.priceTable && item.priceTable.unit === 'quantidade') {
-                return item;
-              } else {
-                return { ...item, size: { x: 1, y: 1 } };
-              }
-            })
-            .map(item => ({
-              ...item,
-              price: 0,
-              quantity: 1,
-              isChecked: false
-            }));
-          setTemplateItems(_items);
+          const objectItems = mapDefaultItemPropsToObject(items);
+          setTemplateItems(objectItems);
           setLoadingState(false);
         })
         .catch(error => {
@@ -217,6 +224,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   };
 
   console.log('total', total);
+  const items = convertObjectToArray(templateItems);
   return (
     <>
       <Container maxWidth="xl" className="m-sm-30">
@@ -258,7 +266,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
                 onNameChange={handleNameChange}
               />
             }
-            templateItems={templateItems}
+            templateItems={items}
             onChangeValueX={handleChangeSizeX}
             onChangeValueY={handleChangeSizeY}
             onDuplicateItem={handleDuplicate}
