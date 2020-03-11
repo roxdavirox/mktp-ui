@@ -13,15 +13,13 @@ const useStyles = makeStyles({
 
 // TODO: mudar para uncontrolled component para melhorar a performance - onBlur
 // eslint-disable-next-line react/prop-types
-const Quantity = ({ rowIndex, quantity, onChangeQuantity }) => {
-  const [value, setValue] = useState(quantity);
+const Quantity = ({ itemId, initialValue, onChangeQuantity }) => {
+  const [value, setValue] = useState(initialValue);
   const classes = useStyles();
 
   const handleChangeQuantity = e => setValue(e.target.value);
 
-  const handleBlur = () => {
-    onChangeQuantity(rowIndex, value);
-  };
+  const handleBlur = () => onChangeQuantity(itemId, value);
 
   return (
     <>

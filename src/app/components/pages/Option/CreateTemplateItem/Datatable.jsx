@@ -76,11 +76,11 @@ const DataTable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderUnitComponent(value, tableMeta) {
-          const templateItem = templateItems[tableMeta.rowIndex];
+          const [id] = tableMeta.rowData;
           return (
             <Quantity
-              rowIndex={tableMeta.rowIndex}
-              templateItem={templateItem}
+              itemId={id}
+              initialValue={value}
               onChangeQuantity={onChangeQuantity}
             />
           );

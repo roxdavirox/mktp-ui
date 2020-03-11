@@ -154,17 +154,21 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const handleTotalPriceCalculate = () => {
     const _total = convertObjectToArray(templateItems)
       .filter(item => item.isChecked)
-      .reduce((total, item) => total + item.price, 0);
+      .reduce((total, item) => total + item.price * item.quantity, 0);
     setTotal(_total);
   };
 
   const handleNameChange = newName => setTemplateName(newName);
 
-  const handleChangeQuantity = (index, quantity) => {
+  const handleChangeQuantity = (id, quantity) => {
     if (quantity < 1) return;
-    templateItems[index] = { ...templateItems[index], quantity };
-    const templateItem = templateItems[index];
-    handleCalculateItemPrice(index, templateItem);
+    setTemplateItems(prevItems => ({
+      ...prevItems,
+      [id]: {
+        ...prevItems[id],
+        quantity
+      }
+    }));
   };
 
   const handleDeleteTemplateItems = indexRows => {
