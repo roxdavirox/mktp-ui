@@ -48,13 +48,13 @@ const InfoItem = ({ templateName, onNameChange }) => {
             {templateName !== '' ? (
               <TextField
                 autoFocus
-                placeholder="Nome do template"
+                placeholder="Digite o nome do template"
                 onBlur={handleNameChange}
               />
             ) : (
               <TextField
                 autoFocus
-                placeholder="Nome do template"
+                placeholder="Digite o nome do template"
                 value={templateName}
                 onChange={handleNameChange}
               />
