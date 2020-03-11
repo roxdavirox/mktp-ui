@@ -17,3 +17,15 @@ export function compareValues(key, order = 'asc') {
     return order === 'descending' ? comparison * -1 : comparison;
   };
 }
+
+export const convertToObjectWithKeys = arr => k => props =>
+  arr.reduce(
+    (obj, el) => ({
+      ...obj,
+      [el[k]]: { ...el, ...props }
+    }),
+    {}
+  ) || {};
+
+export const addNewPropsWhen = condition => newProps => arr =>
+  arr.map(el => (condition(el) ? { ...el, ...newProps } : el));
