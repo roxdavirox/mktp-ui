@@ -59,27 +59,22 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     AsyncGetTemplateItems();
   }, []);
 
-  const handleChangeItemPrice = (index, price, templateItem) => {
-    templateItems[index] = { ...templateItem, price };
-    setTemplateItems([...templateItems]);
+  const handleChangeItemPrice = (id, price) => {
+    setTemplateItems(prevItems => ({
+      ...prevItems,
+      [id]: { ...prevItems[id], price }
+    }));
   };
 
-  const handleCalculateItemPrice = (index, templateItem) => {
-    const { priceTable, quantity, size, itemType, isChecked } = templateItem;
-    if (!isChecked) {
-      handleChangeItemPrice(index, 0, templateItem);
-      return;
-    }
+  const calculateTemplatePrice = id => {
+    const { quantity } = templateItems[id];
+    const newPrice = templateItems[id].templatePrice * quantity;
+    handleChangeItemPrice(id, newPrice);
+    handleTotalPriceCalculate();
+  };
 
-    if (itemType === 'template') {
-      handleChangeItemPrice(
-        index,
-        templateItem.templatePrice * quantity,
-        templateItem
-      );
-      handleTotalPriceCalculate();
-      return;
-    }
+  const calculateItemPrice = id => {
+    const { size, priceTable, quantity } = templateItems[id];
     if (!priceTable) return;
     const { _id: priceTableId } = priceTable;
     const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
@@ -94,12 +89,28 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     fetch(endpoint, request)
       .then(res => res.json())
       .then(({ total }) => {
-        handleChangeItemPrice(index, total, templateItem);
+        handleChangeItemPrice(id, total);
         handleTotalPriceCalculate();
       })
       .catch(error => {
         console.log(`Error on get total value ${error}`);
       });
+  };
+
+  const handleCalculateItemPrice = id => {
+    const { itemType, isChecked } = templateItems[id];
+
+    if (!isChecked) {
+      handleChangeItemPrice(id, 0);
+      return;
+    }
+
+    const calculatePriceById = {
+      template: calculateTemplatePrice,
+      item: calculateItemPrice
+    }[itemType];
+
+    calculatePriceById(id);
   };
 
   const handleChangeSizeX = (rowIndex, valueX) => {
@@ -126,11 +137,15 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
   const handleDuplicate = () => {};
 
-  const handleCheck = (index, isChecked) => {
-    templateItems[index] = { ...templateItems[index], isChecked };
-    const templateItem = templateItems[index];
-    console.log('template item checado:', templateItem);
-    handleCalculateItemPrice(index, templateItem);
+  const handleCheck = id => {
+    setTemplateItems(prevItems => ({
+      ...prevItems,
+      [id]: {
+        ...prevItems[id],
+        isChecked: !prevItems[id].isChecked
+      }
+    }));
+    // handleCalculateItemPrice(index, templateItem);
   };
 
   const handleTotalPriceCalculate = () => {
