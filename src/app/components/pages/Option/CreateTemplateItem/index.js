@@ -100,7 +100,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const handleCalculateItemPrice = id => {
     const { itemType, isChecked } = templateItems[id];
 
-    if (!isChecked) {
+    if (isChecked) {
       handleChangeItemPrice(id, 0);
       return;
     }
@@ -138,14 +138,17 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const handleDuplicate = () => {};
 
   const handleCheck = id => {
+    const { isChecked } = templateItems[id];
+
     setTemplateItems(prevItems => ({
       ...prevItems,
       [id]: {
         ...prevItems[id],
-        isChecked: !prevItems[id].isChecked
+        isChecked: !isChecked
       }
     }));
-    // handleCalculateItemPrice(index, templateItem);
+
+    handleCalculateItemPrice(id);
   };
 
   const handleTotalPriceCalculate = () => {
