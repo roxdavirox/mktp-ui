@@ -59,6 +59,10 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     AsyncGetTemplateItems();
   }, []);
 
+  useEffect(() => {
+    handleTotalPriceCalculate();
+  }, [templateItems]);
+
   const handleChangeItemPrice = (id, price) => {
     setTemplateItems(prevItems => ({
       ...prevItems,
@@ -70,7 +74,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     const { quantity } = templateItems[id];
     const newPrice = templateItems[id].templatePrice * quantity;
     handleChangeItemPrice(id, newPrice);
-    handleTotalPriceCalculate();
   };
 
   const calculateItemPrice = id => {
@@ -88,10 +91,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
     fetch(endpoint, request)
       .then(res => res.json())
-      .then(({ total }) => {
-        handleChangeItemPrice(id, total);
-        handleTotalPriceCalculate();
-      })
+      .then(({ total }) => handleChangeItemPrice(id, total))
       .catch(error => {
         console.log(`Error on get total value ${error}`);
       });
@@ -152,7 +152,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   };
 
   const handleTotalPriceCalculate = () => {
-    const _total = templateItems
+    const _total = convertObjectToArray(templateItems)
       .filter(item => item.isChecked)
       .reduce((total, item) => total + item.price, 0);
     setTotal(_total);
