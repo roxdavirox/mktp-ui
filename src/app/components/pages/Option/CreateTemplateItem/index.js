@@ -152,9 +152,25 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   };
 
   const handleTotalPriceCalculate = () => {
-    const _total = convertObjectToArray(templateItems)
-      .filter(item => item.isChecked)
-      .reduce((total, item) => total + item.price * item.quantity, 0);
+    const checkedItems = convertObjectToArray(templateItems).filter(
+      item => item.isChecked
+    );
+    console.log('checkd items', checkedItems);
+
+    const totalItemPrice = checkedItems
+      .filter(i => i.type === 'item')
+      .reduce((total, item) => total + item.price, 0);
+    console.log('total item price', totalItemPrice);
+
+    const totalTemplateItemPrice = checkedItems
+      .filter(i => i.itemType === 'template')
+      .reduce(
+        (total, templateItem) =>
+          total + templateItem.price * templateItem.quantity,
+        0
+      );
+
+    const _total = totalItemPrice + totalTemplateItemPrice;
     setTotal(_total);
   };
 
@@ -247,6 +263,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
   console.log('total', total);
   const items = convertObjectToArray(templateItems);
+  console.log('items', items);
   return (
     <>
       <Container maxWidth="xl" className="m-sm-30">
