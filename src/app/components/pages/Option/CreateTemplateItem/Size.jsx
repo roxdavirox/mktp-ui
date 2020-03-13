@@ -12,14 +12,12 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Size = ({ onChangeValueX, onChangeValueY, rowIndex, templateItem }) => {
+const Size = ({ onChangeValueX, onChangeValueY, itemId, size }) => {
   const classes = useStyles();
 
-  const handleValueXChange = e => onChangeValueX(rowIndex, e.target.value);
+  const handleValueXChange = e => onChangeValueX(itemId, e.target.value);
 
-  const handleValueYChange = e => onChangeValueY(rowIndex, e.target.value);
-
-  const { size } = templateItem;
+  const handleValueYChange = e => onChangeValueY(itemId, e.target.value);
   return (
     <>
       <TextField

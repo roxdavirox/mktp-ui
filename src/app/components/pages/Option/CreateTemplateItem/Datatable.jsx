@@ -94,14 +94,17 @@ const DataTable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
-          const templateItem = templateItems[tableMeta.rowIndex];
+          const [itemId] = tableMeta.rowData;
+          const templateItem = templateItems[itemId];
+          if (!templateItem) return;
           const { size } = templateItem;
+          if (!size) return;
           const hasUnit = unit !== 'quantidade' && unit && size;
           return (
             hasUnit && (
               <Size
-                rowIndex={tableMeta.rowIndex}
-                templateItem={templateItem}
+                itemId={itemId}
+                size={size}
                 onChangeValueX={onChangeValueX}
                 onChangeValueY={onChangeValueY}
               />
@@ -196,10 +199,12 @@ const DataTable = ({
     // customToolbarSelect: () => {}
   };
 
+  const data = Object.values(templateItems);
+  console.log('data', data);
   return (
     <MuiDatatable
       title={title}
-      data={templateItems}
+      data={data}
       columns={columns}
       options={options}
     />

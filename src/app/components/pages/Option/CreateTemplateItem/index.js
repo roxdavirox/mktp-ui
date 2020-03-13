@@ -76,8 +76,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     handleChangeItemPrice(id, newPrice);
   };
 
-  const calculateItemPrice = (id, quantity) => {
-    const { size, priceTable } = templateItems[id];
+  const calculateItemPrice = (id, quantity, size = { x: 1, y: 1 }) => {
+    const { priceTable } = templateItems[id];
     if (!priceTable) return;
     const { _id: priceTableId } = priceTable;
     const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
@@ -97,37 +97,59 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       });
   };
 
-  const handleCalculateItemPrice = (id, quantity = 1) => {
+  const handleCalculateItemPrice = (
+    id,
+    quantity = 1,
+    size = { x: 1, y: 1 }
+  ) => {
     const { itemType } = templateItems[id];
 
     if (itemType === 'item') {
-      calculateItemPrice(id, quantity);
+      calculateItemPrice(id, quantity, size);
       return;
     }
 
     calculateTemplatePrice(id);
   };
 
-  const handleChangeSizeX = (rowIndex, valueX) => {
-    const templateItem = {
-      ...templateItems[rowIndex],
-      size: {
-        ...templateItems[rowIndex].size,
-        x: valueX
-      }
+  const handleChangeSizeX = (id, valueX) => {
+    const templateItem = templateItems[id];
+    const {
+      quantity,
+      size: { y }
+    } = templateItem;
+    const newSize = {
+      y,
+      x: valueX
     };
-    handleCalculateItemPrice(rowIndex, templateItem);
+    setTemplateItems(prevItems => ({
+      ...prevItems,
+      [id]: {
+        ...templateItem,
+        size: newSize
+      }
+    }));
+    handleCalculateItemPrice(id, quantity, newSize);
   };
 
-  const handleChangeSizeY = (rowIndex, valueY) => {
-    const templateItem = {
-      ...templateItems[rowIndex],
-      size: {
-        ...templateItems[rowIndex].size,
-        y: valueY
-      }
+  const handleChangeSizeY = (id, valueY) => {
+    const templateItem = templateItems[id];
+    const {
+      quantity,
+      size: { x }
+    } = templateItem;
+    const newSize = {
+      x,
+      y: valueY
     };
-    handleCalculateItemPrice(rowIndex, templateItem);
+    setTemplateItems(prevItems => ({
+      ...prevItems,
+      [id]: {
+        ...templateItem,
+        size: newSize
+      }
+    }));
+    handleCalculateItemPrice(id, quantity, newSize);
   };
 
   const handleDuplicate = () => {};
@@ -158,15 +180,15 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     console.log('checkd items', checkedItems);
 
     const totalItemPrice = checkedItems
-      .filter(i => i.type === 'item')
-      .reduce((total, item) => total + item.price, 0);
+      .filter(i => i.itemType === 'item')
+      .reduce((_total, item) => _total + item.price, 0);
     console.log('total item price', totalItemPrice);
 
     const totalTemplateItemPrice = checkedItems
       .filter(i => i.itemType === 'template')
       .reduce(
-        (total, templateItem) =>
-          total + templateItem.price * templateItem.quantity,
+        (_total, templateItem) =>
+          _total + templateItem.price * templateItem.quantity,
         0
       );
 
@@ -263,9 +285,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     }, 1000);
   };
 
-  console.log('total', total);
-  const items = convertObjectToArray(templateItems);
-  console.log('items', items);
   return (
     <>
       <Container maxWidth="xl" className="m-sm-30">
@@ -307,7 +326,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
                 onNameChange={handleNameChange}
               />
             }
-            templateItems={items}
+            templateItems={templateItems}
             onChangeValueX={handleChangeSizeX}
             onChangeValueY={handleChangeSizeY}
             onDuplicateItem={handleDuplicate}
