@@ -115,6 +115,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
   const handleChangeSizeX = (id, valueX) => {
     const templateItem = templateItems[id];
+    const { isChecked } = templateItem;
+    if (!isChecked) return;
     const {
       quantity,
       size: { y }
@@ -135,6 +137,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
   const handleChangeSizeY = (id, valueY) => {
     const templateItem = templateItems[id];
+    const { isChecked } = templateItem;
+    if (!isChecked) return;
     const {
       quantity,
       size: { x }
@@ -198,6 +202,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const handleNameChange = newName => setTemplateName(newName);
 
   const handleChangeQuantity = (id, quantity) => {
+    const { isChecked } = templateItems[id];
+    if (!isChecked) return;
     console.log('change qty', id, quantity);
     if (quantity < 1) return;
     setTemplateItems(prevItems => ({
