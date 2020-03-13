@@ -115,8 +115,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
   const handleChangeSizeX = (id, valueX) => {
     const templateItem = templateItems[id];
-    const { isChecked } = templateItem;
-    if (!isChecked) return;
     const {
       quantity,
       size: { y }
@@ -132,13 +130,13 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         size: newSize
       }
     }));
+    const { isChecked } = templateItem;
+    if (!isChecked) return;
     handleCalculateItemPrice(id, quantity, newSize);
   };
 
   const handleChangeSizeY = (id, valueY) => {
     const templateItem = templateItems[id];
-    const { isChecked } = templateItem;
-    if (!isChecked) return;
     const {
       quantity,
       size: { x }
@@ -154,13 +152,15 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         size: newSize
       }
     }));
+    const { isChecked } = templateItem;
+    if (!isChecked) return;
     handleCalculateItemPrice(id, quantity, newSize);
   };
 
   const handleDuplicate = () => {};
 
   const handleCheck = id => {
-    const { isChecked, quantity } = templateItems[id];
+    const { isChecked, quantity, size } = templateItems[id];
 
     setTemplateItems(prevItems => ({
       ...prevItems,
@@ -175,7 +175,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       return;
     }
 
-    handleCalculateItemPrice(id, quantity);
+    handleCalculateItemPrice(id, quantity, size);
   };
 
   const handleTotalPriceCalculate = () => {
@@ -203,9 +203,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
   const handleChangeQuantity = (id, quantity) => {
     const { isChecked } = templateItems[id];
-    if (!isChecked) return;
-    console.log('change qty', id, quantity);
-    if (quantity < 1) return;
+    if (!isChecked || quantity < 1) return;
     setTemplateItems(prevItems => ({
       ...prevItems,
       [id]: {
@@ -213,7 +211,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         quantity
       }
     }));
-    console.log('wtf');
     handleCalculateItemPrice(id, quantity);
   };
 
