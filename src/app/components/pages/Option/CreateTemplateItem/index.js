@@ -78,6 +78,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
   const calculateItemPrice = (id, quantity, size = { x: 1, y: 1 }) => {
     const { priceTable } = templateItems[id];
+
     if (!priceTable) return;
     const { _id: priceTableId } = priceTable;
     const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
@@ -177,12 +178,10 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     const checkedItems = convertObjectToArray(templateItems).filter(
       item => item.isChecked
     );
-    console.log('checkd items', checkedItems);
 
     const totalItemPrice = checkedItems
       .filter(i => i.itemType === 'item')
       .reduce((_total, item) => _total + item.price, 0);
-    console.log('total item price', totalItemPrice);
 
     const totalTemplateItemPrice = checkedItems
       .filter(i => i.itemType === 'template')
@@ -199,6 +198,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const handleNameChange = newName => setTemplateName(newName);
 
   const handleChangeQuantity = (id, quantity) => {
+    console.log('change qty', id, quantity);
     if (quantity < 1) return;
     setTemplateItems(prevItems => ({
       ...prevItems,
@@ -207,7 +207,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         quantity
       }
     }));
-
+    console.log('wtf');
     handleCalculateItemPrice(id, quantity);
   };
 
@@ -223,7 +223,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       variant: 'info',
       autoHideDuration: 2000
     });
-    const templates = templateItems
+    const templates = Object.values(templateItems)
       .filter(item => item.isChecked)
       .map(item => ({
         option: item.option._id,
@@ -243,17 +243,15 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
           variant: 'success',
           autoHideDuration: 2000
         });
-        const unchekedTemplateItems = templateItems.map(tp => ({
-          ...tp,
-          isChecked: false,
-          price: 0
-        }));
-        setTemplateItems([
-          ...unchekedTemplateItems,
-          { ...templateItem, isChecked: false, price: 0, quantity: 1 }
-        ]);
-        setTemplateName('');
-        console.log('create template item response:', templateItem);
+        setTimeout(() => {
+          history.push({
+            pathname: '/items',
+            state: {
+              fromRedirect: true,
+              optionId
+            }
+          });
+        }, 1000);
       })
       .catch(e => {
         console.error(e.Message);

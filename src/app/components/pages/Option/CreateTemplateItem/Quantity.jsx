@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDebouncedCallback } from 'use-lodash-debounce';
-
+import { useDebouncedCallback } from 'use-debounce';
 const useStyles = makeStyles({
   TextField: {
     maxWidth: 45,
@@ -15,21 +14,17 @@ const useStyles = makeStyles({
 // TODO: mudar para uncontrolled component para melhorar a performance - onBlur
 // eslint-disable-next-line react/prop-types
 const Quantity = ({ itemId, initialValue, onChangeQuantity }) => {
-  const [value, setValue] = useState(initialValue);
   const classes = useStyles();
+  const [value, setValue] = useState(initialValue);
 
-  const handleDebounce = useDebouncedCallback(() => {
-    console.log('debounce', itemId, value);
-    onChangeQuantity(itemId, value);
-  }, 600);
-
-  useEffect(() => {
-    handleDebounce();
-    return () => handleDebounce.cancel();
-  }, [value]);
+  const [handleDebounce] = useDebouncedCallback(
+    (id, v) => onChangeQuantity(id, v),
+    450
+  );
 
   const handleChangeQuantity = e => {
     setValue(e.target.value);
+    handleDebounce(itemId, e.target.value);
   };
 
   return (

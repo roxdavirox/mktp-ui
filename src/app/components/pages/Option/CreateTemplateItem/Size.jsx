@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { memo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,9 +15,14 @@ const useStyles = makeStyles({
 const Size = ({ onChangeValueX, onChangeValueY, itemId, size }) => {
   const classes = useStyles();
 
-  const handleValueXChange = e => onChangeValueX(itemId, e.target.value);
+  const handleValueXChange = e => {
+    onChangeValueX(itemId, e.target.value);
+  };
 
-  const handleValueYChange = e => onChangeValueY(itemId, e.target.value);
+  const handleValueYChange = e => {
+    onChangeValueY(itemId, e.target.value);
+  };
+
   return (
     <>
       <TextField
