@@ -72,12 +72,12 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
   const calculateTemplatePrice = id => {
     const { quantity } = templateItems[id];
-    const newPrice = templateItems[id].templatePrice * quantity;
+    const newPrice = templateItems[id].price * quantity;
     handleChangeItemPrice(id, newPrice);
   };
 
-  const calculateItemPrice = id => {
-    const { size, priceTable, quantity } = templateItems[id];
+  const calculateItemPrice = (id, quantity) => {
+    const { size, priceTable } = templateItems[id];
     if (!priceTable) return;
     const { _id: priceTableId } = priceTable;
     const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
@@ -97,20 +97,15 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       });
   };
 
-  const handleCalculateItemPrice = id => {
-    const { itemType, isChecked } = templateItems[id];
+  const handleCalculateItemPrice = (id, quantity = 1) => {
+    const { itemType } = templateItems[id];
 
-    if (isChecked) {
-      handleChangeItemPrice(id, 0);
+    if (itemType === 'item') {
+      calculateItemPrice(id, quantity);
       return;
     }
 
-    const calculatePriceById = {
-      template: calculateTemplatePrice,
-      item: calculateItemPrice
-    }[itemType];
-
-    calculatePriceById(id);
+    calculateTemplatePrice(id);
   };
 
   const handleChangeSizeX = (rowIndex, valueX) => {
@@ -138,7 +133,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const handleDuplicate = () => {};
 
   const handleCheck = id => {
-    const { isChecked } = templateItems[id];
+    const { isChecked, quantity } = templateItems[id];
 
     setTemplateItems(prevItems => ({
       ...prevItems,
@@ -148,7 +143,12 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       }
     }));
 
-    handleCalculateItemPrice(id);
+    if (isChecked) {
+      handleChangeItemPrice(id, 0);
+      return;
+    }
+
+    handleCalculateItemPrice(id, quantity);
   };
 
   const handleTotalPriceCalculate = () => {
@@ -185,6 +185,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         quantity
       }
     }));
+
+    handleCalculateItemPrice(id, quantity);
   };
 
   const handleDeleteTemplateItems = indexRows => {
