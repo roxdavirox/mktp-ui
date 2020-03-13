@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDebouncedCallback } from 'use-debounce';
 
 const useStyles = makeStyles({
   TextField: {
@@ -14,13 +15,27 @@ const useStyles = makeStyles({
 // eslint-disable-next-line react/prop-types
 const Size = ({ onChangeValueX, onChangeValueY, itemId, size }) => {
   const classes = useStyles();
+  const [x, setX] = useState(size.x);
+  const [y, setY] = useState(size.y);
+
+  const [handleDebounceX] = useDebouncedCallback(
+    (id, _x) => onChangeValueX(id, _x),
+    450
+  );
 
   const handleValueXChange = e => {
-    onChangeValueX(itemId, e.target.value);
+    setX(e.target.value);
+    handleDebounceX(itemId, e.target.value);
   };
 
+  const [handleDebounceY] = useDebouncedCallback(
+    (id, _y) => onChangeValueY(id, _y),
+    450
+  );
+
   const handleValueYChange = e => {
-    onChangeValueY(itemId, e.target.value);
+    setY(e.target.value);
+    handleDebounceY(itemId, e.target.value);
   };
 
   return (
@@ -29,14 +44,14 @@ const Size = ({ onChangeValueX, onChangeValueY, itemId, size }) => {
         type="number"
         onChange={handleValueXChange}
         placeholder={'x'}
-        value={size.x <= 0 ? 1 : size.x || 1}
+        value={x <= 0 ? 1 : x || 1}
         className={classes.TextField}
       />{' '}
       <TextField
         type="number"
         onChange={handleValueYChange}
         placeholder={'y'}
-        value={size.y <= 0 ? 1 : size.y || 1}
+        value={y <= 0 ? 1 : y || 1}
         className={classes.TextField}
       />{' '}
     </>
