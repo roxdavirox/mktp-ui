@@ -9,7 +9,7 @@ import { convertToObjectWithKeys, addNewPropsWhen } from 'helpers/array';
 
 import { Breadcrumb } from 'matx';
 import TemplateDatatable from './Datatable';
-import InfoItem from './InfoItem';
+import TemplateInfo from './TemplateInfo';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 import MoneyCard from 'app/components/common/cards/MoneyCard';
 import SaveButton from 'app/components/common/buttons/SaveButton';
@@ -345,7 +345,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
           <br />
           <TemplateDatatable
             title={
-              <InfoItem
+              <TemplateInfo
                 templateName={templateName}
                 onNameChange={handleNameChange}
                 templateQuantity={templateQuantity}

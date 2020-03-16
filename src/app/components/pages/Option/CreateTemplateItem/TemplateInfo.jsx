@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const InfoItem = ({
+const TemplateInfo = ({
   templateName,
   onNameChange,
   templateQuantity,
@@ -87,11 +87,11 @@ const InfoItem = ({
   );
 };
 
-InfoItem.propTypes = {
+TemplateInfo.propTypes = {
   onNameChange: PropTypes.func,
   templateName: PropTypes.string,
   templateQuantity: PropTypes.number,
   onChangeQuantity: PropTypes.func
 };
 
-export default memo(InfoItem);
+export default memo(TemplateInfo);
