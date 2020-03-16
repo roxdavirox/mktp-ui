@@ -191,7 +191,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       .filter(i => i.itemType === 'template')
       .reduce(
         (_total, templateItem) =>
-          _total + templateItem.price * templateItem.quantity,
+          _total + templateItem.templatePrice * templateItem.quantity,
         0
       );
 
