@@ -79,11 +79,14 @@ const DataTable = ({
           const { rowData } = tableMeta;
           const uuid = rowData[rowData.length - 1];
           return (
-            <Quantity
-              uuid={uuid}
-              initialValue={value}
-              onChangeQuantity={onChangeQuantity}
-            />
+            templateItems[uuid] && (
+              <Quantity
+                key={uuid}
+                uuid={uuid}
+                initialValue={value}
+                onChangeQuantity={onChangeQuantity}
+              />
+            )
           );
         }
       }
@@ -103,8 +106,10 @@ const DataTable = ({
           if (!size) return;
           const hasUnit = unit !== 'quantidade' && unit && size;
           return (
-            hasUnit && (
+            hasUnit &&
+            templateItems[uuid] && (
               <Size
+                key={uuid}
                 uuid={uuid}
                 size={size}
                 onChangeValueX={onChangeValueX}
@@ -225,4 +230,4 @@ DataTable.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default withSnackbar(memo(DataTable));
+export default withSnackbar(DataTable);

@@ -17,7 +17,7 @@ import reactUuid from 'react-uuid';
 
 const defaulItemProps = {
   price: 0,
-  quantity: 1,
+  quantity: 10,
   isChecked: false
 };
 
@@ -26,9 +26,8 @@ const itemNotHasQuantity = item =>
 
 const mapDefaultItemPropsToObject = items => {
   const itemsWithSize = addNewPropsWhen(itemNotHasQuantity)({
-    size: { x: 1, y: 1 }
+    size: { x: 10, y: 10 }
   })(items);
-
   const itemsWithUuid = itemsWithSize.map(i => ({ ...i, uuid: reactUuid() }));
   return convertToObjectWithKeys(itemsWithUuid)('uuid')(defaulItemProps);
 };
@@ -160,15 +159,22 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   };
 
   const handleDuplicate = uuidDuplicated => {
-    const templateItem = templateItems[uuidDuplicated];
-    const itemIndex = Object.keys(templateItems).indexOf(uuidDuplicated);
-    if (itemIndex === -1) return;
-
-    const _items = Object.values(templateItems);
-    const uuid = reactUuid();
-    _items.splice(itemIndex + 1, 0, { ...templateItem, uuid });
-    const _templateItems = convertToObjectWithKeys(_items)('uuid')({});
-    setTemplateItems(_templateItems);
+    const _templates = Object.values(templateItems).reduce((obj, item) => {
+      if (item.uuid === uuidDuplicated) {
+        const newUuid = reactUuid();
+        return {
+          ...obj,
+          [item.uuid]: item,
+          [newUuid]: { ...item, uuid: newUuid }
+        };
+      }
+      return {
+        ...obj,
+        [item.uuid]: item
+      };
+    }, {});
+    // const _templateItems = convertToObjectWithKeys(_templates)('uuid')();
+    setTemplateItems(_templates);
   };
 
   const handleCheck = id => {
@@ -215,7 +221,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
   const handleChangeQuantity = (id, quantity) => {
     const { isChecked } = templateItems[id];
-    if (!isChecked || quantity < 1) return;
+    if (quantity < 1) return;
     setTemplateItems(prevItems => ({
       ...prevItems,
       [id]: {
@@ -223,6 +229,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         quantity
       }
     }));
+    if (!isChecked) return;
     handleCalculateItemPrice(id, quantity);
   };
 
