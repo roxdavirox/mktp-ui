@@ -36,6 +36,7 @@ const convertObjectToArray = obj => Object.values(obj);
 
 const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const [total, setTotal] = useState(0);
+  const [templateQuantity, setTemplateQuantity] = useState(1);
   const [isLoading, setLoadingState] = useState(true);
   const [templateItems, setTemplateItems] = useState([]);
   const [templateName, setTemplateName] = useState('');
@@ -63,6 +64,9 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   useEffect(() => {
     handleTotalPriceCalculate();
   }, [templateItems]);
+
+  const handleChangeTemplateQuantity = quantity =>
+    setTemplateQuantity(quantity);
 
   const handleChangeItemPrice = (id, price) => {
     setTemplateItems(prevItems => ({
@@ -344,6 +348,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
               <InfoItem
                 templateName={templateName}
                 onNameChange={handleNameChange}
+                templateQuantity={templateQuantity}
+                onChangeQuantity={handleChangeTemplateQuantity}
               />
             }
             templateItems={templateItems}

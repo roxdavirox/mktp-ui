@@ -31,14 +31,20 @@ const useStyles = makeStyles(theme => ({
   select: { height: '37px' },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 400
+    minWidth: 350
   }
 }));
 
-const InfoItem = ({ templateName, onNameChange }) => {
+const InfoItem = ({
+  templateName,
+  onNameChange,
+  templateQuantity,
+  onChangeQuantity
+}) => {
   const classes = useStyles();
 
   const handleNameChange = e => onNameChange(e.target.value);
+  const handleChangeQuantity = e => onChangeQuantity(e.target.value);
 
   return (
     <>
@@ -61,17 +67,31 @@ const InfoItem = ({ templateName, onNameChange }) => {
             )}
           </FormControl>
         </Grid>
+        <Grid item>
+          <FormControl
+            className={classes.formControl}
+            style={{ minWidth: 200 }}
+            sm={6}
+            lg={4}
+          >
+            <TextField
+              type="number"
+              placeholder="Quantidade de templates"
+              value={templateQuantity}
+              onChange={handleChangeQuantity}
+            />
+          </FormControl>
+        </Grid>
       </Container>
     </>
   );
 };
 
 InfoItem.propTypes = {
-  options: PropTypes.array,
   onNameChange: PropTypes.func,
-  onSelectOption: PropTypes.func,
   templateName: PropTypes.string,
-  selectedOption: PropTypes.object
+  templateQuantity: PropTypes.number,
+  onChangeQuantity: PropTypes.func
 };
 
 export default memo(InfoItem);
