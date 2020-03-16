@@ -76,10 +76,11 @@ const DataTable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderUnitComponent(value, tableMeta) {
-          const [id] = tableMeta.rowData;
+          const { rowData } = tableMeta;
+          const uuid = rowData[rowData.length - 1];
           return (
             <Quantity
-              itemId={id}
+              uuid={uuid}
               initialValue={value}
               onChangeQuantity={onChangeQuantity}
             />
@@ -94,8 +95,9 @@ const DataTable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderUnitComponent(unit, tableMeta) {
-          const [itemId] = tableMeta.rowData;
-          const templateItem = templateItems[itemId];
+          const { rowData } = tableMeta;
+          const uuid = rowData[rowData.length - 1];
+          const templateItem = templateItems[uuid];
           if (!templateItem) return;
           const { size } = templateItem;
           if (!size) return;
@@ -103,7 +105,7 @@ const DataTable = ({
           return (
             hasUnit && (
               <Size
-                itemId={itemId}
+                uuid={uuid}
                 size={size}
                 onChangeValueX={onChangeValueX}
                 onChangeValueY={onChangeValueY}
@@ -137,8 +139,9 @@ const DataTable = ({
               }
               onChange={event => {
                 const isChecked = event.target.value === 'Yes' ? false : true;
-                const [id] = tableMeta.rowData;
-                onCheckItem(id);
+                const { rowData } = tableMeta;
+                const uuid = rowData[rowData.length - 1];
+                onCheckItem(uuid);
                 updateValue(isChecked);
               }}
             />
@@ -158,7 +161,7 @@ const DataTable = ({
       }
     },
     {
-      name: 'duplicate',
+      name: 'uuid',
       label: 'Duplicar',
       options: {
         sort: false,
@@ -200,6 +203,7 @@ const DataTable = ({
   };
 
   const data = Object.values(templateItems);
+  console.log('data', data);
   return (
     <MuiDatatable
       title={title}

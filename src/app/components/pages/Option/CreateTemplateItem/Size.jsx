@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Size = ({ onChangeValueX, onChangeValueY, itemId, size }) => {
+const Size = ({ onChangeValueX, onChangeValueY, uuid, size }) => {
   const classes = useStyles();
   const [x, setX] = useState(size.x);
   const [y, setY] = useState(size.y);
@@ -25,7 +25,7 @@ const Size = ({ onChangeValueX, onChangeValueY, itemId, size }) => {
 
   const handleValueXChange = e => {
     setX(e.target.value);
-    handleDebounceX(itemId, e.target.value);
+    handleDebounceX(uuid, e.target.value);
   };
 
   const [handleDebounceY] = useDebouncedCallback(
@@ -35,7 +35,7 @@ const Size = ({ onChangeValueX, onChangeValueY, itemId, size }) => {
 
   const handleValueYChange = e => {
     setY(e.target.value);
-    handleDebounceY(itemId, e.target.value);
+    handleDebounceY(uuid, e.target.value);
   };
 
   return (
@@ -61,8 +61,7 @@ const Size = ({ onChangeValueX, onChangeValueY, itemId, size }) => {
 Size.propTypes = {
   onChangeValueX: PropTypes.func.isRequired,
   onChangeValueY: PropTypes.func.isRequired,
-  templateItem: PropTypes.object,
-  rowIndex: PropTypes.number
+  templateItem: PropTypes.object
 };
 
 export default memo(Size);

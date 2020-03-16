@@ -9,7 +9,7 @@ const MoneyCard = props => {
     <Card
       className="play-card p-sm-24 bg-paper"
       elevation={6}
-      style={{ maxWidth: '210px', width: '200px' }}
+      style={{ maxWidth: '263px', width: '263px' }}
     >
       <div className="flex flex-middle">
         <Icon
