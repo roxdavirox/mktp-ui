@@ -161,8 +161,16 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
   const handleDuplicate = uuidDuplicated => {
     const templateItem = templateItems[uuidDuplicated];
+    const itemIndex = Object.keys(templateItems).indexOf(uuidDuplicated);
+    console.log('index', itemIndex);
+    if (itemIndex === -1) return;
+
+    const _items = Object.values(templateItems);
     const uuid = reactUuid();
-    setTemplateItems({ ...templateItems, [uuid]: { ...templateItem, uuid } });
+    _items.splice(itemIndex + 1, 0, { ...templateItem, uuid });
+    console.log('items', _items);
+    const _templateItems = convertToObjectWithKeys(_items)('uuid')({});
+    setTemplateItems(_templateItems);
   };
 
   const handleCheck = id => {
