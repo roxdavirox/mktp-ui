@@ -173,7 +173,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         [item.uuid]: item
       };
     }, {});
-    // const _templateItems = convertToObjectWithKeys(_templates)('uuid')();
     setTemplateItems(_templates);
   };
 
