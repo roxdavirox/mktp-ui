@@ -17,7 +17,7 @@ import reactUuid from 'react-uuid';
 
 const defaulItemProps = {
   price: 0,
-  quantity: 10,
+  quantity: 1,
   isChecked: false
 };
 
@@ -26,7 +26,7 @@ const itemNotHasQuantity = item =>
 
 const mapDefaultItemPropsToObject = items => {
   const itemsWithSize = addNewPropsWhen(itemNotHasQuantity)({
-    size: { x: 10, y: 10 }
+    size: { x: 1, y: 1 }
   })(items);
   const itemsWithUuid = itemsWithSize.map(i => ({ ...i, uuid: reactUuid() }));
   return convertToObjectWithKeys(itemsWithUuid)('uuid')(defaulItemProps);
