@@ -24,7 +24,7 @@ const MoneyCard = props => {
         <div className="ml-12">
           <small className="text-muted">Valor total</small>
           <h6 className="m-0 mt-4 text-primary font-weight-500">
-            R$ {props.value}
+            R$ {props.value.toFixed(4)}
           </h6>
         </div>
       </div>

@@ -13,7 +13,7 @@ import InfoItem from './InfoItem';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 import MoneyCard from 'app/components/common/cards/MoneyCard';
 import SaveButton from 'app/components/common/buttons/SaveButton';
-const uuid = require('uuid/v1');
+import reactUuid from 'react-uuid';
 
 const defaulItemProps = {
   price: 0,
@@ -29,8 +29,7 @@ const mapDefaultItemPropsToObject = items => {
     size: { x: 1, y: 1 }
   })(items);
 
-  const itemsWithUuid = itemsWithSize.map(i => ({ ...i, uuid: uuid() }));
-
+  const itemsWithUuid = itemsWithSize.map(i => ({ ...i, uuid: reactUuid() }));
   return convertToObjectWithKeys(itemsWithUuid)('uuid')(defaulItemProps);
 };
 
@@ -160,7 +159,11 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     handleCalculateItemPrice(id, quantity, newSize);
   };
 
-  const handleDuplicate = () => {};
+  const handleDuplicate = uuidDuplicated => {
+    const templateItem = templateItems[uuidDuplicated];
+    const uuid = reactUuid();
+    setTemplateItems({ ...templateItems, [uuid]: { ...templateItem, uuid } });
+  };
 
   const handleCheck = id => {
     const { isChecked, quantity, size } = templateItems[id];

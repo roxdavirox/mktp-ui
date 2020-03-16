@@ -156,7 +156,8 @@ const DataTable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderPriceValue(price, tableMeta) {
-          return price ? price : 0;
+          const fixedPrice = price ? price : 0;
+          return fixedPrice.toFixed(4);
         }
       }
     },
@@ -167,12 +168,9 @@ const DataTable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderDuplicateItem(value, tableMeta) {
-          return (
-            <DuplicateIcon
-              index={tableMeta.rowIndex}
-              onClick={handleDuplicate}
-            />
-          );
+          const { rowData } = tableMeta;
+          const uuid = rowData[rowData.length - 1];
+          return <DuplicateIcon index={uuid} onClick={handleDuplicate} />;
         }
       }
     }
