@@ -18,7 +18,7 @@ export function compareValues(key, order = 'asc') {
   };
 }
 
-export const convertToObjectWithKeys = arr => k => props =>
+export const convertToObjectWithKeys = arr => k => (props = {}) =>
   arr.reduce(
     (obj, el) => ({
       ...obj,

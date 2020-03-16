@@ -162,13 +162,11 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const handleDuplicate = uuidDuplicated => {
     const templateItem = templateItems[uuidDuplicated];
     const itemIndex = Object.keys(templateItems).indexOf(uuidDuplicated);
-    console.log('index', itemIndex);
     if (itemIndex === -1) return;
 
     const _items = Object.values(templateItems);
     const uuid = reactUuid();
     _items.splice(itemIndex + 1, 0, { ...templateItem, uuid });
-    console.log('items', _items);
     const _templateItems = convertToObjectWithKeys(_items)('uuid')({});
     setTemplateItems(_templateItems);
   };
@@ -229,10 +227,11 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   };
 
   const handleDeleteTemplateItems = indexRows => {
-    const _templateItems = templateItems.filter(
+    const filteredItems = Object.values(templateItems).filter(
       (_, index) => indexRows.indexOf(index) === -1
     );
-    setTemplateItems([..._templateItems]);
+    const _templateItems = convertToObjectWithKeys(filteredItems)('uuid')({});
+    setTemplateItems(_templateItems);
   };
 
   const handleSubmit = () => {

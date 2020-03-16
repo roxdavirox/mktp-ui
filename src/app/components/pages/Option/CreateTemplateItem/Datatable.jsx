@@ -201,7 +201,6 @@ const DataTable = ({
   };
 
   const data = Object.values(templateItems);
-  console.log('data', data);
   return (
     <MuiDatatable
       title={title}
