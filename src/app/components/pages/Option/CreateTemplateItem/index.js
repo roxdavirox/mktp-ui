@@ -261,7 +261,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     fetch(endpoint, postRequest)
       .then(res => res.json())
       .then(({ error, ...rest }) => (error ? null : rest))
-      .then(({ templateItem }) => {
+      .then(() => {
         enqueueSnackbar('Template criado com sucesso!', {
           variant: 'success',
           autoHideDuration: 2000
