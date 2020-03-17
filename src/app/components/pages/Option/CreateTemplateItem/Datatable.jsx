@@ -28,7 +28,8 @@ const DataTable = ({
   onChangeValueX,
   onChangeValueY,
   onChangeQuantity,
-  isLoading
+  isLoading,
+  priceTables
 }) => {
   const classes = useStyle();
 
@@ -161,8 +162,18 @@ const DataTable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderPriceValue(price, tableMeta) {
-          const fixedPrice = price ? price : 0;
-          return fixedPrice.toFixed(4);
+          const { rowData } = tableMeta;
+          const uuid = rowData[rowData.length - 1];
+          const { priceTable, quantity } = templateItems[uuid];
+          if (!priceTable) return 0;
+          const _priceTable = priceTables[priceTable._id];
+          if (_priceTable) {
+            const fixedPrice = price ? _priceTable.unitPrice : 0;
+            return fixedPrice.toFixed(4);
+          } else {
+            const fixedPrice = price ? price : 0;
+            return fixedPrice.toFixed(4);
+          }
         }
       }
     },

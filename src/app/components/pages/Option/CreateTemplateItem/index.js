@@ -36,6 +36,10 @@ const convertObjectToArray = obj => Object.values(obj);
 
 const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const [total, setTotal] = useState(0);
+  const [duplcitatedUuid, setDuplicatedUuid] = useState('');
+  const [priceTables, setPriceTables] = useState({
+    '5e4e8f6e9db6ef0004706262': { unitPrice: 0 }
+  });
   const [templateQuantity, setTemplateQuantity] = useState(1);
   const [isLoading, setLoadingState] = useState(true);
   const [templateItems, setTemplateItems] = useState([]);
@@ -63,7 +67,13 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
   useEffect(() => {
     handleTotalPriceCalculate();
-  }, [templateItems]);
+  }, [templateItems, priceTables]);
+
+  useEffect(() => {
+    if (!duplcitatedUuid) return;
+    calculateItemPrice(duplcitatedUuid);
+    setDuplicatedUuid('');
+  }, [duplcitatedUuid]);
 
   const handleChangeTemplateQuantity = quantity =>
     setTemplateQuantity(quantity);
@@ -81,41 +91,58 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     handleChangeItemPrice(id, newPrice);
   };
 
-  const calculateItemPrice = (id, quantity, size = { x: 1, y: 1 }) => {
-    const { priceTable } = templateItems[id];
+  const calculateItemPrice = uuid => {
+    const { priceTable } = templateItems[uuid];
 
     if (!priceTable) return;
     const { _id: priceTableId } = priceTable;
-    const endpoint = getEndpoint(`/price-tables/total/${priceTableId}`);
+    const endpoint = getEndpoint(`/price-tables/price/${priceTableId}`);
 
+    const allItemsWithSamePriceTable = Object.values(templateItems)
+      .filter(item => item.itemType === 'item' && item.priceTable)
+      .filter(item => item.priceTable._id == priceTable._id);
+    console.log(
+      'items com a mesma tabela de preço',
+      allItemsWithSamePriceTable
+    );
+    // calcular a area total de acorco com a tabela de preço do item
+
+    const area = allItemsWithSamePriceTable.reduce(
+      (totalArea, crrItem) =>
+        totalArea + crrItem.size.x * crrItem.size.y * crrItem.quantity,
+      0
+    );
+    console.log('area total', area);
     const body = {
-      quantity,
-      size
+      area
     };
 
     const request = createPostRequest(body);
 
     fetch(endpoint, request)
       .then(res => res.json())
-      .then(({ total }) => handleChangeItemPrice(id, total))
+      .then(({ price }) => {
+        setPriceTables(prev => ({
+          ...prev,
+          [priceTableId]: { unitPrice: price.value }
+        }));
+
+        // handleChangeItemPrice(id, price.value);
+      })
       .catch(error => {
         console.log(`Error on get total value ${error}`);
       });
   };
 
-  const handleCalculateItemPrice = (
-    id,
-    quantity = 1,
-    size = { x: 1, y: 1 }
-  ) => {
-    const { itemType } = templateItems[id];
+  const handleCalculateItemPrice = uuid => {
+    const { itemType } = templateItems[uuid];
 
     if (itemType === 'item') {
-      calculateItemPrice(id, quantity, size);
+      calculateItemPrice(uuid);
       return;
     }
 
-    calculateTemplatePrice(id);
+    calculateTemplatePrice(uuid);
   };
 
   const handleChangeSizeX = (id, valueX) => {
@@ -178,6 +205,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       };
     }, {});
     setTemplateItems(_templates);
+    setDuplicatedUuid(uuidDuplicated);
   };
 
   const handleCheck = id => {
@@ -204,9 +232,16 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       item => item.isChecked
     );
 
-    const totalItemPrice = checkedItems
+    const _itemsChecked = checkedItems.filter(i => i.itemType === 'item');
+
+    const totalItemPrice = _itemsChecked
       .filter(i => i.itemType === 'item')
-      .reduce((_total, item) => _total + item.price, 0);
+      .reduce((_total, item) => {
+        const { unitPrice } = priceTables[item.priceTable._id];
+        const totalPrice =
+          item.size.x * item.size.y * item.quantity * unitPrice;
+        return _total + totalPrice;
+      }, 0);
 
     const totalTemplateItemPrice = checkedItems
       .filter(i => i.itemType === 'template')
@@ -309,6 +344,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     }, 1000);
   };
 
+  console.log('priceTables', priceTables);
+  console.log('templateItems', templateItems);
   return (
     <>
       <Container maxWidth="xl" className="m-sm-30">
@@ -360,6 +397,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
             onChangeQuantity={handleChangeQuantity}
             onDeleteTemplateItems={handleDeleteTemplateItems}
             isLoading={isLoading}
+            priceTables={priceTables}
           />
         </Container>
       </Container>
