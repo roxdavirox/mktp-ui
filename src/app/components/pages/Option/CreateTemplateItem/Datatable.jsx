@@ -6,6 +6,7 @@ import { withSnackbar } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+
 //Common components
 import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 import DuplicateIcon from 'app/components/common/icons/DuplicateIcon';
@@ -132,9 +133,15 @@ const DataTable = ({
           tableMeta,
           updateValue
         ) {
+          const handleCheckItem = e => {
+            const isChecked = value === 'Yes' ? false : true;
+            updateValue(isChecked);
+            const { rowData } = tableMeta;
+            const uuid = rowData[rowData.length - 1];
+            onCheckItem(uuid);
+          };
           return (
             <FormControlLabel
-              // label={value ? 'Yes' : 'No'}
               value={value ? 'Yes' : 'No'}
               control={
                 <Switch
@@ -143,13 +150,7 @@ const DataTable = ({
                   value={value ? 'Yes' : 'No'}
                 />
               }
-              onChange={event => {
-                const isChecked = event.target.value === 'Yes' ? false : true;
-                const { rowData } = tableMeta;
-                const uuid = rowData[rowData.length - 1];
-                onCheckItem(uuid);
-                updateValue(isChecked);
-              }}
+              onChange={handleCheckItem}
             />
           );
         }
