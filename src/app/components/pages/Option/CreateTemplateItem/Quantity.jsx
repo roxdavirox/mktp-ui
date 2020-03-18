@@ -23,8 +23,8 @@ const Quantity = ({ uuid, initialValue, onChangeQuantity }) => {
   );
 
   const handleChangeQuantity = e => {
+    setValue(e.target.value);
     if (e.target.value >= 1) {
-      setValue(e.target.value);
       handleDebounce(uuid, e.target.value);
     }
   };
@@ -32,6 +32,7 @@ const Quantity = ({ uuid, initialValue, onChangeQuantity }) => {
   return (
     <TextField
       type="number"
+      defaultValue={value || 1}
       value={value}
       ref={inputRef}
       onChange={handleChangeQuantity}

@@ -25,7 +25,9 @@ const Size = ({ onChangeValueX, onChangeValueY, uuid, size }) => {
 
   const handleValueXChange = e => {
     setX(e.target.value);
-    handleDebounceX(uuid, e.target.value);
+    if (e.target.value >= 1) {
+      handleDebounceX(uuid, e.target.value);
+    }
   };
 
   const [handleDebounceY] = useDebouncedCallback(
@@ -35,23 +37,27 @@ const Size = ({ onChangeValueX, onChangeValueY, uuid, size }) => {
 
   const handleValueYChange = e => {
     setY(e.target.value);
-    handleDebounceY(uuid, e.target.value);
+    if (e.target.value >= 1) {
+      handleDebounceY(uuid, e.target.value);
+    }
   };
 
   return (
     <>
       <TextField
         type="number"
+        defaultValue={x || 1}
         onChange={handleValueXChange}
-        placeholder={'x'}
-        value={x <= 0 ? 1 : x || 1}
+        placeholder={'1'}
+        value={x}
         className={classes.TextField}
       />{' '}
       <TextField
         type="number"
+        defaultValue={y || 1}
         onChange={handleValueYChange}
-        placeholder={'y'}
-        value={y <= 0 ? 1 : y || 1}
+        placeholder={'1'}
+        value={y}
         className={classes.TextField}
       />{' '}
     </>
