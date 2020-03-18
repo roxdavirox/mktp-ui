@@ -9,7 +9,7 @@ const MoneyCard = props => {
     <Card
       className="play-card p-sm-24 bg-paper"
       elevation={6}
-      style={{ maxWidth: '263px', width: '263px' }}
+      style={{ maxWidth: '263px', width: '263px', ...props.style }}
     >
       <div className="flex flex-middle">
         <Icon
@@ -22,7 +22,7 @@ const MoneyCard = props => {
           attach_money
         </Icon>
         <div className="ml-12">
-          <small className="text-muted">Valor total</small>
+          <small className="text-muted">{props.title}</small>
           <h6 className="m-0 mt-4 text-primary font-weight-500">
             R$ {props.value.toFixed(4)}
           </h6>

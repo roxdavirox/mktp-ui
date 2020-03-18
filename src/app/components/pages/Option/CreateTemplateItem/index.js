@@ -360,9 +360,20 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
             maxWidth: '100%'
           }}
         >
-          <Grid item>
-            <MoneyCard value={total} />
+          <Grid
+            item
+            style={{
+              display: 'flex'
+            }}
+          >
+            <MoneyCard title="Valor total" value={total} />
+            <MoneyCard
+              style={{ margin: '0px 16px' }}
+              title="Valor unitário"
+              value={total / templateQuantity}
+            />
           </Grid>
+
           <Grid item>
             <SaveButton
               initialTitle="Criar template"
