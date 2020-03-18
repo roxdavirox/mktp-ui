@@ -36,13 +36,7 @@ const convertObjectToArray = obj => Object.values(obj);
 
 const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const [total, setTotal] = useState(0);
-  const [priceTables, setPriceTables] = useState({
-    '5e4e8f6e9db6ef0004706262': {
-      id: '5e4e8f6e9db6ef0004706262',
-      unitPrice: 0,
-      area: 2000
-    }
-  });
+  const [priceTables, setPriceTables] = useState({});
   const [templateQuantity, setTemplateQuantity] = useState(1);
   const [isLoading, setLoadingState] = useState(true);
   const [templateItems, setTemplateItems] = useState([]);
@@ -58,6 +52,21 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         .then(res => res.json())
         .then(({ items }) => {
           const objectItems = mapDefaultItemPropsToObject(items);
+          const _defaultPriceTables = Object.values(objectItems)
+            .filter(item => item.itemType === 'item' && item.priceTable)
+            .reduce((obj, item) => {
+              const { priceTable } = item;
+              const { _id: priceTableId } = priceTable;
+              return {
+                ...obj,
+                [priceTableId]: {
+                  id: priceTableId,
+                  area: 0,
+                  unitPrice: 0
+                }
+              };
+            }, {});
+          setPriceTables(_defaultPriceTables);
           setTemplateItems(objectItems);
           setLoadingState(false);
         })
@@ -88,33 +97,9 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     }));
   };
 
-  const calculateTemplatePrice = id => {
-    const { quantity } = templateItems[id];
-    const newPrice = templateItems[id].price * quantity;
-    handleChangeItemPrice(id, newPrice);
-  };
-
-  const calculateItemPrice = uuid => {
-    const { priceTable } = templateItems[uuid];
-
-    if (!priceTable) return;
-  };
-
-  const handleCalculateItemPrice = uuid => {
-    const { itemType } = templateItems[uuid];
-
-    if (itemType === 'item') {
-      calculateItemPrice(uuid);
-      return;
-    }
-
-    calculateTemplatePrice(uuid);
-  };
-
   const handleChangeSizeX = (id, valueX) => {
     const templateItem = templateItems[id];
     const {
-      quantity,
       size: { y }
     } = templateItem;
     const newSize = {
@@ -128,15 +113,11 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         size: newSize
       }
     }));
-    const { isChecked } = templateItem;
-    if (!isChecked) return;
-    handleCalculateItemPrice(id, quantity, newSize);
   };
 
   const handleChangeSizeY = (id, valueY) => {
     const templateItem = templateItems[id];
     const {
-      quantity,
       size: { x }
     } = templateItem;
     const newSize = {
@@ -150,9 +131,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         size: newSize
       }
     }));
-    const { isChecked } = templateItem;
-    if (!isChecked) return;
-    handleCalculateItemPrice(id, quantity, newSize);
   };
 
   const handleDuplicate = uuidDuplicated => {
@@ -176,7 +154,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   };
 
   const handleCheck = id => {
-    const { isChecked, quantity, size } = templateItems[id];
+    const { isChecked } = templateItems[id];
 
     setTemplateItems(prevItems => ({
       ...prevItems,
@@ -190,14 +168,14 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       handleChangeItemPrice(id, 0);
       return;
     }
-
-    handleCalculateItemPrice(id, quantity, size);
   };
 
   const handleUnitPriceTableCalculate = () => {
     const checkedTemplateItems = convertObjectToArray(templateItems).filter(
       item => item.isChecked
     );
+
+    if (!checkedTemplateItems) return;
 
     const checkedItems = checkedTemplateItems.filter(
       item => item.itemType === 'item' && item.priceTable
@@ -215,25 +193,21 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     const groupedPriceTables = checkedItems.reduce((obj, item) => {
       const { priceTable } = item;
       const { _id: priceTableId } = priceTable;
+
+      const { area } = obj[priceTableId];
       return {
         ...obj,
         [priceTableId]: {
           ...obj[priceTableId],
           id: priceTableId,
-          area:
-            // eslint-disable-next-line prettier/prettier
-          obj[priceTableId].area +
-            (item.quantity * item.size.x * item.size.y)
+          area: item.quantity * item.size.x * item.size.y + area
         }
       };
     }, _priceTables);
 
     console.log('groupedPriceTables', groupedPriceTables);
 
-    // atualizar price tables set request aqui
-
     const body = {
-      // priceTables: [{ id: '5e4e8f6e9db6ef0004706262', area: 2000 }]
       priceTables: Object.values(groupedPriceTables)
     };
 
@@ -293,7 +267,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       }
     }));
     if (!isChecked) return;
-    handleCalculateItemPrice(id, quantity);
   };
 
   const handleDeleteTemplateItems = indexRows => {
