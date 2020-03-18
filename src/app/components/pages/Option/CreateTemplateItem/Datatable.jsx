@@ -238,7 +238,8 @@ DataTable.propTypes = {
   onChangeValueX: PropTypes.func.isRequired,
   onChangeValueY: PropTypes.func.isRequired,
   onChangeQuantity: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  priceTables: PropTypes.array
 };
 
 export default withSnackbar(DataTable);
