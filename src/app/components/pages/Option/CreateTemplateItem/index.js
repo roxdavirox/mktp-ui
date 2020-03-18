@@ -36,9 +36,12 @@ const convertObjectToArray = obj => Object.values(obj);
 
 const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const [total, setTotal] = useState(0);
-  const [duplcitatedUuid, setDuplicatedUuid] = useState('');
   const [priceTables, setPriceTables] = useState({
-    '5e4e8f6e9db6ef0004706262': { unitPrice: 0 }
+    '5e4e8f6e9db6ef0004706262': {
+      id: '5e4e8f6e9db6ef0004706262',
+      unitPrice: 0,
+      area: 2000
+    }
   });
   const [templateQuantity, setTemplateQuantity] = useState(1);
   const [isLoading, setLoadingState] = useState(true);
@@ -66,14 +69,14 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   }, []);
 
   useEffect(() => {
-    handleTotalPriceCalculate();
-  }, [templateItems, priceTables]);
+    if (!templateItems) return;
+    handleUnitPriceTableCalculate();
+  }, [templateItems]);
 
   useEffect(() => {
-    if (!duplcitatedUuid) return;
-    calculateItemPrice(duplcitatedUuid);
-    setDuplicatedUuid('');
-  }, [duplcitatedUuid]);
+    if (!priceTables) return;
+    handleTotalPriceCalculate();
+  }, [priceTables]);
 
   const handleChangeTemplateQuantity = quantity =>
     setTemplateQuantity(quantity);
@@ -95,43 +98,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     const { priceTable } = templateItems[uuid];
 
     if (!priceTable) return;
-    const { _id: priceTableId } = priceTable;
-    const endpoint = getEndpoint(`/price-tables/price/${priceTableId}`);
-
-    const allItemsWithSamePriceTable = Object.values(templateItems)
-      .filter(item => item.itemType === 'item' && item.priceTable)
-      .filter(item => item.priceTable._id == priceTable._id);
-    console.log(
-      'items com a mesma tabela de preço',
-      allItemsWithSamePriceTable
-    );
-    // calcular a area total de acorco com a tabela de preço do item
-
-    const area = allItemsWithSamePriceTable.reduce(
-      (totalArea, crrItem) =>
-        totalArea + crrItem.size.x * crrItem.size.y * crrItem.quantity,
-      0
-    );
-    console.log('area total', area);
-    const body = {
-      area
-    };
-
-    const request = createPostRequest(body);
-
-    fetch(endpoint, request)
-      .then(res => res.json())
-      .then(({ price }) => {
-        setPriceTables(prev => ({
-          ...prev,
-          [priceTableId]: { unitPrice: price.value }
-        }));
-
-        // handleChangeItemPrice(id, price.value);
-      })
-      .catch(error => {
-        console.log(`Error on get total value ${error}`);
-      });
   };
 
   const handleCalculateItemPrice = uuid => {
@@ -193,6 +159,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     const _templates = Object.values(templateItems).reduce((obj, item) => {
       if (item.uuid === uuidDuplicated) {
         const newUuid = reactUuid();
+
         return {
           ...obj,
           [item.uuid]: item,
@@ -204,8 +171,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         [item.uuid]: item
       };
     }, {});
+
     setTemplateItems(_templates);
-    setDuplicatedUuid(uuidDuplicated);
   };
 
   const handleCheck = id => {
@@ -227,14 +194,72 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     handleCalculateItemPrice(id, quantity, size);
   };
 
-  const handleTotalPriceCalculate = () => {
-    const checkedItems = convertObjectToArray(templateItems).filter(
+  const handleUnitPriceTableCalculate = () => {
+    const checkedTemplateItems = convertObjectToArray(templateItems).filter(
       item => item.isChecked
     );
 
-    const _itemsChecked = checkedItems.filter(i => i.itemType === 'item');
+    const checkedItems = checkedTemplateItems.filter(
+      item => item.itemType === 'item' && item.priceTable
+    );
 
-    const totalItemPrice = _itemsChecked
+    const _priceTables = Object.values(priceTables).reduce(
+      (obj, pt) => ({
+        ...obj,
+        [pt.id]: { ...pt, area: 0, unitPrice: 0 }
+      }),
+      {}
+    );
+    console.log('_priceTables area ', _priceTables);
+
+    const groupedPriceTables = checkedItems.reduce((obj, item) => {
+      const { priceTable } = item;
+      const { _id: priceTableId } = priceTable;
+      return {
+        ...obj,
+        [priceTableId]: {
+          ...obj[priceTableId],
+          id: priceTableId,
+          area:
+            // eslint-disable-next-line prettier/prettier
+          obj[priceTableId].area +
+            (item.quantity * item.size.x * item.size.y)
+        }
+      };
+    }, _priceTables);
+
+    console.log('groupedPriceTables', groupedPriceTables);
+
+    // atualizar price tables set request aqui
+
+    const body = {
+      // priceTables: [{ id: '5e4e8f6e9db6ef0004706262', area: 2000 }]
+      priceTables: Object.values(groupedPriceTables)
+    };
+
+    const request = createPostRequest(body);
+    const endpoint = getEndpoint(`/price-tables/prices`);
+
+    fetch(endpoint, request)
+      .then(res => res.json())
+      .then(({ priceTables }) => {
+        setPriceTables(priceTables);
+      })
+      .catch(error => {
+        console.log(`Error on get total value ${error}`);
+      });
+  };
+
+  const handleTotalPriceCalculate = () => {
+    const checkedTemplateItems = convertObjectToArray(templateItems).filter(
+      item => item.isChecked
+    );
+
+    const checkedItems = checkedTemplateItems.filter(
+      item => item.itemType === 'item' && item.priceTable
+    );
+
+    const totalItemPrice = checkedItems
       .filter(i => i.itemType === 'item')
       .reduce((_total, item) => {
         const { unitPrice } = priceTables[item.priceTable._id];
@@ -243,7 +268,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         return _total + totalPrice;
       }, 0);
 
-    const totalTemplateItemPrice = checkedItems
+    const totalTemplateItemPrice = checkedTemplateItems
       .filter(i => i.itemType === 'template')
       .reduce(
         (_total, templateItem) =>
