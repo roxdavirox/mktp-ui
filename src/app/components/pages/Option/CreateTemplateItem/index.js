@@ -188,7 +188,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       }),
       {}
     );
-    console.log('_priceTables area ', _priceTables);
 
     const groupedPriceTables = checkedItems.reduce((obj, item) => {
       const { priceTable } = item;
@@ -204,8 +203,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         }
       };
     }, _priceTables);
-
-    console.log('groupedPriceTables', groupedPriceTables);
 
     const body = {
       priceTables: Object.values(groupedPriceTables)
@@ -342,8 +339,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     }, 1000);
   };
 
-  console.log('priceTables', priceTables);
-  console.log('templateItems', templateItems);
   return (
     <>
       <Container maxWidth="xl" className="m-sm-30">

@@ -164,11 +164,11 @@ const DataTable = ({
         customBodyRender: function renderPriceValue(price, tableMeta) {
           const { rowData } = tableMeta;
           const uuid = rowData[rowData.length - 1];
-          const { priceTable, quantity } = templateItems[uuid];
-          if (!priceTable) return 0;
-          const _priceTable = priceTables[priceTable._id];
-          if (_priceTable) {
-            const fixedPrice = price ? _priceTable.unitPrice : 0;
+          const { priceTable, quantity, size } = templateItems[uuid];
+          if (priceTable && size) {
+            const _priceTable = priceTables[priceTable._id];
+            const fixedPrice =
+              _priceTable.unitPrice * quantity * size.x * size.y || 0;
             return fixedPrice.toFixed(4);
           } else {
             const fixedPrice = price ? price : 0;
