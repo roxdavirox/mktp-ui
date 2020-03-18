@@ -164,8 +164,8 @@ const DataTable = ({
         customBodyRender: function renderPriceValue(price, tableMeta) {
           const { rowData } = tableMeta;
           const uuid = rowData[rowData.length - 1];
-          const { priceTable, quantity, size } = templateItems[uuid];
-          if (priceTable && size) {
+          const { priceTable, quantity, size, isChecked } = templateItems[uuid];
+          if (priceTable && size && isChecked) {
             const _priceTable = priceTables[priceTable._id];
             const { unitPrice } = _priceTable;
             const fixedPrice = unitPrice * quantity * size.x * size.y || 0;
