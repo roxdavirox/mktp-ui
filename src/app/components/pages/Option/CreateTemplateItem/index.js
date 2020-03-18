@@ -233,7 +233,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     const totalItemPrice = checkedItems
       .filter(i => i.itemType === 'item')
       .reduce((_total, item) => {
-        const { unitPrice } = priceTables[item.priceTable._id];
+        const { unitPrice = 1 } = priceTables[item.priceTable._id];
         const totalPrice =
           item.size.x * item.size.y * item.quantity * unitPrice;
         return _total + totalPrice;
