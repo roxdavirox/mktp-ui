@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 // core components
@@ -42,9 +42,24 @@ const TemplateInfo = ({
   onChangeQuantity
 }) => {
   const classes = useStyles();
+  const [name, setName] = useState(templateName);
+  const [quantity, setQuantity] = useState(templateQuantity);
 
-  const handleNameChange = e => onNameChange(e.target.value);
-  const handleChangeQuantity = e => onChangeQuantity(e.target.value);
+  const handleNameChange = e => {
+    setName(e.target.value);
+    if (e.target.value !== '') {
+      onNameChange(e.target.value);
+    }
+  };
+
+  const handleChangeQuantity = e => {
+    setQuantity(e.target.value);
+    if (e.target.value >= 1) {
+      onChangeQuantity(e.target.value);
+      return;
+    }
+    onChangeQuantity(1);
+  };
 
   return (
     <>
@@ -53,15 +68,17 @@ const TemplateInfo = ({
           <FormControl className={classes.formControl} sm={3}>
             {templateName !== '' ? (
               <TextField
+                defaultValue={name}
                 autoFocus
                 placeholder="Digite o nome do template"
                 onBlur={handleNameChange}
               />
             ) : (
               <TextField
+                defaultValue={name}
                 autoFocus
                 placeholder="Digite o nome do template"
-                value={templateName}
+                value={name}
                 onChange={handleNameChange}
               />
             )}
@@ -75,9 +92,10 @@ const TemplateInfo = ({
             lg={4}
           >
             <TextField
+              defaultValue={quantity || 1}
               type="number"
               placeholder="Quantidade de templates"
-              value={templateQuantity}
+              value={quantity}
               onChange={handleChangeQuantity}
             />
           </FormControl>
