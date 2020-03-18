@@ -80,7 +80,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   useEffect(() => {
     if (!templateItems) return;
     handleUnitPriceTableCalculate();
-  }, [templateItems]);
+  }, [templateItems, templateQuantity]);
 
   useEffect(() => {
     if (!priceTables) return;
@@ -199,7 +199,9 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         [priceTableId]: {
           ...obj[priceTableId],
           id: priceTableId,
-          area: item.quantity * item.size.x * item.size.y + area
+          area:
+            (item.quantity * item.size.x * item.size.y + area) *
+            templateQuantity
         }
       };
     }, _priceTables);
@@ -247,7 +249,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         0
       );
 
-    const _total = totalItemPrice + totalTemplateItemPrice;
+    const _total = (totalItemPrice + totalTemplateItemPrice) * templateQuantity;
     setTotal(_total);
   };
 
