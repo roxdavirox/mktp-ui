@@ -167,8 +167,8 @@ const DataTable = ({
           const { priceTable, quantity, size } = templateItems[uuid];
           if (priceTable && size) {
             const _priceTable = priceTables[priceTable._id];
-            const fixedPrice =
-              _priceTable.unitPrice * quantity * size.x * size.y || 0;
+            const { unitPrice } = _priceTable;
+            const fixedPrice = unitPrice * quantity * size.x * size.y || 0;
             return fixedPrice.toFixed(4);
           } else {
             const fixedPrice = price ? price : 0;
