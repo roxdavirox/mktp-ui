@@ -45,14 +45,7 @@ const TemplateInfo = ({
   const [name, setName] = useState(templateName);
   const [quantity, setQuantity] = useState(templateQuantity);
 
-  const [changeNameDebounce] = useDebouncedCallback(
-    // function
-    value => {
-      onNameChange(value);
-    },
-    // delay in ms
-    1000
-  );
+  const [changeNameDebounce] = useDebouncedCallback(onNameChange, 500);
 
   const handleNameChange = e => {
     setName(e.target.value);
