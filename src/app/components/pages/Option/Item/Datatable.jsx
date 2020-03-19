@@ -53,8 +53,8 @@ const Datatable = ({
     filter: false,
     viewColumns: false,
     rowHover: false,
-    rowsPerPageOptions: [5, 10, 15],
-    rowsPerPage: 5,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 25, 50, 100],
     responsive: 'stacked',
     textLabels: {
       body: {
