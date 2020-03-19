@@ -366,11 +366,14 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
               display: 'flex'
             }}
           >
-            <MoneyCard title="Valor total" value={total} />
             <MoneyCard
-              style={{ margin: '0px 16px' }}
               title="Valor unitário"
               value={total / templateQuantity}
+            />
+            <MoneyCard
+              title="Valor total"
+              value={total}
+              style={{ margin: '0px 16px' }}
             />
           </Grid>
 
