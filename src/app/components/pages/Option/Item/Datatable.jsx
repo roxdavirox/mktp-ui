@@ -90,8 +90,7 @@ const Datatable = ({
       options: {
         filter: false,
         sort: false,
-        customBodyRender: itemType =>
-          itemType === 'item' ? <LabelIcon /> : <ExtensionIcon />
+        customBodyRender: itemType => itemType
       }
     },
     {
