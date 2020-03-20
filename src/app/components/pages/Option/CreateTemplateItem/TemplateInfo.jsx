@@ -6,7 +6,6 @@ import FormControl from '@material-ui/core/FormControl';
 // theme components
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { useDebouncedCallback } from 'use-debounce';
 import { TextField } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -45,12 +44,10 @@ const TemplateInfo = ({
   const [name, setName] = useState(templateName);
   const [quantity, setQuantity] = useState(templateQuantity);
 
-  const [changeNameDebounce] = useDebouncedCallback(onNameChange, 500);
-
   const handleNameChange = e => {
     setName(e.target.value);
     if (e.target.value !== '') {
-      changeNameDebounce(e.target.value);
+      onNameChange(e.target.value);
     }
   };
 
