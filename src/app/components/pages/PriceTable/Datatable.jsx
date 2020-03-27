@@ -48,6 +48,19 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
       }
     },
     {
+      name: 'unit',
+      label: 'Tipo de unidade',
+      options: {
+        filter: true,
+        sort: true,
+        setCellProps: () => {
+          return {
+            className: classNames({ [classes.NameCell]: true })
+          };
+        }
+      }
+    },
+    {
       name: '_id',
       label: ' ',
       options: {
