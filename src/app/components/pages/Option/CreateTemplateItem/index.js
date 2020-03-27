@@ -56,11 +56,12 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
             .filter(item => item.itemType === 'item' && item.priceTable)
             .reduce((obj, item) => {
               const { priceTable } = item;
-              const { _id: priceTableId } = priceTable;
+              const { _id: priceTableId, unit } = priceTable;
               return {
                 ...obj,
                 [priceTableId]: {
                   id: priceTableId,
+                  unit,
                   area: 0,
                   unitPrice: 0
                 }
@@ -191,17 +192,21 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
     const groupedPriceTables = checkedItems.reduce((obj, item) => {
       const { priceTable } = item;
-      const { _id: priceTableId } = priceTable;
+      const { _id: priceTableId, unit } = priceTable;
 
       const { area } = obj[priceTableId];
+      console.log('unit', unit);
+      console.log('area', area);
       return {
         ...obj,
         [priceTableId]: {
           ...obj[priceTableId],
           id: priceTableId,
           area:
-            (item.quantity * item.size.x * item.size.y + area) *
-            templateQuantity
+            unit !== 'quantidade'
+              ? (item.quantity * item.size.x * item.size.y + area) *
+                templateQuantity
+              : item.quantity * templateQuantity
         }
       };
     }, _priceTables);
@@ -235,9 +240,12 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     const totalItemPrice = checkedItems
       .filter(i => i.itemType === 'item')
       .reduce((_total, item) => {
-        const { unitPrice = 1 } = priceTables[item.priceTable._id];
+        const { unitPrice = 1, unit } = priceTables[item.priceTable._id];
+        console.log('unit item', unit);
         const totalPrice =
-          item.size.x * item.size.y * item.quantity * unitPrice;
+          unit !== 'quantidade'
+            ? item.size.x * item.size.y * item.quantity * unitPrice
+            : item.quantity * unitPrice;
         return _total + totalPrice;
       }, 0);
 
@@ -340,7 +348,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       });
     }, 1000);
   };
-
+  console.log('price tables', priceTables);
   return (
     <>
       <Container maxWidth="xl" className="m-sm-30">
