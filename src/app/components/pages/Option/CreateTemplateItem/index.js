@@ -275,13 +275,29 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         return _total + totalPrice;
       }, 0);
 
+    // TODO: calcular o preço do template utilizando as tabelas que ele tem
+    // utilizando unitPrice. templatePrice foi removido
     const totalTemplateItemPrice = checkedTemplateItems
-      .filter(i => i.itemType === 'template')
-      .reduce(
-        (_total, templateItem) =>
-          _total + templateItem.templatePrice * templateItem.quantity,
-        0
-      );
+      .filter(i => i.itemType === 'template' && i.priceTables)
+      .reduce((_total, templateItem) => {
+        const totalPriceTables = Object.values(templateItem.priceTables).reduce(
+          (_priceTables, pt) => {
+            const { unitPrice = 1, unit } = priceTables[pt.id];
+            console.log('pt unit item', unit);
+            const totalPrice =
+              unit !== 'quantidade'
+                ? templateItem.size.x *
+                  templateItem.size.y *
+                  templateItem.quantity *
+                  unitPrice
+                : templateItem.quantity * unitPrice;
+            return _total + totalPrice;
+          },
+          0
+        );
+        return _total + totalPriceTables;
+      }, 0);
+    console.log('totalTemplateItemPrice', totalTemplateItemPrice);
 
     const _total = (totalItemPrice + totalTemplateItemPrice) * templateQuantity;
     setTotal(_total);
