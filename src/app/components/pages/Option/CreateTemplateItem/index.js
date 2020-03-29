@@ -77,6 +77,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
               console.log(' templateItem price tables?', _tables);
               return _tables;
             })
+            .reduce((priceTables, pt) => [...priceTables, ...pt], [])
             .reduce((_tables, _priceTable) => {
               const prevPriceTable = _defaultItemPriceTables[_priceTable.id];
               if (!prevPriceTable) return {};
