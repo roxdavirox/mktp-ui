@@ -52,7 +52,8 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         .then(res => res.json())
         .then(({ items }) => {
           const objectItems = mapDefaultItemPropsToObject(items);
-          const _defaultPriceTables = Object.values(objectItems)
+          //TODO: armazenar os default price tables ja contando com as tabelas utilizadas nos templates
+          const _defaultItemPriceTables = Object.values(objectItems)
             .filter(item => item.itemType === 'item' && item.priceTable)
             .reduce((obj, item) => {
               const { priceTable } = item;
@@ -67,7 +68,31 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
                 }
               };
             }, {});
-          setPriceTables(_defaultPriceTables);
+          const _defaultTemplatePriceTables = Object.values(objectItems)
+            .filter(item => item.itemType === 'template' && item.priceTables)
+            .map(templateItem => {
+              const _tables = Object.values(templateItem.priceTables).map(
+                pt => pt
+              );
+              console.log(' templateItem price tables?', _tables);
+              return _tables;
+            })
+            .reduce((_tables, _priceTable) => {
+              const prevPriceTable = _defaultItemPriceTables[_priceTable.id];
+              if (!prevPriceTable) return {};
+              return {
+                ..._tables,
+                [_priceTable.id]: {
+                  ...prevPriceTable,
+                  area: prevPriceTable.area + _priceTable.area
+                }
+              };
+            }, _defaultItemPriceTables);
+          console.log(
+            '_defaultTemplatePriceTables',
+            _defaultTemplatePriceTables
+          );
+          setPriceTables(_defaultTemplatePriceTables);
           setTemplateItems(objectItems);
           setLoadingState(false);
         })
