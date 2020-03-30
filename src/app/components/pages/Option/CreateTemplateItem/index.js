@@ -14,6 +14,7 @@ import { getEndpoint, createPostRequest } from 'helpers/api';
 import MoneyCard from 'app/components/common/cards/MoneyCard';
 import SaveButton from 'app/components/common/buttons/SaveButton';
 import reactUuid from 'react-uuid';
+import _ from 'lodash';
 
 const defaulItemProps = {
   price: 0,
@@ -105,12 +106,12 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   }, []);
 
   useEffect(() => {
-    if (!templateItems) return;
+    if (_.isEmpty(templateItems)) return;
     handleUnitPriceTableCalculate();
   }, [templateItems, templateQuantity]);
 
   useEffect(() => {
-    if (!priceTables) return;
+    if (_.isEmpty(priceTables)) return;
     handleTotalPriceCalculate();
   }, [priceTables]);
 
@@ -203,7 +204,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       item => item.isChecked
     );
 
-    if (!checkedItems) return;
+    if (_.isEmpty(checkedItems)) return;
 
     const _priceTables = Object.values(priceTables).reduce(
       (allPriceTable, pt) => ({
@@ -242,7 +243,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     const templateItemsPriceTables = checkedItems
       .filter(item => item.itemType === 'template' && item.priceTables)
       .reduce((_itemsPriceTables, template) => {
-        if (!template.priceTables) return {};
+        if (_.isEmpty(template.priceTables)) return {};
         const _templatePriceTables = Object.values(template.priceTables).reduce(
           (_pts, pt) => {
             if (_pts[pt.id]) {
@@ -250,7 +251,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
                 ..._pts,
                 [pt.id]: {
                   ..._pts[pt.id],
-                  area: (_pts[pt.id].area + pt.area) * templateQuantity
+                  area: (_pts[pt.id].area + pt.area) * pt.quantity
                 }
               };
             }
@@ -265,8 +266,19 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         };
       }, {});
 
+    const priceTablesRequest = Object.values(templateItemsPriceTables).reduce(
+      (allPriceTables, pt) => ({
+        ...allPriceTables,
+        [pt.id]: {
+          ...pt,
+          area: pt.area * templateQuantity
+        }
+      }),
+      {}
+    );
+
     const body = {
-      priceTables: Object.values(templateItemsPriceTables)
+      priceTables: priceTablesRequest
     };
 
     const request = createPostRequest(body);
