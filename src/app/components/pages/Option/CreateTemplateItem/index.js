@@ -260,6 +260,12 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     const mergedPriceTables = Object.keys(_priceTables)
       .map(id => {
         if (
+          _.isEmpty(itemsPriceTables[id]) ||
+          _.isEmpty(templateItemsPriceTables[id])
+        )
+          return { ...priceTables[id] };
+
+        if (
           !_.isEmpty(itemsPriceTables[id]) &&
           !_.isEmpty(templateItemsPriceTables[id])
         ) {
@@ -285,8 +291,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
             ...templateItemsPriceTables[id]
           };
         }
-
-        return { ...priceTables[id] };
       })
       .reduce(
         (allMergedPriceTables, pt) => ({
