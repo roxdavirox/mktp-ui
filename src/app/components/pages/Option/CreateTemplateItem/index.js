@@ -225,6 +225,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
           ...allPriceTables,
           [priceTable._id]: {
             id: priceTable._id,
+            unit,
             area:
               unit !== 'quantidade'
                 ? item.quantity * item.size.x * item.size.y
@@ -274,7 +275,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
           const _templatePricetable = templateItemsPriceTables[id];
           return {
             ..._priceTables[id],
-            area: _itemPricetable.area * _templatePricetable.area
+            area: _itemPricetable.area + _templatePricetable.area
           };
         }
 
