@@ -218,55 +218,85 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
     const itemsPriceTables = checkedItems
       .filter(item => item.itemType === 'item' && item.priceTable)
-      .reduce((allPriceTable, item) => {
+      .reduce((allPriceTables, item) => {
         const { priceTable } = item;
-        const { _id: priceTableId, unit } = priceTable;
-
-        const { area } = allPriceTable[priceTableId];
-        console.log('unit', unit);
-        console.log('area', area);
+        const { unit } = priceTable;
         return {
-          ...allPriceTable,
-          [priceTableId]: {
-            ...allPriceTable[priceTableId],
-            id: priceTableId,
+          ...allPriceTables,
+          [priceTable._id]: {
+            id: priceTable._id,
             area:
               unit !== 'quantidade'
-                ? item.quantity * item.size.x * item.size.y + area
+                ? item.quantity * item.size.x * item.size.y
                 : item.quantity
           }
         };
-      }, _priceTables);
+      }, {});
 
     console.log('itemsPriceTables', itemsPriceTables);
 
     const templateItemsPriceTables = checkedItems
       .filter(item => item.itemType === 'template' && item.priceTables)
       .reduce((_itemsPriceTables, template) => {
-        if (_.isEmpty(template.priceTables)) return {};
-        const _templatePriceTables = Object.values(template.priceTables).reduce(
-          (_pts, pt) => {
-            if (_pts[pt.id]) {
-              return {
-                ..._pts,
-                [pt.id]: {
-                  ..._pts[pt.id],
-                  area: (_pts[pt.id].area + pt.area) * pt.quantity
-                }
-              };
-            }
-            return { ..._pts, pt };
-          },
-          itemsPriceTables
-        );
+        if (_.isEmpty(template.priceTables)) return { ..._itemsPriceTables };
 
         return {
           ..._itemsPriceTables,
-          ..._templatePriceTables
+          ...Object.values(template.priceTables).reduce(
+            (allPriceTables, pt) => {
+              return {
+                ...allPriceTables,
+                [pt.id]: {
+                  area: pt.area * pt.quantity
+                }
+              };
+            },
+            {}
+          )
         };
       }, {});
 
-    const priceTablesRequest = Object.values(templateItemsPriceTables).reduce(
+    // é preciso existir a tabela
+    const mergedPriceTables = Object.keys(_priceTables)
+      .map(id => {
+        if (
+          !_.isEmpty(itemsPriceTables[id]) &&
+          !_.isEmpty(templateItemsPriceTables[id])
+        ) {
+          // existe as duas tabelas nos itens selecionados e templates?
+          const _itemPricetable = itemsPriceTables[id];
+          const _templatePricetable = templateItemsPriceTables[id];
+          return {
+            ..._priceTables[id],
+            area: _itemPricetable.area * _templatePricetable.area
+          };
+        }
+
+        if (!_.isEmpty(itemsPriceTables[id])) {
+          return {
+            ..._priceTables[id],
+            ...itemsPriceTables[id]
+          };
+        }
+
+        if (!_.isEmpty(templateItemsPriceTables[id])) {
+          return {
+            ..._priceTables[id],
+            ...templateItemsPriceTables[id]
+          };
+        }
+
+        return { ...priceTables[id] };
+      })
+      .reduce(
+        (allMergedPriceTables, pt) => ({
+          ...allMergedPriceTables,
+          [pt.id]: pt
+        }),
+        {}
+      );
+
+    const priceTablesRequest = Object.values(mergedPriceTables).reduce(
       (allPriceTables, pt) => ({
         ...allPriceTables,
         [pt.id]: {
