@@ -198,47 +198,75 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   };
 
   const handleUnitPriceTableCalculate = () => {
-    const checkedTemplateItems = convertObjectToArray(templateItems).filter(
+    // TODO: enviar a área do template com suas tabelas
+    const checkedItems = Object.values(templateItems).filter(
       item => item.isChecked
     );
 
-    if (!checkedTemplateItems) return;
-
-    const checkedItems = checkedTemplateItems.filter(
-      item => item.itemType === 'item' && item.priceTable
-    );
+    if (!checkedItems) return;
 
     const _priceTables = Object.values(priceTables).reduce(
-      (obj, pt) => ({
-        ...obj,
+      (allPriceTable, pt) => ({
+        ...allPriceTable,
         [pt.id]: { ...pt, area: 0, unitPrice: 0 }
       }),
       {}
     );
 
-    const groupedPriceTables = checkedItems.reduce((obj, item) => {
-      const { priceTable } = item;
-      const { _id: priceTableId, unit } = priceTable;
+    console.log('_priceTables', _priceTables);
 
-      const { area } = obj[priceTableId];
-      console.log('unit', unit);
-      console.log('area', area);
-      return {
-        ...obj,
-        [priceTableId]: {
-          ...obj[priceTableId],
-          id: priceTableId,
-          area:
-            unit !== 'quantidade'
-              ? (item.quantity * item.size.x * item.size.y + area) *
-                templateQuantity
-              : item.quantity * templateQuantity
-        }
-      };
-    }, _priceTables);
+    const itemsPriceTables = checkedItems
+      .filter(item => item.itemType === 'item' && item.priceTable)
+      .reduce((allPriceTable, item) => {
+        const { priceTable } = item;
+        const { _id: priceTableId, unit } = priceTable;
+
+        const { area } = allPriceTable[priceTableId];
+        console.log('unit', unit);
+        console.log('area', area);
+        return {
+          ...allPriceTable,
+          [priceTableId]: {
+            ...allPriceTable[priceTableId],
+            id: priceTableId,
+            area:
+              unit !== 'quantidade'
+                ? item.quantity * item.size.x * item.size.y + area
+                : item.quantity
+          }
+        };
+      }, _priceTables);
+
+    console.log('itemsPriceTables', itemsPriceTables);
+
+    const templateItemsPriceTables = checkedItems
+      .filter(item => item.itemType === 'template' && item.priceTables)
+      .reduce((_itemsPriceTables, template) => {
+        if (!template.priceTables) return {};
+        const _templatePriceTables = Object.values(template.priceTables).reduce(
+          (_pts, pt) => {
+            if (_pts[pt.id]) {
+              return {
+                ..._pts,
+                [pt.id]: {
+                  ..._pts[pt.id],
+                  area: (_pts[pt.id].area + pt.area) * templateQuantity
+                }
+              };
+            }
+            return { ..._pts, pt };
+          },
+          itemsPriceTables
+        );
+
+        return {
+          ..._itemsPriceTables,
+          ..._templatePriceTables
+        };
+      }, {});
 
     const body = {
-      priceTables: Object.values(groupedPriceTables)
+      priceTables: Object.values(templateItemsPriceTables)
     };
 
     const request = createPostRequest(body);
