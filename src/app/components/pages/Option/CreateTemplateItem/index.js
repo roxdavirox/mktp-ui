@@ -247,7 +247,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
               return {
                 ...allPriceTables,
                 [pt.id]: {
-                  area: pt.area * pt.quantity
+                  area: pt.area * template.quantity
                 }
               };
             },
