@@ -312,7 +312,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
     );
 
     const body = {
-      priceTables: priceTablesRequest
+      priceTables: Object.values(priceTablesRequest)
     };
 
     const request = createPostRequest(body);
