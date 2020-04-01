@@ -204,8 +204,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       item => item.isChecked
     );
 
-    if (_.isEmpty(checkedItems)) return;
-
     const _priceTables = Object.values(priceTables).reduce(
       (allPriceTable, pt) => ({
         ...allPriceTable,
@@ -213,6 +211,11 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       }),
       {}
     );
+
+    if (_.isEmpty(checkedItems)) {
+      setPriceTables(_priceTables);
+      return;
+    }
 
     console.log('_priceTables', _priceTables);
 
@@ -263,8 +266,9 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         if (
           _.isEmpty(itemsPriceTables[id]) &&
           _.isEmpty(templateItemsPriceTables[id])
-        )
+        ) {
           return priceTables[id];
+        }
 
         if (
           !_.isEmpty(itemsPriceTables[id]) &&
@@ -356,7 +360,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       .filter(i => i.itemType === 'template' && i.priceTables)
       .reduce((_total, templateItem) => {
         const totalPriceTables = Object.values(templateItem.priceTables).reduce(
-          (_priceTables, pt) => {
+          (_total, pt) => {
             const { unitPrice = 1, unit } = priceTables[pt.id];
             console.log('pt unit item', unit);
             const totalPrice =
