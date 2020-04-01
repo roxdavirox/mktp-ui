@@ -180,6 +180,17 @@ const DataTable = ({
                 ? unitPrice * quantity * size.x * size.y
                 : unitPrice * quantity;
             return fixedPrice.toFixed(4);
+          } else if (
+            itemType === 'template' &&
+            templateItems[uuid].priceTables &&
+            isChecked
+          ) {
+            const templateItem = templateItems[uuid];
+            const _totalPrice = Object.keys(templateItem.priceTables)
+              .map(id => priceTables[id])
+              .reduce((_total, pt) => _total + pt.unitPrice, 0);
+            const fixedPrice = _totalPrice;
+            return fixedPrice.toFixed(4);
           } else {
             const fixedPrice = price ? price : 0;
             return fixedPrice.toFixed(4);
