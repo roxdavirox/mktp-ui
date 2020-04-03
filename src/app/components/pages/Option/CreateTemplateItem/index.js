@@ -75,7 +75,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
               const _tables = Object.values(templateItem.priceTables).map(
                 pt => pt
               );
-              console.log(' templateItem price tables?', _tables);
               return _tables;
             })
             .reduce((priceTables, pt) => [...priceTables, ...pt], [])
@@ -90,10 +89,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
                 }
               };
             }, _defaultItemPriceTables);
-          console.log(
-            '_defaultTemplatePriceTables',
-            _defaultTemplatePriceTables
-          );
           setPriceTables(_defaultTemplatePriceTables);
           setTemplateItems(objectItems);
           setLoadingState(false);
@@ -217,8 +212,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       return;
     }
 
-    console.log('_priceTables', _priceTables);
-
     const itemsPriceTables = checkedItems
       .filter(item => item.itemType === 'item' && item.priceTable)
       .reduce((allPriceTables, item) => {
@@ -236,8 +229,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
           }
         };
       }, {});
-
-    console.log('itemsPriceTables', itemsPriceTables);
 
     const templateItemsPriceTables = checkedItems
       .filter(item => item.itemType === 'template' && item.priceTables)
@@ -260,7 +251,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         };
       }, {});
 
-    // é preciso existir a tabela
     const mergedPriceTables = Object.keys(_priceTables)
       .map(id => {
         if (
@@ -274,7 +264,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
           !_.isEmpty(itemsPriceTables[id]) &&
           !_.isEmpty(templateItemsPriceTables[id])
         ) {
-          // existe as duas tabelas nos itens selecionados e templates?
           const _itemPricetable = itemsPriceTables[id];
           const _templatePricetable = templateItemsPriceTables[id];
           return {
@@ -346,7 +335,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       .filter(i => i.itemType === 'item')
       .reduce((_total, item) => {
         const { unitPrice = 1, unit } = priceTables[item.priceTable._id];
-        console.log('unit item', unit);
         const totalPrice =
           unit !== 'quantidade'
             ? item.size.x * item.size.y * item.quantity * unitPrice
@@ -354,15 +342,12 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         return _total + totalPrice;
       }, 0);
 
-    // TODO: calcular o preço do template utilizando as tabelas que ele tem
-    // utilizando unitPrice. templatePrice foi removido
     const totalTemplateItemPrice = checkedTemplateItems
       .filter(i => i.itemType === 'template' && i.priceTables)
       .reduce((_totalTemplate, templateItem) => {
         const totalPriceTables = Object.values(templateItem.priceTables).reduce(
           (_totalPriceTable, pt) => {
             const { unitPrice = 1, unit } = priceTables[pt.id];
-            console.log('pt unit item', unit);
             const totalPrice =
               unit !== 'quantidade'
                 ? templateItem.size.x *
@@ -377,7 +362,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
         );
         return _totalTemplate + totalPriceTables;
       }, 0);
-    console.log('totalTemplateItemPrice', totalTemplateItemPrice);
 
     const _total = (totalItemPrice + totalTemplateItemPrice) * templateQuantity;
     setTotal(_total);
@@ -470,7 +454,6 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       });
     }, 1000);
   };
-  console.log('price tables', priceTables);
   return (
     <>
       <Container maxWidth="xl" className="m-sm-30">
