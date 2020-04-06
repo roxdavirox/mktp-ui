@@ -31,13 +31,10 @@ const Datatable = ({
   data,
   onUpdate,
   onOpen: openDialogType,
-  location
+  priceTableId
 }) => {
   const dispatch = useDispatch();
   const [anchorElement, setAnchor] = useState(null);
-  const {
-    state: { priceTableId }
-  } = location;
 
   const priceTable = useSelector(store =>
     getPriceTableById(priceTableId, store)

@@ -13,15 +13,14 @@ import {
 } from 'app/redux/selectors/Price.selectors';
 import { fetchPrices } from 'app/redux/actions/Price.actions';
 import { getPriceTableById } from 'app/redux/selectors/PriceTable.selectors';
+import { useParams } from 'react-router-dom';
 
 const PricePage = props => {
   const [open, setOpen] = useState(false);
   const [dialogType, setDialogType] = useState('ADD_PRICE');
   const [price, setPrice] = useState(null);
-  const { location } = props;
-  const {
-    state: { priceTableId }
-  } = location;
+
+  const { id: priceTableId } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -67,14 +67,14 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
         sort: false,
         filter: false,
         // eslint-disable-next-line react/display-name
-        customBodyRender: (value, tableMeta) => {
+        customBodyRender: (priceTableId, tableMeta) => {
           return (
             <Link
               to={{
-                pathname: '/prices',
+                pathname: `/prices/${priceTableId}`,
                 state: {
                   fromRedirect: true,
-                  priceTableId: value
+                  priceTableId
                 }
               }}
             >

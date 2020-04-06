@@ -7,7 +7,7 @@ const Prices = MatxLoadable({
 
 const priceRoutes = [
   {
-    path: '/prices',
+    path: '/prices/:id',
     component: Prices,
     auth: authRoles.admin
   }
