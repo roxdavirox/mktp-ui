@@ -2,19 +2,19 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ControlPointDuplicateIcon from '@material-ui/icons/ControlPointDuplicate';
 import { AddToolbar } from 'app/components/common/tables/Toolbar.jsx';
 import Loading from './LoadingSkeleton';
 import {
   deletePriceTables,
   duplicatePriceTable
 } from 'app/redux/actions/PriceTable.actions';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 const styles = {
   EditCell: { textAlign: 'right' },
@@ -44,21 +44,8 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
       variant: 'info',
       autoHideDuration: 2000
     });
-    handleCloseMenu();
     dispatch(duplicatePriceTable(priceTableId, snack));
   };
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClickMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
-
-  const ITEM_HEIGHT = 30;
 
   const columns = [
     {
@@ -96,43 +83,17 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
         // eslint-disable-next-line react/display-name
         customBodyRender: (priceTableId, tableMeta) => {
           return (
-            <div>
-              <Button onClick={handleClickMenu}>
-                <MoreHorizIcon key={tableMeta.columnIndex} />
-              </Button>
-              <Menu
-                // id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleCloseMenu}
-                PaperProps={{
-                  style: {
-                    maxHeight: ITEM_HEIGHT * 4.5,
-                    boxShadow: 'none'
-                  }
-                }}
-              >
-                <MenuItem
-                  onClick={() => handleDuplicatePriceTable(priceTableId)}
-                >
-                  Duplicar
-                </MenuItem>
-                <MenuItem onClick={handleCloseMenu}>
-                  <Link
-                    to={{
-                      pathname: `/prices/${priceTableId}`,
-                      state: {
-                        fromRedirect: true,
-                        priceTableId
-                      }
-                    }}
-                  >
-                    Editar
-                  </Link>
-                </MenuItem>
-              </Menu>
-            </div>
+            <Link
+              to={{
+                pathname: `/prices/${priceTableId}`,
+                state: {
+                  fromRedirect: true,
+                  priceTableId
+                }
+              }}
+            >
+              <MoreHorizIcon key={tableMeta.columnIndex} />
+            </Link>
           );
         },
         setCellProps: () => {
@@ -143,6 +104,7 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
       }
     }
   ];
+
   const options = {
     filterType: 'checkbox',
     download: false,
@@ -157,19 +119,31 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
         noMatch: <Loading />
       }
     },
+    // eslint-disable-next-line react/display-name
+    customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
+      <div>
+        <Button onClick={() => console.log(selectedRows)}>
+          <ControlPointDuplicateIcon />
+        </Button>
+        <Button onClick={() => handleRowsDelete(selectedRows)}>
+          <DeleteIcon />
+        </Button>
+      </div>
+    ),
     customToolbar: function addPriceTable() {
       return <AddToolbar title="Adicionar Tabela de preço" onClick={onOpen} />;
-    },
-    onRowsDelete: rowsDeleted => handleRowsDelete(rowsDeleted)
+    }
   };
 
   return (
-    <MuiDatatable
-      title={<h2>Tabelas de preço</h2>}
-      data={data}
-      columns={columns}
-      options={options}
-    />
+    <>
+      <MuiDatatable
+        title={<h2>Tabelas de preço</h2>}
+        data={data}
+        columns={columns}
+        options={options}
+      />
+    </>
   );
 };
 
