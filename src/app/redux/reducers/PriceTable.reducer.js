@@ -3,7 +3,8 @@ import {
   FETCH_PRICE_TABLES,
   ADD_PRICE_TABLE_SUCCESS,
   DELETE_PRICE_TABLES_SUCCESS,
-  UPDATED_PRICE_TABLE
+  UPDATED_PRICE_TABLE,
+  DUPLICATE_PRICE_TABLE_SUCCESS
 } from '../actions/PriceTable.actions';
 //reducers
 const initialState = {
@@ -83,6 +84,19 @@ export default function reducer(state = initialState, action) {
         ...state,
         allIds,
         byId
+      };
+    }
+
+    case DUPLICATE_PRICE_TABLE_SUCCESS: {
+      const { priceTable } = action.payload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [priceTable._id]: priceTable
+        },
+        allIds: [...state.allIds, priceTable._id]
       };
     }
 

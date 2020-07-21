@@ -14,6 +14,7 @@ export const ADD_PRICE_TABLE = 'ADD_PRICE_TABLE';
 export const ADD_PRICE_TABLE_SUCCESS = 'ADD_PRICE_TABLE_SUCCESS';
 export const DELETE_PRICE_TABLES = 'DELETE_PRICE_TABLES';
 export const DELETE_PRICE_TABLES_SUCCESS = 'DELETE_PRICE_TABLES_SUCCESS';
+export const DUPLICATE_PRICE_TABLE_SUCCESS = 'DUPLICATE_PRICE_TABLE_SUCCESS';
 export const UPDATED_PRICE_TABLE = 'UPDATED_PRICE_TABLE';
 
 export const addPriceTableSuccess = priceTable => ({
@@ -24,6 +25,11 @@ export const addPriceTableSuccess = priceTable => ({
 export const deletePriceTablesSuccess = priceTableIds => ({
   type: DELETE_PRICE_TABLES_SUCCESS,
   payload: { priceTableIds }
+});
+
+export const duplicatePriceTableSuccess = priceTable => ({
+  type: DUPLICATE_PRICE_TABLE_SUCCESS,
+  payload: { priceTable }
 });
 
 export const updatedPriceTable = priceTable => ({
@@ -90,6 +96,22 @@ export const deletePriceTables = (priceTableIds, snack) => dispatch => {
       }
 
       return res;
+    })
+    .catch(console.error);
+};
+
+export const duplicatePriceTable = (id, priceTableId, snack) => dispatch => {
+  const endpoint = getEndpoint(`/price-tables/duplicatePriceTable/${id}`);
+  const request = createPostRequest({ priceTableId });
+
+  fetch(endpoint, request)
+    .then(res => res.json())
+    .then(({ priceTable }) => {
+      snack('duplicada', {
+        variant: 'success',
+        autoHideDuration: 2000
+      });
+      dispatch(duplicatePriceTableSuccess(priceTable));
     })
     .catch(console.error);
 };
