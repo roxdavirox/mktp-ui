@@ -96,7 +96,7 @@ export default function reducer(state = initialState, action) {
           ...state.byId,
           [priceTable._id]: priceTable
         },
-        allIds: [...state.allIds, priceTable._id]
+        allIds: [...state.allIds, ...[priceTable._id]]
       };
     }
 
