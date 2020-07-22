@@ -46,10 +46,13 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
 
     const priceTableIds = indexRows.map(index => data[index]._id);
 
+    console.log(priceTableIds);
+
     snack('Duplicando...', {
       variant: 'info',
       autoHideDuration: 2000
     });
+
     dispatch(duplicatePriceTable(priceTableIds, snack));
   };
 

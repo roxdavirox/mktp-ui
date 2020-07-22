@@ -100,18 +100,22 @@ export const deletePriceTables = (priceTableIds, snack) => dispatch => {
     .catch(console.error);
 };
 
-export const duplicatePriceTable = (id, priceTableId, snack) => dispatch => {
-  const endpoint = getEndpoint(`/price-tables/duplicatePriceTable/${id}`);
-  const request = createPostRequest({ priceTableId });
+export const duplicatePriceTable = (priceTableIds, snack) => dispatch => {
+  const request = createPostRequest({ priceTableIds });
+  const endpoint = getEndpoint(`/price-tables/duplicatePriceTable`);
 
   fetch(endpoint, request)
     .then(res => res.json())
-    .then(({ priceTable }) => {
-      snack('duplicada', {
+    .then(res => {
+      const priceTables = res.duplicatedPriceTable;
+      for (let priceTable of priceTables) {
+        dispatch(duplicatePriceTableSuccess(priceTable));
+      }
+      snack(`tabela(s) duplicada`, {
         variant: 'success',
         autoHideDuration: 2000
       });
-      dispatch(duplicatePriceTableSuccess(priceTable));
+      return res;
     })
     .catch(console.error);
 };
