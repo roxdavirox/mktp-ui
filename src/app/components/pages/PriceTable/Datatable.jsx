@@ -39,12 +39,18 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
     dispatch(deletePriceTables(priceTableIds, snack));
   };
 
-  const handleDuplicatePriceTable = priceTableId => {
+  const handleDuplicatePriceTable = rows => {
+    const { data: dataRows } = rows;
+
+    const indexRows = dataRows.map(({ dataIndex }) => dataIndex);
+
+    const priceTableIds = indexRows.map(index => data[index]._id);
+
     snack('Duplicando...', {
       variant: 'info',
       autoHideDuration: 2000
     });
-    dispatch(duplicatePriceTable(priceTableId, snack));
+    dispatch(duplicatePriceTable(priceTableIds, snack));
   };
 
   const columns = [
@@ -122,7 +128,7 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
     // eslint-disable-next-line react/display-name
     customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
       <div>
-        <Button onClick={() => console.log(selectedRows)}>
+        <Button onClick={() => handleDuplicatePriceTable(selectedRows)}>
           <ControlPointDuplicateIcon />
         </Button>
         <Button onClick={() => handleRowsDelete(selectedRows)}>
