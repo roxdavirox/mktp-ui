@@ -88,15 +88,17 @@ export default function reducer(state = initialState, action) {
     }
 
     case DUPLICATE_PRICE_TABLE_SUCCESS: {
-      const { priceTable } = action.payload;
+      const { priceTables } = action.payload;
 
+      const byId = priceTables.reduce((priceTables, priceTable) => {
+        return { ...priceTables, [priceTable._id]: priceTable };
+      }, {});
+
+      const allIds = [...state.allIds, ...Object.keys(byId)];
       return {
         ...state,
-        byId: {
-          ...state.byId,
-          [priceTable._id]: priceTable
-        },
-        allIds: [...state.allIds, ...[priceTable._id]]
+        byId: { ...state.byId, ...byId },
+        allIds
       };
     }
 

@@ -46,8 +46,6 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
 
     const priceTableIds = indexRows.map(index => data[index]._id);
 
-    console.log(priceTableIds);
-
     snack('Duplicando...', {
       variant: 'info',
       autoHideDuration: 2000
@@ -129,7 +127,7 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
       }
     },
     // eslint-disable-next-line react/display-name
-    customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
+    customToolbarSelect: selectedRows => (
       <div>
         <Button onClick={() => handleDuplicatePriceTable(selectedRows)}>
           <ControlPointDuplicateIcon />
