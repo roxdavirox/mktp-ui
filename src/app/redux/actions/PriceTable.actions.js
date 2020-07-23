@@ -27,9 +27,9 @@ export const deletePriceTablesSuccess = priceTableIds => ({
   payload: { priceTableIds }
 });
 
-export const duplicatePriceTableSuccess = priceTable => ({
+export const duplicatePriceTableSuccess = priceTables => ({
   type: DUPLICATE_PRICE_TABLE_SUCCESS,
-  payload: { priceTable }
+  payload: { priceTables }
 });
 
 export const updatedPriceTable = priceTable => ({
@@ -108,9 +108,7 @@ export const duplicatePriceTable = (priceTableIds, snack) => dispatch => {
     .then(res => res.json())
     .then(res => {
       const priceTables = res.duplicatedPriceTable;
-      for (let priceTable of priceTables) {
-        dispatch(duplicatePriceTableSuccess(priceTable));
-      }
+      dispatch(duplicatePriceTableSuccess(priceTables));
       snack(`tabela(s) duplicada`, {
         variant: 'success',
         autoHideDuration: 2000
