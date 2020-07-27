@@ -108,6 +108,7 @@ export const duplicatePriceTable = (priceTableIds, snack) => dispatch => {
     .then(res => res.json())
     .then(res => {
       const priceTables = res.duplicatedPriceTable;
+      console.log(res);
       dispatch(duplicatePriceTableSuccess(priceTables));
       snack(`tabela(s) duplicada`, {
         variant: 'success',
