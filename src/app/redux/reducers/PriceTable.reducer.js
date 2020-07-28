@@ -91,7 +91,7 @@ export default function reducer(state = initialState, action) {
       const { priceTables } = action.payload;
 
       const byId = priceTables.reduce((priceTables, priceTable) => {
-        return { ...priceTables, [priceTable._id]: priceTable };
+        return { ..._priceTables, [priceTable._id]: priceTable };
       }, {});
 
       const allIds = [...state.allIds, ...Object.keys(byId)];
