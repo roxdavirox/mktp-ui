@@ -11,8 +11,6 @@ import DialogMenu from './DialogMenu';
 import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 import { AddToolbar } from 'app/components/common/tables/Toolbar';
 import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import LabelIcon from '@material-ui/icons/Label';
 
 const styles = {
   EditCell: { textAlign: 'right' },
@@ -29,12 +27,13 @@ const Datatable = ({
 }) => {
   const [anchorElement, setAnchor] = useState(null);
   const handleOpenEditItem = (itemId, tableMeta) => {
-    const [name, itemType, priceTable] = tableMeta.rowData;
+    const [name, itemType, priceTable, showUnitField] = tableMeta.rowData;
     const item = {
       name,
       itemType,
       priceTable: itemType === 'item' ? priceTable : undefined,
-      _id: itemId
+      _id: itemId,
+      showUnitField
     };
     setEditedItem(item);
   };
@@ -95,6 +94,14 @@ const Datatable = ({
     },
     {
       name: 'priceTable',
+      options: {
+        filter: false,
+        sort: false,
+        display: 'excluded'
+      }
+    },
+    {
+      name: 'showUnitField',
       options: {
         filter: false,
         sort: false,
