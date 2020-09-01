@@ -14,6 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { fetchPriceTables } from 'app/redux/actions/PriceTable.actions';
 import { getPriceTables } from 'app/redux/selectors/PriceTable.selectors';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -33,14 +34,17 @@ const EditItemDialog = ({ item, onEdit, onClose }) => {
   const [itemName, setItemName] = useState('');
   const [priceTable, setPriceTableId] = useState('0');
   const [itemId, setItemId] = useState('');
+  const [checked, setCheck] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
     if (item) {
+      console.log('item', item);
       setItemName(item.name || '');
       setPriceTableId(item.priceTable || '0');
       setItemId(item._id || '');
+      setCheck(item.showUnitField);
     }
     dispatch(fetchPriceTables());
   }, []);
@@ -50,11 +54,18 @@ const EditItemDialog = ({ item, onEdit, onClose }) => {
   const handleNameChange = e => setItemName(e.target.value);
 
   const handleSubmit = () => {
-    const item = { name: itemName, priceTable, _id: itemId };
+    const item = {
+      name: itemName,
+      priceTable,
+      _id: itemId,
+      showUnitField: checked
+    };
     onEdit(item);
   };
 
   const handleClose = () => onClose();
+
+  const handleCheck = () => setCheck(value => !value);
 
   const priceTables = useSelector(store => getPriceTables(store));
   return (
@@ -92,6 +103,16 @@ const EditItemDialog = ({ item, onEdit, onClose }) => {
                 ))}
             </Select>
           </FormControl>
+          <div>
+            <InputLabel htmlFor="check">
+              <Checkbox
+                checked={checked}
+                onClick={handleCheck}
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
+              Marque para informar a unidade no calculo do preço final
+            </InputLabel>
+          </div>
         </form>
       </DialogContent>
       <DialogActions>
