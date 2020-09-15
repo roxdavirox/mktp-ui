@@ -127,12 +127,22 @@ const Datatable = ({ enqueueSnackbar: snack, classes, data, onOpen }) => {
       }
     },
     // eslint-disable-next-line react/display-name
-    customToolbarSelect: selectedRows => (
+    customToolbarSelect: (selectedRows, _, setSelectedRows) => (
       <div>
-        <Button onClick={() => handleDuplicatePriceTable(selectedRows)}>
+        <Button
+          onClick={() => {
+            handleDuplicatePriceTable(selectedRows);
+            setSelectedRows([]);
+          }}
+        >
           <ControlPointDuplicateIcon />
         </Button>
-        <Button onClick={() => handleRowsDelete(selectedRows)}>
+        <Button
+          onClick={() => {
+            handleRowsDelete(selectedRows);
+            setSelectedRows([]);
+          }}
+        >
           <DeleteIcon />
         </Button>
       </div>
