@@ -5,7 +5,7 @@ import { withSnackbar } from 'notistack';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import history from 'history.js';
-import { convertToObjectWithKeys, addNewPropsWhen } from 'helpers/array';
+import reactUuid from 'react-uuid';
 
 import { Breadcrumb } from 'matx';
 import TemplateDatatable from './Datatable';
@@ -13,27 +13,9 @@ import TemplateInfo from './TemplateInfo';
 import { getEndpoint, createPostRequest } from 'helpers/api';
 import MoneyCard from 'app/components/common/cards/MoneyCard';
 import SaveButton from 'app/components/common/buttons/SaveButton';
-import reactUuid from 'react-uuid';
 import _ from 'lodash';
-
-const defaulItemProps = {
-  price: 0,
-  quantity: 1,
-  isChecked: false
-};
-
-const itemNotHasQuantity = item =>
-  !(item.priceTable && item.priceTable.unit === 'quantidade');
-
-const mapDefaultItemPropsToObject = items => {
-  const itemsWithSize = addNewPropsWhen(itemNotHasQuantity)({
-    size: { x: 1, y: 1 }
-  })(items);
-  const itemsWithUuid = itemsWithSize.map(i => ({ ...i, uuid: reactUuid() }));
-  return convertToObjectWithKeys(itemsWithUuid)('uuid')(defaulItemProps);
-};
-
-const convertObjectToArray = obj => Object.values(obj);
+import { convertToObjectWithKeys } from 'helpers/array';
+import { mapDefaultItemPropsToObject } from 'helpers/items';
 
 const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   const [total, setTotal] = useState(0);
@@ -323,7 +305,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
   };
 
   const handleTotalPriceCalculate = () => {
-    const checkedTemplateItems = convertObjectToArray(templateItems).filter(
+    const checkedTemplateItems = Object.values(templateItems).filter(
       item => item.isChecked
     );
 
@@ -406,7 +388,11 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
 
     const endpoint = getEndpoint(`/items/templates/${optionId}`);
 
-    const postRequest = createPostRequest({ name: templateName, templates });
+    const postRequest = createPostRequest({
+      name: templateName,
+      templates,
+      templateQuantity
+    });
     fetch(endpoint, postRequest)
       .then(res => res.json())
       .then(({ error, ...rest }) => (error ? null : rest))
@@ -454,6 +440,7 @@ const TemplateItems = ({ enqueueSnackbar, ...props }) => {
       });
     }, 1000);
   };
+
   return (
     <>
       <Container maxWidth="xl" className="m-sm-30">
