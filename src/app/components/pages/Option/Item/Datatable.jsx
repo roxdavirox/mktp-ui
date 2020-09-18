@@ -124,7 +124,7 @@ const Datatable = ({
           ) : (
             <Link
               to={{
-                pathname: '/admin/config/option/template',
+                pathname: '/templates/edit',
                 state: {
                   fromRedirect: true,
                   itemId
