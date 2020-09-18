@@ -13,15 +13,9 @@ import productRoutes from './components/pages/Product/List/ProductListRoutes';
 import createProductRoutes from './components/pages/Product/CreateProduct/CreateProductRoutes';
 import editProductRoutes from './components/pages/Product/EditProduct/EditProductRoutes';
 import createTemplateRoutes from './components/pages/Option/CreateTemplateItem/CreateTemplateRoutes';
+import editTemplateRoutes from './components/pages/Option/EditTemplateItem/EditTemplateRoutes';
 import dashboardRoutes from './views/dashboard/DashboardRoutes';
 import sessionRoutes from './views/sessions/SessionRoutes';
-// import utilitiesRoutes from './views/utilities/UtilitiesRoutes';
-
-// import materialRoutes from './views/material-kit/MaterialRoutes';
-// import dragAndDropRoute from './views/Drag&Drop/DragAndDropRoute';
-
-// import formsRoutes from './views/forms/FormsRoutes';
-// import mapRoutes from './views/map/MapRoutes';
 
 const redirectRoute = [
   {
@@ -49,17 +43,12 @@ const routes = [
   ...createProductRoutes,
   ...editProductRoutes,
   ...createTemplateRoutes,
+  ...editTemplateRoutes,
   // theme routes
   ...dashboardRoutes,
   ...sessionRoutes,
   ...redirectRoute,
   ...errorRoute
-  // examples
-  // ...materialRoutes,
-  // ...utilitiesRoutes,
-  // ...dragAndDropRoute,
-  // ...formsRoutes,
-  // ...mapRoutes
 ];
 
 export default routes;
