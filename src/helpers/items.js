@@ -10,7 +10,7 @@ const defaulItemProps = {
 export const itemNotHasQuantity = item =>
   !(item.priceTable && item.priceTable.unit === 'quantidade');
 
-export const mapDefaultItemPropsToObject = items => {
+export const normalizeWithDefaultProps = items => {
   const itemsWithSize = addNewPropsWhen(itemNotHasQuantity)({
     size: { x: 1, y: 1 }
   })(items);
