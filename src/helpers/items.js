@@ -17,3 +17,8 @@ export const normalizeWithDefaultProps = items => {
   const itemsWithUuid = itemsWithSize.map(i => ({ ...i, uuid: reactUuid() }));
   return convertToObjectWithKeys(itemsWithUuid)('uuid')(defaulItemProps);
 };
+
+export const normalizeCheckedItems = items => {
+  const itemsWithUuid = items.map(i => ({ ...i, uuid: reactUuid() }));
+  return convertToObjectWithKeys(itemsWithUuid)('uuid')();
+};
