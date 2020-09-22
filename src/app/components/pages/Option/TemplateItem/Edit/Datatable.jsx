@@ -27,7 +27,8 @@ const Datatable = ({ enqueueSnackbar, title }) => {
     duplicateItem,
     templateItems,
     deleteTemplateItems,
-    check
+    check,
+    priceTables
   } = useContext(EditTemplateItemContext);
 
   const columns = [
@@ -139,14 +140,36 @@ const Datatable = ({ enqueueSnackbar, title }) => {
         customBodyRender: function renderPriceValue(price, tableMeta) {
           const { rowData } = tableMeta;
           const uuid = rowData[rowData.length - 1];
-          const templateItem = templateItems[uuid];
-          const { quantity, isChecked, itemType } = templateItem;
-
-          if (!isChecked) return 0;
-
-          return price && itemType === 'template'
-            ? price * quantity
-            : price || 0;
+          const {
+            priceTable,
+            quantity,
+            size,
+            isChecked,
+            itemType
+          } = templateItems[uuid];
+          if (priceTable && itemType === 'item' && isChecked) {
+            const _priceTable = priceTables[priceTable._id];
+            const { unitPrice, unit } = _priceTable;
+            const fixedPrice =
+              unit !== 'quantidade'
+                ? unitPrice * quantity * size.x * size.y
+                : unitPrice * quantity;
+            return fixedPrice.toFixed(4);
+          } else if (
+            itemType === 'template' &&
+            templateItems[uuid].priceTables &&
+            isChecked
+          ) {
+            const templateItem = templateItems[uuid];
+            const _totalPrice = Object.keys(templateItem.priceTables)
+              .map(id => priceTables[id])
+              .reduce((_total, pt) => _total + pt.unitPrice, 0);
+            const fixedPrice = _totalPrice * quantity;
+            return fixedPrice.toFixed(4);
+          } else {
+            const fixedPrice = price ? price : 0;
+            return fixedPrice.toFixed(4);
+          }
         }
       }
     },
