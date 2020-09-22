@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import useCreateTemplateItem from './useCreateTemplateItem';
+import useTemplateItem from '../useTemplateItem';
 
 export const CreateTemplateItemContext = React.createContext(null);
 
 export const TemplateItemProvider = ({ children }) => {
-  const { ...context } = useCreateTemplateItem();
+  const { ...context } = useTemplateItem();
 
   return (
     <CreateTemplateItemContext.Provider value={context}>
