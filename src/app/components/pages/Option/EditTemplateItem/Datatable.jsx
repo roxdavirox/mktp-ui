@@ -117,18 +117,13 @@ const Datatable = ({ enqueueSnackbar, title }) => {
         ) {
           const { rowData } = tableMeta;
           const uuid = rowData[rowData.length - 1];
-          console.log('rowData', rowData);
-          const { isChecked } = templateItems[uuid];
-
           return (
             <FormControlLabel
               value={value}
-              control={
-                <Switch color="primary" checked={isChecked} value={value} />
-              }
+              control={<Switch color="primary" checked={value} value={value} />}
               onChange={event => {
                 check(uuid);
-                updateValue(isChecked);
+                updateValue(value);
               }}
             />
           );
