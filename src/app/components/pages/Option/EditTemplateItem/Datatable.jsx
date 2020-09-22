@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withSnackbar } from 'notistack';
@@ -14,28 +14,25 @@ import Size from './Size';
 import Quantity from './Quantity';
 import DuplicateIcon from 'app/components/common/icons/DuplicateIcon';
 import Loading from './LoadingSkeleton';
+import { EditTemplateItemContext } from './context';
 
 const useStyle = makeStyles({
   EditCell: { textAlign: 'right' },
   NameCell: { fontWeight: 500 }
 });
 
-const Datatable = ({
-  data,
-  onDeleteTemplateItems,
-  onDuplicateItem,
-  onCheckItem,
-  onCalculateTotal,
-  enqueueSnackbar,
-  onChangeQuantity,
-  title,
-  onChangeSizeX,
-  onChangeSizeY
-}) => {
+const Datatable = ({ enqueueSnackbar, title }) => {
   const classes = useStyle();
+  const {
+    duplicateItem,
+    templateItems,
+    deleteTemplateItems,
+    check
+  } = useContext(EditTemplateItemContext);
+
   const columns = [
     {
-      name: 'itemId',
+      name: '_id',
       label: ' ',
       options: {
         sort: false,
@@ -63,8 +60,10 @@ const Datatable = ({
         sort: false,
         filter: false,
         customBodyRender: function(value, tableMeta) {
-          const templateItem = data[tableMeta.rowIndex];
-          const name = templateItem.name || value;
+          const { rowData } = tableMeta;
+          const uuid = rowData[rowData.length - 1];
+          const template = templateItems[uuid];
+          const name = template.name || value;
           return name;
         }
       }
@@ -76,17 +75,9 @@ const Datatable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderUnitComponent(value, tableMeta) {
-          const templateItem = data[tableMeta.rowIndex];
-          const { quantity } = data[tableMeta.rowIndex];
-          return (
-            <Quantity
-              rowIndex={tableMeta.rowIndex}
-              templateItem={templateItem}
-              onCalculateTotal={onCalculateTotal}
-              onChangeQuantity={onChangeQuantity}
-              quantity={quantity}
-            />
-          );
+          const { rowData } = tableMeta;
+          const uuid = rowData[rowData.length - 1];
+          return <Quantity uuid={uuid} />;
         }
       }
     },
@@ -97,7 +88,9 @@ const Datatable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderSizeComponent(unit, tableMeta) {
-          const templateItem = data[tableMeta.rowIndex];
+          const { rowData } = tableMeta;
+          const uuid = rowData[rowData.length - 1];
+          const templateItem = templateItems[uuid];
 
           const { size } = templateItem;
           const itemType =
@@ -107,18 +100,7 @@ const Datatable = ({
           if (!templateItem.itemType) return;
           const hasSize =
             unit !== 'quantidade' && itemType !== 'template' && size;
-          return (
-            hasSize && (
-              <Size
-                rowIndex={tableMeta.rowIndex}
-                templateItem={templateItem}
-                valueX={size.x}
-                valueY={size.y}
-                onChangeSizeX={onChangeSizeX}
-                onChangeSizeY={onChangeSizeY}
-              />
-            )
-          );
+          return hasSize && <Size uuid={uuid} />;
         }
       }
     },
@@ -133,23 +115,19 @@ const Datatable = ({
           tableMeta,
           updateValue
         ) {
+          const { rowData } = tableMeta;
+          const uuid = rowData[rowData.length - 1];
+          console.log('rowData', rowData);
+          const { isChecked } = templateItems[uuid];
+
           return (
             <FormControlLabel
-              value={value ? 'Yes' : 'No'}
+              value={value}
               control={
-                <Switch
-                  color="primary"
-                  checked={value}
-                  value={value ? 'Yes' : 'No'}
-                />
+                <Switch color="primary" checked={isChecked} value={value} />
               }
               onChange={event => {
-                const isChecked = event.target.value === 'Yes' ? false : true;
-                onCheckItem(tableMeta.rowIndex, isChecked);
-                const templateItem = data[tableMeta.rowIndex];
-
-                onCalculateTotal(tableMeta.rowIndex, templateItem, isChecked);
-
+                check(uuid);
                 updateValue(isChecked);
               }}
             />
@@ -164,7 +142,9 @@ const Datatable = ({
         sort: false,
         filter: false,
         customBodyRender: function renderPriceValue(price, tableMeta) {
-          const templateItem = data[tableMeta.rowIndex];
+          const { rowData } = tableMeta;
+          const uuid = rowData[rowData.length - 1];
+          const templateItem = templateItems[uuid];
           const { quantity, isChecked, itemType } = templateItem;
 
           if (!isChecked) return 0;
@@ -176,18 +156,20 @@ const Datatable = ({
       }
     },
     {
-      name: 'duplicate',
+      name: 'uuid',
       label: 'Duplicar',
       options: {
         sort: false,
         filter: false,
         customBodyRender: function renderDuplicateItem(value, tableMeta) {
+          const { rowData } = tableMeta;
+          const uuid = rowData[rowData.length - 1];
+
           return (
             <DuplicateIcon
               onClick={() => {
-                if (window.confirm('Deseja duplicar este item?')) {
-                  onDuplicateItem(tableMeta.rowIndex);
-                }
+                if (!window.confirm('Deseja duplicar este item?')) return;
+                duplicateItem(uuid);
               }}
             />
           );
@@ -211,12 +193,13 @@ const Datatable = ({
     onRowsDelete: function rowsDelete(rows) {
       const indexRows = rows.data.map(r => r.index);
       if (indexRows) {
-        onDeleteTemplateItems(indexRows);
+        deleteTemplateItems(indexRows);
       }
     }
     // customToolbarSelect: () => {}
   };
-  console.log('datatable render');
+
+  const data = Object.values(templateItems);
   return (
     <MuiDatatable
       title={title}

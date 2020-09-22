@@ -1,9 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import { EditTemplateItemContext } from './context';
+import { useDebouncedCallback } from 'use-debounce';
 
 const useStyles = makeStyles({
   TextField: {
@@ -13,17 +15,35 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Quantity = ({ rowIndex, onChangeQuantity, templateItem }) => {
+const Quantity = ({ uuid }) => {
   const classes = useStyles();
+  const { templateItems, changeItemQuantity } = useContext(
+    EditTemplateItemContext
+  );
 
-  const handleChangeQuantity = e => onChangeQuantity(rowIndex, e.target.value);
-  const { quantity } = templateItem;
+  const { quantity } = templateItems[uuid];
+
+  const [value, setValue] = useState(quantity <= 1 ? 1 : quantity);
+
+  const [handleDebounce] = useDebouncedCallback(
+    (id, v) => changeItemQuantity(id, Number(v)),
+    450
+  );
+
+  const handleChangeQuantity = e => {
+    setValue(e.target.value);
+    if (e.target.value >= 1) {
+      handleDebounce(uuid, e.target.value);
+    }
+  };
+
   return (
     <>
       <TextField
         type="number"
+        defaultValue={quantity}
         onChange={handleChangeQuantity}
-        value={quantity <= 0 ? 1 : quantity || 1}
+        value={value}
         placeholder={'1'}
         className={classes.TextField}
       />

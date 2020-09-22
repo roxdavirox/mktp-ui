@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 // core components
@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { TextField } from '@material-ui/core';
 import { useDebouncedCallback } from 'use-debounce';
+import { EditTemplateItemContext } from './context';
 
 const useStyles = makeStyles(theme => ({
   infoText: {
@@ -35,20 +36,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TemplateInfo = ({
-  templateName,
-  onNameChange,
-  templateQuantity,
-  onChangeQuantity
-}) => {
+const TemplateInfo = ({ templateName, onNameChange }) => {
   const classes = useStyles();
+  const { templateQuantity, setTemplateQuantity } = useContext(
+    EditTemplateItemContext
+  );
+
   const [name, setName] = useState(templateName);
   const [quantity, setQuantity] = useState(templateQuantity);
 
-  useEffect(() => {
-    setName(templateName);
-    setQuantity(templateQuantity);
-  }, [templateName, templateQuantity]);
+  // useEffect(() => {
+  //   setName(templateName);
+  //   setTemplateQuantity(templateQuantity);
+  // }, [templateName, templateQuantity]);
 
   const [handleNameChangeDebounce] = useDebouncedCallback(
     newName => onNameChange(newName),
@@ -56,7 +56,7 @@ const TemplateInfo = ({
   );
 
   const [handleQuantityChangeDebounce] = useDebouncedCallback(
-    _quantity => onChangeQuantity(_quantity),
+    _quantity => setTemplateQuantity(_quantity),
     450
   );
 
