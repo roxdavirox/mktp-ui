@@ -45,10 +45,10 @@ const TemplateInfo = ({ templateName, onNameChange }) => {
   const [name, setName] = useState(templateName);
   const [quantity, setQuantity] = useState(templateQuantity);
 
-  // useEffect(() => {
-  //   setName(templateName);
-  //   setTemplateQuantity(templateQuantity);
-  // }, [templateName, templateQuantity]);
+  useEffect(() => {
+    setName(templateName);
+    setQuantity(templateQuantity);
+  }, [templateName, templateQuantity]);
 
   const [handleNameChangeDebounce] = useDebouncedCallback(
     newName => onNameChange(newName),
