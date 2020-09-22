@@ -133,8 +133,6 @@ const useTemplateItems = props => {
   };
 
   const check = id => {
-    console.log('checkando id', id);
-    console.log('checkando item', templateItems[id]);
     const { isChecked } = templateItems[id];
 
     change(id)({ isChecked: !isChecked });
