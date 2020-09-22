@@ -15,14 +15,14 @@ const useStyles = makeStyles({
 
 // eslint-disable-next-line react/prop-types
 const Quantity = ({ uuid }) => {
-  const { changeItemQuantity, templateQuantity } = useContext(
+  const { changeItemQuantity, templateItems } = useContext(
     CreateTemplateItemContext
   );
   const classes = useStyles();
   const inputRef = useRef(uuid);
-  const [value, setValue] = useState(
-    templateQuantity <= 1 ? 1 : templateQuantity
-  );
+  const { quantity } = templateItems[uuid];
+
+  const [value, setValue] = useState(quantity <= 1 ? 1 : quantity);
 
   const [handleDebounce] = useDebouncedCallback(
     (id, v) => changeItemQuantity(id, Number(v)),
