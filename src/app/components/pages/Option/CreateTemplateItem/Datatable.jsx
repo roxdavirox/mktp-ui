@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import React, { memo } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withSnackbar } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-
+import { CreateTemplateItemContext } from './context';
 //Common components
 import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 import DuplicateIcon from 'app/components/common/icons/DuplicateIcon';
@@ -20,24 +20,20 @@ const useStyle = makeStyles({
   NameCell: { fontWeight: 500 }
 });
 
-const DataTable = ({
-  templateItems,
-  title,
-  onDeleteTemplateItems,
-  onDuplicateItem,
-  onCheckItem,
-  onChangeValueX,
-  onChangeValueY,
-  onChangeQuantity,
-  isLoading,
-  priceTables
-}) => {
+const DataTable = ({ title, isLoading }) => {
   const classes = useStyle();
+  const {
+    duplicateItem,
+    templateItems,
+    priceTables,
+    check,
+    deleteTemplateItems
+  } = useContext(CreateTemplateItemContext);
 
   const handleDuplicate = index => {
-    if (window.confirm('Deseja duplicar este item?')) {
-      onDuplicateItem(index);
-    }
+    if (!window.confirm('Deseja duplicar este item?')) return;
+
+    duplicateItem(index);
   };
 
   const columns = [
@@ -82,12 +78,7 @@ const DataTable = ({
           const uuid = rowData[rowData.length - 1];
           return (
             templateItems[uuid] && (
-              <Quantity
-                key={uuid}
-                uuid={uuid}
-                initialValue={value}
-                onChangeQuantity={onChangeQuantity}
-              />
+              <Quantity key={uuid} uuid={uuid} initialValue={value} />
             )
           );
         }
@@ -109,15 +100,7 @@ const DataTable = ({
           const hasUnit = unit !== 'quantidade' && unit && size;
           return (
             hasUnit &&
-            templateItems[uuid] && (
-              <Size
-                key={uuid}
-                uuid={uuid}
-                size={size}
-                onChangeValueX={onChangeValueX}
-                onChangeValueY={onChangeValueY}
-              />
-            )
+            templateItems[uuid] && <Size key={uuid} uuid={uuid} size={size} />
           );
         }
       }
@@ -138,7 +121,7 @@ const DataTable = ({
             updateValue(isChecked);
             const { rowData } = tableMeta;
             const uuid = rowData[rowData.length - 1];
-            onCheckItem(uuid);
+            check(uuid);
           };
           return (
             <FormControlLabel
@@ -222,7 +205,6 @@ const DataTable = ({
     rowHover: false,
     rowsPerPage: 10,
     rowsPerPageOptions: [10, 25, 50, 100],
-    // selectableRows: 'none',
     textLabels: {
       body: {
         noMatch: <Loading isLoading={isLoading} />
@@ -231,7 +213,7 @@ const DataTable = ({
     onRowsDelete: function rowsDelete(rows) {
       const indexRows = rows.data.map(r => r.index);
       if (indexRows) {
-        onDeleteTemplateItems(indexRows);
+        deleteTemplateItems(indexRows);
       }
     }
     // customToolbarSelect: () => {}
@@ -250,17 +232,7 @@ const DataTable = ({
 
 DataTable.propTypes = {
   classes: PropTypes.object.isRequired,
-  templateItems: PropTypes.array,
-  onDeleteTemplateItems: PropTypes.func.isRequired,
-  title: PropTypes.object,
-  onDuplicateItem: PropTypes.func.isRequired,
-  onCheckItem: PropTypes.func.isRequired,
-  onCalculateTotal: PropTypes.func.isRequired,
-  onChangeValueX: PropTypes.func.isRequired,
-  onChangeValueY: PropTypes.func.isRequired,
-  onChangeQuantity: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-  priceTables: PropTypes.array
+  title: PropTypes.object
 };
 
 export default withSnackbar(DataTable);

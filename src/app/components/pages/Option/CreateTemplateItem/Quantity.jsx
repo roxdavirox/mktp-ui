@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, { useRef, useState, memo } from 'react';
+import React, { useRef, useState, memo, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDebouncedCallback } from 'use-debounce';
+import { CreateTemplateItemContext } from './context';
+
 const useStyles = makeStyles({
   TextField: {
     maxWidth: 45,
@@ -12,13 +14,18 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Quantity = ({ uuid, initialValue, onChangeQuantity }) => {
+const Quantity = ({ uuid }) => {
+  const { changeItemQuantity, templateQuantity } = useContext(
+    CreateTemplateItemContext
+  );
   const classes = useStyles();
   const inputRef = useRef(uuid);
-  const [value, setValue] = useState(initialValue <= 1 ? 1 : initialValue);
+  const [value, setValue] = useState(
+    templateQuantity <= 1 ? 1 : templateQuantity
+  );
 
   const [handleDebounce] = useDebouncedCallback(
-    (id, v) => onChangeQuantity(id, Number(v)),
+    (id, v) => changeItemQuantity(id, Number(v)),
     450
   );
 

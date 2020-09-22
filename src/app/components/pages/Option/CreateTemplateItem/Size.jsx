@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import React, { memo, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { memo, useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDebouncedCallback } from 'use-debounce';
+import { CreateTemplateItemContext } from './context';
 
 const useStyles = makeStyles({
   TextField: {
@@ -13,13 +13,15 @@ const useStyles = makeStyles({
 });
 
 // eslint-disable-next-line react/prop-types
-const Size = ({ onChangeValueX, onChangeValueY, uuid, size }) => {
+const Size = ({ uuid, size }) => {
   const classes = useStyles();
+  const { changeSizeX, changeSizeY } = useContext(CreateTemplateItemContext);
+
   const [x, setX] = useState(size.x);
   const [y, setY] = useState(size.y);
 
   const [handleDebounceX] = useDebouncedCallback(
-    (id, _x) => onChangeValueX(id, _x),
+    (id, _x) => changeSizeX(id, _x),
     450
   );
 
@@ -31,7 +33,7 @@ const Size = ({ onChangeValueX, onChangeValueY, uuid, size }) => {
   };
 
   const [handleDebounceY] = useDebouncedCallback(
-    (id, _y) => onChangeValueY(id, _y),
+    (id, _y) => changeSizeY(id, _y),
     450
   );
 
@@ -62,12 +64,6 @@ const Size = ({ onChangeValueX, onChangeValueY, uuid, size }) => {
       />{' '}
     </>
   );
-};
-
-Size.propTypes = {
-  onChangeValueX: PropTypes.func.isRequired,
-  onChangeValueY: PropTypes.func.isRequired,
-  templateItem: PropTypes.object
 };
 
 export default memo(Size);

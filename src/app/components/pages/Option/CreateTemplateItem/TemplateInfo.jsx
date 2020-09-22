@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 // core components
@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { TextField } from '@material-ui/core';
+import { CreateTemplateItemContext } from './context';
 
 const useStyles = makeStyles(theme => ({
   infoText: {
@@ -34,13 +35,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TemplateInfo = ({
-  templateName,
-  onNameChange,
-  templateQuantity,
-  onChangeQuantity
-}) => {
+const TemplateInfo = ({ templateName, onNameChange }) => {
   const classes = useStyles();
+  const { setTemplateQuantity, templateQuantity } = useContext(
+    CreateTemplateItemContext
+  );
   const [name, setName] = useState(templateName);
   const [quantity, setQuantity] = useState(templateQuantity);
 
@@ -54,10 +53,10 @@ const TemplateInfo = ({
   const handleChangeQuantity = e => {
     setQuantity(e.target.value);
     if (e.target.value >= 1) {
-      onChangeQuantity(e.target.value);
+      setTemplateQuantity(e.target.value);
       return;
     }
-    onChangeQuantity(1);
+    setTemplateQuantity(1);
   };
 
   return (
@@ -91,7 +90,7 @@ const TemplateInfo = ({
             lg={4}
           >
             <TextField
-              defaultValue={quantity || 1}
+              defaultValue={templateQuantity}
               type="number"
               placeholder="Quantidade de templates"
               value={quantity}
