@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
@@ -9,8 +10,11 @@ import SaveButton from 'app/components/common/buttons/SaveButton';
 import Grid from '@material-ui/core/Grid';
 import { Breadcrumb } from 'matx';
 import { EditTemplateItemContext } from './context';
+import { getEndpoint, createPutRequest } from 'helpers/api';
+import history from 'history.js';
+import { withSnackbar } from 'notistack';
 
-const TemplateItemPage = ({ location }) => {
+const TemplateItemPage = ({ location, enqueueSnackbar }) => {
   const { itemId } = location.state;
   const {
     total,
@@ -18,7 +22,9 @@ const TemplateItemPage = ({ location }) => {
     fetchCheckedTemplateItemsById,
     templateName,
     setTemplateName,
-    templateItems
+    templateItems,
+    option,
+    templateItem
   } = useContext(EditTemplateItemContext);
 
   useEffect(() => {
@@ -29,8 +35,75 @@ const TemplateItemPage = ({ location }) => {
     asyncGetTemplateItems();
   }, []);
 
-  const handleSubmit = () => {};
-  console.log('templateItems', templateItems);
+  const handleSubmit = () => {
+    enqueueSnackbar('Editando template...', {
+      variant: 'info',
+      autoHideDuration: 2000
+    });
+    const templates = Object.values(templateItems)
+      .filter(item => item.isChecked)
+      .map(item => ({
+        option: item.option._id,
+        item: item._id,
+        quantity: item.quantity,
+        size: item.size || undefined
+      }));
+
+    const endpoint = getEndpoint(`/items/templates/${templateItem._id}`);
+
+    const postRequest = createPutRequest({
+      name: templateName,
+      templates,
+      templateQuantity
+    });
+    fetch(endpoint, postRequest)
+      .then(res => res.json())
+      .then(({ error, ...rest }) => (error ? null : rest))
+      .then(() => {
+        enqueueSnackbar('Template editado com sucesso!', {
+          variant: 'success',
+          autoHideDuration: 2000
+        });
+        setTimeout(() => {
+          history.push({
+            pathname: '/items',
+            state: {
+              fromRedirect: true,
+              optionId: option._id
+            }
+          });
+        }, 1000);
+      })
+      .catch(e => {
+        console.error(e.Message);
+        enqueueSnackbar('Erro ao editar template :(', {
+          variant: 'warning',
+          autoHideDuration: 2000
+        });
+        setTimeout(() => {
+          history.push({
+            pathname: '/items',
+            state: {
+              fromRedirect: true,
+              optionId: option._id
+            }
+          });
+        }, 1000);
+      });
+  };
+
+  const handleSave = () => {
+    setTimeout(() => {
+      history.push({
+        pathname: '/items',
+        state: {
+          fromRedirect: true,
+          optionId: option._id
+        }
+      });
+    }, 1000);
+  };
+
   return (
     <>
       <Container maxWidth="xl" className="m-sm-30">
@@ -73,6 +146,7 @@ const TemplateItemPage = ({ location }) => {
               loadingTitle="Editando template..."
               sucessTitle="Editado com sucesso!"
               onClick={handleSubmit}
+              onSave={handleSave}
             />
           </Grid>
         </Container>
@@ -96,4 +170,4 @@ TemplateItemPage.propTypes = {
   location: PropTypes.object
 };
 
-export default TemplateItemPage;
+export default withSnackbar(TemplateItemPage);

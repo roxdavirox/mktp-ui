@@ -78,7 +78,7 @@ const Datatable = ({ enqueueSnackbar, title }) => {
         customBodyRender: function renderUnitComponent(value, tableMeta) {
           const { rowData } = tableMeta;
           const uuid = rowData[rowData.length - 1];
-          return <Quantity uuid={uuid} />;
+          return <Quantity key={uuid} uuid={uuid} />;
         }
       }
     },
@@ -101,7 +101,7 @@ const Datatable = ({ enqueueSnackbar, title }) => {
           if (!templateItem.itemType) return;
           const hasSize =
             unit !== 'quantidade' && itemType !== 'template' && size;
-          return hasSize && <Size uuid={uuid} />;
+          return hasSize && <Size key={uuid} uuid={uuid} />;
         }
       }
     },
@@ -218,6 +218,7 @@ const Datatable = ({ enqueueSnackbar, title }) => {
   };
 
   const data = Object.values(templateItems);
+  console.log('data', data);
   return (
     <MuiDatatable
       title={title}
@@ -229,19 +230,12 @@ const Datatable = ({ enqueueSnackbar, title }) => {
 };
 
 Datatable.propTypes = {
-  onDeleteTemplateItems: PropTypes.func.isRequired,
-  onDuplicateItem: PropTypes.func.isRequired,
-  onCheckItem: PropTypes.func.isRequired,
-  onCalculateTotal: PropTypes.func.isRequired,
   data: PropTypes.array,
   title: PropTypes.object,
-  enqueueSnackbar: PropTypes.func.isRequired,
-  onChangeQuantity: PropTypes.func.isRequired,
-  onChangeSizeX: PropTypes.func.isRequired,
-  onChangeSizeY: PropTypes.func.isRequired
+  enqueueSnackbar: PropTypes.func.isRequired
 };
 
-const MemoizedDatatable = memo(Datatable);
-const NotificationDatatable = withSnackbar(MemoizedDatatable);
+// const MemoizedDatatable = memo(Datatable);
+const NotificationDatatable = withSnackbar(Datatable);
 
 export default NotificationDatatable;
