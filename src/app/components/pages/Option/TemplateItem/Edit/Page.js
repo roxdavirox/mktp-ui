@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Datatable from './Datatable';
@@ -8,7 +8,6 @@ import MoneyCard from 'app/components/common/cards/MoneyCard';
 import SaveButton from 'app/components/common/buttons/SaveButton';
 import Grid from '@material-ui/core/Grid';
 import { Breadcrumb } from 'matx';
-import { getEndpoint } from 'helpers/api';
 import { EditTemplateItemContext } from './context';
 
 const TemplateItemPage = ({ location }) => {
@@ -22,22 +21,12 @@ const TemplateItemPage = ({ location }) => {
     templateItems
   } = useContext(EditTemplateItemContext);
 
-  const [options, setOptions] = useState([]);
-
   useEffect(() => {
     if (!itemId) return;
-    async function AsyncGetTemplateItems() {
+    async function asyncGetTemplateItems() {
       await fetchCheckedTemplateItemsById(itemId);
     }
-    AsyncGetTemplateItems();
-  }, []);
-
-  useEffect(() => {
-    const optionsEndpoint = getEndpoint('/options');
-    fetch(optionsEndpoint)
-      .then(res => res.json())
-      .then(({ options }) => setOptions(options))
-      .catch(e => console.log(e));
+    asyncGetTemplateItems();
   }, []);
 
   const handleSubmit = () => {};

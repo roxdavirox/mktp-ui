@@ -18,6 +18,7 @@ const useEditTemplateItem = () => {
   const [templateQuantity, setTemplateQuantity] = useState(1);
   const [priceTables, setPriceTables] = useState({});
   const [templateName, setTemplateName] = useState('');
+  const [optionName, setOptionName] = useState('');
 
   useEffect(() => {
     if (_.isEmpty(templateItems)) return;
@@ -54,6 +55,8 @@ const useEditTemplateItem = () => {
 
       setTemplateName(item.name);
       setTemplateQuantity(item.templateQuantity || 1);
+      setOptionName(item.option.name);
+
       const { templates } = item;
       const checkedTemplates = templates.map(t => ({
         ...t.item,
@@ -326,6 +329,7 @@ const useEditTemplateItem = () => {
     templateQuantity,
     priceTables,
     templateName,
+    optionName,
 
     setTemplateQuantity,
     setTemplateName,

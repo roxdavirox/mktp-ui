@@ -27,7 +27,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     margin: 'auto',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'flex-start',
+    padding: '10px'
   },
   select: { height: '37px' },
   formControl: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 const TemplateInfo = ({ templateName, onNameChange }) => {
   const classes = useStyles();
-  const { templateQuantity, setTemplateQuantity } = useContext(
+  const { templateQuantity, setTemplateQuantity, optionName } = useContext(
     EditTemplateItemContext
   );
 
@@ -86,22 +87,42 @@ const TemplateInfo = ({ templateName, onNameChange }) => {
               placeholder="Digite o nome do template"
               value={name || templateName}
               onChange={handleNameChange}
+              label="Nome do template"
+              variant="outlined"
             />
           </FormControl>
         </Grid>
         <Grid item>
           <FormControl
             className={classes.formControl}
-            style={{ minWidth: 200 }}
+            style={{ minWidth: 100 }}
             sm={6}
             lg={4}
           >
             <TextField
               defaultValue={templateQuantity}
               type="number"
+              label="Quantidade de templates"
               placeholder="Quantidade de templates"
               value={quantity}
               onChange={handleChangeQuantity}
+              variant="outlined"
+            />
+          </FormControl>
+        </Grid>
+        <Grid item>
+          <FormControl
+            className={classes.formControl}
+            style={{ minWidth: 100 }}
+            sm={6}
+            lg={4}
+          >
+            <TextField
+              defaultValue={templateQuantity}
+              label="Opção do template"
+              value={optionName}
+              disabled
+              variant="outlined"
             />
           </FormControl>
         </Grid>
