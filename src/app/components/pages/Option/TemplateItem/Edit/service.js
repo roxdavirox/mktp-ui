@@ -12,3 +12,10 @@ export const getTemplateItems = async () => {
 
   return _templateItems;
 };
+
+export const fetchOptions = async () => {
+  const optionsEndpoint = getEndpoint('/options');
+  const res = await fetch(optionsEndpoint);
+  const { options } = await res.json();
+  return options;
+};
