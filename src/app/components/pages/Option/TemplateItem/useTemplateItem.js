@@ -18,7 +18,8 @@ const useEditTemplateItem = () => {
   const [templateQuantity, setTemplateQuantity] = useState(1);
   const [priceTables, setPriceTables] = useState({});
   const [templateName, setTemplateName] = useState('');
-  const [optionName, setOptionName] = useState('');
+  const [option, setOptionName] = useState('');
+  const [templateItem, setTemplateItem] = useState({});
 
   useEffect(() => {
     if (_.isEmpty(templateItems)) return;
@@ -52,15 +53,16 @@ const useEditTemplateItem = () => {
       const itemsEndpoint = getEndpoint(`/items/${id}`);
       const res = await fetch(itemsEndpoint);
       const { item } = await res.json();
-
+      setTemplateItem(item);
       setTemplateName(item.name);
       setTemplateQuantity(item.templateQuantity || 1);
-      setOptionName(item.option.name);
+      setOptionName(item.option);
 
       const { templates } = item;
       const checkedTemplates = templates.map(t => ({
         ...t.item,
         ...t,
+        _id: t.item._id,
         isChecked: true
       }));
 
@@ -329,8 +331,10 @@ const useEditTemplateItem = () => {
     templateQuantity,
     priceTables,
     templateName,
-    optionName,
+    option,
+    templateItem,
 
+    setTemplateItem,
     setTemplateQuantity,
     setTemplateName,
     deleteTemplateItems,
