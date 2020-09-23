@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 const TemplateInfo = ({ templateName, onNameChange }) => {
   const classes = useStyles();
-  const { templateQuantity, setTemplateQuantity, optionName } = useContext(
+  const { templateQuantity, setTemplateQuantity, option } = useContext(
     EditTemplateItemContext
   );
 
@@ -118,9 +118,9 @@ const TemplateInfo = ({ templateName, onNameChange }) => {
             lg={4}
           >
             <TextField
-              defaultValue={templateQuantity}
+              defaultValue={'...'}
               label="Opção do template"
-              value={optionName}
+              value={option.name}
               disabled
               variant="outlined"
             />
