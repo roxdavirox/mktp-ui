@@ -6,11 +6,6 @@ export const mapSizeItem = item => {
   }
 };
 
-export const convertIdToItemId = ({ _id: itemId, ...rest }) => ({
-  itemId,
-  ...rest
-});
-
 export const mapDefaultItemInfos = item => ({
   ...item,
   price: 0,
