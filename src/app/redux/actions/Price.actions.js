@@ -22,6 +22,8 @@ export const EDIT_PRICE_SUCCESS = 'EDIT_PRICE_SUCCESS';
 export const DELETE_PRICES = 'DELETE_PRICES';
 export const UPDATE_DELETED_PRICES_SUCCESS = 'UPDATE_DELETED_PRICES_SUCCESS';
 export const DELETE_PRICES_SUCCESS = 'DELETE_PRICES_SUCCESS';
+export const ATUALIZAR_PRICE_PORCENTAGE_SUCCESS =
+  'ATUALIZAR_PRICE_PORCENTAGE_SUCCESS';
 
 export const fetchPricesSuccess = prices => ({
   type: FETCH_PRICES_SUCCESS,
@@ -58,6 +60,11 @@ export const deletePricesSuccess = priceIds => ({
 export const updateDeletedPricesSuccess = newPrices => ({
   type: UPDATE_DELETED_PRICES_SUCCESS,
   payload: { newPrices }
+});
+
+export const atualizarPricePorcentageSuccess = prices => ({
+  type: ATUALIZAR_PRICE_PORCENTAGE_SUCCESS,
+  payload: { prices }
 });
 
 export const fetchPrices = priceTableId => dispatch => {
@@ -167,6 +174,30 @@ export const editPrice = (price, snack) => dispatch => {
         dispatch(updateDeletedPricesSuccess(newPrices));
       }
       snack('Preço atualizado com sucesso!', {
+        variant: 'success',
+        autoHideDuration: 2000
+      });
+    })
+    .catch(console.error);
+};
+
+export const atualizarIntervalos = (
+  porcentage,
+  priceTableId,
+  snack
+) => dispatch => {
+  const body = { porcentage };
+  const request = createPutRequest(body);
+  const endpoint = getEndpoint(
+    `/prices/${priceTableId}/updatePricesPorcentage`
+  );
+
+  fetch(endpoint, request)
+    .then(res => res.json())
+    .then(({ prices }) => normalize(prices, [priceSchema]))
+    .then(({ entities }) => {
+      dispatch(addEntities(entities));
+      snack('Preços atualizados com sucesso!', {
         variant: 'success',
         autoHideDuration: 2000
       });

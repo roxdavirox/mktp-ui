@@ -10,6 +10,8 @@ import AddPriceQuantity from './AddPriceQuantity';
 import EditPriceQuantity from './EditPriceQuantity';
 import GeneratePriceQty from './GeneratePriceQty.jsx';
 
+import AtualizarIntervalosPorcentage from './AtualizarPricePorcentage';
+
 const DialogTypes = type =>
   ({
     ADD_PRICE: AddPrice,
@@ -18,7 +20,8 @@ const DialogTypes = type =>
     GENERATE_PRICE_SIMPLE: GenerateSimplePrice,
     GENERATE_PRICE_QTY: GeneratePriceQty,
     ADD_PRICE_QUANTITY: AddPriceQuantity,
-    EDIT_PRICE_QUANTITY: EditPriceQuantity
+    EDIT_PRICE_QUANTITY: EditPriceQuantity,
+    ATUALIZAR_INTERVALOS: AtualizarIntervalosPorcentage
   }[type]);
 
 export default DialogTypes;
