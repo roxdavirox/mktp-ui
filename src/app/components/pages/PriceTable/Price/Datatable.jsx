@@ -11,7 +11,8 @@ import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
 import {
   AddToolbar,
   ViewListToolbar,
-  MoreToolbar
+  MoreToolbar,
+  AddPortcetage
 } from 'app/components/common/tables/Toolbar.jsx';
 import DialogMenu from './DialogMenu';
 import Loading from './Loading';
@@ -216,6 +217,10 @@ const Datatable = ({
               }}
             />
           )}
+          <AddPortcetage
+            title="Atualizar intervalos"
+            onClick={() => openDialogType('ATUALIZAR_INTERVALOS')}
+          />
         </>
       );
     },

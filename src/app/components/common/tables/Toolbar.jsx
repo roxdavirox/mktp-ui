@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/More';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import BallotIcon from '../icons/BallotIcon';
 import ViewListIcon from '../icons/ViewListIcon';
 import PropTypes from 'prop-types';
@@ -39,6 +40,12 @@ export const BallotToolbar = props => (
 export const ViewListToolbar = props => (
   <CustomToolbar {...props}>
     <ViewListIcon />
+  </CustomToolbar>
+);
+
+export const AddPortcetage = props => (
+  <CustomToolbar {...props}>
+    <PlaylistAddIcon />
   </CustomToolbar>
 );
 
