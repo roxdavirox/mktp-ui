@@ -85,7 +85,7 @@ const Datatable = ({
             return priceTable.unit === 'quantidade' ? (
               value
             ) : (
-              <PriceFormat value={value} />
+              <PriceFormat key={tableMeta.rowIndex} value={value} />
             );
           }
           const { rowIndex } = tableMeta;
@@ -95,7 +95,7 @@ const Datatable = ({
           ) : priceTable.unit === 'quantidade' ? (
             value
           ) : (
-            <PriceFormat value={value} />
+            <PriceFormat key={tableMeta.rowIndex} value={value} />
           );
         }
       }
@@ -116,7 +116,7 @@ const Datatable = ({
             return priceTable.unit === 'quantidade' ? (
               value
             ) : (
-              <PriceFormat value={value} />
+              <PriceFormat key={tableMeta.rowIndex} value={value} />
             );
           }
           const { rowIndex } = tableMeta;
@@ -127,7 +127,7 @@ const Datatable = ({
           return priceTable.unit === 'quantidade' ? (
             lastValue
           ) : (
-            <PriceFormat value={lastValue} />
+            <PriceFormat key={tableMeta.rowIndex} value={lastValue} />
           );
         }
       }
@@ -143,8 +143,8 @@ const Datatable = ({
             className: classNames({ [classes.NameCell]: true })
           };
         },
-        customBodyRender: function renderFormatedValue(value) {
-          return <BraziliaPriceFormat value={value} />;
+        customBodyRender: function renderFormatedValue(value, tableMeta) {
+          return <BraziliaPriceFormat key={tableMeta.rowIndex} value={value} />;
         }
       }
     },
