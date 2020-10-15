@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import ReactNumberFormat from 'react-number-format';
 //redux
-import { atualizarIntervalos } from 'app/redux/actions/Price.actions';
+import { updatedPricesPercentage } from 'app/redux/actions/Price.actions';
 
 const styles = theme => ({
   container: {
@@ -24,7 +24,7 @@ const styles = theme => ({
   }
 });
 
-const AtualizarIntervalosPorcentage = ({
+const UpdatePricesPercentage = ({
   enqueueSnackbar: snack,
   classes,
   onClose,
@@ -34,19 +34,21 @@ const AtualizarIntervalosPorcentage = ({
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    snack('Atualizando Intervalos...', {
+    snack('Atualizando Preços...', {
       variant: 'info',
       autoHideDuration: 2000
     });
 
-    dispatch(atualizarIntervalos(porcentage.floatValue, priceTableId, snack));
+    dispatch(
+      updatedPricesPercentage(porcentage.floatValue, priceTableId, snack)
+    );
     handleClose();
   };
 
   const handleClose = () => onClose();
   return (
     <>
-      <DialogTitle id="form-dialog-title">Atulaizar intervalos</DialogTitle>
+      <DialogTitle id="form-dialog-title">Ajustar valores</DialogTitle>
       <DialogContent>
         <form className={classes.container}>
           <ReactNumberFormat
@@ -70,14 +72,14 @@ const AtualizarIntervalosPorcentage = ({
           Cancelar
         </Button>
         <Button onClick={handleSubmit} color="primary">
-          Adicionar
+          Aplicar
         </Button>
       </DialogActions>
     </>
   );
 };
 
-AtualizarIntervalosPorcentage.propTypes = {
+UpdatePricesPercentage.propTypes = {
   onClose: PropTypes.func.isRequired,
   classes: PropTypes.object,
   priceTableId: PropTypes.string.isRequired,
@@ -85,4 +87,4 @@ AtualizarIntervalosPorcentage.propTypes = {
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(AtualizarIntervalosPorcentage);
+export default withStyles(styles)(UpdatePricesPercentage);

@@ -3,7 +3,7 @@ import {
   ADD_PRICE_SUCCESS,
   ADD_LAST_PRICE_SUCCESS,
   ADD_PRICE_RANGE_SUCCESS,
-  ATUALIZAR_PRICE_PORCENTAGE_SUCCESS,
+  ATUALIZAR_PRICE_PERCENTAGE_SUCCESS,
   EDIT_PRICE_SUCCESS,
   DELETE_PRICES_SUCCESS,
   UPDATE_DELETED_PRICES_SUCCESS
@@ -125,10 +125,10 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    case ATUALIZAR_PRICE_PORCENTAGE_SUCCESS: {
+    case ATUALIZAR_PRICE_PERCENTAGE_SUCCESS: {
       const { prices } = action.payload;
 
-      const byIds = prices.reduce((all, p) => {
+      const byId = prices.reduce((all, p) => {
         return {
           ...all,
           [p._id]: {
@@ -139,7 +139,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         byId: {
-          ...byIds
+          ...byId
         }
       };
     }
