@@ -22,8 +22,8 @@ export const EDIT_PRICE_SUCCESS = 'EDIT_PRICE_SUCCESS';
 export const DELETE_PRICES = 'DELETE_PRICES';
 export const UPDATE_DELETED_PRICES_SUCCESS = 'UPDATE_DELETED_PRICES_SUCCESS';
 export const DELETE_PRICES_SUCCESS = 'DELETE_PRICES_SUCCESS';
-export const ATUALIZAR_PRICE_PERCENTAGE_SUCCESS =
-  'ATUALIZAR_PRICE_PERCENTAGE_SUCCESS';
+export const UPDATE_PRICES_PERCENTAGE_SUCCESS =
+  'UPDATE_PRICES_PERCENTAGE_SUCCESS';
 
 export const fetchPricesSuccess = prices => ({
   type: FETCH_PRICES_SUCCESS,
@@ -63,7 +63,7 @@ export const updateDeletedPricesSuccess = newPrices => ({
 });
 
 export const updatePricePorcentageSuccess = prices => ({
-  type: ATUALIZAR_PRICE_PERCENTAGE_SUCCESS,
+  type: UPDATE_PRICES_PERCENTAGE_SUCCESS,
   payload: { prices }
 });
 
