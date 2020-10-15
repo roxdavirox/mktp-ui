@@ -30,7 +30,7 @@ const UpdatePricesPercentage = ({
   onClose,
   priceTableId
 }) => {
-  const [porcentage, setPorcentage] = useState(0);
+  const [percentage, setPercentage] = useState(0);
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
@@ -40,7 +40,7 @@ const UpdatePricesPercentage = ({
     });
 
     dispatch(
-      updatedPricesPercentage(porcentage.floatValue, priceTableId, snack)
+      updatedPricesPercentage(percentage.floatValue, priceTableId, snack)
     );
     handleClose();
   };
@@ -63,7 +63,7 @@ const UpdatePricesPercentage = ({
             decimalSeparator={','}
             thousandSeparator={'.'}
             decimalScale={2}
-            onValueChange={_value => setPorcentage(_value)}
+            onValueChange={_value => setPercentage(_value)}
           />
         </form>
       </DialogContent>
