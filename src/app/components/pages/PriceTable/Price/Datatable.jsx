@@ -12,7 +12,7 @@ import {
   AddToolbar,
   ViewListToolbar,
   MoreToolbar,
-  AddPertcetage
+  AddPercentage
 } from 'app/components/common/tables/Toolbar.jsx';
 import DialogMenu from './DialogMenu';
 import Loading from './Loading';
@@ -217,7 +217,7 @@ const Datatable = ({
               }}
             />
           )}
-          <AddPertcetage
+          <AddPercentage
             title="Ajustar valores"
             onClick={() => openDialogType('UPDATE_PRICES_PERCENTAGE')}
           />

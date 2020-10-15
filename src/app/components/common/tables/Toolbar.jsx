@@ -43,7 +43,7 @@ export const ViewListToolbar = props => (
   </CustomToolbar>
 );
 
-export const AddPertcetage = props => (
+export const AddPercentage = props => (
   <CustomToolbar {...props}>
     <PlaylistAddIcon />
   </CustomToolbar>
