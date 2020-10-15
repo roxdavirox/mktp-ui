@@ -62,7 +62,7 @@ const UpdatePricesPercentage = ({
             fixedDecimalScale
             decimalSeparator={','}
             thousandSeparator={'.'}
-            decimalScale={1}
+            decimalScale={2}
             onValueChange={_value => setPorcentage(_value)}
           />
         </form>
