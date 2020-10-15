@@ -22,8 +22,8 @@ export const EDIT_PRICE_SUCCESS = 'EDIT_PRICE_SUCCESS';
 export const DELETE_PRICES = 'DELETE_PRICES';
 export const UPDATE_DELETED_PRICES_SUCCESS = 'UPDATE_DELETED_PRICES_SUCCESS';
 export const DELETE_PRICES_SUCCESS = 'DELETE_PRICES_SUCCESS';
-export const ATUALIZAR_PRICE_PORCENTAGE_SUCCESS =
-  'ATUALIZAR_PRICE_PORCENTAGE_SUCCESS';
+export const ATUALIZAR_PRICE_PERCENTAGE_SUCCESS =
+  'ATUALIZAR_PRICE_PERCENTAGE_SUCCESS';
 
 export const fetchPricesSuccess = prices => ({
   type: FETCH_PRICES_SUCCESS,
@@ -62,8 +62,8 @@ export const updateDeletedPricesSuccess = newPrices => ({
   payload: { newPrices }
 });
 
-export const atualizarPricePorcentageSuccess = prices => ({
-  type: ATUALIZAR_PRICE_PORCENTAGE_SUCCESS,
+export const updatePricePorcentageSuccess = prices => ({
+  type: ATUALIZAR_PRICE_PERCENTAGE_SUCCESS,
   payload: { prices }
 });
 
@@ -181,7 +181,7 @@ export const editPrice = (price, snack) => dispatch => {
     .catch(console.error);
 };
 
-export const atualizarIntervalos = (
+export const updatedPricesPercentage = (
   porcentage,
   priceTableId,
   snack
