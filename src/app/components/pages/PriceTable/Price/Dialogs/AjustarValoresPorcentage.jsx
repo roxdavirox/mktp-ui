@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -24,7 +24,7 @@ const styles = theme => ({
   }
 });
 
-const AtualizarIntervalosPorcentage = ({
+const AjustarValoresPorcentage = ({
   enqueueSnackbar: snack,
   classes,
   onClose,
@@ -46,13 +46,13 @@ const AtualizarIntervalosPorcentage = ({
   const handleClose = () => onClose();
   return (
     <>
-      <DialogTitle id="form-dialog-title">Atulaizar intervalos</DialogTitle>
+      <DialogTitle id="form-dialog-title">Ajustar valores</DialogTitle>
       <DialogContent>
         <form className={classes.container}>
           <ReactNumberFormat
             margin="dense"
-            id="Percentage"
-            name="Percentage"
+            id="Porcentage"
+            name="Porcentage"
             label="Porcentagem"
             fullWidth
             // format
@@ -60,7 +60,7 @@ const AtualizarIntervalosPorcentage = ({
             fixedDecimalScale
             decimalSeparator={','}
             thousandSeparator={'.'}
-            decimalScale={1}
+            decimalScale={2}
             onValueChange={_value => setPorcentage(_value)}
           />
         </form>
@@ -70,14 +70,14 @@ const AtualizarIntervalosPorcentage = ({
           Cancelar
         </Button>
         <Button onClick={handleSubmit} color="primary">
-          Adicionar
+          Aplicar
         </Button>
       </DialogActions>
     </>
   );
 };
 
-AtualizarIntervalosPorcentage.propTypes = {
+AjustarValoresPorcentage.propTypes = {
   onClose: PropTypes.func.isRequired,
   classes: PropTypes.object,
   priceTableId: PropTypes.string.isRequired,
@@ -85,4 +85,4 @@ AtualizarIntervalosPorcentage.propTypes = {
   enqueueSnackbar: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(AtualizarIntervalosPorcentage);
+export default withStyles(styles)(AjustarValoresPorcentage);

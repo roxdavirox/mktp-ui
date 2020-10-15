@@ -128,7 +128,7 @@ export default function reducer(state = initialState, action) {
     case ATUALIZAR_PRICE_PORCENTAGE_SUCCESS: {
       const { prices } = action.payload;
 
-      const byIds = prices.reduce((all, p) => {
+      const byId = prices.reduce((all, p) => {
         return {
           ...all,
           [p._id]: {
@@ -139,7 +139,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         byId: {
-          ...byIds
+          ...byId
         }
       };
     }

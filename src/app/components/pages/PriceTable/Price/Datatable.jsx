@@ -12,7 +12,7 @@ import {
   AddToolbar,
   ViewListToolbar,
   MoreToolbar,
-  AddPortcetage
+  AddPorcentage
 } from 'app/components/common/tables/Toolbar.jsx';
 import DialogMenu from './DialogMenu';
 import Loading from './Loading';
@@ -217,9 +217,9 @@ const Datatable = ({
               }}
             />
           )}
-          <AddPortcetage
-            title="Atualizar intervalos"
-            onClick={() => openDialogType('ATUALIZAR_INTERVALOS')}
+          <AddPorcentage
+            title="Ajustar valores"
+            onClick={() => openDialogType('AJUSTAR_VALORES_PORCENTAGE')}
           />
         </>
       );
