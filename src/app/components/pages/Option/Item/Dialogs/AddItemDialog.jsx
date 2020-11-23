@@ -69,6 +69,11 @@ const AddItemDialog = ({ onAddOptionItem, onClose }) => {
 
   const handleClose = () => onClose();
   const priceTables = useSelector(store => getPriceTables(store));
+
+  const sortedPricetables = priceTables.sort((a, b) =>
+    b.name > a.name ? -1 : 1
+  );
+
   return (
     <>
       <DialogTitle id="form-dialog-title">Adicionar item</DialogTitle>
@@ -96,7 +101,7 @@ const AddItemDialog = ({ onAddOptionItem, onClose }) => {
               <MenuItem key="0" value="0">
                 Nenhum
               </MenuItem>
-              {priceTables.map(p => (
+              {sortedPricetables.map(p => (
                 <MenuItem key={p._id} value={p._id}>
                   {p.name}
                 </MenuItem>
