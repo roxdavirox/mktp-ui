@@ -13,7 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { fetchPriceTables } from 'app/redux/actions/PriceTable.actions';
-import { getPriceTables } from 'app/redux/selectors/PriceTable.selectors';
+import { getSortedPriceTables } from 'app/redux/selectors/PriceTable.selectors';
 import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles(theme => ({
@@ -68,7 +68,7 @@ const AddItemDialog = ({ onAddOptionItem, onClose }) => {
   const handleCheck = () => setCheck(state => !state);
 
   const handleClose = () => onClose();
-  const priceTables = useSelector(store => getPriceTables(store));
+  const priceTables = useSelector(store => getSortedPriceTables(store));
   return (
     <>
       <DialogTitle id="form-dialog-title">Adicionar item</DialogTitle>
