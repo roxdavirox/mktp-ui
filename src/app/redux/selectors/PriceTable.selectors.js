@@ -7,6 +7,13 @@ export const getPriceTablesList = store =>
 export const getPriceTableById = (id, store) =>
   getPriceTablesState(store) ? getPriceTablesState(store).byId[id] : {};
 
+export const getSortedPriceTables = store =>
+  getPriceTablesState(store)
+    ? getPriceTablesList(store)
+        .map(id => getPriceTableById(id, store))
+        .sort((a, b) => (b.name > a.name ? -1 : 1))
+    : [];
+
 export const getPriceTables = store =>
   getPriceTablesState(store)
     ? getPriceTablesList(store).map(id => getPriceTableById(id, store))
