@@ -3,6 +3,8 @@
 /* eslint-disable react/display-name */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOptionById } from 'app/redux/selectors/Option.selectors';
 import { withSnackbar } from 'notistack';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -11,6 +13,8 @@ import DialogMenu from './DialogMenu';
 import MuiDatatable from 'app/components/common/tables/MuiDatatable';
 import { AddToolbar } from 'app/components/common/tables/Toolbar';
 import MoreHorizIcon from 'app/components/common/icons/MoreHorizIcon.jsx';
+import EditableLabel from 'app/components/common/labels/EditableLabel';
+import { updateOption } from 'app/redux/actions/Option.actions';
 
 const styles = {
   EditCell: { textAlign: 'right' },
@@ -18,6 +22,7 @@ const styles = {
 };
 
 const Datatable = ({
+  enqueueSnackbar: snack,
   classes,
   onUpdate: setEditedItem,
   onOpen,
@@ -25,7 +30,9 @@ const Datatable = ({
   data,
   optionId
 }) => {
+  const dispatch = useDispatch();
   const [anchorElement, setAnchor] = useState(null);
+
   const handleOpenEditItem = (itemId, tableMeta) => {
     const [name, itemType, priceTable, showUnitField] = tableMeta.rowData;
     const item = {
@@ -44,6 +51,13 @@ const Datatable = ({
   };
   const handleMenuClick = e => setAnchor(e.currentTarget);
   const handleCloseMenu = () => setAnchor(null);
+
+  const option = useSelector(store => getOptionById(optionId, store));
+
+  const handleUpdateName = name => {
+    if (name == option.name) return;
+    dispatch(updateOption(optionId, name, snack));
+  };
 
   const options = {
     filterType: 'checkbox',
@@ -156,7 +170,9 @@ const Datatable = ({
         onCreateItemClick={handleCreateItem}
       />
       <MuiDatatable
-        title="Itens"
+        title={
+          <EditableLabel initialValue={option.name} onBlur={handleUpdateName} />
+        }
         data={data}
         options={options}
         columns={columns}
@@ -167,6 +183,7 @@ const Datatable = ({
 
 Datatable.propTypes = {
   data: PropTypes.any.isRequired,
+  optionId: PropTypes.string,
   onRowsDelete: PropTypes.func.isRequired,
   onOpen: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,

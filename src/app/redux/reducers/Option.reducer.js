@@ -2,7 +2,8 @@ import { ADD_ENTITIES } from '../actions';
 import {
   FETCH_OPTIONS,
   ADD_OPTION_SUCCESS,
-  DELETE_OPTIONS_SUCCESS
+  DELETE_OPTIONS_SUCCESS,
+  UPDATED_OPTIONS
 } from '../actions/Option.actions';
 
 import {
@@ -10,6 +11,7 @@ import {
   DELETE_OPTION_ITEMS_SUCCESS,
   ADD_EXISTING_ITEMS_SUCCESS
 } from '../actions/Item.actions';
+import optionRoutes from 'app/components/pages/Option/OptionRoutes';
 
 // reducers
 const initialState = {
@@ -68,6 +70,18 @@ export default function reducer(state = initialState, action) {
             ...state.byId[optionId],
             items: [...state.byId[optionId].items, item._id]
           }
+        }
+      };
+    }
+
+    case UPDATED_OPTIONS: {
+      const { option } = action.payload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [option._id]: option
         }
       };
     }
