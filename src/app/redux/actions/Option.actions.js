@@ -4,7 +4,8 @@ import { normalize } from 'normalizr';
 import {
   getEndpoint,
   createPostRequest,
-  createDeleteRequest
+  createDeleteRequest,
+  createPutRequest
 } from 'helpers/api';
 
 import { optionSchema } from '../schemas';
@@ -15,6 +16,7 @@ export const ADD_OPTION = 'ADD_OPTION';
 export const ADD_OPTION_SUCCESS = 'ADD_OPTION_SUCCESS';
 export const DELETE_OPTIONS = 'DELETE_OPTIONS';
 export const DELETE_OPTIONS_SUCCESS = 'DELETE_OPTIONS_SUCCESS';
+export const UPDATED_OPTIONS = 'UPDATED_OPTIONS';
 
 export const addOptionSuccess = option => ({
   type: ADD_OPTION_SUCCESS,
@@ -24,6 +26,10 @@ export const addOptionSuccess = option => ({
 export const deleteOptionsSuccess = optionsId => ({
   type: DELETE_OPTIONS_SUCCESS,
   payload: { optionsId }
+});
+export const updatedOption = option => ({
+  type: UPDATED_OPTIONS,
+  payload: { option }
 });
 
 export const fetchOptions = () => dispatch => {
@@ -59,6 +65,21 @@ export const addOption = (optionName, snack) => dispatch => {
       snack(`Error: ${error}`);
       console.log('erro no post:', error);
     });
+};
+
+export const updateOption = (id, newName, snack) => dispatch => {
+  const endpoint = getEndpoint(`/options/${id}/name`);
+  const request = createPutRequest({ name: newName });
+  fetch(endpoint, request)
+    .then(res => res.json())
+    .then(({ option }) => {
+      dispatch(updatedOption(option));
+      snack('Nome da tabela atualizado com sucesso!', {
+        variant: 'success',
+        autoHideDuration: 2000
+      });
+    })
+    .catch(console.error);
 };
 
 export const deleteOptions = (optionsId, snack) => dispatch => {
